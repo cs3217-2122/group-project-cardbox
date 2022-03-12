@@ -78,9 +78,12 @@ class GameRunner: GameRunnerReadOnly {
     }
 
     func executeGameEvents(_ gameEvents: [GameEvent]) {
-        // TODO: Need to change
         gameEvents.forEach { gameEvent in
             gameEvent.updateRunner(gameRunner: self)
         }
+    }
+
+    func setGameState(gameState: GameState) {
+        self.state = gameState
     }
 }

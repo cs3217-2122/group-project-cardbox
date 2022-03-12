@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
-    var gameRunner: ExplodingKittensGameRunner = ExplodingKittensGameRunner()
-    
+    var gameRunner = ExplodingKittensGameRunner()
+
     var body: some View {
         Text("Hello, world!")
             .padding()

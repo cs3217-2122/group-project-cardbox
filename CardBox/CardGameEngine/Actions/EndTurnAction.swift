@@ -24,5 +24,11 @@ struct EndTurnAction: Action {
 
             nextPlayer = gameRunner.players.nextPlayer
         }
+
+        gameRunner.executeGameEvents([
+            EndTurnEvent(),
+            SetGameStateEvent(gameState: .start),
+            StartTurnEvent()
+        ])
     }
 }
