@@ -8,6 +8,11 @@
 class Player {
     private var hand: CardCollection
     private var name: String
+    private(set) var isOutOfGame = false
+
+    var description: String {
+        name
+    }
 
     init(name: String) {
         self.hand = CardCollection()
@@ -27,19 +32,13 @@ class Player {
     }
 
     func playCard(_ card: Card, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
-        guard card.canPlay(by: self, gameRunner: gameRunner, on: target) else {
-            return
-        }
-
-        // Should call action instead
-        gameRunner.executeGameEvents([
-            .moveCardToGameplayFromPlayer(card: card, player: self, gameplayArea: gameRunner.gameplayArea)
-        ])
-
-        card.onPlay(gameRunner: gameRunner, player: self, on: target)
     }
 
-    var description: String {
-        name
+    func endTurn(gameRunner: GameRunnerReadOnly) {
+        EndTurnAction().executeGameEvents(gameRunner: gameRunner)
+    }
+
+    func setOutOfGame(_ outOfGame: Bool) {
+        self.isOutOfGame = outOfGame
     }
 }

@@ -27,6 +27,10 @@ class CardCollection {
         return cards[index]
     }
 
+    func getTopNCards(n: Int) -> [Card] {
+        Array(cards[0..<n])
+    }
+
     func removeCard(_ card: Card) {
         guard let cardIndex = cards.firstIndex(where: { $0 === card }) else {
             return

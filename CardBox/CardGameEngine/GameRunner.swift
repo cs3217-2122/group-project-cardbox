@@ -21,7 +21,6 @@ class GameRunner: GameRunnerReadOnly {
         self.onStartTurnActions = []
         self.onEndTurnActions = []
         self.gameplayArea = CardCollection()
-
         self.players = PlayerCollection()
         self.state = .initialize
     }
@@ -57,6 +56,7 @@ class GameRunner: GameRunnerReadOnly {
     }
 
     func updateState(_ state: GameState) {
+        // TODO: Need to change
         switch self.state {
         case .start:
             if state == .waitPlayCard {
@@ -78,12 +78,9 @@ class GameRunner: GameRunnerReadOnly {
     }
 
     func executeGameEvents(_ gameEvents: [GameEvent]) {
+        // TODO: Need to change
         gameEvents.forEach { gameEvent in
-            update(gameEvent: gameEvent)
+            gameEvent.updateRunner(gameRunner: self)
         }
-    }
-
-    private func update(gameEvent: GameEvent) {
-        gameEvent.updateRunner(gameRunner: gameRunner)
     }
 }
