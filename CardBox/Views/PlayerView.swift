@@ -9,14 +9,21 @@ import SwiftUI
 
 struct PlayerView: View {
     let viewModel: PlayerViewModel
+    @ObservedObject var gameRunner: GameRunner
 
-    init(player: Player) {
+    init(player: Player, gameRunner: GameRunner) {
         self.viewModel = PlayerViewModel(player: player)
+        self.gameRunner = gameRunner
     }
 
     var body: some View {
         VStack {
-            Text(viewModel.player.name)
+            Button(viewModel.player.name) {
+                // some hacky testing
+                ActionDispatcher.runAction(AddCardToPlayerAction(player: viewModel.player,
+                                                                 card: Card(name: "test")),
+                                           on: gameRunner)
+            }
             ForEach(viewModel.player.hand.getCards()) { card in
                 CardView(card: card)
             }
