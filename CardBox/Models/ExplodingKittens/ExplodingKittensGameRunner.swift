@@ -17,6 +17,7 @@ class ExplodingKittensGameRunner {
         let cards = initCards()
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
         gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4))
+        gameRunner.addSetupAction(ShuffleDeckAction())
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
