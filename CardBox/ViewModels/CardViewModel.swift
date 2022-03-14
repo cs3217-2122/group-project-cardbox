@@ -9,8 +9,16 @@ import SwiftUI
 
 class CardViewModel: ObservableObject {
     var card: Card
+    let player: Player
+    let gameRunner: GameRunnerReadOnly
 
-    init(card: Card) {
+    init(card: Card, player: Player, gameRunner: GameRunnerReadOnly) {
         self.card = card
+        self.player = player
+        self.gameRunner = gameRunner
+    }
+
+    func playCard() {
+        player.playCards([card], gameRunner: gameRunner, on: .none)
     }
 }

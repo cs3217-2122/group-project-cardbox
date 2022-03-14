@@ -9,7 +9,7 @@ struct MoveCardPlayerToPlayerEvent: GameEvent {
     let card: Card
     let fromPlayer: Player
     let toPlayer: Player
-    
+
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         fromPlayer.removeCard(card)
         toPlayer.addCard(card)

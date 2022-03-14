@@ -21,13 +21,31 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         let cards = initCards()
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
 
-        gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4))
+        let playConditions = initCardPlayConditions()
+        gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4, canPlayConditions: playConditions))
+
         gameRunner.addSetupAction(ShuffleDeckAction())
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
     }
-    
+
+    private static func initCardPlayConditions() -> [PlayerPlayCondition] {
+        var conditions: [PlayerPlayCondition] = []
+
+        let isPlayerTurnCondition: PlayerPlayCondition = { gameRunner, _, player in
+            gameRunner.players.currentPlayer === player
+        }
+        conditions.append(isPlayerTurnCondition)
+
+        let playerAlreadyPlayCondition: PlayerPlayCondition = { _, _, _ in
+            true
+        }
+        conditions.append(playerAlreadyPlayCondition)
+
+        return conditions
+    }
+
     private static func generateAttackCard() -> Card {
         let card = Card(name: "Attack")
         card.addPlayAction(SkipTurnCardAction())
@@ -42,7 +60,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             PlayerDiscardCardsAction(where: {
                 $0.getAdditionalParams(key: cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
             }),
-            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0) //Need to find a way to obtain user input to choose where the user wants to input the card into the deck
+            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0)
+            // Need to find a way to obtain user input to choose where the user wants to input the card into the deck
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
 
@@ -64,11 +83,12 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
     private static func generateFavorCard() -> Card {
         let card = Card(name: "Favor")
-        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0)) //Similar to generate bomb card, needs user input to choose n
+        // Similar to generate bomb card, needs user input to choose n
+        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0))
         card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.favor.rawValue)
         return card
     }
-    
+
     private static func generateSeeTheFutureCard() -> Card {
         let card = Card(name: "See The Future")
         card.addPlayAction(DisplayTopNCardsFromDeckCardAction(n: 3))
