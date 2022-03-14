@@ -19,7 +19,7 @@ typealias PlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _
 
 class Card: Identifiable {
     private(set) var name: String
-    private var cardDescription: String
+    private(set) var cardDescription: String
 
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]

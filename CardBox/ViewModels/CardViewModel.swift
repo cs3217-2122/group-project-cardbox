@@ -9,7 +9,17 @@ import SwiftUI
 
 class CardViewModel: ObservableObject {
     var card: Card
+    var imageName: String {
+        AssetFetcher.getImageName(card: card)
+    }
+    var cardTitle: String {
+        card.name
+    }
 
+    var cardDescription: String {
+        card.cardDescription
+    }
+    
     init(card: Card) {
         self.card = card
     }
