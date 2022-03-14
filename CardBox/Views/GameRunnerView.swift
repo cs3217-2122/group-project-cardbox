@@ -12,7 +12,7 @@ struct GameRunnerView: View {
     @StateObject var viewModel = ExplodingKittensGameRunner.generateGameRunner()
 
     var body: some View {
-        deck
+        //deck
         player
     }
 
@@ -23,10 +23,11 @@ struct GameRunnerView: View {
     }
 
     var player: some View {
-        HStack {
-            ForEach(viewModel.players.getPlayers()) { player in
-                PlayerView(player: player, gameRunner: viewModel)
-            }
-        }
+        //HStack {
+          //  ForEach(viewModel.players.getPlayers()) { player in
+            //    PlayerView(player: player, gameRunner: viewModel)
+            //}
+        //}
+        PlayerView(player: viewModel.players.getPlayers()[0], gameRunner: viewModel)
     }
 }

@@ -1,0 +1,20 @@
+//
+//  PlayerHandViewModel.swift
+//  CardBox
+//
+//  Created by Bernard Wan on 14/3/22.
+//
+
+import Foundation
+
+class PlayerHandViewModel: ObservableObject {
+    var hand: CardCollection
+    
+    init(hand: CardCollection) {
+        self.hand = hand
+    }
+    
+    func getCards() -> [Card] {
+        hand.getCards()
+    }
+}

@@ -19,9 +19,7 @@ struct PlayerView: View {
     var body: some View {
         VStack {
             Text(viewModel.player.name)
-            ForEach(viewModel.player.hand.getCards()) { card in
-                CardView(card: card)
-            }
+            PlayerHandView(hand: viewModel.player.hand)
         }
     }
 }
