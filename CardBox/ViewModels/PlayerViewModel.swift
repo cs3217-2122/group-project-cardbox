@@ -9,8 +9,10 @@ import SwiftUI
 
 class PlayerViewModel: ObservableObject {
     var player: Player
+    let gameRunner: GameRunnerReadOnly
 
-    init(player: Player) {
+    init(player: Player, gameRunner: GameRunnerReadOnly) {
         self.player = player
+        self.gameRunner = gameRunner
     }
 }

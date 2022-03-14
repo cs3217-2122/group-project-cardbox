@@ -72,4 +72,8 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func notifyChanges() {
         objectWillChange.send()
     }
+
+    func endPlayerTurn() {
+        ActionDispatcher.runAction(EndTurnAction(), on: self)
+    }
 }

@@ -15,7 +15,7 @@ enum GameplayTarget {
     }
 }
 
-typealias PlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
+typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
 
 class Card: Identifiable {
     private(set) var name: String
@@ -24,7 +24,7 @@ class Card: Identifiable {
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]
 
-    private var canPlayConditions: [PlayCondition]
+    private var canPlayConditions: [CardPlayCondition]
     private var additionalParams: [String: String]
 
     init(name: String) {

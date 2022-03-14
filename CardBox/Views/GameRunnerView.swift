@@ -11,14 +11,18 @@ struct GameRunnerView: View {
     @StateObject var viewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
 
     var body: some View {
+        currentPlayer
         deck
         player
+        Button("End Turn", action: viewModel.endPlayerTurn)
     }
 
     var deck: some View {
-        ForEach(viewModel.deck.getCards()) { card in
-            CardView(card: card)
-        }
+        EmptyView()
+    }
+
+    var currentPlayer: some View {
+        Text("Current Player: " + (viewModel.players.currentPlayer?.description ?? ""))
     }
 
     var player: some View {

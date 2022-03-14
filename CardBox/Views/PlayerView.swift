@@ -12,7 +12,7 @@ struct PlayerView: View {
     @ObservedObject var gameRunner: GameRunner
 
     init(player: Player, gameRunner: GameRunner) {
-        self.viewModel = PlayerViewModel(player: player)
+        self.viewModel = PlayerViewModel(player: player, gameRunner: gameRunner)
         self.gameRunner = gameRunner
     }
 
@@ -20,7 +20,7 @@ struct PlayerView: View {
         VStack {
             Text(viewModel.player.name)
             ForEach(viewModel.player.hand.getCards()) { card in
-                CardView(card: card)
+                CardView(card: card, player: viewModel.player, gameRunner: viewModel.gameRunner)
             }
         }
     }

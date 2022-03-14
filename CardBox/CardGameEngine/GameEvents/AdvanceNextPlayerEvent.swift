@@ -11,7 +11,7 @@ struct AdvanceNextPlayerEvent: GameEvent {
         guard let nextPlayer = gameRunner.players.nextPlayer else {
             return
         }
-    
+
         gameRunner.players.setCurrentPlayer(nextPlayer)
     }
 }

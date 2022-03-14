@@ -7,6 +7,16 @@
 
 struct EndTurnAction: Action {
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
+        gameRunner.executeGameEvents([
+            EndTurnEvent()
+        ])
+
+        if let currentPlayer = gameRunner.players.currentPlayer {
+            gameRunner.executeGameEvents([
+                ResetPlayerCardsPlayedEvent(player: currentPlayer)
+            ])
+        }
+
         var nextPlayer = gameRunner.players.nextPlayer
 
         for _ in 0..<gameRunner.players.count {
@@ -26,7 +36,6 @@ struct EndTurnAction: Action {
         }
 
         gameRunner.executeGameEvents([
-            EndTurnEvent(),
             SetGameStateEvent(gameState: .start),
             StartTurnEvent()
         ])
