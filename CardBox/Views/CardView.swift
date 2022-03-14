@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CardView: View {
-
     @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
 
@@ -32,7 +31,7 @@ struct CardView: View {
                         .scaledToFit()
                         .aspectRatio(2.0, contentMode: .fill)
                         .frame(maxWidth: 100, maxHeight: 100)
-                        .border(.black)
+                        .border(Color.black)
                         .padding(.top)
                     Text(card.name)
                         .fontWeight(.bold)
@@ -56,7 +55,7 @@ struct CardView: View {
             .aspectRatio(0.5, contentMode: .fill)
             .frame(width: 150, height: 250)
             .background(Color.white)
-            .border(.black)
+            .border(Color.black)
             .offset(y: viewModel.isSelected ? -30: 0)
     }
 }

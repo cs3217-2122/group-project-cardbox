@@ -25,7 +25,7 @@ struct PlayerHandView: View {
     }
 
     var body: some View {
-        HStack(spacing: spacing) {
+        HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
                 let cardViewModel = CardViewModel(card: card, isFaceUp: true)
                 CardView(cardViewModel: cardViewModel)

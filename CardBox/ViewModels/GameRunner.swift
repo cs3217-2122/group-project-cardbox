@@ -74,12 +74,12 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         objectWillChange.send()
     }
 
-    func nextPlayer() {
-        onEndTurn()
-    }
-
     func getPlayerViewModelAfterCurrent(_ index: Int) -> PlayerViewModel? {
         // TODO: fix
         nil
+    }
+
+    func endPlayerTurn() {
+        ActionDispatcher.runAction(EndTurnAction(), on: self)
     }
 }
