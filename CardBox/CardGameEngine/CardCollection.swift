@@ -8,10 +8,6 @@
 class CardCollection {
     private var cards: [Card] = []
 
-    init() {
-
-    }
-    
     var count: Int {
         cards.count
     }
@@ -36,7 +32,7 @@ class CardCollection {
     }
 
     func removeCard(_ card: Card) {
-        guard let cardIndex = cards.firstIndex(where: { $0 == card }) else {
+        guard let cardIndex = cards.firstIndex(where: { $0 === card }) else {
             return
         }
         cards.remove(at: cardIndex)
@@ -49,13 +45,17 @@ class CardCollection {
     func addCard(_ card: Card, at index: Int) {
         cards.insert(card, at: index)
     }
-    
+
     func containsCard(_ card: Card) -> Bool {
-        cards.contains(where: { $0 == card })
+        containsCard(where: { $0 === card })
     }
 
     func getCards() -> [Card] {
         self.cards
+    }
+
+    func containsCard(where predicate: (Card) -> Bool) -> Bool {
+        cards.contains(where: predicate)
     }
 
     func shuffle() {

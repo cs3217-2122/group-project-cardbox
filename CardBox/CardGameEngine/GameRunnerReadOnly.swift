@@ -10,7 +10,7 @@ protocol GameRunnerReadOnly {
     var state: GameState { get }
     var players: PlayerCollection { get }
     var gameplayArea: CardCollection { get }
-    
+
     var onSetupActions: [Action] { get }
     var onStartTurnActions: [Action] { get }
     var onEndTurnActions: [Action] { get }

@@ -34,7 +34,11 @@ class Player: Identifiable {
     func hasCard(_ card: Card) -> Bool {
         hand.containsCard(card)
     }
-    
+
+    func hasCard(where predicate: (Card) -> Bool) -> Bool {
+        hand.containsCard(where: predicate)
+    }
+
     func playCard(_ card: Card, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
     }
 

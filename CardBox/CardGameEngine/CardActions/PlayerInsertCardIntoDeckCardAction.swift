@@ -10,6 +10,8 @@ struct PlayerInsertCardIntoDeckCardAction: CardAction {
     let offsetFromTop: Int
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
-        gameRunner.executeGameEvents([MoveCardPlayerToDeckEvent(card: card, player: player, offsetFromTop: offsetFromTop)])
+        gameRunner.executeGameEvents(
+            [MoveCardPlayerToDeckEvent(card: card, player: player, offsetFromTop: offsetFromTop)]
+        )
     }
 }

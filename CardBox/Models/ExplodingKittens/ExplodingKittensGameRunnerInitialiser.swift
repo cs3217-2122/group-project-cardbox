@@ -6,9 +6,7 @@
 //
 
 class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
-
-    private init() {
-    }
+    static let cardTypeKey = "CARD_TYPE"
 
     static func initialiseGameRunner() -> GameRunner {
         let gameRunner = GameRunner()
@@ -20,9 +18,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
-        
+
         ActionDispatcher.runAction(SetupGameAction(), on: gameRunner)
-        
+
         return gameRunner
     }
 
@@ -35,31 +33,39 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
 
         card.addDrawAction(ConditionalCardAction(condition: { _, player, _ in
-            player.hasCard(generateDefuseCard())
+            player.hasCard(
+                where: { $0.getAdditionalParams(key: cardTypeKey) == ExplodingKittensCardType.defuse.rawValue }
+            )
         }, isTrueCardActions: isTrueCardActions, isFalseCardActions: isFalseCardActions))
+
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.bomb.rawValue)
         return card
     }
-     
+
     private static func generateSeeTheFutureCard() -> Card {
         let card = Card(name: "See The Future")
         card.addPlayAction(DisplayTopNCardsFromDeckCardAction(n: 3))
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.seeTheFuture.rawValue)
         return card
     }
 
     private static func generateShuffleCard() -> Card {
         let card = Card(name: "Shuffle")
         card.addPlayAction(ShuffleDeckCardAction())
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.shuffle.rawValue)
         return card
     }
-    
+
     private static func generateSkipCard() -> Card {
         let card = Card(name: "Skip")
         card.addPlayAction(EndTurnWithoutActionsCardAction())
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.skip.rawValue)
         return card
     }
 
     private static func generateDefuseCard() -> Card {
         let card = Card(name: "Defuse")
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.defuse.rawValue)
         return card
     }
 
@@ -72,6 +78,18 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         for _ in 0...10 {
             cards.append(generateSeeTheFutureCard())
+        }
+
+        for _ in 0...5 {
+            cards.append(generateSkipCard())
+        }
+
+        for _ in 0...5 {
+            cards.append(generateShuffleCard())
+        }
+
+        for _ in 0...4 {
+            cards.append(generateSkipCard())
         }
 
         return cards

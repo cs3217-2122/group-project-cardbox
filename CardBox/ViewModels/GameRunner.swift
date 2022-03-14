@@ -34,11 +34,11 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
     func removeAllSetupActions() {
         self.onSetupActions = []
     }
-    
+
     func addStartTurnAction(_ action: Action) {
         self.onStartTurnActions.append(action)
     }
-    
+
     func removeAllStartTurnActions() {
         self.onStartTurnActions = []
     }
@@ -50,7 +50,7 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
     func removeAllEndTurnActions() {
         self.onEndTurnActions = []
     }
-    
+
     func setup() {
         self.onSetupActions.forEach { action in
             action.executeGameEvents(gameRunner: self)

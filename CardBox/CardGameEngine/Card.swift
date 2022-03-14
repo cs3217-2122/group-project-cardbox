@@ -18,7 +18,6 @@ enum GameplayTarget {
 typealias PlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
 
 class Card: Identifiable {
-    
     private(set) var name: String
     private var cardDescription: String
 
@@ -26,6 +25,7 @@ class Card: Identifiable {
     private var onPlayActions: [CardAction]
 
     private var canPlayConditions: [PlayCondition]
+    private var additionalParams: [String: String]
 
     init(name: String) {
         self.name = name
@@ -33,6 +33,7 @@ class Card: Identifiable {
         self.onDrawActions = []
         self.onPlayActions = []
         self.canPlayConditions = []
+        self.additionalParams = [:]
     }
 
     func addDrawAction(_ action: CardAction) {
@@ -58,10 +59,12 @@ class Card: Identifiable {
     func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
         canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
     }
-}
 
-extension Card: Equatable {
-    static func == (lhs: Card, rhs: Card) -> Bool {
-        lhs.name == rhs.name
+    func getAdditionalParams(key: String) -> String? {
+        self.additionalParams[key]
+    }
+
+    func setAdditionalParams(key: String, value: String) {
+        self.additionalParams[key] = value
     }
 }
