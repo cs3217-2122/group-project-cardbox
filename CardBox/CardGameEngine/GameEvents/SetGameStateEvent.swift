@@ -9,6 +9,7 @@ struct SetGameStateEvent: GameEvent {
     let gameState: GameState
 
     func updateRunner(gameRunner: GameRunner) {
+
         gameRunner.setGameState(gameState: gameState)
     }
 }

@@ -9,9 +9,11 @@ import SwiftUI
 
 struct PlayerView: View {
     let viewModel: PlayerViewModel
+    @ObservedObject var gameRunner: GameRunner
 
-    init(player: Player) {
+    init(player: Player, gameRunner: GameRunner) {
         self.viewModel = PlayerViewModel(player: player)
+        self.gameRunner = gameRunner
     }
 
     var body: some View {

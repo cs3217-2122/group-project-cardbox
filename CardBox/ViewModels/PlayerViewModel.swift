@@ -8,7 +8,7 @@
 import SwiftUI
 
 class PlayerViewModel: ObservableObject {
-    @Published var player: Player
+    var player: Player
 
     init(player: Player) {
         self.player = player

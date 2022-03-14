@@ -6,14 +6,17 @@
 //
 
 class ExplodingKittensGameRunner {
-    let gameRunner: GameRunner
 
-    init() {
-        self.gameRunner = GameRunner()
-        initGameRunner()
+    static func generateGameRunner() -> GameRunner {
+        let gameRunner = GameRunner()
+        initGameRunner(gameRunner)
+
+        ActionDispatcher.runAction(SetupGameAction(), on: gameRunner)
+
+        return gameRunner
     }
 
-    func initGameRunner() {
+    private static func initGameRunner(_ gameRunner: GameRunner) {
         let cards = initCards()
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
         gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4))
@@ -23,19 +26,19 @@ class ExplodingKittensGameRunner {
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
     }
 
-    func generateBombCard() -> Card {
+    private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb")
         card.addDrawAction(PlayerOutOfGameAction())
         return card
     }
 
-    func generateSeeTheFutureCard() -> Card {
+    private static func generateSeeTheFutureCard() -> Card {
         let card = Card(name: "See The Future")
         card.addPlayAction(DisplayTopNCardsFromDeckCardAction(n: 3))
         return card
     }
 
-    func initCards() -> [Card] {
+    private static func initCards() -> [Card] {
         var cards: [Card] = []
 
         for _ in 0...5 {

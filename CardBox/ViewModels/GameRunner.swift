@@ -61,10 +61,15 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
         gameEvents.forEach { gameEvent in
             print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
+            notifyChanges()
         }
     }
 
     func setGameState(gameState: GameState) {
         self.state = gameState
+    }
+
+    func notifyChanges() {
+        objectWillChange.send()
     }
 }

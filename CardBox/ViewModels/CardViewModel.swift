@@ -8,7 +8,7 @@
 import SwiftUI
 
 class CardViewModel: ObservableObject {
-    @Published var card: Card
+    var card: Card
 
     init(card: Card) {
         self.card = card
