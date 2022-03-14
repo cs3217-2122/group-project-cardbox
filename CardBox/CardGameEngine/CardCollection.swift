@@ -11,6 +11,10 @@ class CardCollection {
     init() {
 
     }
+    
+    var count: Int {
+        cards.count
+    }
 
     func getFirstCard() -> Card? {
         if cards.isEmpty {
@@ -32,7 +36,7 @@ class CardCollection {
     }
 
     func removeCard(_ card: Card) {
-        guard let cardIndex = cards.firstIndex(where: { $0 === card }) else {
+        guard let cardIndex = cards.firstIndex(where: { $0 == card }) else {
             return
         }
         cards.remove(at: cardIndex)
@@ -44,6 +48,10 @@ class CardCollection {
 
     func addCard(_ card: Card, at index: Int) {
         cards.insert(card, at: index)
+    }
+    
+    func containsCard(_ card: Card) -> Bool {
+        cards.contains(where: { $0 == card })
     }
 
     func getCards() -> [Card] {

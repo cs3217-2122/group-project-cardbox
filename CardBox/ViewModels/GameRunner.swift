@@ -13,9 +13,9 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
-    private var onSetupActions: [Action]
-    private var onStartTurnActions: [Action]
-    private var onEndTurnActions: [Action]
+    private(set) var onSetupActions: [Action]
+    private(set) var onStartTurnActions: [Action]
+    private(set) var onEndTurnActions: [Action]
 
     init() {
         self.deck = CardCollection()
@@ -31,14 +31,26 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
         self.onSetupActions.append(action)
     }
 
+    func removeAllSetupActions() {
+        self.onSetupActions = []
+    }
+    
     func addStartTurnAction(_ action: Action) {
         self.onStartTurnActions.append(action)
+    }
+    
+    func removeAllStartTurnActions() {
+        self.onStartTurnActions = []
     }
 
     func addEndTurnAction(_ action: Action) {
         self.onEndTurnActions.append(action)
     }
 
+    func removeAllEndTurnActions() {
+        self.onEndTurnActions = []
+    }
+    
     func setup() {
         self.onSetupActions.forEach { action in
             action.executeGameEvents(gameRunner: self)

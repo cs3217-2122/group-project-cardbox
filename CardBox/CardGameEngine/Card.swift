@@ -18,6 +18,7 @@ enum GameplayTarget {
 typealias PlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
 
 class Card: Identifiable {
+    
     private(set) var name: String
     private var cardDescription: String
 
@@ -56,5 +57,11 @@ class Card: Identifiable {
 
     func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
         canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
+    }
+}
+
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        lhs.name == rhs.name
     }
 }
