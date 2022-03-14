@@ -18,12 +18,7 @@ struct PlayerView: View {
 
     var body: some View {
         VStack {
-            Button(viewModel.player.name) {
-                // some hacky testing
-                ActionDispatcher.runAction(AddCardToPlayerAction(player: viewModel.player,
-                                                                 card: Card(name: "test")),
-                                           on: gameRunner)
-            }
+            Text(viewModel.player.name)
             ForEach(viewModel.player.hand.getCards()) { card in
                 CardView(card: card)
             }

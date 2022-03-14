@@ -7,10 +7,6 @@
 
 class ExplodingKittensGameRunner {
 
-    private init() {
-
-    }
-
     static func generateGameRunner() -> GameRunner {
         let gameRunner = GameRunner()
         initGameRunner(gameRunner)
