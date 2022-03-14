@@ -6,9 +6,7 @@
 //
 
 struct ShuffleDeckEvent: GameEvent {
-    let deck: CardCollection
-
     func updateRunner(gameRunner: GameRunner) {
-        deck.shuffle()
+        gameRunner.deck.shuffle()
     }
 }

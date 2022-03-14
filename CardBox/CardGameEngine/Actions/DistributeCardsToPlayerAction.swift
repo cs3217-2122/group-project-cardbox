@@ -2,9 +2,18 @@ struct DistributeCardsToPlayerAction: Action {
     let numCards: Int
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
+        guard numCards > 0 else {
+            return
+        }
+
         let players = gameRunner.players
         let numPlayers = players.count
-        let cardsNeeded = 1...(numCards * numPlayers)
+
+        guard numPlayers > 0 else {
+            return
+        }
+
+        let cardsNeeded = 0..<(numCards * numPlayers)
 
         let cards = cardsNeeded.compactMap { index in
             gameRunner.deck.getCardByIndex(index)

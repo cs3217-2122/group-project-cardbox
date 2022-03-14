@@ -8,8 +8,8 @@
 struct SetupGameAction: Action {
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
         gameRunner.executeGameEvents([
-            SetGameStateEvent(gameState: .waitPlayCard),
             SetupEvent(),
+            SetGameStateEvent(gameState: .waitPlayCard),
             StartTurnEvent()
         ])
     }

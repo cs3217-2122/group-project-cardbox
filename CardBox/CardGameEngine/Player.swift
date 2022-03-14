@@ -5,9 +5,9 @@
 //  Created by mactest on 10/03/2022.
 //
 
-class Player {
-    private var hand: CardCollection
-    private var name: String
+class Player: Identifiable {
+    private(set) var hand: CardCollection
+    private(set) var name: String
     private(set) var isOutOfGame = false
 
     var description: String {
@@ -35,7 +35,7 @@ class Player {
     }
 
     func endTurn(gameRunner: GameRunnerReadOnly) {
-        EndTurnAction().executeGameEvents(gameRunner: gameRunner)
+        ActionDispatcher.runAction(EndTurnAction(), on: gameRunner)
     }
 
     func setOutOfGame(_ outOfGame: Bool) {

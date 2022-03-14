@@ -5,11 +5,13 @@
 //  Created by mactest on 10/03/2022.
 //
 
-class GameRunner: GameRunnerReadOnly {
-    internal var deck: CardCollection
-    internal var players: PlayerCollection
-    internal var gameplayArea: CardCollection
-    internal var state: GameState
+import SwiftUI
+
+class GameRunner: GameRunnerReadOnly, ObservableObject {
+    @Published internal var deck: CardCollection
+    @Published internal var players: PlayerCollection
+    @Published internal var gameplayArea: CardCollection
+    @Published internal var state: GameState
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -55,30 +57,9 @@ class GameRunner: GameRunnerReadOnly {
         }
     }
 
-    func updateState(_ state: GameState) {
-        // TODO: Need to change
-        switch self.state {
-        case .start:
-            if state == .waitPlayCard {
-                self.state = .waitPlayCard
-            }
-        case .waitPlayCard:
-            if state == .start {
-                onEndTurn()
-                self.state = .start
-                onStartTurn()
-            }
-        case .initialize:
-            if state == .start {
-                setup()
-                self.state = .start
-                onStartTurn()
-            }
-        }
-    }
-
     func executeGameEvents(_ gameEvents: [GameEvent]) {
         gameEvents.forEach { gameEvent in
+            print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
         }
     }
