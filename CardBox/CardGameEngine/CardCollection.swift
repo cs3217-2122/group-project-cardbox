@@ -32,7 +32,7 @@ class CardCollection {
     }
 
     func getTopNCards(n: Int) -> [Card] {
-        Array(cards[0..<n])
+        Array(cards[0..<min(cards.count, n)])
     }
 
     func removeCard(_ card: Card) {
