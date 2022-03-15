@@ -12,14 +12,37 @@ struct GameRunnerView: View {
     @StateObject var viewModel = ExplodingKittensGameRunner.generateGameRunner()
 
     var body: some View {
-        //deck
-        player
+        VStack {
+            if let player3 = viewModel.players.getPlayerByIndex(2) {
+                PlayerView(player: player3, gameRunner: viewModel)
+                    .rotationEffect(.degrees(-180))
+
+            }
+            Spacer()
+            HStack {
+                if let player4 = viewModel.players.getPlayerByIndex(3) {
+                    PlayerView(player: player4, gameRunner: viewModel)
+                        .rotationEffect(.degrees(90))
+
+                }
+                Spacer()
+                decks
+                Spacer()
+                if let player2 = viewModel.players.getPlayerByIndex(1) {
+                    PlayerView(player: player2, gameRunner: viewModel)
+                        .rotationEffect(.degrees(-90))
+                }
+            }
+            Spacer()
+            if let player1 = viewModel.players.getPlayerByIndex(0) {
+                PlayerView(player: player1, gameRunner: viewModel)
+            }
+
+        }
     }
 
-    var deck: some View {
-        ForEach(viewModel.deck.getCards()) { card in
-            CardView(card: card)
-        }
+    var decks: some View {
+        DeckView(viewModel: DeckViewModel(deck: viewModel.deck))
     }
 
     var player: some View {

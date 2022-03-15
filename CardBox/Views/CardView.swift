@@ -9,11 +9,17 @@ import SwiftUI
 
 struct CardView: View {
     let viewModel: CardViewModel
+    var isFaceUp = true
     
     
 
     init(card: Card) {
         self.viewModel = CardViewModel(card: card)
+    }
+    
+    init(card: Card, isFaceUp: Bool) {
+        self.viewModel = CardViewModel(card: card)
+        self.isFaceUp = isFaceUp
     }
     
 
@@ -22,19 +28,19 @@ struct CardView: View {
             Image(viewModel.imageName)
                 .resizable()
                 .scaledToFit()
-
                 .aspectRatio(2.0, contentMode: .fill)
                 .frame(maxWidth: 100, maxHeight: 100)
                 .border(.black)
-                
+                .padding(.top)
             Text(viewModel.cardTitle)
+                .fontWeight(.bold)
             Text(viewModel.cardDescription)
                 .font(.caption)
+            Spacer()
         }
         .padding()
         .aspectRatio(0.5, contentMode: .fill)
-        .frame(maxWidth: 150, maxHeight: 300)
-
+        .frame(maxWidth: 150, maxHeight: 250)
         .background(Color.white)
         .border(.black)
     }

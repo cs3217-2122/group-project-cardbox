@@ -11,6 +11,10 @@ class CardCollection {
     init() {
 
     }
+    
+    func getSize() -> Int {
+        return cards.count
+    }
 
     func getFirstCard() -> Card? {
         if cards.isEmpty {

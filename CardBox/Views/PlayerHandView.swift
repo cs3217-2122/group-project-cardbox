@@ -14,8 +14,15 @@ struct PlayerHandView: View {
         self.viewModel = PlayerHandViewModel(hand: hand)
     }
     
+    var spacing: Double {
+        let size = viewModel.getSize()
+        // availableSpace - size * cardWidth / size
+        // TODO: figure out spacing
+        return Double((400 - size * 150) / size)
+    }
+    
     var body: some View {
-        HStack(spacing: -100) {
+        HStack(spacing: spacing) {
             ForEach(viewModel.getCards()) { card in
                 CardView(card: card)
             }
