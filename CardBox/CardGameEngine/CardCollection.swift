@@ -11,9 +11,9 @@ class CardCollection {
     init() {
 
     }
-    
+
     func getSize() -> Int {
-        return cards.count
+        cards.count
     }
 
     func getFirstCard() -> Card? {

@@ -27,6 +27,7 @@ struct GameRunnerView: View {
                 }
                 Spacer()
                 decks
+                playDeck
                 Spacer()
                 if let player2 = gameRunnerViewModel.players.getPlayerByIndex(1) {
                     PlayerView(player: player2, gameRunner: gameRunnerViewModel)
@@ -44,5 +45,9 @@ struct GameRunnerView: View {
 
     var decks: some View {
         DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.deck))
+    }
+
+    var playDeck: some View {
+        DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.gameplayArea))
     }
 }

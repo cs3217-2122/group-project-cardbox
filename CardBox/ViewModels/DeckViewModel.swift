@@ -8,15 +8,15 @@ import SwiftUI
 
 class DeckViewModel: ObservableObject {
     var deck: CardCollection
-    
+
     init(deck: CardCollection) {
         self.deck = deck
     }
-    
+
     func getCards() -> [Card] {
         deck.getCards()
     }
-    
+
     func getTopCard() -> Card? {
         deck.getFirstCard()
     }
