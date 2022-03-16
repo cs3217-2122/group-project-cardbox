@@ -18,14 +18,27 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     static func initialiseGameRunner(_ gameRunner: GameRunnerInitOnly) {
-        let cards = initCards()
-        gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
+        let numPlayers = 4
 
         let playConditions = initCardPlayConditions()
-        gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4, canPlayConditions: playConditions))
+        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers, canPlayConditions: playConditions))
+
+        // Distribute defuse cards
+        let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
+        gameRunner.addSetupAction(InitDeckWithCardsAction(cards: defuseCards))
+        gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: numPlayers))
+
+        let cards = initCards()
+        gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
+        gameRunner.addSetupAction(ShuffleDeckAction())
+        gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 4))
+
+        let bombCards: [Card] = (0..<numPlayers - 1).map { _ in generateBombCard() }
+        bombCards.forEach { bombCard in
+            gameRunner.addSetupAction(AddCardToDeckAction(card: bombCard))
+        }
 
         gameRunner.addSetupAction(ShuffleDeckAction())
-        gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
     }
@@ -94,27 +107,48 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         return card
     }
 
+    private static func generateRandom1Card() -> Card {
+        let card = Card(name: "Random 1")
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random1.rawValue)
+        return card
+    }
+
+    private static func generateRandom2Card() -> Card {
+        let card = Card(name: "Random 2")
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random2.rawValue)
+        return card
+    }
+
+    private static func generateRandom3Card() -> Card {
+        let card = Card(name: "Random 3")
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random3.rawValue)
+        return card
+    }
+
     private static func initCards() -> [Card] {
         var cards: [Card] = []
 
-        for _ in 0...5 {
-            cards.append(generateBombCard())
-        }
+        // TODO:
+        // 1. Add 4 Attack cards
+        // 2. Add 4 Favor cards
+        // 3. Add 5 Nope cards
 
-        for _ in 0...10 {
-            cards.append(generateSeeTheFutureCard())
-        }
-
-        for _ in 0...5 {
-            cards.append(generateSkipCard())
-        }
-
-        for _ in 0...5 {
+        for _ in 0..<4 {
             cards.append(generateShuffleCard())
         }
 
-        for _ in 0...4 {
+        for _ in 0..<6 {
             cards.append(generateSkipCard())
+        }
+
+        for _ in 0..<5 {
+            cards.append(generateSeeTheFutureCard())
+        }
+
+        for _ in 0..<4 {
+            cards.append(generateRandom1Card())
+            cards.append(generateRandom2Card())
+            cards.append(generateRandom3Card())
         }
 
         return cards

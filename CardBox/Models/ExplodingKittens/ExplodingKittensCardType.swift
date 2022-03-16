@@ -11,4 +11,7 @@ enum ExplodingKittensCardType: String {
     case shuffle = "shuffle"
     case skip = "skip"
     case defuse = "defuse"
+    case random1 = "random-1"
+    case random2 = "random-2"
+    case random3 = "random-3"
 }
