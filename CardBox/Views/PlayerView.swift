@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlayerView: View {
-    let playerViewModel: PlayerViewModel
+    private var playerViewModel: PlayerViewModel
     @ObservedObject var gameRunner: GameRunner
 
     init(player: Player, gameRunner: GameRunner) {
@@ -19,7 +19,7 @@ struct PlayerView: View {
     var body: some View {
         VStack {
             Text(playerViewModel.player.name)
-            PlayerHandView(hand: playerViewModel.player.hand)
+            PlayerHandView(playerViewModel: playerViewModel, hand: playerViewModel.player.hand, gameRunner: gameRunner)
         }
     }
 }

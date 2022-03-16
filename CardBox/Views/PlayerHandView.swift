@@ -8,10 +8,14 @@
 import SwiftUI
 
 struct PlayerHandView: View {
-    let playerHandViewModel: PlayerHandViewModel
-    
-    init(hand: CardCollection) {
+    private var playerViewModel: PlayerViewModel
+    private let playerHandViewModel: PlayerHandViewModel
+    @ObservedObject var gameRunner: GameRunner
+
+    init(playerViewModel: PlayerViewModel, hand: CardCollection, gameRunner: GameRunner) {
+        self.playerViewModel = playerViewModel
         self.playerHandViewModel = PlayerHandViewModel(hand: hand)
+        self.gameRunner = gameRunner
     }
 
     var spacing: Double {
@@ -24,7 +28,12 @@ struct PlayerHandView: View {
     var body: some View {
         HStack(spacing: spacing) {
             ForEach(playerHandViewModel.getCards()) { card in
-                CardView(cardViewModel: CardViewModel(card: card, isFaceUp: true))
+                let cardViewModel = CardViewModel(card: card, isFaceUp: true)
+                CardView(cardViewModel: cardViewModel)
+                    .onTapGesture {
+                        print("tap card")
+                        playerViewModel.tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunner)
+                    }
             }
         }
     }

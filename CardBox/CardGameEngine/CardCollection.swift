@@ -57,4 +57,10 @@ class CardCollection {
     func shuffle() {
         self.cards.shuffle()
     }
+
+    func contains(card: Card) -> Bool {
+        self.cards.contains { cardObject in
+            cardObject === card
+        }
+    }
 }

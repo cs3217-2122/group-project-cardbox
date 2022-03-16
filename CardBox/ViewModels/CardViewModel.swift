@@ -11,6 +11,7 @@ class CardViewModel: ObservableObject {
 
     var card: Card?
     var isFaceUp: Bool
+    @Published var isSelected: Bool
 
     var imageName: String? {
         if let card = card {
@@ -36,5 +37,6 @@ class CardViewModel: ObservableObject {
     init(card: Card? = nil, isFaceUp: Bool = false) {
         self.card = card
         self.isFaceUp = false
+        self.isSelected = false
     }
 }

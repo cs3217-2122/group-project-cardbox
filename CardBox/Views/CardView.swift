@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CardView: View {
 
-    let viewModel: CardViewModel
+    @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
 
     init(cardViewModel: CardViewModel) {
@@ -21,8 +21,8 @@ struct CardView: View {
         if let card = viewModel.card {
             guard let imageName = viewModel.imageName else {
                 return AnyView(
-                    Rectangle()
-                        .fill(Color.red)
+                    Text("No card in stack")
+                        .fontWeight(.bold)
                 )
             }
             return AnyView(
@@ -55,6 +55,7 @@ struct CardView: View {
             .aspectRatio(0.5, contentMode: .fill)
             .frame(width: 150, height: 250)
             .border(.black)
+            .offset(y: viewModel.isSelected ? -30: 0)
     }
 }
 
