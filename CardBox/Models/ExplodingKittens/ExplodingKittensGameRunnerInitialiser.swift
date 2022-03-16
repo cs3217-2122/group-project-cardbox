@@ -31,7 +31,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb")
         let isTrueCardActions: [CardAction] = [
-            PlayerDiscardCardAction(cardToDiscard: generateDefuseCard()),
+            PlayerDiscardCardsAction(where: {
+                $0.getAdditionalParams(key: cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
+            }),
             PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0)
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
