@@ -7,8 +7,9 @@
 
 enum ExplodingKittensCardType: String {
     case bomb = "bomb"
+    case defuse = "defuse"
+    case favor = "favor"
     case seeTheFuture = "see-the-future"
     case shuffle = "shuffle"
     case skip = "skip"
-    case defuse = "defuse"
 }
