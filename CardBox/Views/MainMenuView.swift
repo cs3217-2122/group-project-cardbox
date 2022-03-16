@@ -17,7 +17,7 @@ struct MainMenuView: View {
                 .font(.largeTitle)
             Spacer()
             Button {
-                //appState.page = Page.levelSelect
+                // appState.page = Page.levelSelect
             } label: {
                 Text("Level Select")
                     .font(.title)

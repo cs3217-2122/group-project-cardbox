@@ -9,6 +9,6 @@ import Foundation
 
 class AssetFetcher {
     static func getImageName(card: Card) -> String {
-        return "cat"
+        "cat"
     }
 }

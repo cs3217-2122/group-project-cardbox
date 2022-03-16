@@ -12,6 +12,7 @@ class CardViewModel: ObservableObject {
     var imageName: String {
         AssetFetcher.getImageName(card: card)
     }
+
     var cardTitle: String {
         card.name
     }
@@ -19,7 +20,7 @@ class CardViewModel: ObservableObject {
     var cardDescription: String {
         card.cardDescription
     }
-    
+
     init(card: Card) {
         self.card = card
     }

@@ -10,21 +10,18 @@ import SwiftUI
 struct CardView: View {
     let viewModel: CardViewModel
     var isFaceUp = true
-    
-    
 
     init(card: Card) {
         self.viewModel = CardViewModel(card: card)
     }
-    
+
     init(card: Card, isFaceUp: Bool) {
         self.viewModel = CardViewModel(card: card)
         self.isFaceUp = isFaceUp
     }
-    
 
     var body: some View {
-        VStack{
+        VStack {
             Image(viewModel.imageName)
                 .resizable()
                 .scaledToFit()
