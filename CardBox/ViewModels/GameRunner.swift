@@ -12,6 +12,7 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
     @Published internal var players: PlayerCollection
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
+    @Published internal var cardPreview: Card?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]

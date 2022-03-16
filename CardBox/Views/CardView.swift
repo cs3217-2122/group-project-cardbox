@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct CardView: View {
-
-    let viewModel: CardViewModel
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    let cardViewModel: CardViewModel
     var isFaceUp: Bool
 
     init(cardViewModel: CardViewModel) {
-        self.viewModel = cardViewModel
+        self.cardViewModel = cardViewModel
         self.isFaceUp = cardViewModel.isFaceUp
     }
 
+
+    
     func buildView() -> AnyView {
-        if let card = viewModel.card {
-            guard let imageName = viewModel.imageName else {
+        if let card = cardViewModel.card {
+            guard let imageName = cardViewModel.imageName else {
                 return AnyView(
                     Rectangle()
                         .fill(Color.red)
@@ -40,7 +42,17 @@ struct CardView: View {
                         .font(.caption)
                     Spacer()
                 }
+                    .gesture(
+                        DragGesture(minimumDistance: 0.0)
+                            .onChanged { _ in
+                                gameRunnerViewModel.cardPreview = card
+                            }
+                            .onEnded { _ in
+                                gameRunnerViewModel.cardPreview = nil
+                            }
+                    )
             )
+                
         } else {
             return AnyView(
                 Text("No card in stack")
@@ -54,6 +66,7 @@ struct CardView: View {
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
             .frame(width: 150, height: 250)
+            .background(Color.white)
             .border(.black)
     }
 }
