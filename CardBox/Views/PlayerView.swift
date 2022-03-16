@@ -16,9 +16,13 @@ struct PlayerView: View {
         self.gameRunner = gameRunner
     }
 
+    var playerDescription: String {
+        viewModel.player.name + (viewModel.player.isOutOfGame ? " (Dead)" : "")
+    }
+
     var body: some View {
         VStack {
-            Text(viewModel.player.name)
+            Text(playerDescription)
             ForEach(viewModel.player.hand.getCards()) { card in
                 CardView(card: card, player: viewModel.player, gameRunner: viewModel.gameRunner)
             }
