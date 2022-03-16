@@ -41,6 +41,7 @@ struct CardView: View {
                     Spacer()
                 }
             )
+
         } else {
             return AnyView(
                 Text("No card in stack")
@@ -54,6 +55,7 @@ struct CardView: View {
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
             .frame(width: 150, height: 250)
+            .background(Color.white)
             .border(.black)
             .offset(y: viewModel.isSelected ? -30: 0)
     }

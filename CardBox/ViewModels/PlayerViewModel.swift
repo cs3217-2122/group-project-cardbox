@@ -12,6 +12,7 @@ class PlayerViewModel: ObservableObject {
 
     init(player: Player) {
         self.player = player
+        print(selectedCards)
     }
 
     func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunner) {
@@ -39,7 +40,25 @@ class PlayerViewModel: ObservableObject {
                 }
             }
         }
+    }
 
-        // else ignore
+    func previewCard(card: Card, gameRunner: GameRunner) {
+        guard let currentPlayer = gameRunner.players.currentPlayer else {
+            return
+        }
+        if currentPlayer === player {
+            gameRunner.cardPreview = card
+        }
+    }
+
+    func unpreviewCard(card: Card, gameRunner: GameRunner) {
+        guard let currentPlayer = gameRunner.players.currentPlayer else {
+            return
+        }
+        if currentPlayer === player {
+            if gameRunner.cardPreview === card {
+                gameRunner.cardPreview = nil
+            }
+        }
     }
 }
