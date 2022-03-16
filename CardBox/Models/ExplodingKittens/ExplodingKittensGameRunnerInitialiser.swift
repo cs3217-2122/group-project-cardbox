@@ -27,6 +27,14 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
     }
+    
+    private static func generateAttackCard() -> Card {
+        let card = Card(name: "Attack")
+        card.addPlayAction(SkipTurnCardAction())
+        // Need add action to make the next player repeat his turn
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.attack.rawValue)
+        return card
+    }
 
     private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb")
@@ -77,7 +85,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
     private static func generateSkipCard() -> Card {
         let card = Card(name: "Skip")
-        card.addPlayAction(EndTurnWithoutActionsCardAction())
+        card.addPlayAction(SkipTurnCardAction())
         card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.skip.rawValue)
         return card
     }

@@ -6,6 +6,7 @@
 //
 
 enum ExplodingKittensCardType: String {
+    case attack = "attack"
     case bomb = "bomb"
     case defuse = "defuse"
     case favor = "favor"
