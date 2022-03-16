@@ -6,5 +6,5 @@
 //
 
 protocol GameRunnerInitialiser {
-    static func initialiseGameRunner() -> GameRunner
+    static func getAndSetupGameRunnerInstance() -> GameRunner
 }

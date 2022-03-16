@@ -8,20 +8,24 @@
 class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     static let cardTypeKey = "CARD_TYPE"
 
-    static func initialiseGameRunner() -> GameRunner {
+    static func getAndSetupGameRunnerInstance() -> GameRunner {
         let gameRunner = GameRunner()
-        let cards = initCards()
 
+        initialiseGameRunner(gameRunner)
+        ActionDispatcher.runAction(SetupGameAction(), on: gameRunner)
+
+        return gameRunner
+    }
+
+    static func initialiseGameRunner(_ gameRunner: GameRunnerInitOnly) {
+        let cards = initCards()
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
+
         gameRunner.addSetupAction(InitPlayerAction(numPlayers: 4))
         gameRunner.addSetupAction(ShuffleDeckAction())
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
-
-        ActionDispatcher.runAction(SetupGameAction(), on: gameRunner)
-
-        return gameRunner
     }
 
     private static func generateBombCard() -> Card {

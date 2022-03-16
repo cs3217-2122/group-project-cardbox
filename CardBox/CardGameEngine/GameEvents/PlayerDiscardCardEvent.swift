@@ -9,7 +9,7 @@ struct PlayerDiscardCardEvent: GameEvent {
     let player: Player
     let cardToDiscard: Card
 
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         player.removeCard(cardToDiscard)
     }
 }

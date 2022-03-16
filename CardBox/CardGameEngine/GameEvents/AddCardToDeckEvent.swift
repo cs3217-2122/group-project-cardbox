@@ -8,7 +8,7 @@
 struct AddCardToDeckEvent: GameEvent {
     let card: Card
 
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         gameRunner.deck.addCard(card)
     }
 }

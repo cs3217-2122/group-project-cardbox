@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-class GameRunner: GameRunnerReadOnly, ObservableObject {
+class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, ObservableObject {
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
-    private(set) var onSetupActions: [Action]
-    private(set) var onStartTurnActions: [Action]
-    private(set) var onEndTurnActions: [Action]
+    private var onSetupActions: [Action]
+    private var onStartTurnActions: [Action]
+    private var onEndTurnActions: [Action]
 
     init() {
         self.deck = CardCollection()
@@ -31,24 +31,12 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
         self.onSetupActions.append(action)
     }
 
-    func removeAllSetupActions() {
-        self.onSetupActions = []
-    }
-
     func addStartTurnAction(_ action: Action) {
         self.onStartTurnActions.append(action)
     }
 
-    func removeAllStartTurnActions() {
-        self.onStartTurnActions = []
-    }
-
     func addEndTurnAction(_ action: Action) {
         self.onEndTurnActions.append(action)
-    }
-
-    func removeAllEndTurnActions() {
-        self.onEndTurnActions = []
     }
 
     func setup() {

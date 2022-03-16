@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct GameRunnerView: View {
-
-    @StateObject var viewModel = ExplodingKittensGameRunnerInitialiser.initialiseGameRunner()
+    @StateObject var viewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
 
     var body: some View {
         deck
