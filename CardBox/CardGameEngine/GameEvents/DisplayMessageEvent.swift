@@ -8,7 +8,7 @@
 struct DisplayMessageEvent: GameEvent {
     let message: String
 
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         print(message)
     }
 }

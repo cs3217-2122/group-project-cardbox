@@ -1,14 +1,14 @@
 //
-//  PlayerOutOfGameAction.swift
+//  EndTurnWithoutActionsCardAction.swift
 //  CardBox
 //
-//  Created by mactest on 11/03/2022.
+//  Created by Bryann Yeap Kok Keong on 14/3/22.
 //
 
-struct PlayerOutOfGameAction: CardAction {
+struct EndTurnWithoutActionsCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
         gameRunner.executeGameEvents([
-            SetPlayerOutOfGameEvent(player: player)
+            AdvanceNextPlayerEvent()
         ])
     }
 }

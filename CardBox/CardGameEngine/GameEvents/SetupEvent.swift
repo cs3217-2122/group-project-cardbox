@@ -6,7 +6,7 @@
 //
 
 struct SetupEvent: GameEvent {
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         gameRunner.setup()
     }
 }

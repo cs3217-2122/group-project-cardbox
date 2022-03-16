@@ -8,7 +8,7 @@
 struct DisplayCardsEvent: GameEvent {
     let cards: [Card]
 
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         print(cards)
     }
 }

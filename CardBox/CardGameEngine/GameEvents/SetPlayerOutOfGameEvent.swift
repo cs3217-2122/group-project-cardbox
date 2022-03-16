@@ -8,7 +8,7 @@
 struct SetPlayerOutOfGameEvent: GameEvent {
     let player: Player
 
-    func updateRunner(gameRunner: GameRunner) {
+    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         player.setOutOfGame(true)
     }
 }
