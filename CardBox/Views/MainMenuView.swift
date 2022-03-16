@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct MainMenuView: View {
-    // @EnvironmentObject var appState: AppState
-    // let backgroundImageName = "background"
-
     var body: some View {
         VStack {
-            Text("Peggle Game")
+            Text("CardBox")
                 .font(.largeTitle)
             Spacer()
             Button {
-                // appState.page = Page.levelSelect
             } label: {
                 Text("Level Select")
                     .font(.title)

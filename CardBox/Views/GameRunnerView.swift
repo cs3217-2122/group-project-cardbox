@@ -49,13 +49,4 @@ struct GameRunnerView: View {
     var playDeck: some View {
         DeckView(viewModel: DeckViewModel(deck: viewModel.gameplayArea))
     }
-
-//    var player: some View {
-        // HStack {
-          //  ForEach(viewModel.players.getPlayers()) { player in
-            //    PlayerView(player: player, gameRunner: viewModel)
-            // }
-        // }
-//        PlayerView(player: viewModel.players.getPlayers()[0], gameRunner: viewModel)
-//    }
 }
