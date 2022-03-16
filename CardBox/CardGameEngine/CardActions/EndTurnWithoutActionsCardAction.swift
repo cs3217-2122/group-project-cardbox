@@ -8,7 +8,7 @@
 struct EndTurnWithoutActionsCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
         gameRunner.executeGameEvents([
-            EndTurnEvent()
+            AdvanceNextPlayerEvent()
         ])
     }
 }
