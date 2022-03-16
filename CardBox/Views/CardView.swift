@@ -10,11 +10,9 @@ import SwiftUI
 struct CardView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
     let cardViewModel: CardViewModel
-    var isFaceUp: Bool
 
     init(cardViewModel: CardViewModel) {
         self.cardViewModel = cardViewModel
-        self.isFaceUp = cardViewModel.isFaceUp
     }
 
 

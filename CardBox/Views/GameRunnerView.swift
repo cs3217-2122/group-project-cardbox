@@ -35,6 +35,15 @@ struct GameRunnerView: View {
                             .rotationEffect(.degrees(-90))
                     }
                 }
+                Button {
+                } label: {
+                    Text("Play")
+                        .font(.title)
+                        .frame(width: 70, height: 50)
+                        .border(.black)
+                }
+                // TODO: Make error appear and fade out when button pressed and invalid combo
+                Text("Invalid combination")
                 Spacer()
                 if let player1 = gameRunnerViewModel.players.getPlayerByIndex(0) {
                     PlayerView(player: player1, gameRunner: gameRunnerViewModel)
