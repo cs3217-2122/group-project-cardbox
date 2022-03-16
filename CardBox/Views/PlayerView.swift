@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct PlayerView: View {
-    let viewModel: PlayerViewModel
+    let playerViewModel: PlayerViewModel
     @ObservedObject var gameRunner: GameRunner
 
     init(player: Player, gameRunner: GameRunner) {
-        self.viewModel = PlayerViewModel(player: player)
+        self.playerViewModel = PlayerViewModel(player: player)
         self.gameRunner = gameRunner
     }
 
     var body: some View {
         VStack {
-            Text(viewModel.player.name)
-            PlayerHandView(hand: viewModel.player.hand)
+            Text(playerViewModel.player.name)
+            PlayerHandView(hand: playerViewModel.player.hand)
         }
     }
 }

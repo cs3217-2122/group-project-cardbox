@@ -8,7 +8,8 @@
 import SwiftUI
 
 class CardViewModel: ObservableObject {
-    var card: Card
+    @Published var card: Card
+    
     var imageName: String {
         AssetFetcher.getImageName(card: card)
     }

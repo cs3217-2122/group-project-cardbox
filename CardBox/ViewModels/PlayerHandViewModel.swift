@@ -5,7 +5,7 @@
 //  Created by Bernard Wan on 14/3/22.
 //
 
-import Foundation
+import SwiftUI
 
 class PlayerHandViewModel: ObservableObject {
     var hand: CardCollection

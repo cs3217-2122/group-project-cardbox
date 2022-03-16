@@ -8,33 +8,34 @@
 import SwiftUI
 
 struct CardView: View {
-    let viewModel: CardViewModel
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    let cardViewModel: CardViewModel
     var isFaceUp = true
     
     
 
     init(card: Card) {
-        self.viewModel = CardViewModel(card: card)
+        self.cardViewModel = CardViewModel(card: card)
     }
     
     init(card: Card, isFaceUp: Bool) {
-        self.viewModel = CardViewModel(card: card)
+        self.cardViewModel = CardViewModel(card: card)
         self.isFaceUp = isFaceUp
     }
     
 
     var body: some View {
         VStack{
-            Image(viewModel.imageName)
+            Image(cardViewModel.imageName)
                 .resizable()
                 .scaledToFit()
                 .aspectRatio(2.0, contentMode: .fill)
                 .frame(maxWidth: 100, maxHeight: 100)
                 .border(.black)
                 .padding(.top)
-            Text(viewModel.cardTitle)
+            Text(cardViewModel.cardTitle)
                 .fontWeight(.bold)
-            Text(viewModel.cardDescription)
+            Text(cardViewModel.cardDescription)
                 .font(.caption)
             Spacer()
         }

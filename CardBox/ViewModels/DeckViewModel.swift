@@ -4,8 +4,7 @@
 //
 //  Created by Bernard Wan on 16/3/22.
 //
-
-import Foundation
+import SwiftUI
 
 class DeckViewModel: ObservableObject {
     var deck: CardCollection

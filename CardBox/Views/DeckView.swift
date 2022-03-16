@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct DeckView: View {
-    let viewModel: DeckViewModel
+    let deckViewModel: DeckViewModel
     var isFaceUp = false
     
     var body: some View {
-        if let topCard = viewModel.getTopCard() {
+        if let topCard = deckViewModel.getTopCard() {
             CardView(card: topCard, isFaceUp: isFaceUp)
         }
     }

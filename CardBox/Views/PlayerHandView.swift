@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct PlayerHandView: View {
-    let viewModel: PlayerHandViewModel
+    let playerHandViewModel: PlayerHandViewModel
     
     init(hand: CardCollection) {
-        self.viewModel = PlayerHandViewModel(hand: hand)
+        self.playerHandViewModel = PlayerHandViewModel(hand: hand)
     }
     
     var spacing: Double {
-        let size = viewModel.getSize()
+        let size = playerHandViewModel.getSize()
         // availableSpace - size * cardWidth / size
         // TODO: figure out spacing
         return Double((400 - size * 150) / size)
@@ -23,7 +23,7 @@ struct PlayerHandView: View {
     
     var body: some View {
         HStack(spacing: spacing) {
-            ForEach(viewModel.getCards()) { card in
+            ForEach(playerHandViewModel.getCards()) { card in
                 CardView(card: card)
             }
         }

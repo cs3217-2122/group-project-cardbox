@@ -9,48 +9,40 @@ import SwiftUI
 
 struct GameRunnerView: View {
 
-    @StateObject var viewModel = ExplodingKittensGameRunner.generateGameRunner()
+    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner.generateGameRunner()
 
     var body: some View {
         VStack {
-            if let player3 = viewModel.players.getPlayerByIndex(2) {
-                PlayerView(player: player3, gameRunner: viewModel)
+            if let player3 = gameRunnerViewModel.players.getPlayerByIndex(2) {
+                PlayerView(player: player3, gameRunner: gameRunnerViewModel)
                     .rotationEffect(.degrees(-180))
 
             }
             Spacer()
             HStack {
-                if let player4 = viewModel.players.getPlayerByIndex(3) {
-                    PlayerView(player: player4, gameRunner: viewModel)
+                if let player4 = gameRunnerViewModel.players.getPlayerByIndex(3) {
+                    PlayerView(player: player4, gameRunner: gameRunnerViewModel)
                         .rotationEffect(.degrees(90))
 
                 }
                 Spacer()
                 decks
                 Spacer()
-                if let player2 = viewModel.players.getPlayerByIndex(1) {
-                    PlayerView(player: player2, gameRunner: viewModel)
+                if let player2 = gameRunnerViewModel.players.getPlayerByIndex(1) {
+                    PlayerView(player: player2, gameRunner: gameRunnerViewModel)
                         .rotationEffect(.degrees(-90))
                 }
             }
             Spacer()
-            if let player1 = viewModel.players.getPlayerByIndex(0) {
-                PlayerView(player: player1, gameRunner: viewModel)
+            if let player1 = gameRunnerViewModel.players.getPlayerByIndex(0) {
+                PlayerView(player: player1, gameRunner: gameRunnerViewModel)
             }
 
         }
+        .environmentObject(gameRunnerViewModel)
     }
 
     var decks: some View {
-        DeckView(viewModel: DeckViewModel(deck: viewModel.deck))
-    }
-
-    var player: some View {
-        //HStack {
-          //  ForEach(viewModel.players.getPlayers()) { player in
-            //    PlayerView(player: player, gameRunner: viewModel)
-            //}
-        //}
-        PlayerView(player: viewModel.players.getPlayers()[0], gameRunner: viewModel)
+        DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.deck))
     }
 }
