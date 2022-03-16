@@ -28,7 +28,6 @@ struct PlayCardAction: Action {
             MoveCardPlayerToGameplayEvent(card: card, player: player)
         }
 
-        gameRunner.executeGameEvents(moveCardsEvents
-        )
+        gameRunner.executeGameEvents(moveCardsEvents)
     }
 }
