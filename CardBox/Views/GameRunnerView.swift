@@ -52,7 +52,6 @@ struct GameRunnerView: View {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
                     PlayerView(playerViewModel: PlayerViewModel(player: currentPlayer))
                 }
-
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
