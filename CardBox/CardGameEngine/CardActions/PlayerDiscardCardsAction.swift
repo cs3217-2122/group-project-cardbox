@@ -12,7 +12,8 @@ struct PlayerDiscardCardsAction: CardAction {
         self.cardToDiscardCondition = cardToDiscardCondition
     }
 
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, card: Card, player: Player, target: GameplayTarget) {
+    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
+        let player = args.player
         for card in player.getHand().getCards() where cardToDiscardCondition(card) {
             gameRunner.executeGameEvents([PlayerDiscardCardEvent(player: player, cardToDiscard: card)])
         }
