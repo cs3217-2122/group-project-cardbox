@@ -20,10 +20,18 @@ class Player: Identifiable {
     }
 
     func addCard(_ card: Card) {
+        guard !isOutOfGame else {
+            return
+        }
+
         self.hand.addCard(card)
     }
 
     func removeCard(_ card: Card) {
+        guard !isOutOfGame else {
+            return
+        }
+
         self.hand.removeCard(card)
     }
 
@@ -32,20 +40,40 @@ class Player: Identifiable {
     }
 
     func hasCard(_ card: Card) -> Bool {
-        hand.containsCard(card)
+        guard !isOutOfGame else {
+            return false
+        }
+
+        return hand.containsCard(card)
     }
 
     func hasCard(where predicate: (Card) -> Bool) -> Bool {
-        hand.containsCard(where: predicate)
+        guard !isOutOfGame else {
+            return false
+        }
+
+        return hand.containsCard(where: predicate)
     }
 
     func playCard(_ card: Card, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
     }
 
     func endTurn(gameRunner: GameRunnerReadOnly) {
+        guard !isOutOfGame else {
+            return
+        }
+
         ActionDispatcher.runAction(EndTurnAction(), on: gameRunner)
     }
 
+    func getCardByIndex(_ index: Int) -> Card? {
+        guard !isOutOfGame else {
+            return nil
+        }
+
+        return hand.getCardByIndex(index)
+    }
+    
     func setOutOfGame(_ outOfGame: Bool) {
         self.isOutOfGame = outOfGame
     }

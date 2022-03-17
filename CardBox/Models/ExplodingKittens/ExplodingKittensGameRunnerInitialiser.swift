@@ -27,6 +27,14 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
     }
+    
+    private static func generateAttackCard() -> Card {
+        let card = Card(name: "Attack")
+        card.addPlayAction(SkipTurnCardAction())
+        // Need add action to make the next player repeat his turn
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.attack.rawValue)
+        return card
+    }
 
     private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb")
@@ -34,7 +42,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             PlayerDiscardCardsAction(where: {
                 $0.getAdditionalParams(key: cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
             }),
-            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0) // Need to find a way to obtain user input to choose where the user wants to input the card into the deck
+            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0) //Need to find a way to obtain user input to choose where the user wants to input the card into the deck
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
 
@@ -48,6 +56,19 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         return card
     }
 
+    private static func generateDefuseCard() -> Card {
+        let card = Card(name: "Defuse")
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.defuse.rawValue)
+        return card
+    }
+
+    private static func generateFavorCard() -> Card {
+        let card = Card(name: "Favor")
+        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0)) //Similar to generate bomb card, needs user input to choose n
+        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.favor.rawValue)
+        return card
+    }
+    
     private static func generateSeeTheFutureCard() -> Card {
         let card = Card(name: "See The Future")
         card.addPlayAction(DisplayTopNCardsFromDeckCardAction(n: 3))
@@ -64,14 +85,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
     private static func generateSkipCard() -> Card {
         let card = Card(name: "Skip")
-        card.addPlayAction(EndTurnWithoutActionsCardAction())
+        card.addPlayAction(SkipTurnCardAction())
         card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.skip.rawValue)
-        return card
-    }
-
-    private static func generateDefuseCard() -> Card {
-        let card = Card(name: "Defuse")
-        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.defuse.rawValue)
         return card
     }
 

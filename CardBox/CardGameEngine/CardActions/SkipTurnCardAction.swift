@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 14/3/22.
 //
 
-struct EndTurnWithoutActionsCardAction: CardAction {
+struct SkipTurnCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
         gameRunner.executeGameEvents([
             AdvanceNextPlayerEvent()

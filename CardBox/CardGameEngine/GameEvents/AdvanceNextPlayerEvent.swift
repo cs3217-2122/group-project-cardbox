@@ -8,10 +8,6 @@
 struct AdvanceNextPlayerEvent: GameEvent {
 
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
-        guard let nextPlayer = gameRunner.players.nextPlayer else {
-            return
-        }
-    
-        gameRunner.players.setCurrentPlayer(nextPlayer)
+        gameRunner.players.advanceToNextPlayer()
     }
 }
