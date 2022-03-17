@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		2D007F2A27E24BA300F0E359 /* DeckPositionResponseAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F2927E24BA300F0E359 /* DeckPositionResponseAction.swift */; };
 		2D007F3627E24CF700F0E359 /* DeckPositionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F3527E24CF700F0E359 /* DeckPositionView.swift */; };
+		2D007F4927E331D800F0E359 /* PlayerPlayCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F4827E331D800F0E359 /* PlayerPlayCondition.swift */; };
+		2D007F4E27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F4D27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift */; };
+		2D007F5427E3376600F0E359 /* IsCurrentPlayerPlayCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F5327E3376600F0E359 /* IsCurrentPlayerPlayCondition.swift */; };
+		2D007F6727E34C7000F0E359 /* ExplodingKittensUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D007F6627E34C7000F0E359 /* ExplodingKittensUtils.swift */; };
 		2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3227DADD500063D952 /* CardBoxApp.swift */; };
 		2DA04F3527DADD500063D952 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3427DADD500063D952 /* ContentView.swift */; };
 		2DA04F3727DADD520063D952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DA04F3627DADD520063D952 /* Assets.xcassets */; };
@@ -102,6 +106,10 @@
 /* Begin PBXFileReference section */
 		2D007F2927E24BA300F0E359 /* DeckPositionResponseAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPositionResponseAction.swift; sourceTree = "<group>"; };
 		2D007F3527E24CF700F0E359 /* DeckPositionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPositionView.swift; sourceTree = "<group>"; };
+		2D007F4827E331D800F0E359 /* PlayerPlayCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPlayCondition.swift; sourceTree = "<group>"; };
+		2D007F4D27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensPlayerPlayCondition.swift; sourceTree = "<group>"; };
+		2D007F5327E3376600F0E359 /* IsCurrentPlayerPlayCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsCurrentPlayerPlayCondition.swift; sourceTree = "<group>"; };
+		2D007F6627E34C7000F0E359 /* ExplodingKittensUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensUtils.swift; sourceTree = "<group>"; };
 		2DA04F2F27DADD500063D952 /* CardBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA04F3227DADD500063D952 /* CardBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoxApp.swift; sourceTree = "<group>"; };
 		2DA04F3427DADD500063D952 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -214,6 +222,15 @@
 			path = Actions;
 			sourceTree = "<group>";
 		};
+		2D007F5227E3373800F0E359 /* PlayerPlayConditions */ = {
+			isa = PBXGroup;
+			children = (
+				2D007F5327E3376600F0E359 /* IsCurrentPlayerPlayCondition.swift */,
+				2D007F4827E331D800F0E359 /* PlayerPlayCondition.swift */,
+			);
+			path = PlayerPlayConditions;
+			sourceTree = "<group>";
+		};
 		2DA04F2627DADD500063D952 = {
 			isa = PBXGroup;
 			children = (
@@ -290,6 +307,7 @@
 				2DA04FD227DB51210063D952 /* CardActions */,
 				2DA04F9927DB3ED70063D952 /* GameEvents */,
 				2DA04F6D27DAE61E0063D952 /* Actions */,
+				2D007F5227E3373800F0E359 /* PlayerPlayConditions */,
 				2DA04F7327DAE6A20063D952 /* GameRunnerReadOnly.swift */,
 				2DA04F7827DAE9540063D952 /* CardCollection.swift */,
 				2DA04F7D27DAE9930063D952 /* Card.swift */,
@@ -377,6 +395,8 @@
 				2DA0514227E23DC20063D952 /* CardActions */,
 				2DA04FD827DBBA160063D952 /* ExplodingKittensGameRunnerInitialiser.swift */,
 				2DA050FB27DF41FD0063D952 /* ExplodingKittensCardType.swift */,
+				2D007F4D27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift */,
+				2D007F6627E34C7000F0E359 /* ExplodingKittensUtils.swift */,
 			);
 			path = ExplodingKittens;
 			sourceTree = "<group>";
@@ -600,6 +620,7 @@
 				2DA0506727DC4EEE0063D952 /* EndTurnAction.swift in Sources */,
 				2DA0508D27DC9D100063D952 /* StartTurnEvent.swift in Sources */,
 				2DA0511C27E1934B0063D952 /* GameRunnerInitOnly.swift in Sources */,
+				2D007F4E27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift in Sources */,
 				2DA04FF127DBBF880063D952 /* DisplayMessageAction.swift in Sources */,
 				2DA0514427E23E050063D952 /* DeckPositionRequestCardAction.swift in Sources */,
 				2DA0502127DC3FE60063D952 /* DisplayCardsAction.swift in Sources */,
@@ -615,10 +636,12 @@
 				2DA0504827DC4B130063D952 /* ShuffleDeckEvent.swift in Sources */,
 				2DA050B227DE5D760063D952 /* CardViewModel.swift in Sources */,
 				4E18ED0A27DF2BD000458D0A /* MoveCardPlayerToDeckEvent.swift in Sources */,
+				2D007F6727E34C7000F0E359 /* ExplodingKittensUtils.swift in Sources */,
 				2DA0505827DC4BDE0063D952 /* DisplayCardsEvent.swift in Sources */,
 				2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */,
 				4E94E70C27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift in Sources */,
 				2DA0505327DC4B460063D952 /* GameEvent.swift in Sources */,
+				2D007F4927E331D800F0E359 /* PlayerPlayCondition.swift in Sources */,
 				4E18ED0827DF2A5300458D0A /* PlayerDiscardCardEvent.swift in Sources */,
 				2DA0507E27DC9AB60063D952 /* SetGameStateEvent.swift in Sources */,
 				2D007F3627E24CF700F0E359 /* DeckPositionView.swift in Sources */,
@@ -629,6 +652,7 @@
 				2DA04F9527DAFFC30063D952 /* Player.swift in Sources */,
 				4E94E70A27E1BD73004ED4EF /* MoveCardPlayerToPlayerEvent.swift in Sources */,
 				2DA0509E27DC9F780063D952 /* GameRunnerView.swift in Sources */,
+				2D007F5427E3376600F0E359 /* IsCurrentPlayerPlayCondition.swift in Sources */,
 				4E18ED0C27DF2D4600458D0A /* PlayerInsertCardIntoDeckCardAction.swift in Sources */,
 				2DA050DA27DEFD1F0063D952 /* IncrementPlayerCardsPlayedEvent.swift in Sources */,
 				2DA0506227DC4CF50063D952 /* SetPlayerOutOfGameEvent.swift in Sources */,

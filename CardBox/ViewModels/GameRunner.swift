@@ -15,7 +15,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
-    internal var cardToReposition: Card?
+    internal var deckPositionRequestArgs: DeckPositionRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -65,8 +65,8 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         gameEvents.forEach { gameEvent in
             print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
-            notifyChanges()
         }
+        notifyChanges()
     }
 
     func setGameState(gameState: GameState) {
@@ -89,21 +89,17 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.isShowingDeckPositionRequest = false
     }
 
-    func setCardToReposition(_ card: Card) {
-        self.cardToReposition = card
+    func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs) {
+        self.deckPositionRequestArgs = args
     }
 
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
-        guard let card = cardToReposition else {
-            return
-        }
-
-        guard let player = players.currentPlayer else {
+        guard let args = deckPositionRequestArgs else {
             return
         }
 
         ActionDispatcher.runAction(
-            DeckPositionResponseAction(card: card, player: player, offsetFromTop: offsetFromTop),
+            DeckPositionResponseAction(card: args.card, player: args.player, offsetFromTop: offsetFromTop),
             on: self
         )
     }

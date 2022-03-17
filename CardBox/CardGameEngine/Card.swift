@@ -27,6 +27,10 @@ class Card: Identifiable {
     private var canPlayConditions: [CardPlayCondition]
     private var additionalParams: [String: String]
 
+    var description: String {
+        String(UInt(bitPattern: ObjectIdentifier(self)))
+    }
+
     init(name: String) {
         self.name = name
         self.cardDescription = ""
