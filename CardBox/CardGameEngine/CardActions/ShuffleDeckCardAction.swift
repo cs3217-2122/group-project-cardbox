@@ -6,7 +6,7 @@
 //
 
 struct ShuffleDeckCardAction: CardAction {
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, card: Card, player: Player, target: GameplayTarget) {
+    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         ShuffleDeckAction().executeGameEvents(gameRunner: gameRunner)
     }
 }
