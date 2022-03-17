@@ -6,7 +6,10 @@
 //
 
 enum ExplodingKittensCardType: String {
+    case attack = "attack"
     case bomb = "bomb"
+    case favor = "favor"
+    case nope = "nope"
     case seeTheFuture = "see-the-future"
     case shuffle = "shuffle"
     case skip = "skip"
@@ -14,4 +17,23 @@ enum ExplodingKittensCardType: String {
     case random1 = "random-1"
     case random2 = "random-2"
     case random3 = "random-3"
+    
+    var initialFrequency: Int {
+        switch self{
+        case .attack:
+            return 4
+        case .favor:
+            return 4
+        case .nope:
+            return 5
+        case .seeTheFuture:
+            return 5
+        case .shuffle:
+            return 4
+        case .skip:
+            return 4
+        case .random1, .random2, .random3:
+            return 4
+        }
+    }
 }

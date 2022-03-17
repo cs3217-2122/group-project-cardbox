@@ -133,19 +133,19 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         // 2. Add 4 Favor cards
         // 3. Add 5 Nope cards
 
-        for _ in 0 ..< ExplodingKittensInitialCardFrequencies.shuffle.rawValue {
+        for _ in 0 ..< ExplodingKittensCardType.shuffle.initialFrequency {
             cards.append(generateShuffleCard())
         }
 
-        for _ in 0 ..< ExplodingKittensInitialCardFrequencies.skip.rawValue {
+        for _ in 0 ..< ExplodingKittensCardType.skip.initialFrequency {
             cards.append(generateSkipCard())
         }
 
-        for _ in 0 ..< ExplodingKittensInitialCardFrequencies.seeTheFuture.rawValue {
+        for _ in 0 ..< ExplodingKittensCardType.seeTheFuture.initialFrequency {
             cards.append(generateSeeTheFutureCard())
         }
 
-        for _ in 0 ..< ExplodingKittensInitialCardFrequencies.random.rawValue {
+        for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
             cards.append(generateRandom1Card())
             cards.append(generateRandom2Card())
             cards.append(generateRandom3Card())
