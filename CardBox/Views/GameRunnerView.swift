@@ -13,6 +13,8 @@ struct GameRunnerView: View {
 
     var body: some View {
         ZStack {
+            Color.green
+                .ignoresSafeArea()
             VStack {
                 if let player3 = gameRunnerViewModel.players.getPlayerByIndex(2) {
                     PlayerView(player: player3, gameRunner: gameRunnerViewModel)

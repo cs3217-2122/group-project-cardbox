@@ -11,33 +11,44 @@ struct MainMenuView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
-        VStack {
-            Text("CardBox")
-                .font(.largeTitle)
-            Spacer()
-            Button {
-                appState.page = .game
-            } label: {
-                Text("Play Offline")
-                    .font(.title)
-                    .frame(width: 400, height: 100)
-                    .border(.black)
+        ZStack {
+            Color.red
+                .ignoresSafeArea()
+            VStack {
+                Spacer()
+                Text("CardBox")
+                    .font(.system(size: 50))
+                Spacer()
+                Button {
+                    appState.page = .game
+                } label: {
+                    Text("Play Offline")
+                        .font(.title)
+                        .frame(width: 400, height: 100)
+                        .border(.black)
+                        .foregroundColor(Color.orange)
+                        .background(Color.blue)
+                }
+                Button {
+                } label: {
+                    Text("Host Game")
+                        .font(.title)
+                        .frame(width: 400, height: 100)
+                        .border(.black)
+                        .foregroundColor(Color.orange)
+                        .background(Color.blue)
+                }
+                Button {
+                } label: {
+                    Text("Join Game")
+                        .font(.title)
+                        .frame(width: 400, height: 100)
+                        .border(.black)
+                        .foregroundColor(Color.orange)
+                        .background(Color.blue)
+                }
+                Spacer()
             }
-            Button {
-            } label: {
-                Text("Host Game")
-                    .font(.title)
-                    .frame(width: 400, height: 100)
-                    .border(.black)
-            }
-            Button {
-            } label: {
-                Text("Join Game")
-                    .font(.title)
-                    .frame(width: 400, height: 100)
-                    .border(.black)
-            }
-            Spacer()
         }
     }
 }
