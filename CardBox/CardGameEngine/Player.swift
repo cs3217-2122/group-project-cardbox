@@ -5,8 +5,6 @@
 //  Created by mactest on 10/03/2022.
 //
 
-typealias PlayerPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ cards: [Card], _ player: Player) -> Bool
-
 class Player: Identifiable {
     private(set) var hand: CardCollection
     private(set) var name: String
@@ -63,12 +61,15 @@ class Player: Identifiable {
         return hand.containsCard(where: predicate)
     }
 
-    func addCanPlayCondition(_ condition: @escaping PlayerPlayCondition) {
+    func addCanPlayCondition(_ condition: PlayerPlayCondition) {
         self.canPlayConditions.append(condition)
     }
 
     func canPlay(cards: [Card], gameRunner: GameRunnerReadOnly) -> Bool {
-        canPlayConditions.allSatisfy({ $0(gameRunner, cards, self) })
+        let args = PlayerPlayConditionArgs(cards: cards, player: self)
+        return canPlayConditions.allSatisfy({ condition in
+            condition.evaluate(gameRunner: gameRunner, args: args)
+        })
     }
 
     func endTurn(gameRunner: GameRunnerReadOnly) {

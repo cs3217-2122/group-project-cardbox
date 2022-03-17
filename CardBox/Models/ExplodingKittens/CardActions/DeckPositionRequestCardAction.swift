@@ -8,7 +8,7 @@
 struct DeckPositionRequestCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         gameRunner.executeGameEvents([
-            DeckPositionRequestEvent(card: args.card)
+            DeckPositionRequestEvent(card: args.card, player: args.player)
         ])
     }
 }
