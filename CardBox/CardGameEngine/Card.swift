@@ -46,13 +46,13 @@ class Card: Identifiable {
 
     func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
         self.onDrawActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: .none)
+            action.executeGameEvents(gameRunner: gameRunner, card: self, player: player, target: .none)
         }
     }
 
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
         self.onPlayActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: target)
+            action.executeGameEvents(gameRunner: gameRunner, card: self, player: player, target: target)
         }
     }
 

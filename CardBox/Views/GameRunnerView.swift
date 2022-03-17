@@ -15,6 +15,9 @@ struct GameRunnerView: View {
         deck
         player
         Button("End Turn", action: viewModel.endPlayerTurn)
+        if viewModel.isShowingDeckPositionRequest {
+            DeckPositionView(gameRunner: viewModel)
+        }
     }
 
     var deck: some View {

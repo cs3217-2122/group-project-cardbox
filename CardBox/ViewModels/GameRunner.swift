@@ -13,6 +13,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
+    // Exploding kitten specific variables
+    @Published internal var isShowingDeckPositionRequest = false
+    internal var cardToReposition: Card?
+
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
@@ -75,5 +79,32 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func endPlayerTurn() {
         ActionDispatcher.runAction(EndTurnAction(), on: self)
+    }
+
+    func showDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = true
+    }
+
+    func hideDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = false
+    }
+
+    func setCardToReposition(_ card: Card) {
+        self.cardToReposition = card
+    }
+
+    func dispatchDeckPositionResponse(offsetFromTop: Int) {
+        guard let card = cardToReposition else {
+            return
+        }
+
+        guard let player = players.currentPlayer else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            DeckPositionResponseAction(card: card, player: player, offsetFromTop: offsetFromTop),
+            on: self
+        )
     }
 }

@@ -73,7 +73,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             PlayerDiscardCardsAction(where: {
                 $0.getAdditionalParams(key: cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
             }),
-            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0)
+            DeckPositionRequestCardAction()
             // Need to find a way to obtain user input to choose where the user wants to input the card into the deck
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
