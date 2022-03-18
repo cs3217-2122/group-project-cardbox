@@ -11,15 +11,24 @@ struct GameActionsView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
 
     var body: some View {
-        Button {
-            gameRunnerViewModel.endPlayerTurn()
-        } label: {
-            Text("End")
-                .font(.title)
-                .frame(width: 70, height: 50)
-                .border(Color.black)
+        HStack {
+            Button {
+                gameRunnerViewModel.endPlayerTurn()
+            } label: {
+                Text("End")
+                    .font(.title)
+                    .frame(width: 70, height: 50)
+                    .border(Color.black)
+            }
+            Button {
+            } label: {
+                Text("Play")
+                    .font(.title)
+                    .frame(width: 70, height: 50)
+                    .border(Color.black)
+            }
         }
-        // TODO: Make error appear and fade out when button pressed and invalid combo
+        // TODO: Make error appear and fade out when button pressed and invalid combo 
         Text("Invalid combination")
     }
 }
