@@ -175,22 +175,71 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
     
     private static func initCardCombos() -> [CardCombo] {
-        let threeOfAKind: CardCombo = { cards in
-            guard cards.count == 3 else {
+        [generatePairCombo(), generateThreeOfAKindCombo(), generateFiveDifferentCardsCombo()]
+    }
+    
+    private static func generatePairCombo() -> CardCombo {
+        
+        let pair: CardCombo = { cards in
+            guard cards.count == 2 else {
                 return []
             }
-
-            if let cardType: String = cards[0].getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) {
-                if cards.allSatisfy({
-                    $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == cardType
-                }) {
-                    return []
-                }
+            
+            if allSameExplodingKittensCardType(cards) {
+                return []
             }
             
             return []
         }
         
-        return [threeOfAKind]
+        return pair
+    }
+    
+    private static func generateThreeOfAKindCombo() -> CardCombo {
+
+        let threeOfAKind: CardCombo = { cards in
+            guard cards.count == 3 else {
+                return []
+            }
+
+            if allSameExplodingKittensCardType(cards) {
+                    return []
+            }
+
+            return []
+        }
+
+        return threeOfAKind
+    }
+
+    private static func generateFiveDifferentCardsCombo() -> CardCombo {
+
+        let fiveDifferentCards: CardCombo = { cards in
+            guard cards.count == 5 else {
+                return []
+            }
+
+            if allDifferentExplodingKittensCardType(cards) {
+                return []
+            }
+
+            return []
+        }
+        
+        return fiveDifferentCards
+    }
+
+    private static func allSameExplodingKittensCardType(_ cards: [Card]) -> Bool {
+        if let cardType: String = cards[0].getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) {
+            return cards.allSatisfy({
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == cardType
+            })
+        }
+
+        return true
+    }
+    
+    private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
+        return false
     }
 }
