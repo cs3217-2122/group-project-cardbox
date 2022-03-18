@@ -16,23 +16,23 @@ struct GameRunnerView: View {
             Color.green
                 .ignoresSafeArea()
             VStack {
-                if let playerThreeViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(2) {
-                    PlayerView(playerViewModel: playerThreeViewModel)
+                if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
+                    PlayerView(playerViewModel: PlayerViewModel(player: player3))
                         .rotationEffect(.degrees(-180))
 
                 }
                 Spacer()
                 HStack {
-                    if let playerFourViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(3) {
-                        PlayerView(playerViewModel: playerFourViewModel)
+                    if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
+                        PlayerView(playerViewModel: PlayerViewModel(player: player4))
                             .rotationEffect(.degrees(90))
                     }
                     Spacer()
                     decks
                     playDeck
                     Spacer()
-                    if let playerTwoViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(1) {
-                        PlayerView(playerViewModel: playerTwoViewModel)
+                    if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
+                        PlayerView(playerViewModel: PlayerViewModel(player: player2))
                             .rotationEffect(.degrees(-90))
                     }
                 }
