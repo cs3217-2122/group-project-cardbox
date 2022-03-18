@@ -12,6 +12,6 @@ struct MoveCardPlayerToDeckEvent: GameEvent {
 
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         player.removeCard(card)
-        gameRunner.deck.addCard(card, at: gameRunner.deck.count - offsetFromTop)
+        gameRunner.deck.addCard(card, offsetFromTop: offsetFromTop)
     }
 }

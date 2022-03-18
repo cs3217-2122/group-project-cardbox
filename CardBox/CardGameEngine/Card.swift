@@ -27,6 +27,10 @@ class Card: Identifiable {
     private var canPlayConditions: [CardPlayCondition]
     private var additionalParams: [String: String]
 
+    var description: String {
+        String(UInt(bitPattern: ObjectIdentifier(self)))
+    }
+
     init(name: String) {
         self.name = name
         self.cardDescription = ""
@@ -45,14 +49,18 @@ class Card: Identifiable {
     }
 
     func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
+        let args = CardActionArgs(card: self, player: player, target: .none)
+
         self.onDrawActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: .none)
+            action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
     }
 
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
+        let args = CardActionArgs(card: self, player: player, target: target)
+
         self.onPlayActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: target)
+            action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
     }
 

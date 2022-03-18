@@ -7,6 +7,7 @@
 
 struct EndTurnAction: Action {
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
+<<<<<<< HEAD
         gameRunner.executeGameEvents([
             EndTurnEvent()
         ])
@@ -36,6 +37,11 @@ struct EndTurnAction: Action {
         }
 
         gameRunner.executeGameEvents([
+=======
+        gameRunner.executeGameEvents([
+            EndTurnEvent(),
+            AdvanceNextPlayerEvent(),
+>>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
             SetGameStateEvent(gameState: .start),
             StartTurnEvent()
         ])

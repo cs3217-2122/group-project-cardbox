@@ -28,10 +28,18 @@ class Player: Identifiable {
     }
 
     func addCard(_ card: Card) {
+        guard !isOutOfGame else {
+            return
+        }
+
         self.hand.addCard(card)
     }
 
     func removeCard(_ card: Card) {
+        guard !isOutOfGame else {
+            return
+        }
+
         self.hand.removeCard(card)
     }
 
@@ -40,24 +48,64 @@ class Player: Identifiable {
     }
 
     func hasCard(_ card: Card) -> Bool {
-        hand.containsCard(card)
+        guard !isOutOfGame else {
+            return false
+        }
+
+        return hand.containsCard(card)
     }
 
     func hasCard(where predicate: (Card) -> Bool) -> Bool {
-        hand.containsCard(where: predicate)
+        guard !isOutOfGame else {
+            return false
+        }
+
+        return hand.containsCard(where: predicate)
     }
 
+<<<<<<< HEAD
     func addCanPlayCondition(_ condition: @escaping PlayerPlayCondition) {
+=======
+    func addCanPlayCondition(_ condition: PlayerPlayCondition) {
+>>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
         self.canPlayConditions.append(condition)
     }
 
     func canPlay(cards: [Card], gameRunner: GameRunnerReadOnly) -> Bool {
+<<<<<<< HEAD
         canPlayConditions.allSatisfy({ $0(gameRunner, cards, self) })
     }
 
     func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
         let action = PlayCardAction(player: self, cards: cards, target: target)
         ActionDispatcher.runAction(action, on: gameRunner)
+=======
+        let args = PlayerPlayConditionArgs(cards: cards, player: self)
+        return canPlayConditions.allSatisfy({ condition in
+            condition.evaluate(gameRunner: gameRunner, args: args)
+        })
+    }
+
+    func endTurn(gameRunner: GameRunnerReadOnly) {
+        guard !isOutOfGame else {
+            return
+        }
+
+        ActionDispatcher.runAction(EndTurnAction(), on: gameRunner)
+>>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
+    }
+
+    func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
+        let action = PlayCardAction(player: self, cards: cards, target: target)
+        ActionDispatcher.runAction(action, on: gameRunner)
+    }
+
+    func getCardByIndex(_ index: Int) -> Card? {
+        guard !isOutOfGame else {
+            return nil
+        }
+
+        return hand.getCardByIndex(index)
     }
 
     func setOutOfGame(_ outOfGame: Bool) {

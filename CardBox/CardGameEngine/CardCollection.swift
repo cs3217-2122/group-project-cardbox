@@ -42,7 +42,7 @@ class CardCollection {
         cards.append(card)
     }
 
-    func addCard(_ card: Card, at index: Int) {
+    func addCard(_ card: Card, offsetFromTop index: Int) {
         cards.insert(card, at: index)
     }
 
