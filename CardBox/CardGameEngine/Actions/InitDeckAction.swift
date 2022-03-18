@@ -1,5 +1,4 @@
-struct InitDeckAction: Action {
-    let cards: [Card]
+struct InitDeckWithCardCombosAction: Action {
     let cardCombos: [CardCombo]
     
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
@@ -7,16 +6,11 @@ struct InitDeckAction: Action {
         guard gameRunner.state == .initialize else {
             return
         }
-
-        let addCards: [GameEvent] = cards.map { card in
-            AddCardToDeckEvent(card: card)
-        }
         
         let addCardCombos: [GameEvent] = cardCombos.map { cardCombo in
             AddCardComboToDeckEvent(cardCombo: cardCombo)
         }
 
-        gameRunner.executeGameEvents(addCards)
         gameRunner.executeGameEvents(addCardCombos)
     }
 }
