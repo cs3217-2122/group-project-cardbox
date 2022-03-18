@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerView: View {
     private var playerViewModel: PlayerViewModel
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
 
     init(playerViewModel: PlayerViewModel) {
         self.playerViewModel = playerViewModel

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NonCurrentPlayerView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
 
     var body: some View {
         VStack {

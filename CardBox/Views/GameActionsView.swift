@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameActionsView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
 
     var body: some View {
         HStack {
@@ -28,7 +28,7 @@ struct GameActionsView: View {
                     .border(Color.black)
             }
         }
-        // TODO: Make error appear and fade out when button pressed and invalid combo 
+        // TODO: Make error appear and fade out when button pressed and invalid combo
         Text("Invalid combination")
     }
 }

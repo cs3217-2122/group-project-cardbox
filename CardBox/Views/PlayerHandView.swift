@@ -10,7 +10,7 @@ import SwiftUI
 struct PlayerHandView: View {
     private var playerViewModel: PlayerViewModel
     private let playerHandViewModel: PlayerHandViewModel
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
 
     init(playerViewModel: PlayerViewModel, hand: CardCollection) {
         self.playerViewModel = playerViewModel

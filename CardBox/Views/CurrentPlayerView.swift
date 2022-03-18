@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CurrentPlayerView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
 
     var body: some View {
         if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
