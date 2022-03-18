@@ -64,10 +64,6 @@ class Card: Identifiable {
         }
     }
 
-    func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
-        canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
-    }
-
     func getAdditionalParams(key: String) -> String? {
         self.additionalParams[key]
     }
