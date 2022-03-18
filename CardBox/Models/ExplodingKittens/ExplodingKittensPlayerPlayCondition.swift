@@ -41,7 +41,7 @@ struct ExplodingKittensPlayerPlayCondition: PlayerPlayCondition {
         }
 
         if cards.count == 5 {
-            // TODO: Add this (Dlau)
+            return checkDifferentCards(cards: cards)
         }
 
         return false
