@@ -26,7 +26,7 @@ enum GameplayTarget {
 
 typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
 
-class Card: Identifiable {
+class Card: Identifiable, ExtendedProperties {
     private(set) var name: String
     private(set) var cardDescription: String
 
@@ -34,7 +34,7 @@ class Card: Identifiable {
     private var onPlayActions: [CardAction]
 
     private var canPlayConditions: [CardPlayCondition]
-    private var additionalParams: [String: String]
+    internal var additionalParams: [String: String]
 
     var description: String {
         String(UInt(bitPattern: ObjectIdentifier(self)))
@@ -71,13 +71,5 @@ class Card: Identifiable {
         self.onPlayActions.forEach { action in
             action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
-    }
-
-    func getAdditionalParams(key: String) -> String? {
-        self.additionalParams[key]
-    }
-
-    func setAdditionalParams(key: String, value: String) {
-        self.additionalParams[key] = value
     }
 }
