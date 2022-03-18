@@ -86,7 +86,18 @@ class Player: Identifiable {
             return
         }
         
-        let action = PlayCardAction(player: self, cards: cards, target: target)
+        let action: Action
+        let isCardCombo = cards.count > 1
+        
+        if isCardCombo {
+            action = PlayCardComboAction(player: self,
+                                         cards: cards,
+                                         target: target,
+                                         comboActions: gameRunner.deck.determineCardComboActions(cards))
+        } else {
+            action = PlayCardAction(player: self, cards: cards, target: target)
+        }
+        
         ActionDispatcher.runAction(action, on: gameRunner)
     }
 

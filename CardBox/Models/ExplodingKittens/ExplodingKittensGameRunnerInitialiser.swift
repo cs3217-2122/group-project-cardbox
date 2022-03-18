@@ -24,11 +24,12 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         // Distribute defuse cards
         let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
-        gameRunner.addSetupAction(InitDeckWithCardsAction(cards: defuseCards))
+        gameRunner.addSetupAction(InitDeckAction(cards: defuseCards, cardCombos: []))
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: numPlayers))
 
         let cards = initCards()
-        gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
+        let cardCombos = initCardCombos()
+        gameRunner.addSetupAction(InitDeckAction(cards: cards, cardCombos: cardCombos))
         gameRunner.addSetupAction(ShuffleDeckAction())
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 4))
 
@@ -171,5 +172,25 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         }
 
         return cards
+    }
+    
+    private static func initCardCombos() -> [CardCombo] {
+        let threeOfAKind: CardCombo = { cards in
+            guard cards.count == 3 else {
+                return []
+            }
+
+            if let cardType: String = cards[0].getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) {
+                if cards.allSatisfy({
+                    $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == cardType
+                }) {
+                    return []
+                }
+            }
+            
+            return []
+        }
+        
+        return [threeOfAKind]
     }
 }

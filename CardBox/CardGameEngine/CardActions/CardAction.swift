@@ -6,7 +6,7 @@
 //
 
 struct CardActionArgs {
-    let card: Card
+    let card: Card?
     let player: Player
     let target: GameplayTarget
 }

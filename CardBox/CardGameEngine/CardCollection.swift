@@ -5,13 +5,20 @@
 //  Created by mactest on 10/03/2022.
 //
 
+typealias CardCombo = (_ cards: [Card]) -> [CardAction]
+
 class CardCollection {
     private var cards: [Card] = []
+    private var cardCombos: [CardCombo] = []
 
     var count: Int {
         cards.count
     }
 
+    func addCardCombo(_ cardCombo: @escaping CardCombo) {
+        self.cardCombos.append(cardCombo)
+    }
+    
     func getFirstCard() -> Card? {
         if cards.isEmpty {
             return nil
@@ -60,5 +67,15 @@ class CardCollection {
 
     func shuffle() {
         self.cards.shuffle()
+    }
+    
+    func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
+        var cardComboActions: [CardAction] = []
+        
+        for cardCombo in cardCombos {
+            cardComboActions.append(contentsOf: cardCombo(cards))
+        }
+        
+        return cardComboActions
     }
 }
