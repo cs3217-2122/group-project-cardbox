@@ -12,12 +12,12 @@ struct GameActionsView: View {
 
     var body: some View {
         Button {
-            gameRunnerViewModel.onEndTurn()
+            gameRunnerViewModel.endPlayerTurn()
         } label: {
             Text("Next")
                 .font(.title)
                 .frame(width: 70, height: 50)
-                .border(.black)
+                .border(Color.black)
         }
         // TODO: Make error appear and fade out when button pressed and invalid combo
         Text("Invalid combination")

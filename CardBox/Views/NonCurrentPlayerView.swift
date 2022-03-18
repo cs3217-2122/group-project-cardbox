@@ -13,13 +13,14 @@ struct NonCurrentPlayerView: View {
     var body: some View {
         VStack {
             if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
-                PlayerView(player: player3)
+                PlayerView(playerViewModel: PlayerViewModel(player: player3))
                     .rotationEffect(.degrees(-180))
+
             }
             Spacer()
             HStack {
                 if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
-                    PlayerView(player: player4)
+                    PlayerView(playerViewModel: PlayerViewModel(player: player4))
                         .rotationEffect(.degrees(90))
                 }
                 Spacer()
@@ -27,7 +28,7 @@ struct NonCurrentPlayerView: View {
                 DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.gameplayArea))
                 Spacer()
                 if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
-                    PlayerView(player: player2)
+                    PlayerView(playerViewModel: PlayerViewModel(player: player2))
                         .rotationEffect(.degrees(-90))
                 }
             }
