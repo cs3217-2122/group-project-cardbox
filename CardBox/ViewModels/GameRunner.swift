@@ -73,4 +73,8 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
     func notifyChanges() {
         objectWillChange.send()
     }
+
+    func nextPlayer() {
+        onEndTurn()
+    }
 }

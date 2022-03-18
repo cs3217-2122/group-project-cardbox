@@ -16,14 +16,14 @@ struct GameRunnerView: View {
             Color.green
                 .ignoresSafeArea()
             VStack {
-                if let player3 = gameRunnerViewModel.players.getPlayerByIndex(2) {
+                if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
                     PlayerView(player: player3, gameRunner: gameRunnerViewModel)
                         .rotationEffect(.degrees(-180))
 
                 }
                 Spacer()
                 HStack {
-                    if let player4 = gameRunnerViewModel.players.getPlayerByIndex(3) {
+                    if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
                         PlayerView(player: player4, gameRunner: gameRunnerViewModel)
                             .rotationEffect(.degrees(90))
 
@@ -32,14 +32,15 @@ struct GameRunnerView: View {
                     decks
                     playDeck
                     Spacer()
-                    if let player2 = gameRunnerViewModel.players.getPlayerByIndex(1) {
+                    if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
                         PlayerView(player: player2, gameRunner: gameRunnerViewModel)
                             .rotationEffect(.degrees(-90))
                     }
                 }
                 Button {
+                    gameRunnerViewModel.nextPlayer()
                 } label: {
-                    Text("Play")
+                    Text("Next")
                         .font(.title)
                         .frame(width: 70, height: 50)
                         .border(.black)
@@ -47,8 +48,9 @@ struct GameRunnerView: View {
                 // TODO: Make error appear and fade out when button pressed and invalid combo
                 Text("Invalid combination")
                 Spacer()
-                if let player1 = gameRunnerViewModel.players.getPlayerByIndex(0) {
-                    PlayerView(player: player1, gameRunner: gameRunnerViewModel)
+
+                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+                    PlayerView(player: currentPlayer, gameRunner: gameRunnerViewModel)
                 }
 
             }

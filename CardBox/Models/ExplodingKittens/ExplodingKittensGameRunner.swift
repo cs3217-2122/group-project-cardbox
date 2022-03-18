@@ -24,6 +24,7 @@ class ExplodingKittensGameRunner {
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 2))
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
+        gameRunner.addEndTurnAction(AdvanceNextPlayerAction())
     }
 
     private static func generateBombCard() -> Card {
