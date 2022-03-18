@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class GameRunner: GameRunnerReadOnly, ObservableObject {
+class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, ObservableObject {
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var gameplayArea: CardCollection
@@ -76,5 +76,10 @@ class GameRunner: GameRunnerReadOnly, ObservableObject {
 
     func nextPlayer() {
         onEndTurn()
+    }
+
+    func getPlayerViewModelAfterCurrent(_ index: Int) -> PlayerViewModel? {
+        // TODO: fix
+        nil
     }
 }

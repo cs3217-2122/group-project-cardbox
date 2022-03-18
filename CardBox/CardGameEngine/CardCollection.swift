@@ -8,8 +8,8 @@
 class CardCollection {
     private var cards: [Card] = []
 
-    init() {
-
+    var count: Int {
+        cards.count
     }
 
     func getSize() -> Int {
@@ -50,8 +50,16 @@ class CardCollection {
         cards.insert(card, at: index)
     }
 
+    func containsCard(_ card: Card) -> Bool {
+        containsCard(where: { $0 === card })
+    }
+
     func getCards() -> [Card] {
         self.cards
+    }
+
+    func containsCard(where predicate: (Card) -> Bool) -> Bool {
+        cards.contains(where: predicate)
     }
 
     func shuffle() {

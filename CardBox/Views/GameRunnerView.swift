@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameRunnerView: View {
 
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner.generateGameRunner()
+    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
 
     var body: some View {
         ZStack {
@@ -26,7 +26,6 @@ struct GameRunnerView: View {
                     if let playerFourViewModel = gameRunnerViewModel.players.getPlayerViewModelAfterCurrent(3) {
                         PlayerView(playerViewModel: playerFourViewModel)
                             .rotationEffect(.degrees(90))
-
                     }
                     Spacer()
                     decks

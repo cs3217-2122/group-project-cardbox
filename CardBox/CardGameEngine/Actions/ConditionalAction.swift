@@ -7,16 +7,24 @@
 
 struct ConditionalAction: Action {
     let condition: (GameRunnerReadOnly) -> Bool
-    let isTrue: Action
-    let isFalse: Action?
+    let isTrueActions: [Action]
+    let isFalseActions: [Action]?
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
         let isConditionTrue = condition(gameRunner)
 
         if isConditionTrue {
-            isTrue.executeGameEvents(gameRunner: gameRunner)
+            for isTrueAction in isTrueActions {
+                isTrueAction.executeGameEvents(gameRunner: gameRunner)
+            }
         } else {
-            isFalse?.executeGameEvents(gameRunner: gameRunner)
+            guard let isFalseActions = isFalseActions else {
+                return
+            }
+
+            for isFalseAction in isFalseActions {
+                isFalseAction.executeGameEvents(gameRunner: gameRunner)
+            }
         }
     }
 }

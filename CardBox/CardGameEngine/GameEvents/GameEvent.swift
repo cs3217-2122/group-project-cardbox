@@ -1,3 +1,3 @@
 protocol GameEvent {
-    func updateRunner(gameRunner: GameRunner)
+    func updateRunner(gameRunner: GameRunnerUpdateOnly)
 }
