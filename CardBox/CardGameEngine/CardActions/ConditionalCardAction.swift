@@ -10,12 +10,15 @@ struct ConditionalCardAction: CardAction {
     let isTrueCardActions: [CardAction]
     let isFalseCardActions: [CardAction]?
 
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
+    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
+        let player = args.player
+        let target = args.target
+
         let isConditionTrue = condition(gameRunner, player, target)
 
         if isConditionTrue {
             for isTrueCardAction in isTrueCardActions {
-                isTrueCardAction.executeGameEvents(gameRunner: gameRunner, player: player, target: target)
+                isTrueCardAction.executeGameEvents(gameRunner: gameRunner, args: args)
             }
         } else {
             guard let isFalseCardActions = isFalseCardActions else {
@@ -23,7 +26,7 @@ struct ConditionalCardAction: CardAction {
             }
 
             for isFalseCardAction in isFalseCardActions {
-                isFalseCardAction.executeGameEvents(gameRunner: gameRunner, player: player, target: target)
+                isFalseCardAction.executeGameEvents(gameRunner: gameRunner, args: args)
             }
         }
     }

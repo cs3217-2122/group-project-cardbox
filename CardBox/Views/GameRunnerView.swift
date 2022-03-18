@@ -37,12 +37,12 @@ struct GameRunnerView: View {
                     }
                 }
                 Button {
-                    gameRunnerViewModel.nextPlayer()
+                    gameRunnerViewModel.endPlayerTurn()
                 } label: {
                     Text("Next")
                         .font(.title)
                         .frame(width: 70, height: 50)
-                        .border(.black)
+                        .border(Color.black)
                 }
                 // TODO: Make error appear and fade out when button pressed and invalid combo
                 Text("Invalid combination")
@@ -52,7 +52,6 @@ struct GameRunnerView: View {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
                     PlayerView(playerViewModel: PlayerViewModel(player: currentPlayer))
                 }
-
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))

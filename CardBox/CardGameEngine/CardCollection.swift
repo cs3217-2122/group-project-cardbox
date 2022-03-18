@@ -32,7 +32,7 @@ class CardCollection {
     }
 
     func getTopNCards(n: Int) -> [Card] {
-        Array(cards[0..<n])
+        Array(cards[0..<min(cards.count, n)])
     }
 
     func removeCard(_ card: Card) {
@@ -46,7 +46,7 @@ class CardCollection {
         cards.append(card)
     }
 
-    func addCard(_ card: Card, at index: Int) {
+    func addCard(_ card: Card, offsetFromTop index: Int) {
         cards.insert(card, at: index)
     }
 

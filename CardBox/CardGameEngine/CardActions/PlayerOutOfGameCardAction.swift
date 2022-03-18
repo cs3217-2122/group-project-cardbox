@@ -6,9 +6,9 @@
 //
 
 struct PlayerOutOfGameCardAction: CardAction {
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
+    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         gameRunner.executeGameEvents([
-            SetPlayerOutOfGameEvent(player: player)
+            SetPlayerOutOfGameEvent(player: args.player)
         ])
     }
 }

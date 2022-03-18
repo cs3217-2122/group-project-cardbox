@@ -8,8 +8,8 @@
 struct EndTurnAction: Action {
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
         gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent(),
             EndTurnEvent(),
+            AdvanceNextPlayerEvent(),
             SetGameStateEvent(gameState: .start),
             StartTurnEvent()
         ])

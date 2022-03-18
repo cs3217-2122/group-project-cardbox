@@ -8,7 +8,6 @@
 import SwiftUI
 
 class CardViewModel: ObservableObject {
-
     var card: Card?
     var isFaceUp: Bool
     @Published var isSelected: Bool

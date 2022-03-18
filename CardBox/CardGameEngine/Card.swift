@@ -15,7 +15,7 @@ enum GameplayTarget {
     }
 }
 
-typealias PlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
+typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
 
 class Card: Identifiable {
     private(set) var name: String
@@ -24,8 +24,12 @@ class Card: Identifiable {
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]
 
-    private var canPlayConditions: [PlayCondition]
+    private var canPlayConditions: [CardPlayCondition]
     private var additionalParams: [String: String]
+
+    var description: String {
+        String(UInt(bitPattern: ObjectIdentifier(self)))
+    }
 
     init(name: String) {
         self.name = name
@@ -45,19 +49,19 @@ class Card: Identifiable {
     }
 
     func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
+        let args = CardActionArgs(card: self, player: player, target: .none)
+
         self.onDrawActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: .none)
+            action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
     }
 
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
-        self.onPlayActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, player: player, target: target)
-        }
-    }
+        let args = CardActionArgs(card: self, player: player, target: target)
 
-    func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
-        canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
+        self.onPlayActions.forEach { action in
+            action.executeGameEvents(gameRunner: gameRunner, args: args)
+        }
     }
 
     func getAdditionalParams(key: String) -> String? {

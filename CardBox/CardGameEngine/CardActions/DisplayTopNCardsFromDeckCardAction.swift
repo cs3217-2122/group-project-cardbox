@@ -8,7 +8,7 @@
 struct DisplayTopNCardsFromDeckCardAction: CardAction {
     let n: Int
 
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, player: Player, target: GameplayTarget) {
+    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         let deck = gameRunner.deck
 
         let cards = deck.getTopNCards(n: self.n)

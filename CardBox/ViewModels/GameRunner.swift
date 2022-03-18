@@ -14,6 +14,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var state: GameState
     @Published internal var cardPreview: Card?
 
+    // Exploding kitten specific variables
+    @Published internal var isShowingDeckPositionRequest = false
+    internal var deckPositionRequestArgs: DeckPositionRequestArgs?
+
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
@@ -62,8 +66,8 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         gameEvents.forEach { gameEvent in
             print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
-            notifyChanges()
         }
+        notifyChanges()
     }
 
     func setGameState(gameState: GameState) {
@@ -74,12 +78,35 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         objectWillChange.send()
     }
 
-    func nextPlayer() {
-        onEndTurn()
-    }
-
     func getPlayerViewModelAfterCurrent(_ index: Int) -> PlayerViewModel? {
         // TODO: fix
         nil
+    }
+
+    func endPlayerTurn() {
+        ActionDispatcher.runAction(EndTurnAction(), on: self)
+    }
+
+    func showDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = true
+    }
+
+    func hideDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = false
+    }
+
+    func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs) {
+        self.deckPositionRequestArgs = args
+    }
+
+    func dispatchDeckPositionResponse(offsetFromTop: Int) {
+        guard let args = deckPositionRequestArgs else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            DeckPositionResponseAction(card: args.card, player: args.player, offsetFromTop: offsetFromTop),
+            on: self
+        )
     }
 }
