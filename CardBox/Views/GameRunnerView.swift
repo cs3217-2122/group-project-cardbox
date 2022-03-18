@@ -17,11 +17,14 @@ struct GameRunnerView: View {
             Color.green
                 .ignoresSafeArea()
             VStack {
-                NonCurrentPlayerView(error: $error)
+                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+                    let currentPlayerViewModel = PlayerViewModel(player: currentPlayer)
+                    NonCurrentPlayerView(error: $error, currentPlayerViewModel: currentPlayerViewModel)
 
-                Spacer()
+                    Spacer()
 
-                CurrentPlayerView(error: $error)
+                    CurrentPlayerView(error: $error, currentPlayerViewModel: currentPlayerViewModel)
+                }
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))

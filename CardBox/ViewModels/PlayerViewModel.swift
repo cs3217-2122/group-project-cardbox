@@ -52,10 +52,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func canPlayCard(gameRunner: GameRunner) -> Bool {
-        for card in selectedCards {
-            print(card.name)
-        }
-        return player.canPlay(cards: selectedCards, gameRunner: gameRunner)
+        player.canPlay(cards: selectedCards, gameRunner: gameRunner)
     }
 
     func previewCard(card: Card, gameRunner: GameRunner) {
@@ -75,6 +72,14 @@ class PlayerViewModel: ObservableObject {
             if gameRunner.cardPreview === card {
                 gameRunner.cardPreview = nil
             }
+        }
+    }
+
+    func playCards() {
+        // TODO: fill this up
+        print("play cards " + player.name)
+        for card in selectedCards {
+            print(card.name)
         }
     }
 }

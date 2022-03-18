@@ -10,16 +10,16 @@ import SwiftUI
 struct CurrentPlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
+    var currentPlayerViewModel: PlayerViewModel
 
     var body: some View {
-        if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
-            PlayerView(playerViewModel: PlayerViewModel(player: currentPlayer), error: $error)
-        }
+        PlayerView(playerViewModel: currentPlayerViewModel, error: $error)
     }
 }
 
 struct CurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentPlayerView(error: .constant(false))
+        CurrentPlayerView(error: .constant(false),
+                          currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
     }
 }

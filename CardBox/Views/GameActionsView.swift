@@ -10,6 +10,7 @@ import SwiftUI
 struct GameActionsView: View {
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
+    var currentPlayerViewModel: PlayerViewModel
 
     var body: some View {
         HStack {
@@ -22,6 +23,8 @@ struct GameActionsView: View {
                     .border(Color.black)
             }
             Button {
+                // TODO: add play functionality here
+                currentPlayerViewModel.playCards()
             } label: {
                 Text("Play")
                     .font(.title)
@@ -37,6 +40,6 @@ struct GameActionsView: View {
 
 struct GameActionsView_Previews: PreviewProvider {
     static var previews: some View {
-        GameActionsView(error: .constant(false))
+        GameActionsView(error: .constant(false), currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
     }
 }

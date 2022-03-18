@@ -10,6 +10,7 @@ import SwiftUI
 struct NonCurrentPlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
+    var currentPlayerViewModel: PlayerViewModel
 
     var body: some View {
         VStack {
@@ -33,13 +34,13 @@ struct NonCurrentPlayerView: View {
                         .rotationEffect(.degrees(-90))
                 }
             }
-            GameActionsView(error: $error)
+            GameActionsView(error: $error, currentPlayerViewModel: currentPlayerViewModel)
         }
     }
 }
 
 struct NonCurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        NonCurrentPlayerView(error: .constant(false))
+        NonCurrentPlayerView(error: .constant(false), currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
     }
 }
