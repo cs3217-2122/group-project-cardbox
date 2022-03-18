@@ -228,7 +228,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            return []
+            // TODO: Prompt player to choose a card
+            return [PlayerTakesChosenCardFromGameplayCardAction()]
         }
 
         return fiveDifferentCards
