@@ -12,6 +12,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var players: PlayerCollection
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
+    @Published internal var cardPreview: Card?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -71,5 +72,14 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func notifyChanges() {
         objectWillChange.send()
+    }
+
+    func nextPlayer() {
+        onEndTurn()
+    }
+
+    func getPlayerViewModelAfterCurrent(_ index: Int) -> PlayerViewModel? {
+        // TODO: fix
+        nil
     }
 }

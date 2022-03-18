@@ -14,7 +14,7 @@ struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
         guard let targetPlayerUnwrapped = targetPlayerWrapped else {
             return
         }
-        
+
         guard let card = targetPlayerUnwrapped.getCardByIndex(n) else {
             return
         }
@@ -23,9 +23,9 @@ struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
             MoveCardPlayerToPlayerEvent(card: card, fromPlayer: player, toPlayer: targetPlayerUnwrapped)
         ])
     }
-    
+
     private func getPlayerIfTargetSingle(target: GameplayTarget) -> Player? {
-        switch (target) {
+        switch target {
         case let .single(targetPlayer):
             return targetPlayer
         case .all, .none:

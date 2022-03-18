@@ -12,6 +12,10 @@ class CardCollection {
         cards.count
     }
 
+    func getSize() -> Int {
+        cards.count
+    }
+
     func getFirstCard() -> Card? {
         if cards.isEmpty {
             return nil
@@ -60,5 +64,11 @@ class CardCollection {
 
     func shuffle() {
         self.cards.shuffle()
+    }
+
+    func contains(card: Card) -> Bool {
+        self.cards.contains { cardObject in
+            cardObject === card
+        }
     }
 }

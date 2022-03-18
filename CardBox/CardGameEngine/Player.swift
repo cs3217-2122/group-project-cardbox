@@ -73,7 +73,7 @@ class Player: Identifiable {
 
         return hand.getCardByIndex(index)
     }
-    
+
     func setOutOfGame(_ outOfGame: Bool) {
         self.isOutOfGame = outOfGame
     }
