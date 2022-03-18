@@ -24,7 +24,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers,
                                                    canPlayConditions: playConditions,
                                                    cardCombos: cardCombos))
-    
+
         // Distribute defuse cards
         let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: defuseCards))
@@ -175,28 +175,28 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         return cards
     }
-    
+
     private static func initCardCombos() -> [CardCombo] {
         [generatePairCombo(), generateThreeOfAKindCombo(), generateFiveDifferentCardsCombo()]
     }
-    
+
     private static func generatePairCombo() -> CardCombo {
-        
+
         let pair: CardCombo = { cards in
             guard cards.count == 2 else {
                 return []
             }
-            
+
             if allSameExplodingKittensCardType(cards) {
                 return []
             }
-            
+
             return [PlayerTakesNthCardFromPlayerCardAction(n: -1, stateOfN: .random)]
         }
-        
+
         return pair
     }
-    
+
     private static func generateThreeOfAKindCombo() -> CardCombo {
 
         let threeOfAKind: CardCombo = { cards in
@@ -210,7 +210,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
             // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
             return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) ==
+                    ExplodingKittensCardType.defuse.rawValue
             })]
         }
 
@@ -244,7 +245,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         return true
     }
-    
+
     private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
         let cardTypes: [String] = cards.map({
             guard let cardType = $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) else {
@@ -253,7 +254,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             }
             return cardType
         })
-        let distinctCardTypes = Set<String>.init(cardTypes)
+        let distinctCardTypes = Set<String>(cardTypes)
 
         return distinctCardTypes.count == cardTypes.count
     }

@@ -18,7 +18,6 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var isShowingDeckPositionRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
 
-
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]

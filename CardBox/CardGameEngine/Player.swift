@@ -67,7 +67,7 @@ class Player: Identifiable {
 
         return hand.containsCard(where: predicate)
     }
-    
+
     func getCard(where predicate: (Card) -> Bool) -> Card? {
         self.hand.getCard(where: predicate)
     }
@@ -97,10 +97,10 @@ class Player: Identifiable {
             // TODO: change to exception
             return
         }
-        
+
         let action: Action
         let isCardCombo = cards.count > 1
-        
+
         if isCardCombo {
             action = PlayCardComboAction(player: self,
                                          cards: cards,
@@ -115,11 +115,11 @@ class Player: Identifiable {
 
     private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
         var cardComboActions: [CardAction] = []
-        
+
         for getCardCombo in cardCombos {
             cardComboActions.append(contentsOf: getCardCombo(cards))
         }
-        
+
         return cardComboActions
     }
 

@@ -6,7 +6,7 @@
 //
 
 struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
-    
+
     enum StateOfN {
         case random
         case given
@@ -33,7 +33,7 @@ struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
             MoveCardPlayerToPlayerEvent(card: card, fromPlayer: args.player, toPlayer: targetPlayerUnwrapped)
         ])
     }
-    
+
     private func getN(targetPlayer: Player) -> Int {
         if stateOfN == .given {
             return n

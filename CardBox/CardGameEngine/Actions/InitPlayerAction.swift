@@ -15,7 +15,7 @@ struct InitPlayerAction: Action {
             canPlayConditions.forEach { condition in
                 player.addCanPlayCondition(condition)
             }
-            
+
             cardCombos.forEach { cardCombo in
                 player.addCardCombo(cardCombo)
             }

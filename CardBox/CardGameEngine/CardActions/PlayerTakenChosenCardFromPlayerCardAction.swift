@@ -6,12 +6,12 @@
 //
 
 struct PlayerTakenChosenCardFromPlayerCardAction: CardAction {
-    
+
     let cardPredicate: (Card) -> Bool
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         let targetPlayerWrapped = args.target.getPlayerIfTargetSingle()
-    
+
         guard let targetPlayerUnwrapped = targetPlayerWrapped else {
             return
         }

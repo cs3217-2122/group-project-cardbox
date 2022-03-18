@@ -84,7 +84,7 @@
 		4E18ED0E27E1B27300458D0A /* AdvanceNextPlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0D27E1B27300458D0A /* AdvanceNextPlayerEvent.swift */; };
 		4E94E70C27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E70B27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift */; };
 		4E94E71027E4C1FE004ED4EF /* PlayCardComboAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E70F27E4C1FE004ED4EF /* PlayCardComboAction.swift */; };
-		4E94E71227E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71127E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift */; };
+		4E94E71227E4D7C1004ED4EF /* AddCardComboToPlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71127E4D7C1004ED4EF /* AddCardComboToPlayerEvent.swift */; };
 		4E94E71427E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71327E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift */; };
 		4E94E71627E4F883004ED4EF /* InitDeckWithCardsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71527E4F883004ED4EF /* InitDeckWithCardsAction.swift */; };
 		4E94E71827E4FAE8004ED4EF /* PlayerTakesChosenCardFromGameplayCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71727E4FAE8004ED4EF /* PlayerTakesChosenCardFromGameplayCardAction.swift */; };
@@ -197,7 +197,7 @@
 		4E18ED0D27E1B27300458D0A /* AdvanceNextPlayerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvanceNextPlayerEvent.swift; sourceTree = "<group>"; };
 		4E94E70B27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTakesNthCardFromPlayerCardAction.swift; sourceTree = "<group>"; };
 		4E94E70F27E4C1FE004ED4EF /* PlayCardComboAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCardComboAction.swift; sourceTree = "<group>"; };
-		4E94E71127E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardComboToDeckEvent.swift; sourceTree = "<group>"; };
+		4E94E71127E4D7C1004ED4EF /* AddCardComboToPlayerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardComboToPlayerEvent.swift; sourceTree = "<group>"; };
 		4E94E71327E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTakenChosenCardFromPlayerCardAction.swift; sourceTree = "<group>"; };
 		4E94E71527E4F883004ED4EF /* InitDeckWithCardsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitDeckWithCardsAction.swift; sourceTree = "<group>"; };
 		4E94E71727E4FAE8004ED4EF /* PlayerTakesChosenCardFromGameplayCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTakesChosenCardFromGameplayCardAction.swift; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				2DA0504127DC4B130063D952 /* AddCardToDeckEvent.swift */,
-				4E94E71127E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift */,
+				4E94E71127E4D7C1004ED4EF /* AddCardComboToPlayerEvent.swift */,
 				2DA0504227DC4B130063D952 /* AddCardToPlayerEvent.swift */,
 				2DA0503E27DC4B130063D952 /* AddPlayerEvent.swift */,
 				2DA0503D27DC4B130063D952 /* MoveCardDeckToPlayerEvent.swift */,
@@ -632,7 +632,7 @@
 				2DA050DF27DEFDE80063D952 /* ResetPlayerCardsPlayedEvent.swift in Sources */,
 				2DA0503227DC44F60063D952 /* DrawCardFromDeckToCurrentPlayerAction.swift in Sources */,
 				2DA050B727DE5EC70063D952 /* PlayerView.swift in Sources */,
-				4E94E71227E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift in Sources */,
+				4E94E71227E4D7C1004ED4EF /* AddCardComboToPlayerEvent.swift in Sources */,
 				2DA0502827DC41EA0063D952 /* DisplayTopNCardsFromDeckCardAction.swift in Sources */,
 				2DA0509227DC9D4A0063D952 /* EndTurnEvent.swift in Sources */,
 				4589AB1C27E14AF3005FDA07 /* DeckView.swift in Sources */,

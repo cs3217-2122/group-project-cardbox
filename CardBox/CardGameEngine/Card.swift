@@ -13,7 +13,7 @@ enum GameplayTarget {
             return "single"
         }
     }
-    
+
     func getPlayerIfTargetSingle() -> Player? {
         switch self {
         case let .single(targetPlayer):
@@ -64,7 +64,7 @@ class Card: Identifiable {
             action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
     }
-    
+
     func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
         canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
     }

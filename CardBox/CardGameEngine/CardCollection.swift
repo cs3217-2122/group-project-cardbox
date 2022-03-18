@@ -57,7 +57,7 @@ class CardCollection {
     func getCards() -> [Card] {
         self.cards
     }
-    
+
     func getCard(where predicate: (Card) -> Bool) -> Card? {
         for card in cards {
             if predicate(card) {
@@ -74,7 +74,7 @@ class CardCollection {
     func shuffle() {
         self.cards.shuffle()
     }
-    
+
     func contains(card: Card) -> Bool {
         self.cards.contains { cardObject in
             cardObject === card
