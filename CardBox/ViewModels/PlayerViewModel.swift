@@ -44,6 +44,20 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
+    func isCurrentPlayer(gameRunner: GameRunner) -> Bool {
+        guard let currentPlayer = gameRunner.players.currentPlayer else {
+            return false
+        }
+        return currentPlayer === player
+    }
+
+    func canPlayCard(gameRunner: GameRunner) -> Bool {
+        for card in selectedCards {
+            print(card.name)
+        }
+        return player.canPlay(cards: selectedCards, gameRunner: gameRunner)
+    }
+
     func previewCard(card: Card, gameRunner: GameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return

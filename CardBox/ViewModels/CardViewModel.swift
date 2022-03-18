@@ -35,7 +35,7 @@ class CardViewModel: ObservableObject {
 
     init(card: Card? = nil, isFaceUp: Bool = false) {
         self.card = card
-        self.isFaceUp = false
+        self.isFaceUp = isFaceUp
         self.isSelected = false
     }
 }

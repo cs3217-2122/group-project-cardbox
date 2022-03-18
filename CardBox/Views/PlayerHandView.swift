@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct PlayerHandView: View {
-    private var playerViewModel: PlayerViewModel
-    private let playerHandViewModel: PlayerHandViewModel
+    var playerViewModel: PlayerViewModel
+    let playerHandViewModel: PlayerHandViewModel
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
-
-    init(playerViewModel: PlayerViewModel, hand: CardCollection) {
-        self.playerViewModel = playerViewModel
-        self.playerHandViewModel = PlayerHandViewModel(hand: hand)
-    }
+    @Binding var error: Bool
 
     var spacing: Double {
         let size = playerHandViewModel.getSize()
@@ -27,12 +23,15 @@ struct PlayerHandView: View {
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(card: card, isFaceUp: true)
+                let cardViewModel = CardViewModel(card: card,
+                                                  isFaceUp: playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
-                        print("tap card")
-                        playerViewModel
-                            .tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                        if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                            playerViewModel
+                                .tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                            error = !playerViewModel.canPlayCard(gameRunner: gameRunnerViewModel)
+                        }
                     }
                     .gesture(
                         DragGesture(minimumDistance: 0.0)

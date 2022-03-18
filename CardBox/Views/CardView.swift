@@ -24,23 +24,25 @@ struct CardView: View {
                         .fontWeight(.bold)
                 )
             }
-            return AnyView(
-                VStack {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .aspectRatio(2.0, contentMode: .fill)
-                        .frame(maxWidth: 100, maxHeight: 100)
-                        .border(Color.black)
-                        .padding(.top)
-                    Text(card.name)
-                        .fontWeight(.bold)
-                    Text(card.cardDescription)
-                        .font(.caption)
-                    Spacer()
-                }
-            )
-
+            if isFaceUp {
+                return AnyView(
+                    VStack {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .aspectRatio(2.0, contentMode: .fill)
+                            .frame(maxWidth: 100, maxHeight: 100)
+                            .border(Color.black)
+                            .padding(.top)
+                        Text(card.name)
+                            .fontWeight(.bold)
+                        Text(card.cardDescription)
+                            .font(.caption)
+                        Spacer()
+                    })
+            } else {
+                return AnyView(Text("Back of card"))
+            }
         } else {
             return AnyView(
                 Text("No card in stack")
