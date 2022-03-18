@@ -240,6 +240,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
     
     private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
+        // cards.map({ $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) })
         return false
     }
 }

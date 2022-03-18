@@ -72,8 +72,8 @@ class CardCollection {
     func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
         var cardComboActions: [CardAction] = []
         
-        for cardCombo in cardCombos {
-            cardComboActions.append(contentsOf: cardCombo(cards))
+        for getCardCombo in cardCombos {
+            cardComboActions.append(contentsOf: getCardCombo(cards))
         }
         
         return cardComboActions
