@@ -5,18 +5,11 @@
 //  Created by mactest on 10/03/2022.
 //
 
-typealias CardCombo = (_ cards: [Card]) -> [CardAction]
-
 class CardCollection {
     private var cards: [Card] = []
-    private var cardCombos: [CardCombo] = []
 
     var count: Int {
         cards.count
-    }
-
-    func addCardCombo(_ cardCombo: @escaping CardCombo) {
-        self.cardCombos.append(cardCombo)
     }
 
     func getSize() -> Int {
@@ -86,15 +79,5 @@ class CardCollection {
         self.cards.contains { cardObject in
             cardObject === card
         }
-    }
-    
-    func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
-        var cardComboActions: [CardAction] = []
-        
-        for getCardCombo in cardCombos {
-            cardComboActions.append(contentsOf: getCardCombo(cards))
-        }
-        
-        return cardComboActions
     }
 }

@@ -5,6 +5,8 @@
 //  Created by mactest on 10/03/2022.
 //
 
+typealias CardCombo = (_ cards: [Card]) -> [CardAction]
+
 class Player: Identifiable {
     private(set) var hand: CardCollection
     private(set) var name: String
@@ -13,6 +15,7 @@ class Player: Identifiable {
     private(set) var cardsPlayed = 0
 
     private var canPlayConditions: [PlayerPlayCondition]
+    private var cardCombos: [CardCombo] = []
 
     var description: String {
         name
@@ -23,6 +26,10 @@ class Player: Identifiable {
         self.name = name
 
         self.canPlayConditions = []
+    }
+
+    func addCardCombo(_ cardCombo: @escaping CardCombo) {
+        self.cardCombos.append(cardCombo)
     }
 
     func addCard(_ card: Card) {
@@ -98,12 +105,22 @@ class Player: Identifiable {
             action = PlayCardComboAction(player: self,
                                          cards: cards,
                                          target: target,
-                                         comboActions: gameRunner.deck.determineCardComboActions(cards))
+                                         comboActions: determineCardComboActions(cards))
         } else {
             action = PlayCardAction(player: self, cards: cards, target: target)
         }
 
         ActionDispatcher.runAction(action, on: gameRunner)
+    }
+
+    private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
+        var cardComboActions: [CardAction] = []
+        
+        for getCardCombo in cardCombos {
+            cardComboActions.append(contentsOf: getCardCombo(cards))
+        }
+        
+        return cardComboActions
     }
 
     func getCardByIndex(_ index: Int) -> Card? {

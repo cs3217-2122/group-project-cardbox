@@ -20,11 +20,11 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         let numPlayers = 4
 
         let playConditions = initCardPlayConditions()
-        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers, canPlayConditions: playConditions))
-        
         let cardCombos = initCardCombos()
-        gameRunner.addSetupAction(InitDeckWithCardCombosAction(cardCombos: cardCombos))
-
+        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers,
+                                                   canPlayConditions: playConditions,
+                                                   cardCombos: cardCombos))
+    
         // Distribute defuse cards
         let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: defuseCards))
