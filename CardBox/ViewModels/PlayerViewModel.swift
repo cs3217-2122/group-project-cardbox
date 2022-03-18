@@ -30,6 +30,7 @@ class PlayerViewModel: ObservableObject {
                     }) {
                         selectedCards.remove(at: indexOf)
                     }
+                    // remove from selected cards at gamerunner as well
                     cardViewModel.isSelected = false
                 }
             } else {
@@ -37,6 +38,7 @@ class PlayerViewModel: ObservableObject {
                     print("contains")
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
+                    // append to selected cards at gamerunner
                 }
             }
         }

@@ -10,12 +10,11 @@ import SwiftUI
 struct PlayerHandView: View {
     private var playerViewModel: PlayerViewModel
     private let playerHandViewModel: PlayerHandViewModel
-    @ObservedObject var gameRunner: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
 
-    init(playerViewModel: PlayerViewModel, hand: CardCollection, gameRunner: GameRunner) {
+    init(playerViewModel: PlayerViewModel, hand: CardCollection) {
         self.playerViewModel = playerViewModel
         self.playerHandViewModel = PlayerHandViewModel(hand: hand)
-        self.gameRunner = gameRunner
     }
 
     var spacing: Double {
@@ -32,15 +31,15 @@ struct PlayerHandView: View {
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
                         print("tap card")
-                        playerViewModel.tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunner)
+                        playerViewModel.tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
                     }
                     .gesture(
                         DragGesture(minimumDistance: 0.0)
                             .onChanged { _ in
-                                playerViewModel.previewCard(card: card, gameRunner: gameRunner)
+                                playerViewModel.previewCard(card: card, gameRunner: gameRunnerViewModel)
                             }
                             .onEnded { _ in
-                                playerViewModel.unpreviewCard(card: card, gameRunner: gameRunner)
+                                playerViewModel.unpreviewCard(card: card, gameRunner: gameRunnerViewModel)
                             }
                     )
             }

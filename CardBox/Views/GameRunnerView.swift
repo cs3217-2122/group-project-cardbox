@@ -16,15 +16,15 @@ struct GameRunnerView: View {
             Color.green
                 .ignoresSafeArea()
             VStack {
-                if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
-                    PlayerView(player: player3, gameRunner: gameRunnerViewModel)
+                if let playerThreeViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(2) {
+                    PlayerView(playerViewModel: playerThreeViewModel)
                         .rotationEffect(.degrees(-180))
 
                 }
                 Spacer()
                 HStack {
-                    if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
-                        PlayerView(player: player4, gameRunner: gameRunnerViewModel)
+                    if let playerFourViewModel = gameRunnerViewModel.players.getPlayerViewModelAfterCurrent(3) {
+                        PlayerView(playerViewModel: playerFourViewModel)
                             .rotationEffect(.degrees(90))
 
                     }
@@ -32,8 +32,8 @@ struct GameRunnerView: View {
                     decks
                     playDeck
                     Spacer()
-                    if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
-                        PlayerView(player: player2, gameRunner: gameRunnerViewModel)
+                    if let playerTwoViewModel = gameRunnerViewModel.players.getPlayerViewModelAfterCurrent(1) {
+                        PlayerView(playerViewModel: playerTwoViewModel)
                             .rotationEffect(.degrees(-90))
                     }
                 }
@@ -49,15 +49,15 @@ struct GameRunnerView: View {
                 Text("Invalid combination")
                 Spacer()
 
-                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
-                    PlayerView(player: currentPlayer, gameRunner: gameRunnerViewModel)
+                if let currentPlayerViewModel = gameRunnerViewModel.players.getCurrentPlayerViewModel() {
+                    PlayerView(playerViewModel: currentPlayerViewModel)
                 }
 
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
             }
-        }
+        }.environmentObject(gameRunnerViewModel)
     }
 
     var decks: some View {

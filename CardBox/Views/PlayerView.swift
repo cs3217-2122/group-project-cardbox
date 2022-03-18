@@ -9,17 +9,20 @@ import SwiftUI
 
 struct PlayerView: View {
     private var playerViewModel: PlayerViewModel
-    @ObservedObject var gameRunner: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
 
-    init(player: Player, gameRunner: GameRunner) {
-        self.playerViewModel = PlayerViewModel(player: player)
-        self.gameRunner = gameRunner
+//    init(player: Player) {
+//        self.playerViewModel = PlayerViewModel(player: player)
+//    }
+
+    init(playerViewModel: PlayerViewModel) {
+        self.playerViewModel = playerViewModel
     }
 
     var body: some View {
         VStack {
             Text(playerViewModel.player.name)
-            PlayerHandView(playerViewModel: playerViewModel, hand: playerViewModel.player.hand, gameRunner: gameRunner)
+            PlayerHandView(playerViewModel: playerViewModel, hand: playerViewModel.player.hand)
         }
     }
 }
