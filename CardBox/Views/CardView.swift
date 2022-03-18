@@ -56,7 +56,7 @@ struct CardView: View {
             .frame(width: 150, height: 250)
             .background(Color.white)
             .border(Color.black)
-            .offset(y: viewModel.isSelected ? -30: 0)
+            .offset(y: viewModel.isSelected ? -50: 0)
     }
 }
 

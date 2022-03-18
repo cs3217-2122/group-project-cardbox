@@ -14,7 +14,7 @@ struct GameActionsView: View {
         Button {
             gameRunnerViewModel.endPlayerTurn()
         } label: {
-            Text("Next")
+            Text("End")
                 .font(.title)
                 .frame(width: 70, height: 50)
                 .border(Color.black)
