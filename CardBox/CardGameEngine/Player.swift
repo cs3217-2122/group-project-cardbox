@@ -60,6 +60,10 @@ class Player: Identifiable {
 
         return hand.containsCard(where: predicate)
     }
+    
+    func getCard(where predicate: (Card) -> Bool) -> Card? {
+        self.hand.getCard(where: predicate)
+    }
 
     func addCanPlayCondition(_ condition: PlayerPlayCondition) {
         self.canPlayConditions.append(condition)

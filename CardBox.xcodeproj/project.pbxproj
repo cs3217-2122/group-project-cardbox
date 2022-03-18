@@ -81,6 +81,7 @@
 		4E94E70C27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E70B27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift */; };
 		4E94E71027E4C1FE004ED4EF /* PlayCardComboAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E70F27E4C1FE004ED4EF /* PlayCardComboAction.swift */; };
 		4E94E71227E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71127E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift */; };
+		4E94E71427E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71327E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift */; };
 		4EBA47A327DEF71200EE5C74 /* ShuffleDeckCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47A227DEF71200EE5C74 /* ShuffleDeckCardAction.swift */; };
 		4EBA47A527DEFD0D00EE5C74 /* SkipTurnCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47A427DEFD0D00EE5C74 /* SkipTurnCardAction.swift */; };
 		4EBA47AB27DF149100EE5C74 /* GameRunnerInitialiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47AA27DF149100EE5C74 /* GameRunnerInitialiser.swift */; };
@@ -185,6 +186,7 @@
 		4E94E70B27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTakesNthCardFromPlayerCardAction.swift; sourceTree = "<group>"; };
 		4E94E70F27E4C1FE004ED4EF /* PlayCardComboAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayCardComboAction.swift; sourceTree = "<group>"; };
 		4E94E71127E4D7C1004ED4EF /* AddCardComboToDeckEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardComboToDeckEvent.swift; sourceTree = "<group>"; };
+		4E94E71327E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTakenChosenCardFromPlayerCardAction.swift; sourceTree = "<group>"; };
 		4EBA47A227DEF71200EE5C74 /* ShuffleDeckCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleDeckCardAction.swift; sourceTree = "<group>"; };
 		4EBA47A427DEFD0D00EE5C74 /* SkipTurnCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipTurnCardAction.swift; sourceTree = "<group>"; };
 		4EBA47AA27DF149100EE5C74 /* GameRunnerInitialiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRunnerInitialiser.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				4E18ED0527DF285F00458D0A /* PlayerDiscardCardsAction.swift */,
 				4E18ED0B27DF2D4600458D0A /* PlayerInsertCardIntoDeckCardAction.swift */,
 				4E94E70B27E1BFDA004ED4EF /* PlayerTakesNthCardFromPlayerCardAction.swift */,
+				4E94E71327E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift */,
 			);
 			path = CardActions;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				2DA050A327DE58250063D952 /* ActionDispatcher.swift in Sources */,
 				2DA04FFE27DBC9120063D952 /* InitPlayerAction.swift in Sources */,
 				2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */,
+				4E94E71427E4F4A8004ED4EF /* PlayerTakenChosenCardFromPlayerCardAction.swift in Sources */,
 				2DA04F7927DAE9540063D952 /* CardCollection.swift in Sources */,
 				2DA050BC27DE5ED90063D952 /* PlayerViewModel.swift in Sources */,
 				2DA050AD27DE5D570063D952 /* CardView.swift in Sources */,

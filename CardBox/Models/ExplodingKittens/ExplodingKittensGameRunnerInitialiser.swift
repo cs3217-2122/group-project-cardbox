@@ -100,7 +100,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func generateFavorCard() -> Card {
         let card = Card(name: "Favor")
         // Similar to generate bomb card, needs user input to choose n
-        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0))
+        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0, stateOfN: .given))
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.favor)
         return card
     }
@@ -189,7 +189,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
             
-            return []
+            return [PlayerTakesNthCardFromPlayerCardAction(n: -1, stateOfN: .random)]
         }
         
         return pair
@@ -202,7 +202,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            if allSameExplodingKittensCardType(cards) {
+            guard allSameExplodingKittensCardType(cards) else {
                     return []
             }
 
@@ -220,7 +220,10 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             }
 
             if allDifferentExplodingKittensCardType(cards) {
-                return []
+                // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
+                return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
+                    $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
+                })]
             }
 
             return []
@@ -240,7 +243,15 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
     
     private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
-        // cards.map({ $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) })
-        return false
+        let cardTypes: [String] = cards.map({
+            guard let cardType = $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) else {
+                // TODO: Exception or assert(false)
+                return ""
+            }
+            return cardType
+        })
+        let distinctCardTypes = Set<String>.init(cardTypes)
+
+        return distinctCardTypes.count == cardTypes.count
     }
 }

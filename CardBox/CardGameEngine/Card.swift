@@ -13,6 +13,15 @@ enum GameplayTarget {
             return "single"
         }
     }
+    
+    func getPlayerIfTargetSingle() -> Player? {
+        switch self {
+        case let .single(targetPlayer):
+            return targetPlayer
+        case .all, .none:
+            return nil
+        }
+    }
 }
 
 typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
