@@ -57,6 +57,11 @@ class Card: Identifiable {
     }
 
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
+        guard canPlay(by: player, gameRunner: gameRunner, on: target) else {
+            // TODO: Change to exception
+            return
+        }
+        
         let args = CardActionArgs(card: self, player: player, target: target)
 
         self.onPlayActions.forEach { action in

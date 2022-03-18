@@ -5,8 +5,6 @@
 //  Created by mactest on 10/03/2022.
 //
 
-typealias PlayerPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ cards: [Card], _ player: Player) -> Bool
-
 class Player: Identifiable {
     private(set) var hand: CardCollection
     private(set) var name: String
@@ -63,23 +61,11 @@ class Player: Identifiable {
         return hand.containsCard(where: predicate)
     }
 
-<<<<<<< HEAD
-    func addCanPlayCondition(_ condition: @escaping PlayerPlayCondition) {
-=======
     func addCanPlayCondition(_ condition: PlayerPlayCondition) {
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
         self.canPlayConditions.append(condition)
     }
 
     func canPlay(cards: [Card], gameRunner: GameRunnerReadOnly) -> Bool {
-<<<<<<< HEAD
-        canPlayConditions.allSatisfy({ $0(gameRunner, cards, self) })
-    }
-
-    func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
-        let action = PlayCardAction(player: self, cards: cards, target: target)
-        ActionDispatcher.runAction(action, on: gameRunner)
-=======
         let args = PlayerPlayConditionArgs(cards: cards, player: self)
         return canPlayConditions.allSatisfy({ condition in
             condition.evaluate(gameRunner: gameRunner, args: args)
@@ -92,10 +78,14 @@ class Player: Identifiable {
         }
 
         ActionDispatcher.runAction(EndTurnAction(), on: gameRunner)
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
     }
 
     func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
+        guard canPlay(cards: cards, gameRunner: gameRunner) else {
+            // TODO: change to exception
+            return
+        }
+        
         let action = PlayCardAction(player: self, cards: cards, target: target)
         ActionDispatcher.runAction(action, on: gameRunner)
     }

@@ -80,8 +80,6 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func endPlayerTurn() {
         ActionDispatcher.runAction(EndTurnAction(), on: self)
     }
-<<<<<<< HEAD
-=======
 
     func showDeckPositionRequest() {
         self.isShowingDeckPositionRequest = true
@@ -105,5 +103,4 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
             on: self
         )
     }
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
 }

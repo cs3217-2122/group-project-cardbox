@@ -11,17 +11,17 @@ struct PlayCardAction: Action {
     let target: GameplayTarget
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
-        guard player.canPlay(cards: cards, gameRunner: gameRunner) else {
-            // TODO: change to exception
-            return
-        }
 
-        gameRunner.executeGameEvents([
-            IncrementPlayerCardsPlayedEvent(player: player)
-        ])
-
-        cards.forEach { card in
+        for card in cards {
+            guard card.canPlay(by: player, gameRunner: gameRunner, on: target) else {
+                continue
+            }
+            
             card.onPlay(gameRunner: gameRunner, player: player, on: target)
+
+            gameRunner.executeGameEvents([
+                IncrementPlayerCardsPlayedEvent(player: player)
+            ])
         }
 
         let moveCardsEvents = cards.map { card in

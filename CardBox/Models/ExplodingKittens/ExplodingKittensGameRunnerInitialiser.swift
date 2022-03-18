@@ -45,29 +45,15 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func initCardPlayConditions() -> [PlayerPlayCondition] {
         var conditions: [PlayerPlayCondition] = []
 
-<<<<<<< HEAD
-        let isPlayerTurnCondition: PlayerPlayCondition = { gameRunner, _, player in
-            gameRunner.players.currentPlayer === player
-        }
-        conditions.append(isPlayerTurnCondition)
-
-        let playerAlreadyPlayCondition: PlayerPlayCondition = { _, _, _ in
-            true
-        }
-        conditions.append(playerAlreadyPlayCondition)
-=======
         let isPlayerTurnCondition: PlayerPlayCondition = IsCurrentPlayerPlayCondition()
         conditions.append(isPlayerTurnCondition)
 
         let ekCondition = ExplodingKittensPlayerPlayCondition()
         conditions.append(ekCondition)
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
 
         return conditions
     }
 
-<<<<<<< HEAD
-=======
     private static func generateAttackCard() -> Card {
         let card = Card(name: "Attack")
         card.addPlayAction(SkipTurnCardAction())
@@ -76,7 +62,6 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         return card
     }
 
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
     private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb")
         let isTrueCardActions: [CardAction] = [
@@ -87,11 +72,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
                 return cardType == ExplodingKittensCardType.defuse
             }),
-<<<<<<< HEAD
-            PlayerInsertCardIntoDeckCardAction(card: card, offsetFromTop: 0)
-=======
             DeckPositionRequestCardAction()
->>>>>>> f934cefe771b291b2ad8cdd39666a5565116b753
             // Need to find a way to obtain user input to choose where the user wants to input the card into the deck
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
@@ -160,24 +141,6 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func generateRandom3Card() -> Card {
         let card = Card(name: "Random 3")
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.random3)
-        return card
-    }
-
-    private static func generateRandom1Card() -> Card {
-        let card = Card(name: "Random 1")
-        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random1.rawValue)
-        return card
-    }
-
-    private static func generateRandom2Card() -> Card {
-        let card = Card(name: "Random 2")
-        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random2.rawValue)
-        return card
-    }
-
-    private static func generateRandom3Card() -> Card {
-        let card = Card(name: "Random 3")
-        card.setAdditionalParams(key: cardTypeKey, value: ExplodingKittensCardType.random3.rawValue)
         return card
     }
 
