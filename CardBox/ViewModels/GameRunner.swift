@@ -21,6 +21,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
+    private var nextPlayerGenerator: NextPlayerGenerator?
 
     init() {
         self.deck = CardCollection()
@@ -30,6 +31,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.gameplayArea = CardCollection()
         self.players = PlayerCollection()
         self.state = .initialize
+        self.nextPlayerGenerator = nil
     }
 
     func addSetupAction(_ action: Action) {
@@ -42,6 +44,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func addEndTurnAction(_ action: Action) {
         self.onEndTurnActions.append(action)
+    }
+
+    func setNextPlayerGenerator(_ generator: NextPlayerGenerator) {
+        self.nextPlayerGenerator = generator
     }
 
     func setup() {
@@ -98,6 +104,16 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs) {
         self.deckPositionRequestArgs = args
     }
+
+    func advanceToNextPlayer() {
+        guard let nextPlayer = nextPlayerGenerator?.getNextPlayer(gameRunner: self) else {
+            return
+        }
+
+        players.setCurrentPlayer(nextPlayer)
+    }
+
+    // Exploding kitten specific related methods
 
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
         guard let args = deckPositionRequestArgs else {

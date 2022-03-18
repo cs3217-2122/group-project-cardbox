@@ -19,6 +19,5 @@ protocol GameRunnerUpdateOnly {
     func showDeckPositionRequest()
     func hideDeckPositionRequest()
     func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs)
-
-    func notifyChanges()
+    func advanceToNextPlayer()
 }

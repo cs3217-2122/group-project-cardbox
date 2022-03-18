@@ -47,6 +47,10 @@ class CardCollection {
     }
 
     func addCard(_ card: Card, offsetFromTop index: Int) {
+        guard index > 0 && index < cards.count else {
+            return
+        }
+
         cards.insert(card, at: index)
     }
 
