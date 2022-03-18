@@ -49,8 +49,8 @@ struct GameRunnerView: View {
                 Spacer()
 
 //                if let currentPlayerViewModel = gameRunnerViewModel.players.getCurrentPlayerViewModel() {
-                if let currentPlayerViewModel = PlayerViewModel(player: gameRunnerViewModel.players.currentPlayer) {
-                    PlayerView(playerViewModel: currentPlayerViewModel)
+                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+                    PlayerView(playerViewModel: PlayerViewModel(player: currentPlayer))
                 }
 
             }
