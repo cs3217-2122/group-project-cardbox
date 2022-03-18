@@ -10,7 +10,7 @@ class PlayerViewModel: ObservableObject {
     var player: Player
     var selectedCards: [Card] = []
 
-    init(player: Player, gameRunner: GameRunnerReadOnly) {
+    init(player: Player) {
         self.player = player
         print(selectedCards)
     }
