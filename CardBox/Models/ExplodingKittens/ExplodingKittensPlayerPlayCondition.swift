@@ -41,24 +41,13 @@ struct ExplodingKittensPlayerPlayCondition: PlayerPlayCondition {
         }
 
         if cards.count == 5 {
-
+            return checkDifferentCards(cards: cards)
         }
 
         return false
     }
 
     private func checkSameCards(cards: [Card]) -> Bool {
-        let areAllCardsNonAction = cards.allSatisfy({ card in
-            guard let cardType = ExplodingKittensUtils.getCardType(card: card) else {
-                return false
-            }
-            return actionCards.contains(cardType)
-        })
-
-        guard areAllCardsNonAction else {
-            return false
-        }
-
         let cardTypes = cards.compactMap { card in
             ExplodingKittensUtils.getCardType(card: card)
         }

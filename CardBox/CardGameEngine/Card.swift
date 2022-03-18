@@ -28,7 +28,7 @@ typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Playe
 
 class Card: Identifiable {
     private(set) var name: String
-    private var cardDescription: String
+    private(set) var cardDescription: String
 
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]
@@ -64,22 +64,23 @@ class Card: Identifiable {
             action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
     }
+    
+    func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
+        canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
+    }
 
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
+
         guard canPlay(by: player, gameRunner: gameRunner, on: target) else {
             // TODO: Change to exception
             return
         }
-        
+
         let args = CardActionArgs(card: self, player: player, target: target)
 
         self.onPlayActions.forEach { action in
             action.executeGameEvents(gameRunner: gameRunner, args: args)
         }
-    }
-
-    func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
-        canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
     }
 
     func getAdditionalParams(key: String) -> String? {

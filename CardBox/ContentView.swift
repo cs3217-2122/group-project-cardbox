@@ -7,9 +7,27 @@
 
 import SwiftUI
 
+class AppState: ObservableObject {
+
+    @Published var page = Page.mainMenu
+}
+
+enum Page {
+    case game
+    case mainMenu
+}
+
 struct ContentView: View {
+    @StateObject private var appState = AppState()
+
     var body: some View {
-        GameRunnerView()
+        if appState.page == .mainMenu {
+            MainMenuView()
+                .environmentObject(appState)
+        } else if appState.page == .game {
+            GameRunnerView()
+                .environmentObject(appState)
+        }
     }
 }
 

@@ -74,4 +74,8 @@ class PlayerCollection {
     func getPlayers() -> [Player] {
         players
     }
+
+    func getPlayerByIndexAfterCurrent(_ index: Int) -> Player {
+        players[(currentPlayerIndex + index) % self.players.count]
+    }
 }

@@ -16,6 +16,7 @@ struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
     let stateOfN: StateOfN
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
+
         let targetPlayerWrapped = args.target.getPlayerIfTargetSingle()
 
         guard let targetPlayerUnwrapped = targetPlayerWrapped else {

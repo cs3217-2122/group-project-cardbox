@@ -11,6 +11,7 @@ struct PlayCardAction: Action {
     let target: GameplayTarget
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
+
         for card in cards {
             guard card.canPlay(by: player, gameRunner: gameRunner, on: target) else {
                 continue

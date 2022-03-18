@@ -8,17 +8,34 @@
 import SwiftUI
 
 class CardViewModel: ObservableObject {
-    var card: Card
-    let player: Player
-    let gameRunner: GameRunnerReadOnly
+    var card: Card?
+    var isFaceUp: Bool
+    @Published var isSelected: Bool
 
-    init(card: Card, player: Player, gameRunner: GameRunnerReadOnly) {
-        self.card = card
-        self.player = player
-        self.gameRunner = gameRunner
+    var imageName: String? {
+        if let card = card {
+            return AssetFetcher.getImageName(card: card)
+        }
+        return nil
     }
 
-    func playCard() {
-        player.playCards([card], gameRunner: gameRunner, on: .none)
+    var cardTitle: String? {
+        if let card = card {
+            return card.name
+        }
+        return nil
+    }
+
+    var cardDescription: String? {
+        if let card = card {
+            return card.cardDescription
+        }
+        return nil
+    }
+
+    init(card: Card? = nil, isFaceUp: Bool = false) {
+        self.card = card
+        self.isFaceUp = false
+        self.isSelected = false
     }
 }

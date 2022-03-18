@@ -85,6 +85,7 @@ class Player: Identifiable {
     }
 
     func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
+
         guard canPlay(cards: cards, gameRunner: gameRunner) else {
             // TODO: change to exception
             return
@@ -101,7 +102,7 @@ class Player: Identifiable {
         } else {
             action = PlayCardAction(player: self, cards: cards, target: target)
         }
-        
+
         ActionDispatcher.runAction(action, on: gameRunner)
     }
 

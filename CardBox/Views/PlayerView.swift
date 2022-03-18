@@ -8,24 +8,17 @@
 import SwiftUI
 
 struct PlayerView: View {
-    let viewModel: PlayerViewModel
-    @ObservedObject var gameRunner: GameRunner
+    private var playerViewModel: PlayerViewModel
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
 
-    init(player: Player, gameRunner: GameRunner) {
-        self.viewModel = PlayerViewModel(player: player, gameRunner: gameRunner)
-        self.gameRunner = gameRunner
-    }
-
-    var playerDescription: String {
-        viewModel.player.name + (viewModel.player.isOutOfGame ? " (Dead)" : "")
+    init(playerViewModel: PlayerViewModel) {
+        self.playerViewModel = playerViewModel
     }
 
     var body: some View {
         VStack {
-            Text(playerDescription)
-            ForEach(viewModel.player.hand.getCards()) { card in
-                CardView(card: card, player: viewModel.player, gameRunner: viewModel.gameRunner)
-            }
+            Text(playerViewModel.player.name)
+            PlayerHandView(playerViewModel: playerViewModel, hand: playerViewModel.player.hand)
         }
     }
 }

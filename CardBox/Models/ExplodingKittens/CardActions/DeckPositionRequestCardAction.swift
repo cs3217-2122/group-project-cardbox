@@ -7,6 +7,7 @@
 
 struct DeckPositionRequestCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
+
         guard let card = args.card else {
             // TODO: Exception
             return
