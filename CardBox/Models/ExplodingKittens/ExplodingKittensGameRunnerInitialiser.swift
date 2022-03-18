@@ -208,7 +208,10 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                     return []
             }
 
-            return []
+            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
+            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
+            })]
         }
 
         return threeOfAKind
@@ -225,10 +228,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
-            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
-            })]
+            return []
         }
 
         return fiveDifferentCards
