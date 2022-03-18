@@ -219,16 +219,16 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            if allDifferentExplodingKittensCardType(cards) {
-                // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
-                return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                    $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
-                })]
+            guard allDifferentExplodingKittensCardType(cards) else {
+                return []
             }
 
-            return []
+            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
+            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == ExplodingKittensCardType.defuse.rawValue
+            })]
         }
-        
+
         return fiveDifferentCards
     }
 
