@@ -23,7 +23,7 @@ struct GameRunnerView: View {
                 }
                 Spacer()
                 HStack {
-                    if let playerFourViewModel = gameRunnerViewModel.players.getPlayerViewModelAfterCurrent(3) {
+                    if let playerFourViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(3) {
                         PlayerView(playerViewModel: playerFourViewModel)
                             .rotationEffect(.degrees(90))
                     }
@@ -31,7 +31,7 @@ struct GameRunnerView: View {
                     decks
                     playDeck
                     Spacer()
-                    if let playerTwoViewModel = gameRunnerViewModel.players.getPlayerViewModelAfterCurrent(1) {
+                    if let playerTwoViewModel = gameRunnerViewModel.getPlayerViewModelAfterCurrent(1) {
                         PlayerView(playerViewModel: playerTwoViewModel)
                             .rotationEffect(.degrees(-90))
                     }
@@ -48,7 +48,8 @@ struct GameRunnerView: View {
                 Text("Invalid combination")
                 Spacer()
 
-                if let currentPlayerViewModel = gameRunnerViewModel.players.getCurrentPlayerViewModel() {
+//                if let currentPlayerViewModel = gameRunnerViewModel.players.getCurrentPlayerViewModel() {
+                if let currentPlayerViewModel = PlayerViewModel(player: gameRunnerViewModel.players.currentPlayer) {
                     PlayerView(playerViewModel: currentPlayerViewModel)
                 }
 
