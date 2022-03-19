@@ -25,8 +25,8 @@ struct PlayerHandView: View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
                 let cardViewModel = CardViewModel(card: card,
-                                                  isFaceUp: true, // playerViewModel
-                                                    // .isCurrentPlayer(gameRunner: gameRunnerViewModel),
+                                                  isFaceUp: playerViewModel
+                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel),
                                                   isSelected: playerViewModel.isSelected(card: card))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
