@@ -22,8 +22,7 @@ struct CardRequestView: View {
             HStack {
             }
             Button(action: {
-//                dispatchPositionResponse(position - 1)
-//                toggleShowPositionRequestView(false)
+
             }) {
                 Text("Submit")
             }
