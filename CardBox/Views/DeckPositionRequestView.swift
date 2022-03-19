@@ -1,5 +1,5 @@
 //
-//  DeckPositionRequest.swift
+//  DeckPositionRequestView.swift
 //  CardBox
 //
 //  Created by Stuart Long on 19/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeckPositionRequest: View {
+struct DeckPositionRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
 
     var body: some View {
@@ -24,6 +24,6 @@ struct DeckPositionRequest: View {
 
 struct DeckPositionRequest_Previews: PreviewProvider {
     static var previews: some View {
-        DeckPositionRequest()
+        DeckPositionRequestView()
     }
 }

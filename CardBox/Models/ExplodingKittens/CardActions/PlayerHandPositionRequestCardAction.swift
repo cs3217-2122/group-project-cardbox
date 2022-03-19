@@ -12,7 +12,7 @@ struct PlayerHandPositionRequestCardAction: CardAction {
             // TODO: Exception
             return
         }
-
+        print("ITS WORKING")
         gameRunner.executeGameEvents([
             PlayerHandPositionRequestEvent(target: unwrappedTargetPlayer, player: args.player)
         ])

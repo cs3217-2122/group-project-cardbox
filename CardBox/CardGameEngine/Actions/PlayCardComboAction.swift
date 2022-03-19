@@ -20,7 +20,7 @@ struct PlayCardComboAction: Action {
 
         let allCardsEvents = cards.flatMap({ card in
                 [IncrementPlayerCardsPlayedEvent(player: player),
-                MoveCardPlayerToGameplayEvent(card: card, player: player)]
+                 MoveCardPlayerToGameplayEvent(card: card, player: player)]
         })
 
         print(allCardsEvents.count)
