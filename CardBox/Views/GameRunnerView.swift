@@ -28,6 +28,7 @@ struct GameRunnerView: View {
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
+                    .scaleEffect(1.5)
             }
         }.environmentObject(gameRunnerViewModel)
     }
