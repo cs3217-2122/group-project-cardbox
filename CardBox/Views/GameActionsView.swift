@@ -34,7 +34,6 @@ struct GameActionsView: View {
                     .border(Color.black)
             }
         }
-        // TODO: Make error appear and fade out when button pressed and invalid combo
         Text(error ? "Invalid combination" : "Valid combination")
             .foregroundColor(error ? Color.red : Color.black)
     }

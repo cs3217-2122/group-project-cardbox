@@ -26,7 +26,6 @@ struct PlayerView: View {
                 if !playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                     if !playerViewModel.isDead() {
                         selectedPlayerViewModel = playerViewModel
-                        print("Selected \(selectedPlayerViewModel?.player.name ?? "none")")
                     }
                 }
             } label: {

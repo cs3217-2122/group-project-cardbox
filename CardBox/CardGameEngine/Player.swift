@@ -105,24 +105,19 @@ class Player: Identifiable, ExtendedProperties {
         let isCardCombo = cards.count > 1
 
         if isCardCombo {
-            print("Card combo")
             action = PlayCardComboAction(player: self,
                                          cards: cards,
                                          target: target,
                                          comboActions: determineCardComboActions(cards))
         } else {
-            print("Not card combo")
             action = PlayCardAction(player: self, cards: cards, target: target)
         }
-        print("ran")
         ActionDispatcher.runAction(action, on: gameRunner)
     }
 
     private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
         var cardComboActions: [CardAction] = []
-        print("determine card combo actions called")
         for getCardCombo in cardCombos {
-            print(getCardCombo)
             cardComboActions.append(contentsOf: getCardCombo(cards))
         }
 

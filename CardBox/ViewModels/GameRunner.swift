@@ -77,7 +77,6 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func executeGameEvents(_ gameEvents: [GameEvent]) {
         gameEvents.forEach { gameEvent in
-            print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
         }
         notifyChanges()
@@ -117,7 +116,6 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func togglePlayerHandPositionRequest(to isShowingRequest: Bool) {
         self.isShowingPlayerHandPositionRequest = isShowingRequest
-        print(isShowingPlayerHandPositionRequest)
     }
 
     func setPlayerHandPositionRequestArgs(_ args: PlayerHandPositionRequestArgs) {

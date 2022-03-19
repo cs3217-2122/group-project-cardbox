@@ -12,17 +12,13 @@ class PlayerViewModel: ObservableObject {
 
     init(player: Player) {
         self.player = player
-        print(selectedCards)
     }
 
     func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
-        print("hello")
         if currentPlayer === player {
-            print("in")
-            print(selectedCards)
             if cardViewModel.isSelected {
                 if player.hand.contains(card: card) {
                     if let indexOf = selectedCards.firstIndex(where: { cardObject in
@@ -34,7 +30,6 @@ class PlayerViewModel: ObservableObject {
                 }
             } else {
                 if player.hand.contains(card: card) {
-                    print("contains")
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
                 }
@@ -97,16 +92,13 @@ class PlayerViewModel: ObservableObject {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             } else {
                 guard let target = target else {
-                    // no target, user needs to choose a target
                     print("No target chosen")
                     return
                 }
-                // make user get a target?
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
             }
         } else {
             guard let target = target else {
-                // no target, user needs to choose a target
                 print("No target chosen")
                 return
             }

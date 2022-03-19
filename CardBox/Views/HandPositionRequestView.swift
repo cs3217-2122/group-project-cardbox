@@ -14,9 +14,6 @@ struct HandPositionRequestView: View {
     var body: some View {
         if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
             if let selectedPlayerViewModel = selectedPlayerViewModel {
-                // for favour and 2 of a kind
-                // the main difference is that for favour, the owner of the hand can choose an index to give,
-                // while for 2 of a kind, the player who plays it can choose an index.
                 PositionRequestView(dispatchPositionResponse:
                                         gameRunnerViewModel.dispatchPlayerHandPositionResponse,
                                     toggleShowPositionRequestView:

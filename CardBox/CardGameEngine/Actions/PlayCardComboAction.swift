@@ -12,7 +12,6 @@ struct PlayCardComboAction: Action {
     let comboActions: [CardAction]
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
-        print("executing")
         for comboAction in comboActions {
             comboAction.executeGameEvents(gameRunner: gameRunner,
                                           args: CardActionArgs(card: nil, player: player, target: target))
