@@ -17,6 +17,7 @@ struct GameActionsView: View {
         HStack {
             Button {
                 gameRunnerViewModel.endPlayerTurn()
+                selectedPlayerViewModel = nil
             } label: {
                 Text("End")
                     .font(.title)
@@ -24,8 +25,8 @@ struct GameActionsView: View {
                     .border(Color.black)
             }
             Button {
-                // TODO: add play functionality here
                 currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel, target: selectedPlayerViewModel)
+//                selectedPlayerViewModel = nil
             } label: {
                 Text("Play")
                     .font(.title)

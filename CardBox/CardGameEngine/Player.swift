@@ -120,8 +120,9 @@ class Player: Identifiable, ExtendedProperties {
 
     private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
         var cardComboActions: [CardAction] = []
-
+        print("determine card combo actions called")
         for getCardCombo in cardCombos {
+            print(getCardCombo)
             cardComboActions.append(contentsOf: getCardCombo(cards))
         }
 

@@ -1,5 +1,5 @@
 //
-//  HandPositionRequest.swift
+//  HandPositionRequestView.swift
 //  CardBox
 //
 //  Created by Stuart Long on 19/3/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HandPositionRequest: View {
+struct HandPositionRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
@@ -29,6 +29,6 @@ struct HandPositionRequest: View {
 
 struct HandPositionRequest_Previews: PreviewProvider {
     static var previews: some View {
-        HandPositionRequest(selectedPlayerViewModel: .constant(nil))
+        HandPositionRequestView(selectedPlayerViewModel: .constant(nil))
     }
 }

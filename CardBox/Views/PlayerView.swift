@@ -21,8 +21,14 @@ struct PlayerView: View {
                     print("Selected \(selectedPlayerViewModel?.player.name ?? "none")")
                 }
             } label: {
-                Text(playerViewModel.player.name)
-                    .foregroundColor(selectedPlayerViewModel === playerViewModel ? Color.red : Color.blue)
+                if let selectedPlayerViewModel = selectedPlayerViewModel {
+                    Text(playerViewModel.player.name)
+                        .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
+                                         ? Color.red : Color.blue)
+                } else {
+                    Text(playerViewModel.player.name)
+                }
+
             }
             PlayerHandView(playerViewModel: playerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
