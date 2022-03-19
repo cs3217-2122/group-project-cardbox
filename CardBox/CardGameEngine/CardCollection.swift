@@ -54,11 +54,10 @@ class CardCollection {
     }
 
     func addCard(_ card: Card, offsetFromTop index: Int) {
-        guard index > 0 && index < cards.count else {
-            return
-        }
+        // Ensures that add card always add back to the deck
+        let actualIndex = max(0, min(index, cards.count))
 
-        cards.insert(card, at: index)
+        cards.insert(card, at: actualIndex)
     }
 
     func containsCard(_ card: Card) -> Bool {
