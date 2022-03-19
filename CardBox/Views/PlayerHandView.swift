@@ -8,34 +8,32 @@
 import SwiftUI
 
 struct PlayerHandView: View {
-    private var playerViewModel: PlayerViewModel
-    private let playerHandViewModel: PlayerHandViewModel
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
-
-    init(playerViewModel: PlayerViewModel, hand: CardCollection) {
-        self.playerViewModel = playerViewModel
-        self.playerHandViewModel = PlayerHandViewModel(hand: hand)
-    }
+    var playerViewModel: PlayerViewModel
+    let playerHandViewModel: PlayerHandViewModel
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
+    @Binding var error: Bool
+    let handWidth = 600
 
     var spacing: Double {
         let size = playerHandViewModel.getSize()
         // availableSpace - size * cardWidth / size
         // TODO: figure out spacing
-        return Double((400 - size * 150) / size)
+        return Double((handWidth - size * CardView.defaultCardWidth) / size)
     }
 
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(card: card, isFaceUp: true)
+                let cardViewModel = CardViewModel(card: card,
+                                                  isFaceUp: playerViewModel
+                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
-                        print("tap card")
-                        playerViewModel.tapCard(
-                            card: card,
-                            cardViewModel: cardViewModel,
-                            gameRunner: gameRunnerViewModel
-                        )
+                        if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                            playerViewModel
+                                .tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                            error = !playerViewModel.canPlayCard(gameRunner: gameRunnerViewModel)
+                        }
                     }
                     .gesture(
                         DragGesture(minimumDistance: 0.0)

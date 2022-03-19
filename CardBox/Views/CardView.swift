@@ -10,6 +10,9 @@ import SwiftUI
 struct CardView: View {
     @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
+    static let defaultCardWidth = 150
+    let cardWidth = CGFloat(150)
+    let cardHeight = CGFloat(250)
 
     init(cardViewModel: CardViewModel) {
         self.viewModel = cardViewModel
@@ -24,23 +27,25 @@ struct CardView: View {
                         .fontWeight(.bold)
                 )
             }
-            return AnyView(
-                VStack {
-                    Image(imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .aspectRatio(2.0, contentMode: .fill)
-                        .frame(maxWidth: 100, maxHeight: 100)
-                        .border(Color.black)
-                        .padding(.top)
-                    Text(card.name)
-                        .fontWeight(.bold)
-                    Text(card.cardDescription)
-                        .font(.caption)
-                    Spacer()
-                }
-            )
-
+            if isFaceUp {
+                return AnyView(
+                    VStack {
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .aspectRatio(2.0, contentMode: .fill)
+                            .frame(maxWidth: 100, maxHeight: 100)
+                            .border(Color.black)
+                            .padding(.top)
+                        Text(card.name)
+                            .fontWeight(.bold)
+                        Text(card.cardDescription)
+                            .font(.caption)
+                        Spacer()
+                    })
+            } else {
+                return AnyView(Text("Back of card"))
+            }
         } else {
             return AnyView(
                 Text("No card in stack")
@@ -53,10 +58,10 @@ struct CardView: View {
         buildView()
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
-            .frame(width: 150, height: 250)
+            .frame(width: cardWidth, height: cardHeight)
             .background(Color.white)
             .border(Color.black)
-            .offset(y: viewModel.isSelected ? -30: 0)
+            .offset(y: viewModel.isSelected ? -35: 0)
     }
 }
 

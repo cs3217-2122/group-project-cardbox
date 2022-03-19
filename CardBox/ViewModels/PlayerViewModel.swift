@@ -30,7 +30,6 @@ class PlayerViewModel: ObservableObject {
                     }) {
                         selectedCards.remove(at: indexOf)
                     }
-                    // remove from selected cards at gamerunner as well
                     cardViewModel.isSelected = false
                 }
             } else {
@@ -38,10 +37,20 @@ class PlayerViewModel: ObservableObject {
                     print("contains")
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
-                    // append to selected cards at gamerunner
                 }
             }
         }
+    }
+
+    func isCurrentPlayer(gameRunner: GameRunner) -> Bool {
+        guard let currentPlayer = gameRunner.players.currentPlayer else {
+            return false
+        }
+        return currentPlayer === player
+    }
+
+    func canPlayCard(gameRunner: GameRunner) -> Bool {
+        player.canPlay(cards: selectedCards, gameRunner: gameRunner)
     }
 
     func previewCard(card: Card, gameRunner: GameRunner) {
@@ -61,6 +70,22 @@ class PlayerViewModel: ObservableObject {
             if gameRunner.cardPreview === card {
                 gameRunner.cardPreview = nil
             }
+        }
+    }
+
+    func playCards(gameRunner: GameRunner) {
+        // TODO: fix for 2 and 3 cards
+        if selectedCards.count == 1 {
+            if selectedCards[0].typeOfCard == TypeOfCard.noTargetCard {
+                player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
+            } else if selectedCards[0].typeOfCard == TypeOfCard.targetAllPlayersCard {
+                player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+            } else {
+                // TODO: get target
+                player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+            }
+        } else {
+            // 2 or 3 should be played to someone else
         }
     }
 }

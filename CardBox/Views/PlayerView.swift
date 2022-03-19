@@ -8,17 +8,16 @@
 import SwiftUI
 
 struct PlayerView: View {
-    private var playerViewModel: PlayerViewModel
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
-
-    init(playerViewModel: PlayerViewModel) {
-        self.playerViewModel = playerViewModel
-    }
+    var playerViewModel: PlayerViewModel
+    @EnvironmentObject private var gameRunnerViewModel: GameRunner
+    @Binding var error: Bool
 
     var body: some View {
         VStack {
             Text(playerViewModel.player.name)
-            PlayerHandView(playerViewModel: playerViewModel, hand: playerViewModel.player.hand)
+            PlayerHandView(playerViewModel: playerViewModel,
+                           playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
+                           error: $error)
         }
     }
 }

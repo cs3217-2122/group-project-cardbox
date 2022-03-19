@@ -11,6 +11,6 @@ struct MoveCardPlayerToGameplayEvent: GameEvent {
 
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         player.removeCard(card)
-        gameRunner.gameplayArea.addCard(card)
+        gameRunner.gameplayArea.addCard(card, offsetFromTop: 0)
     }
 }
