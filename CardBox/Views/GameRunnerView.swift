@@ -30,6 +30,14 @@ struct GameRunnerView: View {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
                     .scaleEffect(1.5)
             }
-        }.environmentObject(gameRunnerViewModel)
+        }
+        .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
+            PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
+        }
+        .environmentObject(gameRunnerViewModel)
+    }
+
+    func dismissPeek() {
+        gameRunnerViewModel.isShowingPeek = false
     }
 }

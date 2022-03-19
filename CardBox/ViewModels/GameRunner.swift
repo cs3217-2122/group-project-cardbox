@@ -14,6 +14,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var state: GameState
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
+    @Published internal var isShowingPeek = false
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
@@ -86,6 +87,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func setCardsPeeking(cards: [Card]) {
         self.cardsPeeking = cards
+        self.isShowingPeek = true
     }
 
     func showDeckPositionRequest() {
