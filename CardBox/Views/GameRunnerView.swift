@@ -11,6 +11,7 @@ struct GameRunnerView: View {
 
     @StateObject var gameRunnerViewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
     @State var error = true
+    @State var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
         ZStack {
@@ -19,11 +20,15 @@ struct GameRunnerView: View {
             VStack {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
                     let currentPlayerViewModel = PlayerViewModel(player: currentPlayer)
-                    NonCurrentPlayerView(error: $error, currentPlayerViewModel: currentPlayerViewModel)
+                    NonCurrentPlayerView(error: $error,
+                                         currentPlayerViewModel: currentPlayerViewModel,
+                                         selectedPlayerViewModel: $selectedPlayerViewModel)
 
                     Spacer()
 
-                    CurrentPlayerView(error: $error, currentPlayerViewModel: currentPlayerViewModel)
+                    CurrentPlayerView(error: $error,
+                                      currentPlayerViewModel: currentPlayerViewModel,
+                                      selectedPlayerViewModel: $selectedPlayerViewModel)
                 }
             }
             if let cardPreview = gameRunnerViewModel.cardPreview {

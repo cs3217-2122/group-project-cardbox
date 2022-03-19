@@ -73,7 +73,7 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func playCards(gameRunner: GameRunner) {
+    func playCards(gameRunner: GameRunner, target: PlayerViewModel?) {
         // TODO: fix for 2 and 3 cards
         guard canPlayCard(gameRunner: gameRunner) else {
             return
@@ -86,11 +86,28 @@ class PlayerViewModel: ObservableObject {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             } else {
                 // TODO: get target
-                player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+                guard let target = target else {
+                    // no target, user needs to choose a target
+                    return
+                }
+                // make user get a target?
+                player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
             }
         } else {
             // 2 or 3 should be played to someone else
-            
+            guard let target = target else {
+                // no target, user needs to choose a target
+                return
+            }
+            // make user get a target?
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
         }
+    }
+
+    func isSelected(card: Card) -> Bool {
+        for selectedCard in selectedCards where selectedCard === card {
+            return true
+        }
+        return false
     }
 }
