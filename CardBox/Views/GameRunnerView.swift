@@ -10,7 +10,7 @@ import SwiftUI
 struct GameRunnerView: View {
 
     @StateObject var gameRunnerViewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
-    @State var error = false
+    @State var error = true
 
     var body: some View {
         ZStack {
