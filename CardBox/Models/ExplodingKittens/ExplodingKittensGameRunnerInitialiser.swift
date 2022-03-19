@@ -198,9 +198,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            // card.addPlayAction(PlayerHandPositionRequestCardAction())
             return [PlayerHandPositionRequestCardAction()]
-//            return [PlayerTakesNthCardFromPlayerCardAction(n: -1, stateOfN: .random)]
         }
 
         return pair

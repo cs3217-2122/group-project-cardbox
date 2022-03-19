@@ -26,7 +26,6 @@ struct GameActionsView: View {
             }
             Button {
                 currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel, target: selectedPlayerViewModel)
-//                selectedPlayerViewModel = nil
             } label: {
                 Text("Play")
                     .font(.title)
