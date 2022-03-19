@@ -13,7 +13,7 @@ struct PositionRequestView: View {
 
     private var dispatchPositionResponse: (Int) -> Void
     private var toggleShowPositionRequestView: (Bool) -> Void
-    
+
     init(dispatchPositionResponse: @escaping (Int) -> Void,
          toggleShowPositionRequestView: @escaping (Bool) -> Void) {
         self.dispatchPositionResponse = dispatchPositionResponse

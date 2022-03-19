@@ -8,13 +8,13 @@
 struct PlayerHandPositionRequestCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
 
-        guard let card = args.card else {
+        guard let unwrappedTargetPlayer = args.target.getPlayerIfTargetSingle() else {
             // TODO: Exception
             return
         }
 
         gameRunner.executeGameEvents([
-            PlayerHandPositionRequestEvent(target: args.target, player: args.player)
+            PlayerHandPositionRequestEvent(target: unwrappedTargetPlayer, player: args.player)
         ])
     }
 }
