@@ -61,12 +61,12 @@ struct CardView: View {
             .frame(width: cardWidth, height: cardHeight)
             .background(Color.white)
             .border(Color.black)
-            .offset(y: viewModel.isSelected ? -50: 0)
+            .offset(y: viewModel.isSelected ? -35: 0)
     }
 }
 
 struct Card_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb")))
+        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb", typeOfCard: .noTargetCard)))
     }
 }

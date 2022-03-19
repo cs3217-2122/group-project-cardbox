@@ -7,10 +7,10 @@ struct InitDeckWithCardsAction: Action {
             return
         }
 
-        let moves: [GameEvent] = cards.map { card in
+        let addCards: [GameEvent] = cards.map { card in
             AddCardToDeckEvent(card: card)
         }
 
-        gameRunner.executeGameEvents(moves)
+        gameRunner.executeGameEvents(addCards)
     }
 }

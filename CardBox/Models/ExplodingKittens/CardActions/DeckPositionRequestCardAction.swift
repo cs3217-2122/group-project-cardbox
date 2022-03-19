@@ -7,8 +7,14 @@
 
 struct DeckPositionRequestCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
+
+        guard let card = args.card else {
+            // TODO: Exception
+            return
+        }
+
         gameRunner.executeGameEvents([
-            DeckPositionRequestEvent(card: args.card, player: args.player)
+            DeckPositionRequestEvent(card: card, player: args.player)
         ])
     }
 }

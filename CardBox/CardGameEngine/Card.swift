@@ -13,6 +13,21 @@ enum GameplayTarget {
             return "single"
         }
     }
+
+    func getPlayerIfTargetSingle() -> Player? {
+        switch self {
+        case let .single(targetPlayer):
+            return targetPlayer
+        case .all, .none:
+            return nil
+        }
+    }
+}
+
+enum TypeOfCard {
+    case targetAllPlayersCard
+    case targetSinglePlayerCard
+    case noTargetCard
 }
 
 typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
@@ -20,6 +35,7 @@ typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Playe
 class Card: Identifiable {
     private(set) var name: String
     private(set) var cardDescription: String
+    private(set) var typeOfCard: TypeOfCard
 
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]
@@ -31,8 +47,9 @@ class Card: Identifiable {
         String(UInt(bitPattern: ObjectIdentifier(self)))
     }
 
-    init(name: String) {
+    init(name: String, typeOfCard: TypeOfCard) {
         self.name = name
+        self.typeOfCard = typeOfCard
         self.cardDescription = ""
         self.onDrawActions = []
         self.onPlayActions = []
