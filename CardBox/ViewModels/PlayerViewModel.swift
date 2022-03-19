@@ -75,6 +75,10 @@ class PlayerViewModel: ObservableObject {
 
     func playCards(gameRunner: GameRunner) {
         // TODO: fix for 2 and 3 cards
+        guard canPlayCard(gameRunner: gameRunner) else {
+            return
+        }
+
         if selectedCards.count == 1 {
             if selectedCards[0].typeOfCard == TypeOfCard.noTargetCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
@@ -86,6 +90,7 @@ class PlayerViewModel: ObservableObject {
             }
         } else {
             // 2 or 3 should be played to someone else
+            
         }
     }
 }
