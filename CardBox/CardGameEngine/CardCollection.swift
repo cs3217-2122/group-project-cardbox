@@ -12,6 +12,13 @@ class CardCollection {
         cards.count
     }
 
+    var topCard: Card? {
+        if cards.isEmpty {
+            return nil
+        }
+        return cards[0]
+    }
+
     func getSize() -> Int {
         cards.count
     }
@@ -47,7 +54,10 @@ class CardCollection {
     }
 
     func addCard(_ card: Card, offsetFromTop index: Int) {
-        cards.insert(card, at: index)
+        // Ensures that add card always add back to the deck
+        let actualIndex = max(0, min(index, cards.count))
+
+        cards.insert(card, at: actualIndex)
     }
 
     func containsCard(_ card: Card) -> Bool {

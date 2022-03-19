@@ -18,11 +18,14 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
+    @Published internal var isShowingPlayerHandPositionRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
+    internal var playerHandPositionRequestArgs: PlayerHandPositionRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
+    private var nextPlayerGenerator: NextPlayerGenerator?
 
     init() {
         self.deck = CardCollection()
@@ -33,6 +36,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.players = PlayerCollection()
         self.state = .initialize
         self.cardsPeeking = []
+        self.nextPlayerGenerator = nil
     }
 
     func addSetupAction(_ action: Action) {
@@ -45,6 +49,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func addEndTurnAction(_ action: Action) {
         self.onEndTurnActions.append(action)
+    }
+
+    func setNextPlayerGenerator(_ generator: NextPlayerGenerator) {
+        self.nextPlayerGenerator = generator
     }
 
     func setup() {
@@ -97,10 +105,31 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func hideDeckPositionRequest() {
         self.isShowingDeckPositionRequest = false
     }
+    func toggleDeckPositionRequest(to isShowingRequest: Bool) {
+        self.isShowingDeckPositionRequest = isShowingRequest
+    }
 
     func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs) {
         self.deckPositionRequestArgs = args
     }
+
+    func togglePlayerHandPositionRequest(to isShowingRequest: Bool) {
+        self.isShowingPlayerHandPositionRequest = isShowingRequest
+    }
+
+    func setPlayerHandPositionRequestArgs(_ args: PlayerHandPositionRequestArgs) {
+        self.playerHandPositionRequestArgs = args
+    }
+
+    func advanceToNextPlayer() {
+        guard let nextPlayer = nextPlayerGenerator?.getNextPlayer(gameRunner: self) else {
+            return
+        }
+
+        players.setCurrentPlayer(nextPlayer)
+    }
+
+    // Exploding kitten specific related methods
 
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
         guard let args = deckPositionRequestArgs else {
@@ -108,7 +137,22 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         }
 
         ActionDispatcher.runAction(
-            DeckPositionResponseAction(card: args.card, player: args.player, offsetFromTop: offsetFromTop),
+            DeckPositionResponseAction(card: args.card,
+                                       player: args.player,
+                                       offsetFromTop: offsetFromTop),
+            on: self
+        )
+    }
+
+    func dispatchPlayerHandPositionResponse(playerHandPosition: Int) {
+        guard let args = playerHandPositionRequestArgs else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            PlayerHandPositionResponseAction(target: args.target,
+                                             player: args.player,
+                                             playerHandPosition: playerHandPosition),
             on: self
         )
     }

@@ -12,7 +12,7 @@ struct DeckView: View {
     var isFaceUp: Bool
 
     var body: some View {
-        CardView(cardViewModel: CardViewModel(card: deckViewModel.getTopCard(), isFaceUp: isFaceUp))
+        CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp))
     }
 }
 

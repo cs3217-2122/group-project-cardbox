@@ -21,9 +21,13 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         let playConditions = initCardPlayConditions()
         let cardCombos = initCardCombos()
-        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers,
-                                                   canPlayConditions: playConditions,
-                                                   cardCombos: cardCombos))
+        gameRunner.addSetupAction(
+            InitPlayerAction(
+                numPlayers: numPlayers,
+                canPlayConditions: playConditions,
+                cardCombos: cardCombos
+            )
+        )
 
         // Distribute defuse cards
         let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
@@ -43,6 +47,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         gameRunner.addSetupAction(ShuffleDeckAction())
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
+
+        gameRunner.setNextPlayerGenerator(ExplodingKittensNextPlayerGenerator())
     }
 
     private static func initCardPlayConditions() -> [PlayerPlayCondition] {
@@ -76,7 +82,6 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return cardType == ExplodingKittensCardType.defuse
             }),
             DeckPositionRequestCardAction()
-            // Need to find a way to obtain user input to choose where the user wants to input the card into the deck
         ]
         let isFalseCardActions = [PlayerOutOfGameCardAction()]
 
@@ -101,8 +106,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
     private static func generateFavorCard() -> Card {
         let card = Card(name: "Favor", typeOfCard: .targetSinglePlayerCard)
-        // Similar to generate bomb card, needs user input to choose n
-        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0, stateOfN: .given))
+        card.addPlayAction(PlayerHandPositionRequestCardAction())
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.favor)
         return card
     }
@@ -152,8 +156,11 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         // TODO:
         // 1. Add 4 Attack cards
-        // 2. Add 4 Favor cards
-        // 3. Add 5 Nope cards
+        // 2. Add 5 Nope cards
+
+        for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
+            cards.append(generateFavorCard())
+        }
 
         for _ in 0 ..< ExplodingKittensCardType.shuffle.initialFrequency {
             cards.append(generateShuffleCard())
@@ -210,8 +217,8 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
             // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
             return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) ==
-                    ExplodingKittensCardType.defuse.rawValue
+                ExplodingKittensUtils.getCardType(card: $0) ==
+                    ExplodingKittensCardType.defuse
             })]
         }
 
@@ -237,9 +244,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func allSameExplodingKittensCardType(_ cards: [Card]) -> Bool {
-        if let cardType: String = cards[0].getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) {
+        if let cardType = ExplodingKittensUtils.getCardType(card: cards[0]) {
             return cards.allSatisfy({
-                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == cardType
+                ExplodingKittensUtils.getCardType(card: $0) == cardType
             })
         }
 
@@ -247,14 +254,10 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
-        let cardTypes: [String] = cards.map({
-            guard let cardType = $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) else {
-                // TODO: Exception or assert(false)
-                return ""
-            }
-            return cardType
+        let cardTypes = cards.compactMap({
+            ExplodingKittensUtils.getCardType(card: $0)
         })
-        let distinctCardTypes = Set<String>(cardTypes)
+        let distinctCardTypes = Set(cardTypes)
 
         return distinctCardTypes.count == cardTypes.count
     }

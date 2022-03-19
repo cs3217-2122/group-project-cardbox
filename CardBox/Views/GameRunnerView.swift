@@ -30,6 +30,13 @@ struct GameRunnerView: View {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
                     .scaleEffect(1.5)
             }
+            if gameRunnerViewModel.isShowingDeckPositionRequest {
+                PositionRequestView(dispatchPositionResponse: gameRunnerViewModel.dispatchDeckPositionResponse,
+                                    toggleShowPositionRequestView: gameRunnerViewModel.toggleDeckPositionRequest)
+            } else if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
+                PositionRequestView(dispatchPositionResponse: gameRunnerViewModel.dispatchPlayerHandPositionResponse,
+                                    toggleShowPositionRequestView: gameRunnerViewModel.togglePlayerHandPositionRequest)
+            }
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
