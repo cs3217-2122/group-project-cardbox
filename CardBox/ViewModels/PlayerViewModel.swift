@@ -12,17 +12,13 @@ class PlayerViewModel: ObservableObject {
 
     init(player: Player) {
         self.player = player
-        print(selectedCards)
     }
 
     func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
-        print("hello")
         if currentPlayer === player {
-            print("in")
-            print(selectedCards)
             if cardViewModel.isSelected {
                 if player.hand.contains(card: card) {
                     if let indexOf = selectedCards.firstIndex(where: { cardObject in
@@ -34,7 +30,6 @@ class PlayerViewModel: ObservableObject {
                 }
             } else {
                 if player.hand.contains(card: card) {
-                    print("contains")
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
                 }
@@ -73,19 +68,48 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func playCards(gameRunner: GameRunner) {
-        // TODO: fix for 2 and 3 cards
+    func canPlayCardOnPlayer(gameRunner: GameRunner, target: PlayerViewModel?) -> Bool {
+        guard let target = target else {
+            return canPlayCard(gameRunner: gameRunner)
+        }
+        return canPlayCard(gameRunner: gameRunner) && !target.isDead()
+    }
+
+    func isDead() -> Bool {
+        self.player.isOutOfGame
+    }
+
+    func playCards(gameRunner: GameRunner, target: PlayerViewModel?) {
+        guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
+            print("Cannot play card on player (Player is dead)")
+            return
+        }
+
         if selectedCards.count == 1 {
-            if selectedCards[0].typeOfCard == TypeOfCard.noTargetCard {
+            if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
-            } else if selectedCards[0].typeOfCard == TypeOfCard.targetAllPlayersCard {
+            } else if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.targetAllPlayersCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             } else {
-                // TODO: get target
-                player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+                guard let target = target else {
+                    print("No target chosen")
+                    return
+                }
+                player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
             }
         } else {
-            // 2 or 3 should be played to someone else
+            guard let target = target else {
+                print("No target chosen")
+                return
+            }
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
         }
+    }
+
+    func isSelected(card: Card) -> Bool {
+        for selectedCard in selectedCards where selectedCard === card {
+            return true
+        }
+        return false
     }
 }

@@ -26,7 +26,8 @@ struct PlayerHandView: View {
             ForEach(playerHandViewModel.getCards()) { card in
                 let cardViewModel = CardViewModel(card: card,
                                                   isFaceUp: playerViewModel
-                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel))
+                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel),
+                                                  isSelected: playerViewModel.isSelected(card: card))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {

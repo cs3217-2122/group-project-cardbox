@@ -8,21 +8,26 @@
 import SwiftUI
 
 struct PositionRequestView: View {
-    @State private var position: Int = 0
+    @State private var position: Int = 1
     @EnvironmentObject var gameRunnerViewModel: GameRunner
 
     private var dispatchPositionResponse: (Int) -> Void
     private var toggleShowPositionRequestView: (Bool) -> Void
+    private var size: Int
 
     init(dispatchPositionResponse: @escaping (Int) -> Void,
-         toggleShowPositionRequestView: @escaping (Bool) -> Void) {
+         toggleShowPositionRequestView: @escaping (Bool) -> Void,
+         size: Int) {
         self.dispatchPositionResponse = dispatchPositionResponse
         self.toggleShowPositionRequestView = toggleShowPositionRequestView
+        self.size = size
     }
 
     var minusButton: some View {
         Button(action: {
-            self.position -= 1
+            if position > 1 {
+                self.position -= 1
+            }
         }) {
             Text("-")
         }
@@ -30,7 +35,9 @@ struct PositionRequestView: View {
 
     var addButton: some View {
         Button(action: {
-            self.position += 1
+            if position < size {
+                self.position += 1
+            }
         }) {
             Text("+")
         }
@@ -51,7 +58,7 @@ struct PositionRequestView: View {
                 addButton
             }
             Button(action: {
-                dispatchPositionResponse(position)
+                dispatchPositionResponse(position - 1)
                 toggleShowPositionRequestView(false)
             }) {
                 Text("Submit")

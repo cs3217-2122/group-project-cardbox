@@ -19,8 +19,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
     @Published internal var isShowingPlayerHandPositionRequest = false
+    @Published internal var isShowingCardTypeRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
     internal var playerHandPositionRequestArgs: PlayerHandPositionRequestArgs?
+    internal var cardTypeRequestArgs: CardTypeRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -75,7 +77,6 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func executeGameEvents(_ gameEvents: [GameEvent]) {
         gameEvents.forEach { gameEvent in
-            print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
         }
         notifyChanges()
@@ -121,6 +122,14 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.playerHandPositionRequestArgs = args
     }
 
+    func toggleCardTypeRequest(to isShowingRequest: Bool) {
+        self.isShowingCardTypeRequest = isShowingRequest
+    }
+
+    func setCardTypeRequestArgs(_ args: CardTypeRequestArgs) {
+        self.cardTypeRequestArgs = args
+    }
+
     func advanceToNextPlayer() {
         guard let nextPlayer = nextPlayerGenerator?.getNextPlayer(gameRunner: self) else {
             return
@@ -130,6 +139,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     }
 
     // Exploding kitten specific related methods
+
+    var getAllCardTypes: [ExplodingKittensCardType] {
+        ExplodingKittensUtils.getAllCardTypes()
+    }
 
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
         guard let args = deckPositionRequestArgs else {
@@ -155,5 +168,17 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
                                              playerHandPosition: playerHandPosition),
             on: self
         )
+    }
+
+    func dispatchCardTypeResponse(cardTypeRawValue: String) {
+        guard let args = cardTypeRequestArgs else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            CardTypeResponseAction(target: args.target,
+                                   player: args.player,
+                                   cardTypeRawValue: cardTypeRawValue),
+            on: self)
     }
 }

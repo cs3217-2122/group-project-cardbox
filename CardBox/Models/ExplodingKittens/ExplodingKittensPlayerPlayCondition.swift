@@ -14,7 +14,8 @@ struct ExplodingKittensPlayerPlayCondition: PlayerPlayCondition {
     let actionCards: Set<ExplodingKittensCardType> = [
         .seeTheFuture,
         .shuffle,
-        .skip
+        .skip,
+        .favor
     ]
     var playableCards: Set<ExplodingKittensCardType> {
         nonActionCards.union(actionCards)

@@ -97,6 +97,7 @@ class Player: Identifiable, ExtendedProperties {
 
         guard canPlay(cards: cards, gameRunner: gameRunner) else {
             // TODO: change to exception
+            print("Cannot play (player)")
             return
         }
 
@@ -111,13 +112,11 @@ class Player: Identifiable, ExtendedProperties {
         } else {
             action = PlayCardAction(player: self, cards: cards, target: target)
         }
-
         ActionDispatcher.runAction(action, on: gameRunner)
     }
 
     private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
         var cardComboActions: [CardAction] = []
-
         for getCardCombo in cardCombos {
             cardComboActions.append(contentsOf: getCardCombo(cards))
         }

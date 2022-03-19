@@ -30,7 +30,7 @@ struct PlayerTakesNthCardFromPlayerCardAction: CardAction {
         }
 
         gameRunner.executeGameEvents([
-            MoveCardPlayerToPlayerEvent(card: card, fromPlayer: args.player, toPlayer: targetPlayerUnwrapped)
+            MoveCardPlayerToPlayerEvent(card: card, fromPlayer: targetPlayerUnwrapped, toPlayer: args.player)
         ])
     }
 

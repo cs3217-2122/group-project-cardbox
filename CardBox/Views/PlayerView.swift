@@ -11,6 +11,7 @@ struct PlayerView: View {
     var playerViewModel: PlayerViewModel
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
+    @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var playerText: String {
         if playerViewModel.player.isOutOfGame {
@@ -21,7 +22,22 @@ struct PlayerView: View {
 
     var body: some View {
         VStack {
-            Text(playerText)
+            Button {
+                if !playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                    if !playerViewModel.isDead() {
+                        selectedPlayerViewModel = playerViewModel
+                    }
+                }
+            } label: {
+                if let selectedPlayerViewModel = selectedPlayerViewModel {
+                    Text(playerViewModel.player.name)
+                        .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
+                                         ? Color.red : Color.blue)
+                } else {
+                    Text(playerViewModel.player.name)
+                }
+
+            }
             PlayerHandView(playerViewModel: playerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
                            error: $error)

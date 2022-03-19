@@ -64,7 +64,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func generateAttackCard() -> Card {
-        let card = Card(name: "Attack", typeOfCard: .targetSinglePlayerCard)
+        let card = Card(name: "Attack", typeOfTargettedCard: .targetSinglePlayerCard)
         card.addPlayAction(SkipTurnCardAction())
         // Need add action to make the next player repeat his turn
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.attack)
@@ -72,9 +72,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func generateBombCard() -> Card {
-        let card = Card(name: "Bomb", typeOfCard: .noTargetCard)
+        let card = Card(name: "Bomb", typeOfTargettedCard: .noTargetCard)
         let isTrueCardActions: [CardAction] = [
-            PlayerDiscardCardsAction(where: { card in
+            PlayerDiscardCardAction(where: { card in
                 guard let cardType = ExplodingKittensUtils.getCardType(card: card) else {
                     return false
                 }
@@ -99,34 +99,34 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func generateDefuseCard() -> Card {
-        let card = Card(name: "Defuse", typeOfCard: .noTargetCard)
+        let card = Card(name: "Defuse", typeOfTargettedCard: .noTargetCard)
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.defuse)
         return card
     }
 
     private static func generateFavorCard() -> Card {
-        let card = Card(name: "Favor", typeOfCard: .targetSinglePlayerCard)
+        let card = Card(name: "Favor", typeOfTargettedCard: .targetSinglePlayerCard)
         card.addPlayAction(PlayerHandPositionRequestCardAction())
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.favor)
         return card
     }
 
     private static func generateSeeTheFutureCard() -> Card {
-        let card = Card(name: "See The Future", typeOfCard: .noTargetCard)
+        let card = Card(name: "See The Future", typeOfTargettedCard: .noTargetCard)
         card.addPlayAction(DisplayTopNCardsFromDeckCardAction(n: 3))
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.seeTheFuture)
         return card
     }
 
     private static func generateShuffleCard() -> Card {
-        let card = Card(name: "Shuffle", typeOfCard: .noTargetCard)
+        let card = Card(name: "Shuffle", typeOfTargettedCard: .noTargetCard)
         card.addPlayAction(ShuffleDeckCardAction())
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.shuffle)
         return card
     }
 
     private static func generateSkipCard() -> Card {
-        let card = Card(name: "Skip", typeOfCard: .noTargetCard)
+        let card = Card(name: "Skip", typeOfTargettedCard: .noTargetCard)
 
         card.addPlayAction(SkipTurnCardAction())
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.skip)
@@ -134,19 +134,19 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func generateRandom1Card() -> Card {
-        let card = Card(name: "Random 1", typeOfCard: .noTargetCard)
+        let card = Card(name: "Random 1", typeOfTargettedCard: .noTargetCard)
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.random1)
         return card
     }
 
     private static func generateRandom2Card() -> Card {
-        let card = Card(name: "Random 2", typeOfCard: .noTargetCard)
+        let card = Card(name: "Random 2", typeOfTargettedCard: .noTargetCard)
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.random2)
         return card
     }
 
     private static func generateRandom3Card() -> Card {
-        let card = Card(name: "Random 3", typeOfCard: .noTargetCard)
+        let card = Card(name: "Random 3", typeOfTargettedCard: .noTargetCard)
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.random3)
         return card
     }
@@ -194,11 +194,11 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            if allSameExplodingKittensCardType(cards) {
+            guard allSameExplodingKittensCardType(cards) else {
                 return []
             }
 
-            return [PlayerTakesNthCardFromPlayerCardAction(n: -1, stateOfN: .random)]
+            return [PlayerHandPositionRequestCardAction()]
         }
 
         return pair
@@ -215,11 +215,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                     return []
             }
 
-            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
-            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                ExplodingKittensUtils.getCardType(card: $0) ==
-                    ExplodingKittensCardType.defuse
-            })]
+            return [CardTypeRequestAction()]
         }
 
         return threeOfAKind
