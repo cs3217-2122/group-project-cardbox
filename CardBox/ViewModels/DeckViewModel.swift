@@ -17,7 +17,7 @@ class DeckViewModel: ObservableObject {
         deck.getCards()
     }
 
-    func getTopCard() -> Card? {
-        deck.getFirstCard()
+    var topCard: Card? {
+        deck.topCard
     }
 }

@@ -35,6 +35,9 @@ struct GameRunnerView: View {
                 CardView(cardViewModel: CardViewModel(card: cardPreview, isFaceUp: true))
                     .scaleEffect(1.5)
             }
+            if gameRunnerViewModel.isShowingDeckPositionRequest {
+                DeckPositionView()
+            }
         }.environmentObject(gameRunnerViewModel)
     }
 }

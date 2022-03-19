@@ -1,6 +1,6 @@
 class PlayerCollection {
-    private var players: [Player] = []
-    private var currentPlayerIndex: Int
+    private var players: [Player]
+    private(set) var currentPlayerIndex: Int
 
     convenience init() {
         self.init(players: [])
@@ -15,24 +15,16 @@ class PlayerCollection {
         self.players.count
     }
 
+    var isEmpty: Bool {
+        self.players.isEmpty
+    }
+
     var currentPlayer: Player? {
         guard !players.isEmpty else {
             return nil
         }
 
         return self.players[self.currentPlayerIndex]
-    }
-
-    var nextPlayer: Player? {
-        guard !players.isEmpty else {
-            return nil
-        }
-
-        guard let nextIndex = self.getNextIndex() else {
-            return nil
-        }
-
-        return self.players[nextIndex]
     }
 
     func addPlayer(_ player: Player) {
@@ -45,22 +37,6 @@ class PlayerCollection {
         }
 
         self.currentPlayerIndex = playerIndex
-    }
-
-    private func getNextIndex() -> Int? {
-        guard !players.isEmpty else {
-            return nil
-        }
-
-        return (self.currentPlayerIndex + 1) % self.players.count
-    }
-
-    func advanceToNextPlayer() {
-        guard let nextIndex = getNextIndex() else {
-            return
-        }
-
-        self.currentPlayerIndex = nextIndex
     }
 
     func getPlayerByIndex(_ index: Int) -> Player? {
