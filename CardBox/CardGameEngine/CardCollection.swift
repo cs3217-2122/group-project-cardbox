@@ -12,6 +12,13 @@ class CardCollection {
         cards.count
     }
 
+    var topCard: Card? {
+        if cards.isEmpty {
+            return nil
+        }
+        return cards[0]
+    }
+
     func getSize() -> Int {
         cards.count
     }
