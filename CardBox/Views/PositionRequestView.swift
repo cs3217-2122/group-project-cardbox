@@ -7,9 +7,12 @@
 
 import SwiftUI
 
-struct DeckPositionView: View {
+struct PositionRequestView: View {
     @State private var position: Int = 0
     @EnvironmentObject var gameRunnerViewModel: GameRunner
+
+    var dispatchPositionResponse: (Int) -> Void
+    var toggleShowPositionRequestView: (Bool) -> Void
 
     var minusButton: some View {
         Button(action: {
@@ -42,8 +45,8 @@ struct DeckPositionView: View {
                 addButton
             }
             Button(action: {
-                gameRunnerViewModel.dispatchDeckPositionResponse(offsetFromTop: position)
-                gameRunnerViewModel.hideDeckPositionRequest()
+                dispatchPositionResponse(position)
+                toggleShowPositionRequestView(false)
             }) {
                 Text("Submit")
             }

@@ -16,7 +16,9 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
+    @Published internal var isShowingPlayerHandPositionRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
+    internal var playerHandPositionRequestArgs: PlayerHandPositionRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -88,16 +90,20 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         ActionDispatcher.runAction(EndTurnAction(), on: self)
     }
 
-    func showDeckPositionRequest() {
-        self.isShowingDeckPositionRequest = true
-    }
-
-    func hideDeckPositionRequest() {
-        self.isShowingDeckPositionRequest = false
+    func toggleDeckPositionRequest(to isShowingRequest: Bool) {
+        self.isShowingDeckPositionRequest = isShowingRequest
     }
 
     func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs) {
         self.deckPositionRequestArgs = args
+    }
+
+    func togglePlayerHandPositionRequest(to isShowingRequest: Bool) {
+        self.isShowingPlayerHandPositionRequest = isShowingRequest
+    }
+
+    func setPlayerHandPositionRequestArgs(_ args: PlayerHandPositionRequestArgs) {
+        self.playerHandPositionRequestArgs = args
     }
 
     func advanceToNextPlayer() {
@@ -116,7 +122,22 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         }
 
         ActionDispatcher.runAction(
-            DeckPositionResponseAction(card: args.card, player: args.player, offsetFromTop: offsetFromTop),
+            DeckPositionResponseAction(card: args.card,
+                                       player: args.player,
+                                       offsetFromTop: offsetFromTop),
+            on: self
+        )
+    }
+
+    func dispatchPlayerHandPositionResponse(playerHandPosition: Int) {
+        guard let args = playerHandPositionRequestArgs else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            PlayerHandPositionResponseAction(target: args.target,
+                                             player: args.player,
+                                             playerHandPosition: playerHandPosition),
             on: self
         )
     }
