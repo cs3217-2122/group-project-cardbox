@@ -24,7 +24,7 @@ struct GameActionsView: View {
             }
             Button {
                 // TODO: add play functionality here
-                currentPlayerViewModel.playCards()
+                currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel)
             } label: {
                 Text("Play")
                     .font(.title)
