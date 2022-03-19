@@ -16,6 +16,8 @@ protocol GameRunnerUpdateOnly {
     func onEndTurn()
     func setGameState(gameState: GameState)
 
+    func setCardsPeeking(cards: [Card])
+
     func showDeckPositionRequest()
     func hideDeckPositionRequest()
     func setDeckPositionRequestArgs(_ args: DeckPositionRequestArgs)
