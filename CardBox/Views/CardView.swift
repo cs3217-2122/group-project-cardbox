@@ -67,6 +67,6 @@ struct CardView: View {
 
 struct Card_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb", typeOfCard: .noTargetCard)))
+        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb", typeOfTargettedCard: .noTargetCard)))
     }
 }

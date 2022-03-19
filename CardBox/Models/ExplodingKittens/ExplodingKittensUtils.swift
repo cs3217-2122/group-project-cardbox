@@ -18,4 +18,8 @@ struct ExplodingKittensUtils {
     static func setCardType(card: Card, type: ExplodingKittensCardType) {
         card.setAdditionalParams(key: cardTypeKey, value: type.rawValue)
     }
+
+    static func getAllCardTypes() -> [ExplodingKittensCardType] {
+        ExplodingKittensCardType.allCases
+    }
 }

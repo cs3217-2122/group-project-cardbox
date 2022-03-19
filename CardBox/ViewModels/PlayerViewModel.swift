@@ -80,9 +80,9 @@ class PlayerViewModel: ObservableObject {
         }
 
         if selectedCards.count == 1 {
-            if selectedCards[0].typeOfCard == TypeOfCard.noTargetCard {
+            if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
-            } else if selectedCards[0].typeOfCard == TypeOfCard.targetAllPlayersCard {
+            } else if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.targetAllPlayersCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             } else {
                 guard let target = target else {

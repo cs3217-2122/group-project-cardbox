@@ -117,6 +117,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     // Exploding kitten specific related methods
 
+    var getAllCardTypes: [ExplodingKittensCardType] {
+        ExplodingKittensUtils.getAllCardTypes()
+    }
+
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
         guard let args = deckPositionRequestArgs else {
             return
