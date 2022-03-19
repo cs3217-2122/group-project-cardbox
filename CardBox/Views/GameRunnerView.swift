@@ -34,6 +34,8 @@ struct GameRunnerView: View {
             CardPreviewView()
             DeckPositionRequestView()
             HandPositionRequestView(selectedPlayerViewModel: $selectedPlayerViewModel)
+            CardRequestView(dispatchPositionResponse: gameRunnerViewModel.dispatchCardRequestResponse,
+                            toggleShowPositionRequestView: gameRunnerViewModel.toggleCardRequest)
         }.environmentObject(gameRunnerViewModel)
     }
 }

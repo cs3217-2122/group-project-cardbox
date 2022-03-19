@@ -10,10 +10,10 @@ import SwiftUI
 struct CardRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
     @State var selectedType = ""
-    private var dispatchPositionResponse: (Int) -> Void
+    private var dispatchPositionResponse: (String) -> Void
     private var toggleShowPositionRequestView: (Bool) -> Void
 
-    init(dispatchPositionResponse: @escaping (Int) -> Void,
+    init(dispatchPositionResponse: @escaping (String) -> Void,
          toggleShowPositionRequestView: @escaping (Bool) -> Void) {
         self.dispatchPositionResponse = dispatchPositionResponse
         self.toggleShowPositionRequestView = toggleShowPositionRequestView
@@ -40,7 +40,7 @@ struct CardRequestView: View {
                 }
             }
             Button {
-                dispatchPositionResponse(1) // random value
+                dispatchPositionResponse("defuse") // random value
                 toggleShowPositionRequestView(false)
             } label: {
                 Text("Submit")
@@ -52,9 +52,11 @@ struct CardRequestView: View {
     }
 
     var body: some View {
-        ZStack {
-            overlay
-            messageBox
+        if gameRunnerViewModel.isShowingCardRequest {
+            ZStack {
+                overlay
+                messageBox
+            }
         }
     }
 }
