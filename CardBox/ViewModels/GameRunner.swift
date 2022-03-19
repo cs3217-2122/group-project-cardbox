@@ -100,6 +100,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func togglePlayerHandPositionRequest(to isShowingRequest: Bool) {
         self.isShowingPlayerHandPositionRequest = isShowingRequest
+        print(isShowingPlayerHandPositionRequest)
     }
 
     func setPlayerHandPositionRequestArgs(_ args: PlayerHandPositionRequestArgs) {

@@ -97,6 +97,7 @@ class Player: Identifiable, ExtendedProperties {
 
         guard canPlay(cards: cards, gameRunner: gameRunner) else {
             // TODO: change to exception
+            print("Cannot play (player)")
             return
         }
 
@@ -104,14 +105,16 @@ class Player: Identifiable, ExtendedProperties {
         let isCardCombo = cards.count > 1
 
         if isCardCombo {
+            print("Card combo")
             action = PlayCardComboAction(player: self,
                                          cards: cards,
                                          target: target,
                                          comboActions: determineCardComboActions(cards))
         } else {
+            print("Not card combo")
             action = PlayCardAction(player: self, cards: cards, target: target)
         }
-
+        print("ran")
         ActionDispatcher.runAction(action, on: gameRunner)
     }
 
