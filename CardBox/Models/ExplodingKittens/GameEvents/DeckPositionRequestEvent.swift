@@ -19,6 +19,6 @@ struct DeckPositionRequestEvent: GameEvent {
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         let args = DeckPositionRequestArgs(card: card, player: player)
         gameRunner.setDeckPositionRequestArgs(args)
-        gameRunner.showDeckPositionRequest()
+        gameRunner.toggleDeckPositionRequest(to: true)
     }
 }

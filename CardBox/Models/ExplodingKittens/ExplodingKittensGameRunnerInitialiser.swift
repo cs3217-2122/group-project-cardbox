@@ -106,8 +106,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
     private static func generateFavorCard() -> Card {
         let card = Card(name: "Favor", typeOfCard: .targetSinglePlayerCard)
-        // Similar to generate bomb card, needs user input to choose n
-        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0, stateOfN: .given))
+        card.addPlayAction(PlayerHandPositionRequestCardAction())
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.favor)
         return card
     }
@@ -157,8 +156,11 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         // TODO:
         // 1. Add 4 Attack cards
-        // 2. Add 4 Favor cards
-        // 3. Add 5 Nope cards
+        // 2. Add 5 Nope cards
+
+        for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
+            cards.append(generateFavorCard())
+        }
 
         for _ in 0 ..< ExplodingKittensCardType.shuffle.initialFrequency {
             cards.append(generateShuffleCard())

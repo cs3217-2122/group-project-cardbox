@@ -31,7 +31,11 @@ struct GameRunnerView: View {
                     .scaleEffect(1.5)
             }
             if gameRunnerViewModel.isShowingDeckPositionRequest {
-                DeckPositionView()
+                PositionRequestView(dispatchPositionResponse: gameRunnerViewModel.dispatchDeckPositionResponse,
+                                    toggleShowPositionRequestView: gameRunnerViewModel.toggleDeckPositionRequest)
+            } else if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
+                PositionRequestView(dispatchPositionResponse: gameRunnerViewModel.dispatchPlayerHandPositionResponse,
+                                    toggleShowPositionRequestView: gameRunnerViewModel.togglePlayerHandPositionRequest)
             }
         }.environmentObject(gameRunnerViewModel)
     }
