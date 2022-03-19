@@ -22,8 +22,9 @@ protocol GameRunnerUpdateOnly {
     func togglePlayerHandPositionRequest(to: Bool)
     func setPlayerHandPositionRequestArgs(_ args: PlayerHandPositionRequestArgs)
 
-    func toggleCardRequest(to: Bool)
-    func setCardRequestArgs(_ args: CardRequestArgs)
+    // TODO: Abstract card types into CardGameEngine, instead of only existing in exploding kittens
+    func toggleCardTypeRequest(to: Bool)
+    func setCardTypeRequestArgs(_ args: CardTypeRequestArgs)
 
     func advanceToNextPlayer()
 }

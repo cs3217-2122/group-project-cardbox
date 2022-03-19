@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct CardRequestView: View {
+struct CardTypeRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
     @State var selectedType = ""
-    private var dispatchPositionResponse: (String) -> Void
-    private var toggleShowPositionRequestView: (Bool) -> Void
+    private var dispatchCardTypeResponse: (String) -> Void
+    private var toggleCardTypeRequestView: (Bool) -> Void
 
-    init(dispatchPositionResponse: @escaping (String) -> Void,
-         toggleShowPositionRequestView: @escaping (Bool) -> Void) {
-        self.dispatchPositionResponse = dispatchPositionResponse
-        self.toggleShowPositionRequestView = toggleShowPositionRequestView
+    init(dispatchCardTypeResponse: @escaping (String) -> Void,
+         toggleCardTypeRequestView: @escaping (Bool) -> Void) {
+        self.dispatchCardTypeResponse = dispatchCardTypeResponse
+        self.toggleCardTypeRequestView = toggleCardTypeRequestView
     }
 
     var overlay: some View {
@@ -40,8 +40,8 @@ struct CardRequestView: View {
                 }
             }
             Button {
-                dispatchPositionResponse("defuse") // random value
-                toggleShowPositionRequestView(false)
+                dispatchCardTypeResponse(selectedType)
+                toggleCardTypeRequestView(false)
             } label: {
                 Text("Submit")
             }
@@ -52,7 +52,7 @@ struct CardRequestView: View {
     }
 
     var body: some View {
-        if gameRunnerViewModel.isShowingCardRequest {
+        if gameRunnerViewModel.isShowingCardTypeRequest {
             ZStack {
                 overlay
                 messageBox

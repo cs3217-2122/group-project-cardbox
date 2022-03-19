@@ -217,11 +217,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                     return []
             }
 
-            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
-            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
-                ExplodingKittensUtils.getCardType(card: $0) ==
-                    ExplodingKittensCardType.defuse
-            })]
+            return [CardTypeRequestAction()]
         }
 
         return threeOfAKind
