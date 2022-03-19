@@ -32,45 +32,39 @@ class GameRunnerView_UITests: XCTestCase {
         XCTAssertTrue(endButton.exists)
         XCTAssertTrue(player1.exists)
         XCTAssertTrue(player2.exists)
-        
+
         endButton.tap()
-        
+
         let currentPlayer = app.staticTexts["Current Player: Player 2"]
         XCTAssertTrue(currentPlayer.exists)
     }
-    
+
     func test_GameRunnerView_PlaySkip_shouldGoToNextPlayer() {
         let playButton = app.buttons["Play"]
         let skipCard = app.staticTexts["Skip"]
         let emptyPlayDeck = app.staticTexts["No card in stack"]
 
-        
         skipCard.tap()
         playButton.tap()
-        
+
         let currentPlayer = app.staticTexts["Current Player: Player 2"]
         XCTAssertFalse(emptyPlayDeck.exists)
         XCTAssertTrue(currentPlayer.exists)
     }
-    
+
     func test_GameRunnerView_PlayInvalidCombo_shouldDoNothing() {
         let playButton = app.buttons["Play"]
         let skipCard = app.staticTexts["Skip"]
         let shuffleCard = app.staticTexts["Shuffle"]
         let emptyPlayDeck = app.staticTexts["No card in stack"]
-        
+
         XCTAssertTrue(emptyPlayDeck.exists)
-        
+
         skipCard.tap()
         shuffleCard.tap()
         playButton.tap()
-        
+
         XCTAssertTrue(emptyPlayDeck.exists)
     }
-    
-    
-    
-    
-    
 
 }
