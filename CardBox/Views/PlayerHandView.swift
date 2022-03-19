@@ -31,7 +31,11 @@ struct PlayerHandView: View {
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
                         print("tap card")
-                        playerViewModel.tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                        playerViewModel.tapCard(
+                            card: card,
+                            cardViewModel: cardViewModel,
+                            gameRunner: gameRunnerViewModel
+                        )
                     }
                     .gesture(
                         DragGesture(minimumDistance: 0.0)

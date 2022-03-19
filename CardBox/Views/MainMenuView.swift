@@ -19,36 +19,48 @@ struct MainMenuView: View {
                 Text("CardBox")
                     .font(.system(size: 50))
                 Spacer()
-                Button {
-                    appState.page = .game
-                } label: {
-                    Text("Play Offline")
-                        .font(.title)
-                        .frame(width: 400, height: 100)
-                        .border(Color.black)
-                        .foregroundColor(Color.orange)
-                        .background(Color.blue)
-                }
-                Button {
-                } label: {
-                    Text("Host Game")
-                        .font(.title)
-                        .frame(width: 400, height: 100)
-                        .border(Color.black)
-                        .foregroundColor(Color.orange)
-                        .background(Color.blue)
-                }
-                Button {
-                } label: {
-                    Text("Join Game")
-                        .font(.title)
-                        .frame(width: 400, height: 100)
-                        .border(Color.black)
-                        .foregroundColor(Color.orange)
-                        .background(Color.blue)
-                }
+                playOfflineButton
+                hostGameButton
+                joinButton
                 Spacer()
             }
+        }
+    }
+
+    var playOfflineButton: some View {
+        Button {
+            appState.page = .game
+        } label: {
+            Text("Play Offline")
+                .font(.title)
+                .frame(width: 400, height: 100)
+                .border(Color.black)
+                .foregroundColor(Color.orange)
+                .background(Color.blue)
+        }
+    }
+
+    var hostGameButton: some View {
+        Button {
+        } label: {
+            Text("Host Game")
+                .font(.title)
+                .frame(width: 400, height: 100)
+                .border(Color.black)
+                .foregroundColor(Color.orange)
+                .background(Color.blue)
+        }
+    }
+
+    var joinButton: some View {
+        Button {
+        } label: {
+            Text("Join Game")
+                .font(.title)
+                .frame(width: 400, height: 100)
+                .border(Color.black)
+                .foregroundColor(Color.orange)
+                .background(Color.blue)
         }
     }
 }
