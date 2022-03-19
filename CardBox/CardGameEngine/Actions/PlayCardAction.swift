@@ -13,7 +13,7 @@ struct PlayCardAction: Action {
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
 
         for card in cards {
-            guard card.canPlay(by: player, gameRunner: gameRunner, on: target) else {
+            guard player.canPlay(cards: cards, gameRunner: gameRunner) else {
                 continue
             }
 

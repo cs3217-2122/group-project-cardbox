@@ -65,17 +65,7 @@ class Card: Identifiable {
         }
     }
 
-    func canPlay(by player: Player, gameRunner: GameRunnerReadOnly, on target: GameplayTarget) -> Bool {
-        canPlayConditions.allSatisfy({ $0(gameRunner, player, target) })
-    }
-
     func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
-
-        guard canPlay(by: player, gameRunner: gameRunner, on: target) else {
-            // TODO: Change to exception
-            return
-        }
-
         let args = CardActionArgs(card: self, player: player, target: target)
 
         self.onPlayActions.forEach { action in
