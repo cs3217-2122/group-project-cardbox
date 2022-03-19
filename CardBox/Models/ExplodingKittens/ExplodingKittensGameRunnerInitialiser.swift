@@ -54,7 +54,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             key: ExplodingKittensUtils.attackCountKey,
             step: -1
         )
-        gameRunner.addStartTurnAction(resetAttackedAction)
+        gameRunner.addAdvanceNextPlayerAction(resetAttackedAction)
 
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
 

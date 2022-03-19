@@ -29,6 +29,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
+    private var onAdvanceNextPlayerActions: [Action]
     private var nextPlayerGenerator: NextPlayerGenerator?
     private var winningConditions: [WinningCondition]
     private var winnerGenerator: WinnerGenerator?
@@ -44,6 +45,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.cardsPeeking = []
         self.nextPlayerGenerator = nil
         self.winningConditions = []
+        self.onAdvanceNextPlayerActions = []
     }
 
     func addSetupAction(_ action: Action) {
@@ -64,6 +66,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func setWinnerGenerator(_ generator: WinnerGenerator) {
         self.winnerGenerator = generator
+    }
+
+    func addAdvanceNextPlayerAction(_ action: Action) {
+        self.onAdvanceNextPlayerActions.append(action)
     }
 
     func setNextPlayerGenerator(_ generator: NextPlayerGenerator) {
@@ -88,6 +94,12 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
 
     func onEndTurn() {
         self.onEndTurnActions.forEach { action in
+            action.executeGameEvents(gameRunner: self)
+        }
+    }
+
+    func onAdvanceNextPlayer() {
+        self.onAdvanceNextPlayerActions.forEach { action in
             action.executeGameEvents(gameRunner: self)
         }
     }
@@ -128,6 +140,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func hideDeckPositionRequest() {
         self.isShowingDeckPositionRequest = false
     }
+
     func toggleDeckPositionRequest(to isShowingRequest: Bool) {
         self.isShowingDeckPositionRequest = isShowingRequest
     }
@@ -157,6 +170,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
             return
         }
 
+        onAdvanceNextPlayer()
         players.setCurrentPlayer(nextPlayer)
     }
 
@@ -172,9 +186,11 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         }
 
         ActionDispatcher.runAction(
-            DeckPositionResponseAction(card: args.card,
-                                       player: args.player,
-                                       offsetFromTop: offsetFromTop),
+            DeckPositionResponseAction(
+                card: args.card,
+                player: args.player,
+                offsetFromTop: offsetFromTop
+            ),
             on: self
         )
     }
