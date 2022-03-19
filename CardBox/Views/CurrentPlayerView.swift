@@ -21,5 +21,6 @@ struct CurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         CurrentPlayerView(error: .constant(false),
                           currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
+            .accessibilityIdentifier("currentPlayer")
     }
 }

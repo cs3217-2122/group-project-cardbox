@@ -13,10 +13,14 @@ struct PlayerView: View {
     @Binding var error: Bool
 
     var playerText: String {
+        var playerName = playerViewModel.player.name
         if playerViewModel.player.isOutOfGame {
-            return playerViewModel.player.name + "(Dead)"
+            playerName += "(Dead)"
         }
-        return playerViewModel.player.name
+        if playerViewModel.player === gameRunnerViewModel.players.currentPlayer {
+            playerName = "Current Player: " + playerName
+        }
+        return playerName
     }
 
     var body: some View {
