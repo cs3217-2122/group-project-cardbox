@@ -6,8 +6,7 @@
 //
 
 struct AdvanceNextPlayerEvent: GameEvent {
-
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
-        gameRunner.players.advanceToNextPlayer()
+        gameRunner.advanceToNextPlayer()
     }
 }

@@ -8,30 +8,55 @@
 import SwiftUI
 
 struct DeckPositionView: View {
-    let gameRunner: GameRunner
     @State private var position: Int = 0
+    @EnvironmentObject var gameRunnerViewModel: GameRunner
 
-    var body: some View {
+    var minusButton: some View {
+        Button(action: {
+            self.position -= 1
+        }) {
+            Text("-")
+        }
+    }
+
+    var addButton: some View {
+        Button(action: {
+            self.position += 1
+        }) {
+            Text("+")
+        }
+    }
+
+    var overlay: some View {
+        Rectangle()
+            .background(Color.black)
+            .opacity(0.5)
+            .allowsHitTesting(true)
+    }
+
+    var messageBox: some View {
         VStack {
             HStack {
-                Button(action: {
-                    self.position -= 1
-                }) {
-                    Text("-")
-                }
+                minusButton
                 Text(position.description)
-                Button(action: {
-                    self.position += 1
-                }) {
-                    Text("+")
-                }
+                addButton
             }
             Button(action: {
-                gameRunner.dispatchDeckPositionResponse(offsetFromTop: position)
-                gameRunner.hideDeckPositionRequest()
+                gameRunnerViewModel.dispatchDeckPositionResponse(offsetFromTop: position)
+                gameRunnerViewModel.hideDeckPositionRequest()
             }) {
                 Text("Submit")
             }
+        }
+        .contentShape(Rectangle())
+        .padding(10)
+        .background(Color.white)
+    }
+
+    var body: some View {
+        ZStack {
+            overlay
+            messageBox
         }
     }
 }

@@ -7,7 +7,7 @@
 
 typealias CardCombo = (_ cards: [Card]) -> [CardAction]
 
-class Player: Identifiable {
+class Player: Identifiable, ExtendedProperties {
     private(set) var hand: CardCollection
     private(set) var name: String
     private(set) var isOutOfGame = false
@@ -16,6 +16,7 @@ class Player: Identifiable {
 
     private var canPlayConditions: [PlayerPlayCondition]
     private var cardCombos: [CardCombo] = []
+    internal var additionalParams: [String: String]
 
     var description: String {
         name
@@ -26,6 +27,7 @@ class Player: Identifiable {
         self.name = name
 
         self.canPlayConditions = []
+        self.additionalParams = [:]
     }
 
     func addCardCombo(_ cardCombo: @escaping CardCombo) {
