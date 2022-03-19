@@ -12,9 +12,16 @@ struct PlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
 
+    var playerText: String {
+        if playerViewModel.player.isOutOfGame {
+            return playerViewModel.player.name + "(Dead)"
+        }
+        return playerViewModel.player.name
+    }
+
     var body: some View {
         VStack {
-            Text(playerViewModel.player.name)
+            Text(playerText)
             PlayerHandView(playerViewModel: playerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
                            error: $error)
