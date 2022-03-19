@@ -28,15 +28,13 @@ struct CardTypeRequestView: View {
 
     var messageBox: some View {
         VStack {
-            HStack {
-                ForEach(gameRunnerViewModel.getAllCardTypes, id: \.self) { cardType in
-                    Button {
-                        selectedType = cardType.rawValue
-                    } label: {
-                        Text(cardType.rawValue)
-                            .foregroundColor(selectedType == cardType.rawValue
-                                             ? Color.red : Color.blue)
-                    }
+            ForEach(gameRunnerViewModel.getAllCardTypes, id: \.self) { cardType in
+                Button {
+                    selectedType = cardType.rawValue
+                } label: {
+                    Text(cardType.rawValue)
+                        .foregroundColor(selectedType == cardType.rawValue
+                                         ? Color.red : Color.black)
                 }
             }
             Button {

@@ -73,9 +73,20 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
+    func canPlayCardOnPlayer(gameRunner: GameRunner, target: PlayerViewModel?) -> Bool {
+        guard let target = target else {
+            return canPlayCard(gameRunner: gameRunner)
+        }
+        return canPlayCard(gameRunner: gameRunner) && !target.isDead()
+    }
+
+    func isDead() -> Bool {
+        self.player.isOutOfGame
+    }
+
     func playCards(gameRunner: GameRunner, target: PlayerViewModel?) {
-        guard canPlayCard(gameRunner: gameRunner) else {
-            print("Cannot play card")
+        guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
+            print("Cannot play card on player (Player is dead)")
             return
         }
 

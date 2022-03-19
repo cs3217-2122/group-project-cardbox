@@ -17,8 +17,10 @@ struct PlayerView: View {
         VStack {
             Button {
                 if !playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                    selectedPlayerViewModel = playerViewModel
-                    print("Selected \(selectedPlayerViewModel?.player.name ?? "none")")
+                    if !playerViewModel.isDead() {
+                        selectedPlayerViewModel = playerViewModel
+                        print("Selected \(selectedPlayerViewModel?.player.name ?? "none")")
+                    }
                 }
             } label: {
                 if let selectedPlayerViewModel = selectedPlayerViewModel {
