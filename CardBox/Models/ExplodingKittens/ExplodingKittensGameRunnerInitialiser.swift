@@ -194,7 +194,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            if allSameExplodingKittensCardType(cards) {
+            guard allSameExplodingKittensCardType(cards) else {
                 return []
             }
 
