@@ -86,7 +86,6 @@ class PlayerViewModel: ObservableObject {
             }
         } else {
             // 2 or 3 should be played to someone else
-            
         }
     }
 }
