@@ -14,7 +14,7 @@ struct PlayerHandPositionRequestCardAction: CardAction {
         }
 
         gameRunner.executeGameEvents([
-            DeckPositionRequestEvent(card: card, player: args.player)
+            PlayerHandPositionRequestEvent(target: args.target, player: args.player)
         ])
     }
 }
