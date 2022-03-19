@@ -5,6 +5,8 @@
 //  Created by mactest on 10/03/2022.
 //
 
+typealias CardCombo = (_ cards: [Card]) -> [CardAction]
+
 class Player: Identifiable {
     private(set) var hand: CardCollection
     private(set) var name: String
@@ -13,6 +15,7 @@ class Player: Identifiable {
     private(set) var cardsPlayed = 0
 
     private var canPlayConditions: [PlayerPlayCondition]
+    private var cardCombos: [CardCombo] = []
 
     var description: String {
         name
@@ -23,6 +26,10 @@ class Player: Identifiable {
         self.name = name
 
         self.canPlayConditions = []
+    }
+
+    func addCardCombo(_ cardCombo: @escaping CardCombo) {
+        self.cardCombos.append(cardCombo)
     }
 
     func addCard(_ card: Card) {
@@ -61,6 +68,10 @@ class Player: Identifiable {
         return hand.containsCard(where: predicate)
     }
 
+    func getCard(where predicate: (Card) -> Bool) -> Card? {
+        self.hand.getCard(where: predicate)
+    }
+
     func addCanPlayCondition(_ condition: PlayerPlayCondition) {
         self.canPlayConditions.append(condition)
     }
@@ -81,8 +92,35 @@ class Player: Identifiable {
     }
 
     func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
-        let action = PlayCardAction(player: self, cards: cards, target: target)
+
+        guard canPlay(cards: cards, gameRunner: gameRunner) else {
+            // TODO: change to exception
+            return
+        }
+
+        let action: Action
+        let isCardCombo = cards.count > 1
+
+        if isCardCombo {
+            action = PlayCardComboAction(player: self,
+                                         cards: cards,
+                                         target: target,
+                                         comboActions: determineCardComboActions(cards))
+        } else {
+            action = PlayCardAction(player: self, cards: cards, target: target)
+        }
+
         ActionDispatcher.runAction(action, on: gameRunner)
+    }
+
+    private func determineCardComboActions(_ cards: [Card]) -> [CardAction] {
+        var cardComboActions: [CardAction] = []
+
+        for getCardCombo in cardCombos {
+            cardComboActions.append(contentsOf: getCardCombo(cards))
+        }
+
+        return cardComboActions
     }
 
     func getCardByIndex(_ index: Int) -> Card? {

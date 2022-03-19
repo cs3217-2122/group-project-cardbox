@@ -58,6 +58,15 @@ class CardCollection {
         self.cards
     }
 
+    func getCard(where predicate: (Card) -> Bool) -> Card? {
+        for card in cards {
+            if predicate(card) {
+                return card
+            }
+        }
+        return nil
+    }
+
     func containsCard(where predicate: (Card) -> Bool) -> Bool {
         cards.contains(where: predicate)
     }

@@ -20,7 +20,10 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         let numPlayers = 4
 
         let playConditions = initCardPlayConditions()
-        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers, canPlayConditions: playConditions))
+        let cardCombos = initCardCombos()
+        gameRunner.addSetupAction(InitPlayerAction(numPlayers: numPlayers,
+                                                   canPlayConditions: playConditions,
+                                                   cardCombos: cardCombos))
 
         // Distribute defuse cards
         let defuseCards: [Card] = (0..<numPlayers).map { _ in generateDefuseCard() }
@@ -99,7 +102,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func generateFavorCard() -> Card {
         let card = Card(name: "Favor")
         // Similar to generate bomb card, needs user input to choose n
-        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0))
+        card.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: 0, stateOfN: .given))
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.favor)
         return card
     }
@@ -171,5 +174,88 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         }
 
         return cards
+    }
+
+    private static func initCardCombos() -> [CardCombo] {
+        [generatePairCombo(), generateThreeOfAKindCombo(), generateFiveDifferentCardsCombo()]
+    }
+
+    private static func generatePairCombo() -> CardCombo {
+
+        let pair: CardCombo = { cards in
+            guard cards.count == 2 else {
+                return []
+            }
+
+            if allSameExplodingKittensCardType(cards) {
+                return []
+            }
+
+            return [PlayerTakesNthCardFromPlayerCardAction(n: -1, stateOfN: .random)]
+        }
+
+        return pair
+    }
+
+    private static func generateThreeOfAKindCombo() -> CardCombo {
+
+        let threeOfAKind: CardCombo = { cards in
+            guard cards.count == 3 else {
+                return []
+            }
+
+            guard allSameExplodingKittensCardType(cards) else {
+                    return []
+            }
+
+            // TODO: Get user input to choose card, for now its a placeholder card (most likely defuse)
+            return [PlayerTakenChosenCardFromPlayerCardAction(cardPredicate: {
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) ==
+                    ExplodingKittensCardType.defuse.rawValue
+            })]
+        }
+
+        return threeOfAKind
+    }
+
+    private static func generateFiveDifferentCardsCombo() -> CardCombo {
+
+        let fiveDifferentCards: CardCombo = { cards in
+            guard cards.count == 5 else {
+                return []
+            }
+
+            guard allDifferentExplodingKittensCardType(cards) else {
+                return []
+            }
+
+            // TODO: Prompt player to choose a card
+            return [PlayerTakesChosenCardFromGameplayCardAction()]
+        }
+
+        return fiveDifferentCards
+    }
+
+    private static func allSameExplodingKittensCardType(_ cards: [Card]) -> Bool {
+        if let cardType: String = cards[0].getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) {
+            return cards.allSatisfy({
+                $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) == cardType
+            })
+        }
+
+        return true
+    }
+
+    private static func allDifferentExplodingKittensCardType(_ cards: [Card]) -> Bool {
+        let cardTypes: [String] = cards.map({
+            guard let cardType = $0.getAdditionalParams(key: ExplodingKittensUtils.cardTypeKey) else {
+                // TODO: Exception or assert(false)
+                return ""
+            }
+            return cardType
+        })
+        let distinctCardTypes = Set<String>(cardTypes)
+
+        return distinctCardTypes.count == cardTypes.count
     }
 }

@@ -41,6 +41,7 @@ struct NonCurrentPlayerView: View {
 
 struct NonCurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        NonCurrentPlayerView(error: .constant(false), currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
+        NonCurrentPlayerView(error: .constant(false),
+                             currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")))
     }
 }
