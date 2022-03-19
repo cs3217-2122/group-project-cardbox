@@ -16,7 +16,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var cardsPeeking: [Card]
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
-    @Published internal var winner: Player?
+    internal var winner: Player?
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false

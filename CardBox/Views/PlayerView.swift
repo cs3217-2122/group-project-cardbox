@@ -30,11 +30,11 @@ struct PlayerView: View {
                 }
             } label: {
                 if let selectedPlayerViewModel = selectedPlayerViewModel {
-                    Text(playerViewModel.player.name)
+                    Text(playerText)
                         .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
                                          ? Color.red : Color.blue)
                 } else {
-                    Text(playerViewModel.player.name)
+                    Text(playerText)
                 }
 
             }
