@@ -17,11 +17,11 @@ struct HandPositionRequestView: View {
                 // for favour and 2 of a kind
                 // the main difference is that for favour, the owner of the hand can choose an index to give,
                 // while for 2 of a kind, the player who plays it can choose an index.
-                (PositionRequestView(dispatchPositionResponse:
+                PositionRequestView(dispatchPositionResponse:
                                         gameRunnerViewModel.dispatchPlayerHandPositionResponse,
-                                     toggleShowPositionRequestView:
+                                    toggleShowPositionRequestView:
                                         gameRunnerViewModel.togglePlayerHandPositionRequest,
-                                     size: selectedPlayerViewModel.player.hand.getSize()))
+                                    size: selectedPlayerViewModel.player.hand.getSize())
             }
         }
     }

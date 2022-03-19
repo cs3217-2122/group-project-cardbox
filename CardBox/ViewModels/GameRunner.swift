@@ -17,8 +17,10 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
     @Published internal var isShowingPlayerHandPositionRequest = false
+    @Published internal var isShowingCardRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
     internal var playerHandPositionRequestArgs: PlayerHandPositionRequestArgs?
+    internal var cardRequestArgs: CardRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
@@ -107,6 +109,14 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.playerHandPositionRequestArgs = args
     }
 
+    func toggleCardRequest(to isShowingRequest: Bool) {
+        self.isShowingCardRequest = isShowingRequest
+    }
+
+    func setCardRequestArgs(_ args: CardRequestArgs) {
+        self.cardRequestArgs = args
+    }
+
     func advanceToNextPlayer() {
         guard let nextPlayer = nextPlayerGenerator?.getNextPlayer(gameRunner: self) else {
             return
@@ -145,5 +155,15 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
                                              playerHandPosition: playerHandPosition),
             on: self
         )
+    }
+
+    func dispatchCardRequestResponse(type: String) {
+        guard let args = cardRequestArgs else {
+            return
+        }
+
+//        ActionDispatcher.runAction(
+//            ,
+//            on: self)
     }
 }

@@ -9,6 +9,15 @@ import SwiftUI
 
 struct CardRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @State var selectedType = ""
+    private var dispatchPositionResponse: (Int) -> Void
+    private var toggleShowPositionRequestView: (Bool) -> Void
+
+    init(dispatchPositionResponse: @escaping (Int) -> Void,
+         toggleShowPositionRequestView: @escaping (Bool) -> Void) {
+        self.dispatchPositionResponse = dispatchPositionResponse
+        self.toggleShowPositionRequestView = toggleShowPositionRequestView
+    }
 
     var overlay: some View {
         Rectangle()
@@ -20,10 +29,20 @@ struct CardRequestView: View {
     var messageBox: some View {
         VStack {
             HStack {
+                ForEach(gameRunnerViewModel.getAllCardTypes, id: \.self) { cardType in
+                    Button {
+                        selectedType = cardType.rawValue
+                    } label: {
+                        Text(cardType.rawValue)
+                            .foregroundColor(selectedType == cardType.rawValue
+                                             ? Color.red : Color.blue)
+                    }
+                }
             }
-            Button(action: {
-
-            }) {
+            Button {
+                dispatchPositionResponse(1) // random value
+                toggleShowPositionRequestView(false)
+            } label: {
                 Text("Submit")
             }
         }
@@ -37,11 +56,5 @@ struct CardRequestView: View {
             overlay
             messageBox
         }
-    }
-}
-
-struct CardRequestView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardRequestView()
     }
 }
