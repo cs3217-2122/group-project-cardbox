@@ -74,7 +74,7 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     private static func generateBombCard() -> Card {
         let card = Card(name: "Bomb", typeOfTargettedCard: .noTargetCard)
         let isTrueCardActions: [CardAction] = [
-            PlayerDiscardCardsAction(where: { card in
+            PlayerDiscardCardAction(where: { card in
                 guard let cardType = ExplodingKittensUtils.getCardType(card: card) else {
                     return false
                 }

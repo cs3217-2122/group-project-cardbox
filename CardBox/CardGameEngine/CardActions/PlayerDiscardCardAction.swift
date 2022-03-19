@@ -1,11 +1,11 @@
 //
-//  PlayerDiscardCardsAction.swift
+//  PlayerDiscardCardAction.swift
 //  CardBox
 //
 //  Created by Bryann Yeap Kok Keong on 14/3/22.
 //
 
-struct PlayerDiscardCardsAction: CardAction {
+struct PlayerDiscardCardAction: CardAction {
     let cardToDiscardCondition: (Card) -> Bool
 
     init(where cardToDiscardCondition: @escaping (Card) -> Bool) {
@@ -17,7 +17,7 @@ struct PlayerDiscardCardsAction: CardAction {
 
         for card in player.getHand().getCards() where cardToDiscardCondition(card) {
             gameRunner.executeGameEvents([PlayerDiscardCardEvent(player: player, cardToDiscard: card)])
+            return
         }
-
     }
 }
