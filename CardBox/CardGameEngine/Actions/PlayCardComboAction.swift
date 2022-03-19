@@ -18,14 +18,12 @@ struct PlayCardComboAction: Action {
                                           args: CardActionArgs(card: nil, player: player, target: target))
         }
 
-        let allCardsEvents = cards.compactMap({ card in
-            [
-                IncrementPlayerCardsPlayedEvent(player: player),
-                MoveCardPlayerToGameplayEvent(card: card, player: player)
-            ]
+        let allCardsEvents = cards.flatMap({ card in
+                [IncrementPlayerCardsPlayedEvent(player: player),
+                MoveCardPlayerToGameplayEvent(card: card, player: player)]
         })
 
-        print(allCardsEvents)
+        print(allCardsEvents.count)
 
         if let allCardsEvents = allCardsEvents as? [GameEvent] {
             gameRunner.executeGameEvents(allCardsEvents)
