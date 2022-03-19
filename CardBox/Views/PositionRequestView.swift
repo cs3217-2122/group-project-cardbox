@@ -11,8 +11,14 @@ struct PositionRequestView: View {
     @State private var position: Int = 0
     @EnvironmentObject var gameRunnerViewModel: GameRunner
 
-    var dispatchPositionResponse: (Int) -> Void
-    var toggleShowPositionRequestView: (Bool) -> Void
+    private var dispatchPositionResponse: (Int) -> Void
+    private var toggleShowPositionRequestView: (Bool) -> Void
+    
+    init(dispatchPositionResponse: @escaping (Int) -> Void,
+         toggleShowPositionRequestView: @escaping (Bool) -> Void) {
+        self.dispatchPositionResponse = dispatchPositionResponse
+        self.toggleShowPositionRequestView = toggleShowPositionRequestView
+    }
 
     var minusButton: some View {
         Button(action: {
