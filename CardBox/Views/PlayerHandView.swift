@@ -12,12 +12,13 @@ struct PlayerHandView: View {
     let playerHandViewModel: PlayerHandViewModel
     @EnvironmentObject private var gameRunnerViewModel: GameRunner
     @Binding var error: Bool
-
+    let handWidth = 800
+    
     var spacing: Double {
         let size = playerHandViewModel.getSize()
         // availableSpace - size * cardWidth / size
         // TODO: figure out spacing
-        return Double((400 - size * 150) / size)
+        return Double((handWidth - size * CardView.defaultCardWidth) / size)
     }
 
     var body: some View {

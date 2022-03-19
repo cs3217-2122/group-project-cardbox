@@ -10,6 +10,9 @@ import SwiftUI
 struct CardView: View {
     @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
+    static let defaultCardWidth = 150
+    let cardWidth = CGFloat(150)
+    let cardHeight = CGFloat(250)
 
     init(cardViewModel: CardViewModel) {
         self.viewModel = cardViewModel
@@ -55,7 +58,7 @@ struct CardView: View {
         buildView()
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
-            .frame(width: 150, height: 250)
+            .frame(width: cardWidth, height: cardHeight)
             .background(Color.white)
             .border(Color.black)
             .offset(y: viewModel.isSelected ? -50: 0)
