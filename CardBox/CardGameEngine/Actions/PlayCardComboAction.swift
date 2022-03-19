@@ -25,6 +25,8 @@ struct PlayCardComboAction: Action {
             ]
         })
 
+        print(allCardsEvents)
+
         if let allCardsEvents = allCardsEvents as? [GameEvent] {
             gameRunner.executeGameEvents(allCardsEvents)
         }

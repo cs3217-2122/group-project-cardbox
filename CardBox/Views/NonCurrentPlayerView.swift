@@ -39,7 +39,7 @@ struct NonCurrentPlayerView: View {
                     .rotationEffect(.degrees(90))
             }
             Spacer()
-            DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.deck), isFaceUp: false)
+            DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.deck), isFaceUp: true)
             DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.gameplayArea), isFaceUp: true)
             Spacer()
             if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
