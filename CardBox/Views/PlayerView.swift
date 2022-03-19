@@ -13,6 +13,13 @@ struct PlayerView: View {
     @Binding var error: Bool
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
+    var playerText: String {
+        if playerViewModel.player.isOutOfGame {
+            return playerViewModel.player.name + "(Dead)"
+        }
+        return playerViewModel.player.name
+    }
+
     var body: some View {
         VStack {
             Button {

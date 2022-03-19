@@ -79,6 +79,7 @@
 		4589AB1A27DF3FB6005FDA07 /* PlayerHandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB1927DF3FB6005FDA07 /* PlayerHandViewModel.swift */; };
 		4589AB1C27E14AF3005FDA07 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB1B27E14AF3005FDA07 /* DeckView.swift */; };
 		4589AB1E27E14C00005FDA07 /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB1D27E14C00005FDA07 /* DeckViewModel.swift */; };
+		4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2327E5B179005FDA07 /* PeekCardsView.swift */; };
 		4E18ED0427DF182200458D0A /* ConditionalCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0327DF182200458D0A /* ConditionalCardAction.swift */; };
 		4E18ED0627DF285F00458D0A /* PlayerDiscardCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0527DF285F00458D0A /* PlayerDiscardCardAction.swift */; };
 		4E18ED0827DF2A5300458D0A /* PlayerDiscardCardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0727DF2A5300458D0A /* PlayerDiscardCardEvent.swift */; };
@@ -209,6 +210,7 @@
 		4589AB1927DF3FB6005FDA07 /* PlayerHandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandViewModel.swift; sourceTree = "<group>"; };
 		4589AB1B27E14AF3005FDA07 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		4589AB1D27E14C00005FDA07 /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
+		4589AB2327E5B179005FDA07 /* PeekCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekCardsView.swift; sourceTree = "<group>"; };
 		4E18ED0327DF182200458D0A /* ConditionalCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalCardAction.swift; sourceTree = "<group>"; };
 		4E18ED0527DF285F00458D0A /* PlayerDiscardCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDiscardCardAction.swift; sourceTree = "<group>"; };
 		4E18ED0727DF2A5300458D0A /* PlayerDiscardCardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDiscardCardEvent.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				4589AB1B27E14AF3005FDA07 /* DeckView.swift */,
 				4589AB1727DF3C5F005FDA07 /* PlayerHandView.swift */,
 				2DA050B627DE5EC70063D952 /* PlayerView.swift */,
+				4589AB2327E5B179005FDA07 /* PeekCardsView.swift */,
 				4589AB1327DF2946005FDA07 /* MainMenuView.swift */,
 				2D007F3527E24CF700F0E359 /* PositionRequestView.swift */,
 				68466A8E27E5061B000387B6 /* CurrentPlayerView.swift */,
@@ -669,7 +672,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect --config .swiftlint.yml && swiftlint --config .swiftlint.yml\nelse\n  echo \\\"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\\\"\nfi\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect --config .swiftlint.yml && swiftlint --config .swiftlint.yml\nelse\n  echo \\\"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\\\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -729,6 +732,7 @@
 				2DA0511C27E1934B0063D952 /* GameRunnerInitOnly.swift in Sources */,
 				4E94E72227E5BB9F004ED4EF /* PlayerHandPositionResponseAction.swift in Sources */,
 				2D007F4E27E3338000F0E359 /* ExplodingKittensPlayerPlayCondition.swift in Sources */,
+				4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */,
 				2DA04FF127DBBF880063D952 /* DisplayMessageAction.swift in Sources */,
 				2DA0514427E23E050063D952 /* DeckPositionRequestCardAction.swift in Sources */,
 				2DA0502127DC3FE60063D952 /* DisplayCardsAction.swift in Sources */,

@@ -13,6 +13,8 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
     @Published internal var cardPreview: Card?
+    @Published internal var cardsPeeking: [Card]
+    @Published internal var isShowingPeek = false
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
@@ -35,6 +37,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.gameplayArea = CardCollection()
         self.players = PlayerCollection()
         self.state = .initialize
+        self.cardsPeeking = []
         self.nextPlayerGenerator = nil
     }
 
@@ -92,6 +95,18 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         ActionDispatcher.runAction(EndTurnAction(), on: self)
     }
 
+    func setCardsPeeking(cards: [Card]) {
+        self.cardsPeeking = cards
+        self.isShowingPeek = true
+    }
+
+    func showDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = true
+    }
+
+    func hideDeckPositionRequest() {
+        self.isShowingDeckPositionRequest = false
+    }
     func toggleDeckPositionRequest(to isShowingRequest: Bool) {
         self.isShowingDeckPositionRequest = isShowingRequest
     }

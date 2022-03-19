@@ -10,5 +10,6 @@ struct DisplayCardsEvent: GameEvent {
 
     func updateRunner(gameRunner: GameRunnerUpdateOnly) {
         print(cards)
+        gameRunner.setCardsPeeking(cards: cards)
     }
 }

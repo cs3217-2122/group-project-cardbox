@@ -36,6 +36,14 @@ struct GameRunnerView: View {
             HandPositionRequestView(selectedPlayerViewModel: $selectedPlayerViewModel)
             CardTypeRequestView(dispatchCardTypeResponse: gameRunnerViewModel.dispatchCardTypeResponse,
                                 toggleCardTypeRequestView: gameRunnerViewModel.toggleCardTypeRequest)
-        }.environmentObject(gameRunnerViewModel)
+        }
+        .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
+            PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
+        }
+        .environmentObject(gameRunnerViewModel)
+    }
+
+    func dismissPeek() {
+        gameRunnerViewModel.isShowingPeek = false
     }
 }
