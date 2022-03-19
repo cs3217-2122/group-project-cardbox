@@ -49,6 +49,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
 
         gameRunner.setNextPlayerGenerator(ExplodingKittensNextPlayerGenerator())
+
+        gameRunner.addWinningCondition(LastStandWinningCondition())
+        gameRunner.setWinnerGenerator(LastStandWinnerGenerator())
     }
 
     private static func initCardPlayConditions() -> [PlayerPlayCondition] {
