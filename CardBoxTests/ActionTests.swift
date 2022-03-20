@@ -31,7 +31,7 @@ class ActionTests: XCTestCase {
                     return []
                 }
 
-        return [ShuffleDeckCardAction()]
+        return [PlayerOutOfGameCardAction()]
     }
 
     override func setUpWithError() throws {

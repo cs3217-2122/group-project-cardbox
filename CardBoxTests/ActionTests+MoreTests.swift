@@ -20,7 +20,7 @@ extension ActionTests {
                                    on: gameRunner)
     }
 
-    // CHANCE OF FAILING:
+    // CHANCE OF FALSE NEGATIVE:
     // (1 / (6!/2!2!2!)) = (1 / 90)
     func test_shuffleDeckAction_deckOrderChanges() {
         let initialDeck = CardCollection(cards: gameRunner.deck.getCards())
@@ -42,31 +42,27 @@ extension ActionTests {
         return orderIsSame
     }
 
-    func test_playCardAction_shuffleCard() throws {
+    func test_playCardAction_leaveGameCard() throws {
         let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
 
-        let shuffleCard = Card(name: "Shuffle", typeOfTargettedCard: .noTargetCard)
-        shuffleCard.setAdditionalParams(key: cardTypeKey, value: "shuffle")
-        shuffleCard.addPlayAction(ShuffleDeckCardAction())
+        let leaveGameCard = Card(name: "Leave Game", typeOfTargettedCard: .noTargetCard)
+        leaveGameCard.setAdditionalParams(key: cardTypeKey, value: "leave game")
+        leaveGameCard.addPlayAction(PlayerOutOfGameCardAction())
 
-        let initialDeck = CardCollection(cards: gameRunner.deck.getCards())
         let initialGameplay = CardCollection(cards: gameRunner.gameplayArea.getCards())
-
         ActionDispatcher.runAction(PlayCardAction(player: currentPlayer,
-                                                  cards: [shuffleCard],
+                                                  cards: [leaveGameCard],
                                                   target: .none),
                                    on: gameRunner)
-
-        let newDeck = gameRunner.deck
         let newGameplay = gameRunner.gameplayArea
 
-        XCTAssertFalse(areDeckSame(firstDeck: initialDeck, secondDeck: newDeck))
+        XCTAssertTrue(currentPlayer.isOutOfGame)
         XCTAssertEqual(newGameplay.count, initialGameplay.count + 1)
         XCTAssertNotEqual(initialGameplay.topCard?.getAdditionalParams(key: cardTypeKey),
                           newGameplay.topCard?.getAdditionalParams(key: cardTypeKey))
     }
 
-    func test_playCardComboAction_cardComboShufflesDeck() throws {
+    func test_playCardComboAction_cardComboAddsCardToDeck() throws {
         let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
 
         let comboCard1 = generateAllTargetCard()
@@ -76,19 +72,15 @@ extension ActionTests {
         currentPlayer.addCard(comboCard2)
         let comboActions = cardCombo(comboCards)
 
-        let initialDeck = CardCollection(cards: gameRunner.deck.getCards())
         let initialGameplay = CardCollection(cards: gameRunner.gameplayArea.getCards())
-
         ActionDispatcher.runAction(PlayCardComboAction(player: currentPlayer,
                                                        cards: comboCards,
                                                        target: .none,
                                                        comboActions: comboActions),
                                    on: gameRunner)
-
-        let newDeck = gameRunner.deck
         let newGameplay = gameRunner.gameplayArea
 
-        XCTAssertFalse(areDeckSame(firstDeck: initialDeck, secondDeck: newDeck))
+        XCTAssertTrue(currentPlayer.isOutOfGame)
         XCTAssertEqual(newGameplay.count, initialGameplay.count + 2)
         XCTAssertNotEqual(initialGameplay.topCard?.getAdditionalParams(key: cardTypeKey),
                           newGameplay.topCard?.getAdditionalParams(key: cardTypeKey))
