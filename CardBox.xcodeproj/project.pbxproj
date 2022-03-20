@@ -113,9 +113,14 @@
 		4E94E72027E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71F27E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift */; };
 		4E94E72227E5BB9F004ED4EF /* PlayerHandPositionResponseAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E72127E5BB9F004ED4EF /* PlayerHandPositionResponseAction.swift */; };
 		4E94E72627E61C6B004ED4EF /* CardTypeRequestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E72527E61C6B004ED4EF /* CardTypeRequestAction.swift */; };
+		4E94E72A27E6B414004ED4EF /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E72927E6B414004ED4EF /* ActionTests.swift */; };
+		4E94E72C27E6DB01004ED4EF /* ActionTests+NextPlayerGeneratorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E72B27E6DB01004ED4EF /* ActionTests+NextPlayerGeneratorStub.swift */; };
 		4EBA47A327DEF71200EE5C74 /* ShuffleDeckCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47A227DEF71200EE5C74 /* ShuffleDeckCardAction.swift */; };
 		4EBA47A527DEFD0D00EE5C74 /* SkipTurnCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47A427DEFD0D00EE5C74 /* SkipTurnCardAction.swift */; };
 		4EBA47AB27DF149100EE5C74 /* GameRunnerInitialiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA47AA27DF149100EE5C74 /* GameRunnerInitialiser.swift */; };
+		4ECD77E627E6E65500A48FA7 /* ActionTests+MoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD77E527E6E65400A48FA7 /* ActionTests+MoreTests.swift */; };
+		4ECD77E827E70A5A00A48FA7 /* CardActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD77E727E70A5A00A48FA7 /* CardActionTests.swift */; };
+		4ECD77EA27E70B2300A48FA7 /* CardActionTests+NextPlayerGeneratorStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECD77E927E70B2300A48FA7 /* CardActionTests+NextPlayerGeneratorStub.swift */; };
 		682AA3CD27DF1EB90034ED90 /* AddCardToPlayerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682AA3CC27DF1EB90034ED90 /* AddCardToPlayerAction.swift */; };
 		68466A8F27E5061B000387B6 /* CurrentPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466A8E27E5061B000387B6 /* CurrentPlayerView.swift */; };
 		68466A9127E506C2000387B6 /* NonCurrentPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466A9027E506C2000387B6 /* NonCurrentPlayerView.swift */; };
@@ -259,9 +264,14 @@
 		4E94E71F27E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandPositionRequestEvent.swift; sourceTree = "<group>"; };
 		4E94E72127E5BB9F004ED4EF /* PlayerHandPositionResponseAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandPositionResponseAction.swift; sourceTree = "<group>"; };
 		4E94E72527E61C6B004ED4EF /* CardTypeRequestAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeRequestAction.swift; sourceTree = "<group>"; };
+		4E94E72927E6B414004ED4EF /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
+		4E94E72B27E6DB01004ED4EF /* ActionTests+NextPlayerGeneratorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionTests+NextPlayerGeneratorStub.swift"; sourceTree = "<group>"; };
 		4EBA47A227DEF71200EE5C74 /* ShuffleDeckCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShuffleDeckCardAction.swift; sourceTree = "<group>"; };
 		4EBA47A427DEFD0D00EE5C74 /* SkipTurnCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipTurnCardAction.swift; sourceTree = "<group>"; };
 		4EBA47AA27DF149100EE5C74 /* GameRunnerInitialiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRunnerInitialiser.swift; sourceTree = "<group>"; };
+		4ECD77E527E6E65400A48FA7 /* ActionTests+MoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActionTests+MoreTests.swift"; sourceTree = "<group>"; };
+		4ECD77E727E70A5A00A48FA7 /* CardActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardActionTests.swift; sourceTree = "<group>"; };
+		4ECD77E927E70B2300A48FA7 /* CardActionTests+NextPlayerGeneratorStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardActionTests+NextPlayerGeneratorStub.swift"; sourceTree = "<group>"; };
 		682AA3CC27DF1EB90034ED90 /* AddCardToPlayerAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCardToPlayerAction.swift; sourceTree = "<group>"; };
 		68466A8E27E5061B000387B6 /* CurrentPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPlayerView.swift; sourceTree = "<group>"; };
 		68466A9027E506C2000387B6 /* NonCurrentPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonCurrentPlayerView.swift; sourceTree = "<group>"; };
@@ -409,6 +419,11 @@
 				2D00814327E623C700F0E359 /* CardGameEngine */,
 				2DA04F4427DADD520063D952 /* CardBoxTests.swift */,
 				2DA04F4627DADD520063D952 /* Info.plist */,
+				4E94E72927E6B414004ED4EF /* ActionTests.swift */,
+				4ECD77E527E6E65400A48FA7 /* ActionTests+MoreTests.swift */,
+				4E94E72B27E6DB01004ED4EF /* ActionTests+NextPlayerGeneratorStub.swift */,
+				4ECD77E727E70A5A00A48FA7 /* CardActionTests.swift */,
+				4ECD77E927E70B2300A48FA7 /* CardActionTests+NextPlayerGeneratorStub.swift */,
 			);
 			path = CardBoxTests;
 			sourceTree = "<group>";
@@ -869,9 +884,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+
+				4ECD77E627E6E65500A48FA7 /* ActionTests+MoreTests.swift in Sources */,
+
 				2D00815027E6253200F0E359 /* PlayerCollectionTests.swift in Sources */,
 				2D00817927E6D1CA00F0E359 /* CardCollectionTests.swift in Sources */,
+
 				2DA04F4527DADD520063D952 /* CardBoxTests.swift in Sources */,
+				4ECD77E827E70A5A00A48FA7 /* CardActionTests.swift in Sources */,
+				4ECD77EA27E70B2300A48FA7 /* CardActionTests+NextPlayerGeneratorStub.swift in Sources */,
+				4E94E72A27E6B414004ED4EF /* ActionTests.swift in Sources */,
+				4E94E72C27E6DB01004ED4EF /* ActionTests+NextPlayerGeneratorStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

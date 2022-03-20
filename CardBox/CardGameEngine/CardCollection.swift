@@ -8,19 +8,34 @@
 class CardCollection {
     private var cards: [Card] = []
 
+    init(cards: [Card]) {
+        self.cards = cards
+    }
+
+    convenience init() {
+        self.init(cards: [])
+    }
+
     var count: Int {
         cards.count
     }
 
-    var isEmpty: Bool {
-        cards.isEmpty
-    }
-
     var topCard: Card? {
-        guard !cards.isEmpty else {
+        if cards.isEmpty {
             return nil
         }
-        return cards[0]
+        return cards.first
+    }
+
+    var bottomCard: Card? {
+        if cards.isEmpty {
+            return nil
+        }
+        return cards.last
+    }
+
+    var isEmpty: Bool {
+        cards.isEmpty
     }
 
     func getCardByIndex(_ index: Int) -> Card? {
