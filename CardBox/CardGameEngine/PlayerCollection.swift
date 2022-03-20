@@ -28,6 +28,10 @@ class PlayerCollection {
     }
 
     func addPlayer(_ player: Player) {
+        guard !players.contains(where: { $0 === player }) else {
+            return
+        }
+
         self.players.append(player)
     }
 
@@ -40,7 +44,7 @@ class PlayerCollection {
     }
 
     func getPlayerByIndex(_ index: Int) -> Player? {
-        if index < 0 || index >= players.count {
+        guard index >= 0 && index < players.count else {
             return nil
         }
 
@@ -51,7 +55,11 @@ class PlayerCollection {
         players
     }
 
-    func getPlayerByIndexAfterCurrent(_ index: Int) -> Player {
-        players[(currentPlayerIndex + index) % self.players.count]
+    func getPlayerByIndexAfterCurrent(_ index: Int) -> Player? {
+        guard index > 0 else {
+            return nil
+        }
+
+        return players[(currentPlayerIndex + index) % self.players.count]
     }
 }
