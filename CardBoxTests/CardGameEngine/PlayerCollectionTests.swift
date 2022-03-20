@@ -9,14 +9,14 @@ import XCTest
 @testable import CardBox
 
 class PlayerCollectionTests: XCTestCase {
-    func testEmptyCollection() {
+    func test_emptyCollection() {
         let collection = PlayerCollection()
 
         XCTAssert(collection.isEmpty)
         XCTAssert(collection.currentPlayer == nil)
     }
 
-    func testSinglePlayer() {
+    func test_singlePlayer() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -27,7 +27,7 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(collection.currentPlayer === player1)
     }
 
-    func testGetPlayerByIndex() {
+    func test_getPlayerByIndex() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -40,7 +40,7 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(collection.getPlayerByIndex(1) === player2)
     }
 
-    func testGetPlayerByIndexOutOfBounds() {
+    func test_getPlayerByIndex_outOfBounds() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -56,7 +56,7 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(outOfBoundPlayer2 == nil)
     }
 
-    func testAddDuplicatePlayer() {
+    func test_addPlayer_duplicate() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -67,7 +67,19 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(collection.count == 1)
     }
 
-    func testSetCurrentPlayerNonExistant() {
+    func test_setCurrentPlayer() {
+        let collection = PlayerCollection()
+
+        let player1 = Player(name: "player 1")
+        let player2 = Player(name: "player 2")
+        collection.addPlayer(player1)
+        collection.addPlayer(player2)
+
+        collection.setCurrentPlayer(player2)
+        XCTAssert(collection.currentPlayer === player2)
+    }
+
+    func test_setCurrentPlayer_nonExistant() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -78,7 +90,7 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(collection.currentPlayer === player1)
     }
 
-    func testGetPlayerByIndexAfterCurrent() {
+    func test_getPlayerByIndexAfterCurrent() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -97,7 +109,8 @@ class PlayerCollectionTests: XCTestCase {
         let nextPlayerByIndex = collection.getPlayerByIndex(1)
         XCTAssert(nextPlayerByIndex === player2)
     }
-    func testGetPlayerByIndexAfterCurrentNegativeIndex() {
+
+    func test_getPlayerByIndexAfterCurrent_negativeIndex() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")
@@ -110,7 +123,7 @@ class PlayerCollectionTests: XCTestCase {
         XCTAssert(negativeIndexPlayer == nil)
     }
 
-    func testGetPlayerByIndexAfterCurrentOutOfBoundIndex() {
+    func test_getPlayerByIndexAfterCurrent_outOfBoundIndex() {
         let collection = PlayerCollection()
 
         let player1 = Player(name: "player 1")

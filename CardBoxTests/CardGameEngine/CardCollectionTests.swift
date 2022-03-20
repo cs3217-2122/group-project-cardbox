@@ -9,14 +9,14 @@ import XCTest
 @testable import CardBox
 
 class CardCollectionTests: XCTestCase {
-    func testEmptyCollection() throws {
+    func test_emptyCollection() throws {
         let collection = CardCollection()
 
         XCTAssert(collection.isEmpty)
         XCTAssert(collection.topCard == nil)
     }
 
-    func testSingleCard() {
+    func test_singleCard() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -27,7 +27,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.topCard === card1)
     }
 
-    func testGetCardByIndex() {
+    func test_getCardByIndex() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -40,7 +40,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.getCardByIndex(1) === card2)
     }
 
-    func testGetCardByIndexOutOfBounds() {
+    func test_getCardByIndex_outOfBounds() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -56,7 +56,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(outOfBoundCard2 == nil)
     }
 
-    func testGetTopNCards() {
+    func test_getTopNCards() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -86,7 +86,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(topThreeCards[2] === card3)
     }
 
-    func testGetTopNCardsNegative() {
+    func test_getTopNCards_negativeN() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -101,7 +101,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(topNegativeCard.isEmpty)
     }
 
-    func testGetTopNCardsOutOfBound() {
+    func test_getTopNCards_outOfBoundsN() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -119,7 +119,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(topOutOfBoundCards[2] === card3)
     }
 
-    func testAddDuplicateCard() {
+    func test_addCard_duplicate() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -130,7 +130,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.count == 1)
     }
 
-    func testAddWithOffsetDuplicateCard() {
+    func test_addCardWithOffset_duplicate() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -141,7 +141,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.count == 1)
     }
 
-    func testAddWithOffsetOutOfBoundIndex() {
+    func test_addCardWithOffset_outOfBoundIndex() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -161,7 +161,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.getCardByIndex(0) === card4)
     }
 
-    func testContains() {
+    func test_containsCard() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -176,7 +176,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(!collection.containsCard(card3))
     }
 
-    func testContainsWhere() {
+    func test_containsCardWhere() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -190,7 +190,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(!collection.containsCard(where: { $0.name == "card 0" }))
     }
 
-    func testContainsWhereMultipleMatch() {
+    func test_containsCardWhere_multipleMatch() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -202,7 +202,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.containsCard(where: { $0.name == "card 1" }))
     }
 
-    func testGetCardWhere() {
+    func test_getCardWhere() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -216,7 +216,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.getCard(where: { $0.name == "card 0" }) == nil)
     }
 
-    func testGetCardWhereMultipleMatch() {
+    func test_getCardWhere_multipleMatch() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -229,7 +229,7 @@ class CardCollectionTests: XCTestCase {
     }
 
     // Probability of this failing is very low
-    func testShuffle() {
+    func test_shuffle() {
         let collection = CardCollection()
 
         let cards = (1...20).map {
@@ -248,7 +248,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(!allMatch)
     }
 
-    func testRemoveCard() {
+    func test_removeCard() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -265,7 +265,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.isEmpty)
     }
 
-    func testRemoveCardEmpty() {
+    func test_removeCard_empty() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
@@ -274,7 +274,7 @@ class CardCollectionTests: XCTestCase {
         XCTAssert(collection.isEmpty)
     }
 
-    func testRemoveCardNonExistant() {
+    func test_removeCard_nonExistant() {
         let collection = CardCollection()
 
         let card1 = Card(name: "card 1")
