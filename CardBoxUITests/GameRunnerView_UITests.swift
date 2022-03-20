@@ -78,6 +78,9 @@ class GameRunnerView_UITests: XCTestCase {
         let popoverDismiss = app.otherElements["PopoverDismissRegion"].firstMatch
         popoverDismiss.tap()
         XCTAssertFalse(random1.exists)
+
+        let emptyPlayDeck = app.staticTexts["No card in stack"]
+        XCTAssertFalse(emptyPlayDeck.exists)
     }
 
 }
