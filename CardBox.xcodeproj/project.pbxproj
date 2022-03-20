@@ -93,6 +93,8 @@
 		4589AB1C27E14AF3005FDA07 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB1B27E14AF3005FDA07 /* DeckView.swift */; };
 		4589AB1E27E14C00005FDA07 /* DeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB1D27E14C00005FDA07 /* DeckViewModel.swift */; };
 		4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2327E5B179005FDA07 /* PeekCardsView.swift */; };
+		4589AB2627E61963005FDA07 /* MainMenuView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2527E61963005FDA07 /* MainMenuView_UITests.swift */; };
+		4589AB2827E61E79005FDA07 /* GameRunnerView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2727E61E79005FDA07 /* GameRunnerView_UITests.swift */; };
 		4E18ED0427DF182200458D0A /* ConditionalCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0327DF182200458D0A /* ConditionalCardAction.swift */; };
 		4E18ED0627DF285F00458D0A /* PlayerDiscardCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0527DF285F00458D0A /* PlayerDiscardCardAction.swift */; };
 		4E18ED0827DF2A5300458D0A /* PlayerDiscardCardEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0727DF2A5300458D0A /* PlayerDiscardCardEvent.swift */; };
@@ -242,6 +244,8 @@
 		4589AB1B27E14AF3005FDA07 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		4589AB1D27E14C00005FDA07 /* DeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewModel.swift; sourceTree = "<group>"; };
 		4589AB2327E5B179005FDA07 /* PeekCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekCardsView.swift; sourceTree = "<group>"; };
+		4589AB2527E61963005FDA07 /* MainMenuView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView_UITests.swift; sourceTree = "<group>"; };
+		4589AB2727E61E79005FDA07 /* GameRunnerView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRunnerView_UITests.swift; sourceTree = "<group>"; };
 		4E18ED0327DF182200458D0A /* ConditionalCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalCardAction.swift; sourceTree = "<group>"; };
 		4E18ED0527DF285F00458D0A /* PlayerDiscardCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDiscardCardAction.swift; sourceTree = "<group>"; };
 		4E18ED0727DF2A5300458D0A /* PlayerDiscardCardEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDiscardCardEvent.swift; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 			isa = PBXGroup;
 			children = (
 				2DA04F4F27DADD520063D952 /* CardBoxUITests.swift */,
+				4589AB2527E61963005FDA07 /* MainMenuView_UITests.swift */,
+				4589AB2727E61E79005FDA07 /* GameRunnerView_UITests.swift */,
 				2DA04F5127DADD520063D952 /* Info.plist */,
 			);
 			path = CardBoxUITests;
@@ -896,6 +902,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4589AB2627E61963005FDA07 /* MainMenuView_UITests.swift in Sources */,
+				4589AB2827E61E79005FDA07 /* GameRunnerView_UITests.swift in Sources */,
 				2DA04F5027DADD520063D952 /* CardBoxUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

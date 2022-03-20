@@ -37,11 +37,6 @@
                BlueprintName = "CardBoxTests"
                ReferencedContainer = "container:CardBox.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "ActionTests1">
-               </Test>
-            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
@@ -75,6 +70,14 @@
             ReferencedContainer = "container:CardBox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-UITest_ExplodingKittens"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
+
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
