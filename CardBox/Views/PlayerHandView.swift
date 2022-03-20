@@ -15,7 +15,7 @@ struct PlayerHandView: View {
     let handWidth = 600
 
     var spacing: Double {
-        let size = playerHandViewModel.getSize()
+        let size = playerHandViewModel.handSize
         // availableSpace - size * cardWidth / size
         // TODO: figure out spacing
         return Double((handWidth - size * CardView.defaultCardWidth) / size)

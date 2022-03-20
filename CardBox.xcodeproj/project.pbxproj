@@ -28,6 +28,7 @@
 		2D0080FF27E6048600F0E359 /* StepAdditionalParamsCardAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0080FE27E6048600F0E359 /* StepAdditionalParamsCardAction.swift */; };
 		2D00811227E608EA00F0E359 /* StepAdditionalParamsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D00811127E608EA00F0E359 /* StepAdditionalParamsAction.swift */; };
 		2D00815027E6253200F0E359 /* PlayerCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D00814F27E6253200F0E359 /* PlayerCollectionTests.swift */; };
+		2D00817927E6D1CA00F0E359 /* CardCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D00817827E6D1CA00F0E359 /* CardCollectionTests.swift */; };
 		2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3227DADD500063D952 /* CardBoxApp.swift */; };
 		2DA04F3527DADD500063D952 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3427DADD500063D952 /* ContentView.swift */; };
 		2DA04F3727DADD520063D952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DA04F3627DADD520063D952 /* Assets.xcassets */; };
@@ -165,6 +166,7 @@
 		2D0080FE27E6048600F0E359 /* StepAdditionalParamsCardAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepAdditionalParamsCardAction.swift; sourceTree = "<group>"; };
 		2D00811127E608EA00F0E359 /* StepAdditionalParamsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepAdditionalParamsAction.swift; sourceTree = "<group>"; };
 		2D00814F27E6253200F0E359 /* PlayerCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionTests.swift; sourceTree = "<group>"; };
+		2D00817827E6D1CA00F0E359 /* CardCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionTests.swift; sourceTree = "<group>"; };
 		2DA04F2F27DADD500063D952 /* CardBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA04F3227DADD500063D952 /* CardBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoxApp.swift; sourceTree = "<group>"; };
 		2DA04F3427DADD500063D952 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				2D00814F27E6253200F0E359 /* PlayerCollectionTests.swift */,
+				2D00817827E6D1CA00F0E359 /* CardCollectionTests.swift */,
 			);
 			path = CardGameEngine;
 			sourceTree = "<group>";
@@ -861,6 +864,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D00815027E6253200F0E359 /* PlayerCollectionTests.swift in Sources */,
+				2D00817927E6D1CA00F0E359 /* CardCollectionTests.swift in Sources */,
 				2DA04F4527DADD520063D952 /* CardBoxTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

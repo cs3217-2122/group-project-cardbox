@@ -6,7 +6,7 @@ struct DrawCardFromDeckToCurrentPlayerAction: Action {
     let target: PlayerTarget
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
-        guard let firstCard = gameRunner.deck.getFirstCard() else {
+        guard let firstCard = gameRunner.deck.topCard else {
             return
         }
 
