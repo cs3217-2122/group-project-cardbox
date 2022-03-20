@@ -12,26 +12,19 @@ class CardCollection {
         cards.count
     }
 
+    var isEmpty: Bool {
+        cards.isEmpty
+    }
+
     var topCard: Card? {
-        if cards.isEmpty {
-            return nil
-        }
-        return cards[0]
-    }
-
-    func getSize() -> Int {
-        cards.count
-    }
-
-    func getFirstCard() -> Card? {
-        if cards.isEmpty {
+        guard !cards.isEmpty else {
             return nil
         }
         return cards[0]
     }
 
     func getCardByIndex(_ index: Int) -> Card? {
-        if index < 0 || index >= cards.count {
+        guard index >= 0 && index < cards.count else {
             return nil
         }
 
@@ -39,7 +32,11 @@ class CardCollection {
     }
 
     func getTopNCards(n: Int) -> [Card] {
-        Array(cards[0..<min(cards.count, n)])
+        guard n > 0 else {
+            return []
+        }
+
+        return Array(cards[0..<min(cards.count, n)])
     }
 
     func removeCard(_ card: Card) {
@@ -50,10 +47,18 @@ class CardCollection {
     }
 
     func addCard(_ card: Card) {
+        guard !containsCard(card) else {
+            return
+        }
+
         cards.append(card)
     }
 
     func addCard(_ card: Card, offsetFromTop index: Int) {
+        guard !containsCard(card) else {
+            return
+        }
+
         // Ensures that add card always add back to the deck
         let actualIndex = max(0, min(index, cards.count))
 
@@ -62,6 +67,10 @@ class CardCollection {
 
     func containsCard(_ card: Card) -> Bool {
         containsCard(where: { $0 === card })
+    }
+
+    func containsCard(where predicate: (Card) -> Bool) -> Bool {
+        cards.contains(where: predicate)
     }
 
     func getCards() -> [Card] {
@@ -77,17 +86,7 @@ class CardCollection {
         return nil
     }
 
-    func containsCard(where predicate: (Card) -> Bool) -> Bool {
-        cards.contains(where: predicate)
-    }
-
     func shuffle() {
         self.cards.shuffle()
-    }
-
-    func contains(card: Card) -> Bool {
-        self.cards.contains { cardObject in
-            cardObject === card
-        }
     }
 }

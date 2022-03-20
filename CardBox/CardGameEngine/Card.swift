@@ -24,7 +24,7 @@ enum GameplayTarget {
     }
 }
 
-enum TypeOfCard {
+enum TypeOfTargettedCard {
     case targetAllPlayersCard
     case targetSinglePlayerCard
     case noTargetCard
@@ -35,7 +35,7 @@ typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Playe
 class Card: Identifiable, ExtendedProperties {
     private(set) var name: String
     private(set) var cardDescription: String
-    private(set) var typeOfCard: TypeOfCard
+    private(set) var typeOfTargettedCard: TypeOfTargettedCard
 
     private var onDrawActions: [CardAction]
     private var onPlayActions: [CardAction]
@@ -47,14 +47,19 @@ class Card: Identifiable, ExtendedProperties {
         String(UInt(bitPattern: ObjectIdentifier(self)))
     }
 
-    init(name: String, typeOfCard: TypeOfCard) {
+    init(name: String, typeOfTargettedCard: TypeOfTargettedCard) {
         self.name = name
-        self.typeOfCard = typeOfCard
+        self.typeOfTargettedCard = typeOfTargettedCard
         self.cardDescription = ""
         self.onDrawActions = []
         self.onPlayActions = []
         self.canPlayConditions = []
         self.additionalParams = [:]
+    }
+
+    // Convenience function for testing
+    convenience init(name: String) {
+        self.init(name: name, typeOfTargettedCard: .noTargetCard)
     }
 
     func addDrawAction(_ action: CardAction) {

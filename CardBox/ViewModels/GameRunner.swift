@@ -15,17 +15,24 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var isShowingPeek = false
+    @Published internal var isWin = false
+    internal var winner: Player?
 
     // Exploding kitten specific variables
     @Published internal var isShowingDeckPositionRequest = false
     @Published internal var isShowingPlayerHandPositionRequest = false
+    @Published internal var isShowingCardTypeRequest = false
     internal var deckPositionRequestArgs: DeckPositionRequestArgs?
     internal var playerHandPositionRequestArgs: PlayerHandPositionRequestArgs?
+    internal var cardTypeRequestArgs: CardTypeRequestArgs?
 
     private var onSetupActions: [Action]
     private var onStartTurnActions: [Action]
     private var onEndTurnActions: [Action]
+    private var onAdvanceNextPlayerActions: [Action]
     private var nextPlayerGenerator: NextPlayerGenerator?
+    private var winningConditions: [WinningCondition]
+    private var winnerGenerator: WinnerGenerator?
 
     init() {
         self.deck = CardCollection()
@@ -37,6 +44,8 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.state = .initialize
         self.cardsPeeking = []
         self.nextPlayerGenerator = nil
+        self.winningConditions = []
+        self.onAdvanceNextPlayerActions = []
     }
 
     func addSetupAction(_ action: Action) {
@@ -51,8 +60,24 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.onEndTurnActions.append(action)
     }
 
+    func addWinningCondition(_ condition: WinningCondition) {
+        self.winningConditions.append(condition)
+    }
+
+    func setWinnerGenerator(_ generator: WinnerGenerator) {
+        self.winnerGenerator = generator
+    }
+
+    func addAdvanceNextPlayerAction(_ action: Action) {
+        self.onAdvanceNextPlayerActions.append(action)
+    }
+
     func setNextPlayerGenerator(_ generator: NextPlayerGenerator) {
         self.nextPlayerGenerator = generator
+    }
+
+    func checkWinningConditions() -> Bool {
+        winningConditions.allSatisfy({ $0.evaluate(gameRunner: self) })
     }
 
     func setup() {
@@ -73,12 +98,22 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         }
     }
 
+    func onAdvanceNextPlayer() {
+        self.onAdvanceNextPlayerActions.forEach { action in
+            action.executeGameEvents(gameRunner: self)
+        }
+    }
+
     func executeGameEvents(_ gameEvents: [GameEvent]) {
         gameEvents.forEach { gameEvent in
-            print(gameEvent)
             gameEvent.updateRunner(gameRunner: self)
         }
         notifyChanges()
+
+        if checkWinningConditions() {
+            self.isWin = true
+            self.winner = winnerGenerator?.getWinner(gameRunner: self)
+        }
     }
 
     func setGameState(gameState: GameState) {
@@ -105,6 +140,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
     func hideDeckPositionRequest() {
         self.isShowingDeckPositionRequest = false
     }
+
     func toggleDeckPositionRequest(to isShowingRequest: Bool) {
         self.isShowingDeckPositionRequest = isShowingRequest
     }
@@ -121,15 +157,28 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         self.playerHandPositionRequestArgs = args
     }
 
+    func toggleCardTypeRequest(to isShowingRequest: Bool) {
+        self.isShowingCardTypeRequest = isShowingRequest
+    }
+
+    func setCardTypeRequestArgs(_ args: CardTypeRequestArgs) {
+        self.cardTypeRequestArgs = args
+    }
+
     func advanceToNextPlayer() {
         guard let nextPlayer = nextPlayerGenerator?.getNextPlayer(gameRunner: self) else {
             return
         }
 
+        onAdvanceNextPlayer()
         players.setCurrentPlayer(nextPlayer)
     }
 
     // Exploding kitten specific related methods
+
+    var getAllCardTypes: [ExplodingKittensCardType] {
+        ExplodingKittensUtils.getAllCardTypes()
+    }
 
     func dispatchDeckPositionResponse(offsetFromTop: Int) {
         guard let args = deckPositionRequestArgs else {
@@ -137,9 +186,11 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
         }
 
         ActionDispatcher.runAction(
-            DeckPositionResponseAction(card: args.card,
-                                       player: args.player,
-                                       offsetFromTop: offsetFromTop),
+            DeckPositionResponseAction(
+                card: args.card,
+                player: args.player,
+                offsetFromTop: offsetFromTop
+            ),
             on: self
         )
     }
@@ -155,5 +206,17 @@ class GameRunner: GameRunnerReadOnly, GameRunnerInitOnly, GameRunnerUpdateOnly, 
                                              playerHandPosition: playerHandPosition),
             on: self
         )
+    }
+
+    func dispatchCardTypeResponse(cardTypeRawValue: String) {
+        guard let args = cardTypeRequestArgs else {
+            return
+        }
+
+        ActionDispatcher.runAction(
+            CardTypeResponseAction(target: args.target,
+                                   player: args.player,
+                                   cardTypeRawValue: cardTypeRawValue),
+            on: self)
     }
 }

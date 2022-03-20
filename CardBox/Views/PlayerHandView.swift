@@ -15,7 +15,7 @@ struct PlayerHandView: View {
     let handWidth = 600
 
     var spacing: Double {
-        let size = playerHandViewModel.getSize()
+        let size = playerHandViewModel.handSize
         // availableSpace - size * cardWidth / size
         // TODO: figure out spacing
         return Double((handWidth - size * CardView.defaultCardWidth) / size)
@@ -26,7 +26,8 @@ struct PlayerHandView: View {
             ForEach(playerHandViewModel.getCards()) { card in
                 let cardViewModel = CardViewModel(card: card,
                                                   isFaceUp: playerViewModel
-                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel))
+                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel),
+                                                  isSelected: playerViewModel.isSelected(card: card))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {

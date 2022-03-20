@@ -18,4 +18,23 @@ struct ExplodingKittensUtils {
     static func setCardType(card: Card, type: ExplodingKittensCardType) {
         card.setAdditionalParams(key: cardTypeKey, value: type.rawValue)
     }
+
+    static func getAllCardTypes() -> [ExplodingKittensCardType] {
+        ExplodingKittensCardType.allCases
+    }
+
+    static let attackCountKey = "ATTACK_COUNT"
+    static let trueString = "true"
+    static let falseString = "false"
+
+    static func getAttackCount(player: Player) -> Int {
+        guard let value = player.getAdditionalParams(key: attackCountKey) else {
+            return 0
+        }
+        return Int(value) ?? 0
+    }
+
+    static func setAttackCount(player: Player, attackCount: Int) {
+        player.setAdditionalParams(key: attackCountKey, value: String(attackCount))
+    }
 }

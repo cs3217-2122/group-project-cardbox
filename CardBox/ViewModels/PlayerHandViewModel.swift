@@ -14,8 +14,8 @@ class PlayerHandViewModel: ObservableObject {
         self.hand = hand
     }
 
-    func getSize() -> Int {
-        hand.getSize()
+    var handSize: Int {
+        hand.count
     }
 
     func getCards() -> [Card] {

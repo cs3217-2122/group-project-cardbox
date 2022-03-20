@@ -12,9 +12,9 @@ struct PlayerHandPositionResponseAction: Action {
 
     func executeGameEvents(gameRunner: GameRunnerReadOnly) {
         PlayerTakesNthCardFromPlayerCardAction(n: playerHandPosition, stateOfN: .given)
-                .executeGameEvents(gameRunner: gameRunner, args: CardActionArgs(card: nil,
-                                                                                player: player,
-                                                                                target: .single(target))
-        )
+            .executeGameEvents(gameRunner: gameRunner,
+                               args: CardActionArgs(card: nil,
+                                                    player: player,
+                                                    target: .single(target)))
     }
 }
