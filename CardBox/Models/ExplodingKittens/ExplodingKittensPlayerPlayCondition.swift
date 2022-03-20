@@ -12,6 +12,9 @@ struct ExplodingKittensPlayerPlayCondition: PlayerPlayCondition {
         .random3
     ]
     let actionCards: Set<ExplodingKittensCardType> = [
+        .attack,
+        .favor,
+        .nope,
         .seeTheFuture,
         .shuffle,
         .skip,
