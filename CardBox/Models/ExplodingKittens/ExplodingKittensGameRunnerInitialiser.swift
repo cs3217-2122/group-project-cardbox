@@ -259,8 +259,11 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
                 return []
             }
 
-            // TODO: Prompt player to choose a card
-            return [PlayerTakesChosenCardFromGameplayCardAction()]
+            // TODO: Prompt player to choose a card, for now default defuse
+            return [PlayerTakesChosenCardFromGameplayCardAction(cardPredicate: {
+                ExplodingKittensUtils.getCardType(card: $0)?.rawValue ==
+                ExplodingKittensUtils.getCardType(card: generateDefuseCard())?.rawValue
+            })]
         }
 
         return fiveDifferentCards

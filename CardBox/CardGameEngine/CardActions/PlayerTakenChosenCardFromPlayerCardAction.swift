@@ -12,7 +12,8 @@ struct PlayerTakenChosenCardFromPlayerCardAction: CardAction {
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
         let targetPlayerWrapped = args.target.getPlayerIfTargetSingle()
 
-        guard let targetPlayerUnwrapped = targetPlayerWrapped else {
+        guard let targetPlayerUnwrapped = targetPlayerWrapped,
+        !targetPlayerUnwrapped.isOutOfGame else {
             return
         }
 

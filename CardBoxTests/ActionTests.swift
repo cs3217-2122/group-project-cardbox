@@ -17,8 +17,7 @@ class ActionTests: XCTestCase {
     var noTargetCard: Card!
     var initialNumOfCardsInDeck: Int!
 
-    let cardTypeKey = "CARD_TYPE"
-
+    let cardTypeKey = CardBoxTestsUtil.cardTypeKey
     let numOfPlayers = 2
 
     lazy var cardCombo: CardCombo = { cards in
