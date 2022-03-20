@@ -165,13 +165,12 @@ extension CardActionTests {
     func test_playerTakesNthCardFromPlayerCardAction_targetPlayerHasLessThanNCards() throws {
         let n = 1
         let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
+        let initialCurrentPlayerHand = CardCollection(cards: currentPlayer.getHand().getCards())
         gameRunner.advanceToNextPlayer()
         let nextPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
-        gameRunner.advanceToNextPlayer()
         nextPlayer.addCard(noTargetCard)
-
-        XCTAssertFalse(currentPlayer.hasCard(noTargetCard))
-        XCTAssertTrue(nextPlayer.hasCard(noTargetCard))
+        let initialNextPlayerHand = CardCollection(cards: nextPlayer.getHand().getCards())
+        gameRunner.advanceToNextPlayer()
 
         let takeNthCard = Card(name: "Take Nth", typeOfTargettedCard: .targetSinglePlayerCard)
         takeNthCard.addPlayAction(PlayerTakesNthCardFromPlayerCardAction(n: n, stateOfN: .given))
@@ -184,8 +183,12 @@ extension CardActionTests {
             on: gameRunner
         )
 
-        XCTAssertFalse(currentPlayer.hasCard(noTargetCard))
-        XCTAssertTrue(nextPlayer.hasCard(noTargetCard))
+        XCTAssertTrue(CardBoxTestsUtil.areCardCollectionsSame(firstCardCollection: initialCurrentPlayerHand,
+                                                              secondCardCollection: currentPlayer.getHand(),
+                                                              gameRunner: gameRunner))
+        XCTAssertTrue(CardBoxTestsUtil.areCardCollectionsSame(firstCardCollection: initialNextPlayerHand,
+                                                              secondCardCollection: nextPlayer.getHand(),
+                                                              gameRunner: gameRunner))
     }
 
     func test_playerTakesNthCardFromPlayerCardAction_targetPlayerOutOfGame() throws {
