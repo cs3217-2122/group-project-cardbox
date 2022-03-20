@@ -21,6 +21,7 @@ struct MenuButtonsView: View {
                 .foregroundColor(Color.orange)
                 .background(Color.blue)
         }
+        .accessibilityIdentifier("LaunchOfflineGame")
         Button {
         } label: {
             Text("Host Game")
