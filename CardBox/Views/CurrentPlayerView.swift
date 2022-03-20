@@ -25,5 +25,6 @@ struct CurrentPlayerView_Previews: PreviewProvider {
         CurrentPlayerView(error: .constant(false),
                           currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")),
                           selectedPlayerViewModel: .constant(nil))
+            .accessibilityIdentifier("currentPlayer")
     }
 }

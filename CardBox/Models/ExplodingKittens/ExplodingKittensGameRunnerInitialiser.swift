@@ -36,7 +36,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         let cards = initCards()
         gameRunner.addSetupAction(InitDeckWithCardsAction(cards: cards))
-        gameRunner.addSetupAction(ShuffleDeckAction())
+        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
+            gameRunner.addSetupAction(ShuffleDeckAction())
+        }
         gameRunner.addSetupAction(DistributeCardsToPlayerAction(numCards: 4))
 
         let bombCards: [Card] = (0..<numPlayers - 1).map { _ in generateBombCard() }
@@ -44,7 +46,9 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
             gameRunner.addSetupAction(AddCardToDeckAction(card: bombCard))
         }
 
-        gameRunner.addSetupAction(ShuffleDeckAction())
+        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
+            gameRunner.addSetupAction(ShuffleDeckAction())
+        }
 
         let currentPlayerResolver: (GameRunnerReadOnly) -> Player? = {
             $0.players.currentPlayer
