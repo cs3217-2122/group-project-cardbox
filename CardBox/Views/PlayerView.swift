@@ -14,8 +14,8 @@ struct PlayerView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var playerText: String {
-        if playerViewModel.player.isOutOfGame {
-            return playerViewModel.player.name + "(Dead)"
+        if playerViewModel.isDead() {
+            return playerViewModel.player.name + " (Dead)"
         }
         return playerViewModel.player.name
     }
@@ -41,6 +41,7 @@ struct PlayerView: View {
             PlayerHandView(playerViewModel: playerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
                            error: $error)
+                .opacity(playerViewModel.isDead() ? 0.5 : 1)
         }
     }
 }
