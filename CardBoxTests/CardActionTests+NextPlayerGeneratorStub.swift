@@ -1,5 +1,5 @@
 //
-//  ActionTests+NextPlayerGeneratorStub.swift
+//  CardActionTests+NextPlayerGeneratorStub.swift
 //  CardBoxTests
 //
 //  Created by Bryann Yeap Kok Keong on 20/3/22.
@@ -7,9 +7,9 @@
 
 @testable import CardBox
 
-extension ActionTests {
+extension CardActionTests {
 
-    struct ActionTestsNextPlayerGeneratorStub: NextPlayerGenerator {
+    struct CardActionTestsNextPlayerGeneratorStub: NextPlayerGenerator {
         func getNextPlayer(gameRunner: GameRunnerReadOnly) -> Player? {
             let players = gameRunner.players
 
@@ -48,7 +48,7 @@ extension ActionTests {
             InitPlayerAction(
                 numPlayers: numOfPlayers,
                 canPlayConditions: initCardPlayConditions(),
-                cardCombos: [cardCombo]
+                cardCombos: []
             )
         )
 
@@ -63,7 +63,7 @@ extension ActionTests {
             ])
         )
 
-        gameRunner.setNextPlayerGenerator(ActionTestsNextPlayerGeneratorStub())
+        gameRunner.setNextPlayerGenerator(CardActionTestsNextPlayerGeneratorStub())
 
         ActionDispatcher.runAction(SetupGameAction(),
                                    on: gameRunner)
