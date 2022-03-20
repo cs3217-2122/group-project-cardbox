@@ -26,20 +26,9 @@ extension ActionTests {
         let initialDeck = CardCollection(cards: gameRunner.deck.getCards())
         ActionDispatcher.runAction(ShuffleDeckAction(), on: gameRunner)
         let newDeck = gameRunner.deck
-        XCTAssertFalse(areDeckSame(firstDeck: initialDeck, secondDeck: newDeck))
-    }
-
-    private func areDeckSame(firstDeck: CardCollection, secondDeck: CardCollection) -> Bool {
-        var orderIsSame = true
-
-        for index in 0 ..< gameRunner.deck.count {
-            let firstDeckCard = firstDeck.getCardByIndex(index)
-            let secondDeckCard = secondDeck.getCardByIndex(index)
-            orderIsSame = orderIsSame && firstDeckCard?.getAdditionalParams(key: cardTypeKey) ==
-            secondDeckCard?.getAdditionalParams(key: cardTypeKey)
-        }
-
-        return orderIsSame
+        XCTAssertFalse(CardBoxTestsUtil.areCardCollectionsSame(firstCardCollection: initialDeck,
+                                                               secondCardCollection: newDeck,
+                                                               gameRunner: gameRunner))
     }
 
     func test_playCardAction_leaveGameCard() throws {

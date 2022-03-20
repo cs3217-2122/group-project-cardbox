@@ -7,8 +7,10 @@
 
 struct PlayerTakesChosenCardFromGameplayCardAction: CardAction {
 
+    let cardPredicate: (Card) -> Bool
+
     func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs) {
-        guard let card = args.card else {
+        guard let card = gameRunner.gameplayArea.getCard(where: cardPredicate) else {
             return
         }
         gameRunner.executeGameEvents([MoveCardGameplayToPlayerEvent(card: card, player: args.player)])
