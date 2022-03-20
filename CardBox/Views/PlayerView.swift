@@ -14,8 +14,8 @@ struct PlayerView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var playerText: String {
-        if playerViewModel.player.isOutOfGame {
-            return playerViewModel.player.name + "(Dead)"
+        if playerViewModel.isDead() {
+            return playerViewModel.player.name + " (Dead)"
         }
         return playerViewModel.player.name
     }
@@ -30,17 +30,18 @@ struct PlayerView: View {
                 }
             } label: {
                 if let selectedPlayerViewModel = selectedPlayerViewModel {
-                    Text(playerViewModel.player.name)
+                    Text(playerText)
                         .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
                                          ? Color.red : Color.blue)
                 } else {
-                    Text(playerViewModel.player.name)
+                    Text(playerText)
                 }
 
             }
             PlayerHandView(playerViewModel: playerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.player.hand),
                            error: $error)
+                .opacity(playerViewModel.isDead() ? 0.5 : 1)
         }
     }
 }

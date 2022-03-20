@@ -20,15 +20,19 @@ struct GameRunnerView: View {
             VStack {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
                     let currentPlayerViewModel = PlayerViewModel(player: currentPlayer)
-                    NonCurrentPlayerView(error: $error,
-                                         currentPlayerViewModel: currentPlayerViewModel,
-                                         selectedPlayerViewModel: $selectedPlayerViewModel)
+                    NonCurrentPlayerView(
+                        error: $error,
+                        currentPlayerViewModel: currentPlayerViewModel,
+                        selectedPlayerViewModel: $selectedPlayerViewModel
+                    )
 
                     Spacer()
 
-                    CurrentPlayerView(error: $error,
-                                      currentPlayerViewModel: currentPlayerViewModel,
-                                      selectedPlayerViewModel: $selectedPlayerViewModel)
+                    CurrentPlayerView(
+                        error: $error,
+                        currentPlayerViewModel: currentPlayerViewModel,
+                        selectedPlayerViewModel: $selectedPlayerViewModel
+                    )
                 }
             }
             CardPreviewView()
@@ -36,6 +40,7 @@ struct GameRunnerView: View {
             HandPositionRequestView(selectedPlayerViewModel: $selectedPlayerViewModel)
             CardTypeRequestView(dispatchCardTypeResponse: gameRunnerViewModel.dispatchCardTypeResponse,
                                 toggleCardTypeRequestView: gameRunnerViewModel.toggleCardTypeRequest)
+            WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)

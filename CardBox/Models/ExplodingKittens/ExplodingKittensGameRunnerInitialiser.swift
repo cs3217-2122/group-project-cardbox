@@ -46,9 +46,22 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         gameRunner.addSetupAction(ShuffleDeckAction())
 
+        let currentPlayerResolver: (GameRunnerReadOnly) -> Player? = {
+            $0.players.currentPlayer
+        }
+        let resetAttackedAction = StepAdditionalParamsAction(
+            resolveProperty: currentPlayerResolver,
+            key: ExplodingKittensUtils.attackCountKey,
+            step: -1
+        )
+        gameRunner.addAdvanceNextPlayerAction(resetAttackedAction)
+
         gameRunner.addEndTurnAction(DrawCardFromDeckToCurrentPlayerAction(target: .currentPlayer))
 
         gameRunner.setNextPlayerGenerator(ExplodingKittensNextPlayerGenerator())
+
+        gameRunner.addWinningCondition(LastStandWinningCondition())
+        gameRunner.setWinnerGenerator(LastStandWinnerGenerator())
     }
 
     private static func initCardPlayConditions() -> [PlayerPlayCondition] {
@@ -64,9 +77,19 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
     }
 
     private static func generateAttackCard() -> Card {
-        let card = Card(name: "Attack", typeOfTargettedCard: .targetSinglePlayerCard)
+        let card = Card(name: "Attack", typeOfTargettedCard: .noTargetCard)
+
+        let nextPlayerResolver: (GameRunnerReadOnly) -> Player? = {
+            ExplodingKittensNextPlayerGenerator().getNextPlayer(gameRunner: $0)
+        }
+        card.addPlayAction(
+            StepAdditionalParamsCardAction(
+                resolveProperty: nextPlayerResolver,
+                key: ExplodingKittensUtils.attackCountKey,
+                step: 1
+            )
+        )
         card.addPlayAction(SkipTurnCardAction())
-        // Need add action to make the next player repeat his turn
         ExplodingKittensUtils.setCardType(card: card, type: ExplodingKittensCardType.attack)
         return card
     }
@@ -160,6 +183,10 @@ class ExplodingKittensGameRunnerInitialiser: GameRunnerInitialiser {
 
         for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
             cards.append(generateFavorCard())
+        }
+
+        for _ in 0 ..< ExplodingKittensCardType.attack.initialFrequency {
+            cards.append(generateAttackCard())
         }
 
         for _ in 0 ..< ExplodingKittensCardType.shuffle.initialFrequency {

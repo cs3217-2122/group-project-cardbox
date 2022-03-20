@@ -105,10 +105,12 @@ class Player: Identifiable, ExtendedProperties {
         let isCardCombo = cards.count > 1
 
         if isCardCombo {
-            action = PlayCardComboAction(player: self,
-                                         cards: cards,
-                                         target: target,
-                                         comboActions: determineCardComboActions(cards))
+            action = PlayCardComboAction(
+                player: self,
+                cards: cards,
+                target: target,
+                comboActions: determineCardComboActions(cards)
+            )
         } else {
             action = PlayCardAction(player: self, cards: cards, target: target)
         }

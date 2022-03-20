@@ -14,11 +14,11 @@ struct HandPositionRequestView: View {
     var body: some View {
         if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
             if let selectedPlayerViewModel = selectedPlayerViewModel {
-                PositionRequestView(dispatchPositionResponse:
-                                        gameRunnerViewModel.dispatchPlayerHandPositionResponse,
-                                    toggleShowPositionRequestView:
-                                        gameRunnerViewModel.togglePlayerHandPositionRequest,
-                                    size: selectedPlayerViewModel.player.hand.getSize())
+                PositionRequestView(
+                    dispatchPositionResponse: gameRunnerViewModel.dispatchPlayerHandPositionResponse,
+                    toggleShowPositionRequestView: gameRunnerViewModel.togglePlayerHandPositionRequest,
+                    size: selectedPlayerViewModel.player.hand.count
+                )
             }
         }
     }
