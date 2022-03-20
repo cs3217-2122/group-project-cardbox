@@ -15,10 +15,10 @@ class ActionTests: XCTestCase {
     var singleTargetCard: Card!
     var allTargetCard: Card!
     var noTargetCard: Card!
+    var initialNumOfCardsInDeck: Int!
 
     let cardTypeKey = "CARD_TYPE"
 
-    let initialNumOfCardsInDeck = 6
     let numOfPlayers = 2
 
     lazy var cardCombo: CardCombo = { cards in
@@ -40,6 +40,7 @@ class ActionTests: XCTestCase {
         singleTargetCard = generateSingleTargetCard()
         allTargetCard = generateAllTargetCard()
         noTargetCard = generateNoTargetCard()
+        initialNumOfCardsInDeck = gameRunner.deck.count
     }
 }
 
@@ -59,11 +60,11 @@ extension ActionTests {
         XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
 
         for _ in 0 ..< 15 {
-            ActionDispatcher.runAction(AddCardToDeckAction(card: singleTargetCard),
+            ActionDispatcher.runAction(AddCardToDeckAction(card: generateSingleTargetCard()),
                                        on: gameRunner)
-            ActionDispatcher.runAction(AddCardToDeckAction(card: allTargetCard),
+            ActionDispatcher.runAction(AddCardToDeckAction(card: generateAllTargetCard()),
                                        on: gameRunner)
-            ActionDispatcher.runAction(AddCardToDeckAction(card: noTargetCard),
+            ActionDispatcher.runAction(AddCardToDeckAction(card: generateNoTargetCard()),
                                        on: gameRunner)
         }
 
@@ -90,13 +91,13 @@ extension ActionTests {
 
         for _ in 0 ..< 20 {
             ActionDispatcher.runAction(AddCardToPlayerAction(player: currentPlayer,
-                                                             card: singleTargetCard),
+                                                             card: generateSingleTargetCard()),
                                        on: gameRunner)
             ActionDispatcher.runAction(AddCardToPlayerAction(player: currentPlayer,
-                                                             card: allTargetCard),
+                                                             card: generateAllTargetCard()),
                                        on: gameRunner)
             ActionDispatcher.runAction(AddCardToPlayerAction(player: currentPlayer,
-                                                             card: noTargetCard),
+                                                             card: generateNoTargetCard()),
                                        on: gameRunner)
         }
 

@@ -17,8 +17,8 @@ class CardActionTests: XCTestCase {
 //    var singleTargetCard: Card!
 //    var allTargetCard: Card!
 //    var noTargetCard: Card!
+    var initialNumOfCardsInDeck: Int!
 
-    let initialNumOfCardsInDeck = 6
     let numOfPlayers = 2
 
     override func setUpWithError() throws {
@@ -27,6 +27,7 @@ class CardActionTests: XCTestCase {
 //        singleTargetCard = generateSingleTargetCard()
 //        allTargetCard = generateAllTargetCard()
 //        noTargetCard = generateNoTargetCard()
+        initialNumOfCardsInDeck = gameRunner.deck.count
     }
 
     func test_PlayerOutOfGameCardAction_initiallyNotOutOfGamePlayer() throws {
@@ -83,55 +84,6 @@ class CardActionTests: XCTestCase {
         XCTAssertFalse(isSamePlayers(initialCurrentPlayer, newCurrentPlayer))
     }
 
-    func test_playerInsertCardIntoDeckCard_playerHasCard() throws {
-        let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
-        currentPlayer.addCard(generateSingleTargetCard())
-        let n = 3
-        let initialNthCardInDeck = gameRunner.deck.getCardByIndex(n)
-
-        let card = Card(name: "Insert Card Into Deck", typeOfTargettedCard: .noTargetCard)
-        card.addPlayAction(PlayerInsertCardIntoDeckCardAction(offsetFromTop: 3))
-
-        ActionDispatcher.runAction(
-            PlayCardAction(
-                player: currentPlayer,
-                cards: [card],
-                target: .none),
-            on: gameRunner
-        )
-
-        let newNthCardInDeck = gameRunner.deck.getCardByIndex(n)
-
-        XCTAssertNotEqual(initialNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
-                          newNthCardInDeck?.getAdditionalParams(key: cardTypeKey))
-        XCTAssertEqual(newNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
-                       card.getAdditionalParams(key: cardTypeKey))
-    }
-
-    func test_playerInsertCardIntoDeckCard_playerDoesNotHaveCard() throws {
-        let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
-        let n = 3
-        let initialNthCardInDeck = gameRunner.deck.getCardByIndex(n)
-
-        let card = Card(name: "Insert Card Into Deck", typeOfTargettedCard: .noTargetCard)
-        card.addPlayAction(PlayerInsertCardIntoDeckCardAction(offsetFromTop: 3))
-
-        ActionDispatcher.runAction(
-            PlayCardAction(
-                player: currentPlayer,
-                cards: [card],
-                target: .none),
-            on: gameRunner
-        )
-
-        let newNthCardInDeck = gameRunner.deck.getCardByIndex(n)
-
-        XCTAssertNotEqual(initialNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
-                          newNthCardInDeck?.getAdditionalParams(key: cardTypeKey))
-        XCTAssertEqual(newNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
-                       card.getAdditionalParams(key: cardTypeKey))
-    }
-
     func test_skipTurnCardAction_onePlayerNotOutOfGame() throws {
         let initialCurrentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
         gameRunner.advanceToNextPlayer()
@@ -156,6 +108,58 @@ class CardActionTests: XCTestCase {
         }
 
         XCTAssertTrue(isSamePlayers(initialCurrentPlayer, newCurrentPlayer))
+    }
+
+    func test_playerInsertCardIntoDeckCard_playerHasCard() throws {
+        let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
+
+        let n = 3
+        let initialNthCardInDeck = gameRunner.deck.getCardByIndex(n)
+
+        let card = Card(name: "Insert Card Into Deck", typeOfTargettedCard: .noTargetCard)
+        card.addPlayAction(PlayerInsertCardIntoDeckCardAction(offsetFromTop: 3))
+        currentPlayer.addCard(card)
+
+        ActionDispatcher.runAction(
+            PlayCardAction(
+                player: currentPlayer,
+                cards: [card],
+                target: .none),
+            on: gameRunner
+        )
+
+        let newNthCardInDeck = gameRunner.deck.getCardByIndex(n)
+
+        XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck + 1)
+        XCTAssertNotEqual(initialNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
+                          newNthCardInDeck?.getAdditionalParams(key: cardTypeKey))
+        XCTAssertEqual(newNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
+                       card.getAdditionalParams(key: cardTypeKey))
+    }
+
+    func test_playerInsertCardIntoDeckCard_playerDoesNotHaveCard() throws {
+        let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
+        let n = 3
+        let initialNthCardInDeck = gameRunner.deck.getCardByIndex(n)
+
+        let card = Card(name: "Insert Card Into Deck", typeOfTargettedCard: .noTargetCard)
+        card.addPlayAction(PlayerInsertCardIntoDeckCardAction(offsetFromTop: 3))
+
+        ActionDispatcher.runAction(
+            PlayCardAction(
+                player: currentPlayer,
+                cards: [card],
+                target: .none),
+            on: gameRunner
+        )
+
+        let newNthCardInDeck = gameRunner.deck.getCardByIndex(n)
+
+        XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
+        XCTAssertEqual(initialNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
+                       newNthCardInDeck?.getAdditionalParams(key: cardTypeKey))
+        XCTAssertNotEqual(newNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
+                          card.getAdditionalParams(key: cardTypeKey))
     }
 
     func test_conditionalCardAction_whenTrueHasNoFalseAction() throws {

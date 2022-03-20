@@ -34,10 +34,6 @@ class CardCollection {
         return cards.last
     }
 
-    func getSize() -> Int {
-        cards.count
-    }
-
     var isEmpty: Bool {
         cards.isEmpty
     }

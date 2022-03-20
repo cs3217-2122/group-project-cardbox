@@ -13,6 +13,10 @@ struct PlayerInsertCardIntoDeckCardAction: CardAction {
             return
         }
 
+        guard args.player.hasCard(card) else {
+            return
+        }
+
         gameRunner.executeGameEvents(
             [MoveCardPlayerToDeckEvent(card: card, player: args.player, offsetFromTop: offsetFromTop)]
         )
