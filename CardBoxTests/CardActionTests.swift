@@ -107,7 +107,7 @@ class CardActionTests: XCTestCase {
         XCTAssertEqual(newNthCardInDeck?.getAdditionalParams(key: cardTypeKey),
                        card.getAdditionalParams(key: cardTypeKey))
     }
-    
+
     func test_playerInsertCardIntoDeckCard_playerDoesNotHaveCard() throws {
         let currentPlayer = try XCTUnwrap(gameRunner.players.currentPlayer)
         let n = 3

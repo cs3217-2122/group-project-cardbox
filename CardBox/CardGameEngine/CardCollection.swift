@@ -42,13 +42,6 @@ class CardCollection {
         cards.isEmpty
     }
 
-    var topCard: Card? {
-        guard !cards.isEmpty else {
-            return nil
-        }
-        return cards[0]
-    }
-
     func getCardByIndex(_ index: Int) -> Card? {
         guard index >= 0 && index < cards.count else {
             return nil
