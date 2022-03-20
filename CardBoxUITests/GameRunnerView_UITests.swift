@@ -26,8 +26,8 @@ class GameRunnerView_UITests: XCTestCase {
     func test_GameRunnerView_EndButton_shouldGoToNextPlayer() {
 
         let endButton = app.buttons["End"]
-        let player1 = app.staticTexts["Current Player: Player 1"]
-        let player2 = app.staticTexts["Player 2"]
+        let player1 = app.buttons["Current Player: Player 1"]
+        let player2 = app.buttons["Player 2"]
 
         XCTAssertTrue(endButton.exists)
         XCTAssertTrue(player1.exists)
@@ -35,7 +35,7 @@ class GameRunnerView_UITests: XCTestCase {
 
         endButton.tap()
 
-        let currentPlayer = app.staticTexts["Current Player: Player 2"]
+        let currentPlayer = app.buttons["Current Player: Player 2"]
         XCTAssertTrue(currentPlayer.exists)
     }
 
@@ -47,7 +47,7 @@ class GameRunnerView_UITests: XCTestCase {
         skipCard.tap()
         playButton.tap()
 
-        let currentPlayer = app.staticTexts["Current Player: Player 2"]
+        let currentPlayer = app.buttons["Current Player: Player 2"]
         XCTAssertFalse(emptyPlayDeck.exists)
         XCTAssertTrue(currentPlayer.exists)
     }
@@ -68,6 +68,11 @@ class GameRunnerView_UITests: XCTestCase {
     }
 
     func test_GameRunnerView_SeeTheFuture_shouldPopUpView() {
+        let endButton = app.buttons["End"]
+        for _ in 0...4 {
+            endButton.tap()
+        }
+
         let seeTheFuture = app.staticTexts["See The Future"]
         seeTheFuture.tap()
         app.buttons["Play"].tap()

@@ -27,7 +27,7 @@ class MainMenuView_UITests: XCTestCase {
     func test_MainMenuView_PlayOfflineButton_shouldLaunchGame() {
         XCUIApplication().buttons["LaunchOfflineGame"].tap()
 
-        let playerNameText = app.staticTexts["Current Player: Player 1"]
+        let playerNameText = app.buttons["Current Player: Player 1"]
         XCTAssertTrue(playerNameText.exists)
     }
 
