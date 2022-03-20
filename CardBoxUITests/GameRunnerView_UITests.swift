@@ -67,4 +67,17 @@ class GameRunnerView_UITests: XCTestCase {
         XCTAssertTrue(emptyPlayDeck.exists)
     }
 
+    func test_GameRunnerView_SeeTheFuture_shouldPopUpView() {
+        let seeTheFuture = app.staticTexts["See The Future"]
+        seeTheFuture.tap()
+        app.buttons["Play"].tap()
+
+        let random1 = app.staticTexts["Random 1"]
+        XCTAssertTrue(random1.exists)
+
+        let popoverDismiss = app.otherElements["PopoverDismissRegion"].firstMatch
+        popoverDismiss.tap()
+        XCTAssertFalse(random1.exists)
+    }
+
 }
