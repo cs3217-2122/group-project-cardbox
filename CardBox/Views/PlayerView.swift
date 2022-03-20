@@ -17,6 +17,7 @@ struct PlayerView: View {
         var playerName = playerViewModel.player.name
         if playerViewModel.player.isOutOfGame {
             playerName += "(Dead)"
+        }
         if playerViewModel.player === gameRunnerViewModel.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
