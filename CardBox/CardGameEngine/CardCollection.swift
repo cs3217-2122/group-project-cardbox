@@ -8,6 +8,14 @@
 class CardCollection {
     private var cards: [Card] = []
 
+    init(cards: [Card]) {
+        self.cards = cards
+    }
+
+    convenience init() {
+        self.init(cards: [])
+    }
+
     var count: Int {
         cards.count
     }
@@ -16,7 +24,14 @@ class CardCollection {
         if cards.isEmpty {
             return nil
         }
-        return cards[0]
+        return cards.first
+    }
+
+    var bottomCard: Card? {
+        if cards.isEmpty {
+            return nil
+        }
+        return cards.last
     }
 
     func getSize() -> Int {

@@ -20,7 +20,8 @@ struct DistributeCardsToPlayerAction: Action {
         }
 
         let moves: [GameEvent] = cards.indices.compactMap { index in
-            guard let player = players.getPlayerByIndex(index % numPlayers) else {
+            guard let player = players.getPlayerByIndex(index % numPlayers),
+                  !player.isOutOfGame else {
                 return nil
             }
             return MoveCardDeckToPlayerEvent(card: cards[index], player: player)
