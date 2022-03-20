@@ -36,10 +36,10 @@ class CardCollection {
 
     func getSize() -> Int {
         cards.count
+    }
 
     var isEmpty: Bool {
         cards.isEmpty
-
     }
 
     var topCard: Card? {
