@@ -20,7 +20,7 @@ class PlayerViewModel: ObservableObject {
         }
         if currentPlayer === player {
             if cardViewModel.isSelected {
-                if player.hand.contains(card: card) {
+                if player.hand.containsCard(card) {
                     if let indexOf = selectedCards.firstIndex(where: { cardObject in
                         cardObject === card
                     }) {
@@ -29,7 +29,7 @@ class PlayerViewModel: ObservableObject {
                     cardViewModel.isSelected = false
                 }
             } else {
-                if player.hand.contains(card: card) {
+                if player.hand.containsCard(card) {
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
                 }
