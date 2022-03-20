@@ -59,7 +59,7 @@ class Card: Identifiable, ExtendedProperties {
 
     // Convenience function for testing
     convenience init(name: String) {
-        self.init(name: name, typeOfCard: .noTargetCard)
+        self.init(name: name, typeOfTargettedCard: .noTargetCard)
     }
 
     func addDrawAction(_ action: CardAction) {
