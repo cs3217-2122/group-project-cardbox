@@ -1,15 +1,13 @@
 print("Hello, world!")
-var g: GameRunner = GameRunner()
+var g: GameRunner = TestGameRunner()
 
-var card1: Card = Card(name: "card 1")
-var card2: Card = Card(name: "card 2")
-
-var card
+var card1: TestCard = TestCard(name: "card 1", typeOfTargettedCard: .noTargetCard)
+var card2: TestCard = TestCard(name: "card 2", typeOfTargettedCard: .noTargetCard)
 
 var cards = [card1, card2]
-g.addSetupAction(InitDeckWithCardsAction(cards: cards))
-g.addSetupAction(InitPlayerAction(numPlayers: 4))
+// g.addSetupAction(InitDeckWithCardsAction(cards: cards))
+// g.addSetupAction(InitPlayerAction(numPlayers: 4))
 
-g.setup()
+// g.setup()
 
-print(g.deck.getCards())
+// print(g.deck.getCards())

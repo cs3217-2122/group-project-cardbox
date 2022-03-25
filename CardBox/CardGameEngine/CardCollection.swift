@@ -1,11 +1,4 @@
-//
-//  CardCollection.swift
-//  CardBox
-//
-//  Created by mactest on 10/03/2022.
-//
-
-class CardCollection {
+final class CardCollection {
     private var cards: [Card] = []
 
     init(cards: [Card]) {

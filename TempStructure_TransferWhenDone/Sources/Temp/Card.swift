@@ -1,23 +1,40 @@
-class Card {
-    private var name: String
-    private var cardDescription: String
+enum GameplayTarget<V: Player> {
+    case all
+    case none
+    case single(V)
 
-    private var onDrawActions: [Action] = []
-
-    init(name: String) {
-        self.name = name
-        self.cardDescription = ""
-        self.onDrawActions = []
-    }
-
-    func addDrawAction(_ action: Action) {
-        self.onDrawActions.append(action)
-    }
-
-    func onDraw(gameRunner: GameRunnerProtocol) -> [GameEvent] {
-        let events = self.onDrawActions.map { action in
-            action.generateGameEvents(gameRunner: gameRunner)
+    var description: String {
+        switch self {
+        case .all:
+            return "all"
+        case .none:
+            return "none"
+        case .single:
+            return "single"
         }
-        return events.flatMap { $0 }
     }
+
+    func getPlayerIfTargetSingle() -> V? {
+        switch self {
+        case let .single(targetPlayer):
+            return targetPlayer
+        case .all, .none:
+            return nil
+        }
+    }
+}
+
+enum TypeOfTargettedCard {
+    case targetAllPlayersCard
+    case targetSinglePlayerCard
+    case noTargetCard
+}
+
+protocol Card: Identifiable, AnyObject {
+    var name: String { get }
+    var cardDescription: String { get }
+    var typeOfTargettedCard: TypeOfTargettedCard { get }
+
+    // func onDraw<V: Player>(gameRunner: GameRunner<Self, V>, player: V)
+    // func onPlay<V: Player>(gameRunner: GameRunner<Self, V>, player: V, on target: GameplayTarget<V>)
 }

@@ -1,12 +1,12 @@
-final class PlayerCollection {
-    private var players: [Player]
+class PlayerCollection<T: Player> {
+    private var players: [T]
     private(set) var currentPlayerIndex: Int
 
     convenience init() {
         self.init(players: [])
     }
 
-    init(players: [Player]) {
+    init(players: [T]) {
         self.players = players
         self.currentPlayerIndex = 0
     }
@@ -19,7 +19,7 @@ final class PlayerCollection {
         self.players.isEmpty
     }
 
-    var currentPlayer: Player? {
+    var currentPlayer: T? {
         guard !players.isEmpty else {
             return nil
         }
@@ -27,23 +27,23 @@ final class PlayerCollection {
         return self.players[self.currentPlayerIndex]
     }
 
-    func addPlayer(_ player: Player) {
-        guard !players.contains(where: { $0 === player }) else {
+    func addPlayer(_ player: T) {
+        guard !players.contains(player) else {
             return
         }
 
         self.players.append(player)
     }
 
-    func setCurrentPlayer(_ player: Player) {
-        guard let playerIndex = players.firstIndex(where: { $0 === player }) else {
+    func setCurrentPlayer(_ player: T) {
+        guard let playerIndex = players.firstIndex(player) else {
             return
         }
 
         self.currentPlayerIndex = playerIndex
     }
 
-    func getPlayerByIndex(_ index: Int) -> Player? {
+    func getPlayerByIndex(_ index: Int) -> T? {
         guard index >= 0 && index < players.count else {
             return nil
         }
@@ -51,11 +51,11 @@ final class PlayerCollection {
         return players[index]
     }
 
-    func getPlayers() -> [Player] {
+    func getPlayers() -> [T] {
         players
     }
 
-    func getPlayerByIndexAfterCurrent(_ index: Int) -> Player? {
+    func getPlayerByIndexAfterCurrent(_ index: Int) -> T? {
         guard index > 0 else {
             return nil
         }
