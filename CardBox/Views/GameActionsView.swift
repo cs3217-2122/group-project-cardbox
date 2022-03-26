@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GameActionsView: View {
-    @EnvironmentObject private var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
     var currentPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
@@ -40,8 +40,13 @@ struct GameActionsView: View {
 
 struct GameActionsView_Previews: PreviewProvider {
     static var previews: some View {
-        GameActionsView(error: .constant(false),
-                        currentPlayerViewModel: PlayerViewModel(player: Player(name: "test")),
-                        selectedPlayerViewModel: .constant(nil))
+        GameActionsView(
+            error: .constant(false),
+            currentPlayerViewModel: PlayerViewModel(
+                player: Player(name: "test"),
+                hand: CardCollection()
+            ),
+            selectedPlayerViewModel: .constant(nil)
+        )
     }
 }

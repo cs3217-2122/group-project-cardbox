@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class GameRunner: GameRunnerReadOnly, GameRunnerUpdateOnly, ObservableObject {
+class GameRunner: GameRunnerProtocol, ObservableObject {
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var gameplayArea: CardCollection
@@ -90,7 +90,7 @@ class GameRunner: GameRunnerReadOnly, GameRunnerUpdateOnly, ObservableObject {
     }
 
     func endPlayerTurn() {
-        ActionDispatcher.runAction(EndTurnAction(), on: self)
+//        ActionDispatcher.runAction(EndTurnAction(), on: self)
     }
 
     func setCardsPeeking(cards: [Card]) {

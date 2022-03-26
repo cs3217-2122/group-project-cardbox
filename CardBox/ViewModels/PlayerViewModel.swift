@@ -9,18 +9,20 @@ import SwiftUI
 class PlayerViewModel: ObservableObject {
     var player: Player
     var selectedCards: [Card] = []
+    var hand: CardCollection
 
-    init(player: Player) {
+    init(player: Player, hand: CardCollection) {
         self.player = player
+        self.hand = hand
     }
 
-    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunner) {
+    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: ExplodingKittensGameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
         if currentPlayer === player {
             if cardViewModel.isSelected {
-                if player.hand.containsCard(card) {
+                if hand.containsCard(card) {
                     if let indexOf = selectedCards.firstIndex(where: { cardObject in
                         cardObject === card
                     }) {
@@ -29,7 +31,7 @@ class PlayerViewModel: ObservableObject {
                     cardViewModel.isSelected = false
                 }
             } else {
-                if player.hand.containsCard(card) {
+                if hand.containsCard(card) {
                     selectedCards.append(card)
                     cardViewModel.isSelected = true
                 }
@@ -37,18 +39,18 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func isCurrentPlayer(gameRunner: GameRunner) -> Bool {
+    func isCurrentPlayer(gameRunner: ExplodingKittensGameRunner) -> Bool {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return false
         }
         return currentPlayer === player
     }
 
-    func canPlayCard(gameRunner: GameRunner) -> Bool {
+    func canPlayCard(gameRunner: ExplodingKittensGameRunner) -> Bool {
         player.canPlay(cards: selectedCards, gameRunner: gameRunner)
     }
 
-    func previewCard(card: Card, gameRunner: GameRunner) {
+    func previewCard(card: Card, gameRunner: ExplodingKittensGameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
@@ -57,7 +59,7 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func unpreviewCard(card: Card, gameRunner: GameRunner) {
+    func unpreviewCard(card: Card, gameRunner: ExplodingKittensGameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
@@ -68,7 +70,7 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func canPlayCardOnPlayer(gameRunner: GameRunner, target: PlayerViewModel?) -> Bool {
+    func canPlayCardOnPlayer(gameRunner: ExplodingKittensGameRunner, target: PlayerViewModel?) -> Bool {
         guard let target = target else {
             return canPlayCard(gameRunner: gameRunner)
         }
@@ -79,7 +81,7 @@ class PlayerViewModel: ObservableObject {
         self.player.isOutOfGame
     }
 
-    func playCards(gameRunner: GameRunner, target: PlayerViewModel?) {
+    func playCards(gameRunner: ExplodingKittensGameRunner, target: PlayerViewModel?) {
         guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
             print("Cannot play card on player (Player is dead)")
             return

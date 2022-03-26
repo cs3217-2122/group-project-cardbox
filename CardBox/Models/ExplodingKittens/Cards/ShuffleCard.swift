@@ -15,9 +15,11 @@ class ShuffleCard: ExplodingKittensCard {
     }
 
     // To be overwritten
-    override func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
-        gameRunner.executeGameEvents([
-            ShuffleDeckEvent()
-        ])
+    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
+
+        ekGameRunner.deck.shuffle()
     }
 }

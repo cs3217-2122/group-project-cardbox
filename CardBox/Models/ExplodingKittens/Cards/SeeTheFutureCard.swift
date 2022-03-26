@@ -15,7 +15,7 @@ class SeeTheFutureCard: ExplodingKittensCard {
     }
 
     // To be overwritten
-    override func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
+    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 
     }
 }

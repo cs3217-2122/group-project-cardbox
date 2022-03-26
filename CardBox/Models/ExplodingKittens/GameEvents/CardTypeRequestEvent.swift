@@ -16,9 +16,9 @@ struct CardTypeRequestEvent: GameEvent {
     let target: Player
     let player: Player
 
-    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
+    func updateRunner(gameRunner: GameRunnerProtocol) {
         let args = CardTypeRequestArgs(target: target, player: player)
-        gameRunner.setCardTypeRequestArgs(args)
-        gameRunner.toggleCardTypeRequest(to: true)
+//        gameRunner.setCardTypeRequestArgs(args)
+//        gameRunner.toggleCardTypeRequest(to: true)
     }
 }

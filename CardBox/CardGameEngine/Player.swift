@@ -5,10 +5,10 @@
 //  Created by mactest on 10/03/2022.
 //
 
-typealias CardCombo = (_ cards: [Card]) -> [CardAction]
+import Foundation
 
 class Player: Identifiable {
-    private(set) var hand: CardCollection
+    let id: UUID
     private(set) var name: String
     private(set) var isOutOfGame = false
 
@@ -18,75 +18,29 @@ class Player: Identifiable {
         name
     }
 
-    init(name: String) {
-        self.hand = CardCollection()
+    convenience init(name: String) {
+        self.init(id: UUID(), name: name)
+    }
+
+    init(id: UUID, name: String) {
+        self.id = id
         self.name = name
     }
 
-    func addCard(_ card: Card) {
-        guard !isOutOfGame else {
-            return
-        }
-
-        self.hand.addCard(card)
-    }
-
-    func removeCard(_ card: Card) {
-        guard !isOutOfGame else {
-            return
-        }
-
-        self.hand.removeCard(card)
-    }
-
-    func getHand() -> CardCollection {
-        self.hand
-    }
-
-    func hasCard(_ card: Card) -> Bool {
-        guard !isOutOfGame else {
-            return false
-        }
-
-        return hand.containsCard(card)
-    }
-
-    func hasCard(where predicate: (Card) -> Bool) -> Bool {
-        guard !isOutOfGame else {
-            return false
-        }
-
-        return hand.containsCard(where: predicate)
-    }
-
-    func getCard(where predicate: (Card) -> Bool) -> Card? {
-        self.hand.getCard(where: predicate)
+    // To be overwritten
+    func canPlay(cards: [Card], gameRunner: GameRunnerProtocol) -> Bool {
+        return true
     }
 
     // To be overwritten
-    func canPlay(cards: [Card], gameRunner: GameRunnerReadOnly) -> Bool {
-        true
+    func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
     }
 
-    // To be overwritten
-    func playCards(_ cards: [Card], gameRunner: GameRunnerReadOnly, on target: GameplayTarget) {
-        // TODO: Add play card action
-    }
-
-    func endTurn(gameRunner: GameRunnerReadOnly) {
+    func endTurn(gameRunner: GameRunnerProtocol) {
         guard !isOutOfGame else {
             return
         }
 
-        // TODO: Add end turn action
-    }
-
-    func getCardByIndex(_ index: Int) -> Card? {
-        guard !isOutOfGame else {
-            return nil
-        }
-
-        return hand.getCardByIndex(index)
     }
 
     func setOutOfGame(_ outOfGame: Bool) {

@@ -55,12 +55,12 @@ class Card: Identifiable {
     }
 
     // To be overwritten
-    func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
+    func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
 
     }
 
     // To be overwritten
-    func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
+    func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 
     }
 }

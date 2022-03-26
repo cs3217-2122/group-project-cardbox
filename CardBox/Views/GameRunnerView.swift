@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct GameRunnerView: View {
-
     @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
@@ -19,7 +18,10 @@ struct GameRunnerView: View {
                 .ignoresSafeArea()
             VStack {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
-                    let currentPlayerViewModel = PlayerViewModel(player: currentPlayer)
+                    let currentPlayerViewModel = PlayerViewModel(
+                        player: currentPlayer,
+                        hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
+                    )
                     NonCurrentPlayerView(
                         error: $error,
                         currentPlayerViewModel: currentPlayerViewModel,
@@ -38,14 +40,19 @@ struct GameRunnerView: View {
             CardPreviewView()
             DeckPositionRequestView()
             HandPositionRequestView(selectedPlayerViewModel: $selectedPlayerViewModel)
-            CardTypeRequestView(dispatchCardTypeResponse: gameRunnerViewModel.dispatchCardTypeResponse,
-                                toggleCardTypeRequestView: gameRunnerViewModel.toggleCardTypeRequest)
+//            CardTypeRequestView(dispatchCardTypeResponse: gameRunnerViewModel.dispatchCardTypeResponse,
+//                                toggleCardTypeRequestView: gameRunnerViewModel.toggleCardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
         }
         .environmentObject(gameRunnerViewModel)
+        .onAppear(perform: setup)
+    }
+
+    private func setup() {
+        gameRunnerViewModel.setup()
     }
 
     func dismissPeek() {

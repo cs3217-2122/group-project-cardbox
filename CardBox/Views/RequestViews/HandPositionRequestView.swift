@@ -12,15 +12,16 @@ struct HandPositionRequestView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
-        if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
-            if let selectedPlayerViewModel = selectedPlayerViewModel {
-                PositionRequestView(
-                    dispatchPositionResponse: gameRunnerViewModel.dispatchPlayerHandPositionResponse,
-                    toggleShowPositionRequestView: gameRunnerViewModel.togglePlayerHandPositionRequest,
-                    size: selectedPlayerViewModel.player.hand.count
-                )
-            }
-        }
+        EmptyView()
+//        if gameRunnerViewModel.isShowingPlayerHandPositionRequest {
+//            if let selectedPlayerViewModel = selectedPlayerViewModel {
+//                PositionRequestView(
+//                    dispatchPositionResponse: gameRunnerViewModel.dispatchPlayerHandPositionResponse,
+//                    toggleShowPositionRequestView: gameRunnerViewModel.togglePlayerHandPositionRequest,
+//                    size: selectedPlayerViewModel.player.hand.count
+//                )
+//            }
+//        }
     }
 }
 

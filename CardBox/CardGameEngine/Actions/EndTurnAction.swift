@@ -6,11 +6,11 @@
 //
 
 struct EndTurnAction: Action {
-    func run(gameRunner: GameRunnerReadOnly) {
+    func run(gameRunner: GameRunnerProtocol) {
         gameRunner.executeGameEvents([
             EndTurnEvent(),
             AdvanceNextPlayerEvent(),
-            SetGameStateEvent(gameState: .start),
+//            SetGameStateEvent(gameState: .start),
             StartTurnEvent()
         ])
     }

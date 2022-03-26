@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PositionRequestView: View {
     @State private var position: Int = 1
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
 
     private var dispatchPositionResponse: (Int) -> Void
     private var toggleShowPositionRequestView: (Bool) -> Void
