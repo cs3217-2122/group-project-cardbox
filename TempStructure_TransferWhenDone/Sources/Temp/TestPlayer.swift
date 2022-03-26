@@ -1,6 +1,6 @@
 class TestPlayer: Player {
     let name: String
-    let isOutOfGame: Bool = false
+    let isOutOfGame = false
     let cardsPlayed: Int = 0
     let cardCollectionIndexes: Set<Int> = Set()
 

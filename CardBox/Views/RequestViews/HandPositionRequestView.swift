@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HandPositionRequestView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {

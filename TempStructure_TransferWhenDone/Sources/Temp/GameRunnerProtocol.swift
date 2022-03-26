@@ -8,7 +8,7 @@ class GameRunner<T: Card, V: Player> {
     }
 
     func getPlayer(index: Int) -> V? {
-        return players.getPlayerByIndex(index)
+        players.getPlayerByIndex(index)
     }
 
     func getDeck(index: Int, for forIndex: Int) -> CardCollection<T>? {

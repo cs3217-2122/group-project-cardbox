@@ -14,6 +14,6 @@ class TestCard: Card {
     // }
 
     // func onPlay(gameRunner: GameRunner<TestCard, TestPlayer>, player: TestPlayer, on target: GameplayTarget<TestPlayer>) {
-        
+
     // }
 }

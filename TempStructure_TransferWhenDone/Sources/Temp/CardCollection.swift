@@ -28,6 +28,6 @@ class CardCollection<T: Card> {
     }
 
     func getCards() -> [T] {
-        return self.cards
+        self.cards
     }
 }

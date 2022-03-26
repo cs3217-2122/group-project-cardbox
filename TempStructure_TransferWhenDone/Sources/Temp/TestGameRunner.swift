@@ -1,4 +1,4 @@
-class TestGameRunner: GameRunner<TestCard,TestPlayer> {
+class TestGameRunner: GameRunner<TestCard, TestPlayer> {
     func refreshGame() {
         // TODO: refresh game whenever new things added (?)
     }

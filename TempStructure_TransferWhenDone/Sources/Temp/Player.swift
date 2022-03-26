@@ -7,6 +7,6 @@ protocol Player: Equatable, AnyObject {
 
 extension Player {
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs === rhs
+        lhs === rhs
     }
 }
