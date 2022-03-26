@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GameRunnerView: View {
 
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunnerInitialiser.getAndSetupGameRunnerInstance()
+    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
 

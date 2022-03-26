@@ -2,11 +2,11 @@
 //  EndTurnAction.swift
 //  CardBox
 //
-//  Created by mactest on 11/03/2022.
+//  Created by mactest on 25/03/2022.
 //
 
 struct EndTurnAction: Action {
-    func executeGameEvents(gameRunner: GameRunnerReadOnly) {
+    func run(gameRunner: GameRunnerReadOnly) {
         gameRunner.executeGameEvents([
             EndTurnEvent(),
             AdvanceNextPlayerEvent(),

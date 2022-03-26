@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardTypeRequestView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
     @State var selectedType = ""
     private var dispatchCardTypeResponse: (String) -> Void
     private var toggleCardTypeRequestView: (Bool) -> Void
@@ -28,7 +28,7 @@ struct CardTypeRequestView: View {
 
     var messageBox: some View {
         VStack {
-            ForEach(gameRunnerViewModel.getAllCardTypes, id: \.self) { cardType in
+            ForEach(gameRunnerViewModel.allCardTypes, id: \.self) { cardType in
                 Button {
                     selectedType = cardType.rawValue
                 } label: {

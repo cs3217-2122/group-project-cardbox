@@ -12,5 +12,5 @@ struct CardActionArgs {
 }
 
 protocol CardAction {
-    func executeGameEvents(gameRunner: GameRunnerReadOnly, args: CardActionArgs)
+    func run(gameRunner: GameRunnerReadOnly, args: CardActionArgs)
 }
