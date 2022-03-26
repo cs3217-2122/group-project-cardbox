@@ -8,7 +8,7 @@
 struct SetCurrentPlayerEvent: GameEvent {
     let player: Player
 
-    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
+    func updateRunner(gameRunner: GameRunnerProtocol) {
         gameRunner.players.setCurrentPlayer(player)
     }
 }

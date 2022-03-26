@@ -12,7 +12,7 @@ class ExplodingKittensPlayer: Player {
         self.attackCount += 1
     }
 
-    override func canPlay(cards: [Card], gameRunner: GameRunnerReadOnly) -> Bool {
+    override func canPlay(cards: [Card], gameRunner: GameRunnerProtocol) -> Bool {
         let ekCards = cards.compactMap { $0 as? ExplodingKittensCard }
 
         guard !ekCards.isEmpty else {
@@ -56,5 +56,22 @@ class ExplodingKittensPlayer: Player {
         }
 
         return cardTypeSet.count == cards.count
+    }
+
+    override func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
+        let ekCards = cards.compactMap { $0 as? ExplodingKittensCard }
+
+        guard !ekCards.isEmpty else {
+            return
+        }
+
+        if ekCards.count == 1 {
+            let card = ekCards[0]
+            card.onPlay(gameRunner: gameRunner, player: self, on: target)
+        }
+    }
+
+    private static func playPairCombo() {
+
     }
 }

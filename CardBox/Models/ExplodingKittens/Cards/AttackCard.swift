@@ -14,16 +14,14 @@ class AttackCard: ExplodingKittensCard {
         )
     }
 
-    // To be overwritten
-    override func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
-    }
-
-    // To be overwritten
-    override func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
-        guard let ekPlayer = player as? ExplodingKittensPlayer else {
+    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
+        guard let nextPlayer = gameRunner.getNextPlayer() as? ExplodingKittensPlayer else {
             return
         }
 
-        ekPlayer.incrementAttackCount()
+        nextPlayer.incrementAttackCount()
+        gameRunner.executeGameEvents([
+            AdvanceNextPlayerEvent()
+        ])
     }
 }

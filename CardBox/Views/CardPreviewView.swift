@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardPreviewView: View {
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
+    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
 
     var body: some View {
         if let cardPreview = gameRunnerViewModel.cardPreview {

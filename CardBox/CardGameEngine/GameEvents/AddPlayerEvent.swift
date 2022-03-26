@@ -8,7 +8,7 @@
 struct AddPlayerEvent: GameEvent {
     let player: Player
 
-    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
+    func updateRunner(gameRunner: GameRunnerProtocol) {
         gameRunner.players.addPlayer(player)
     }
 }

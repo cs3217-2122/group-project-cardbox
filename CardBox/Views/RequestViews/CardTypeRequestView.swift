@@ -50,11 +50,12 @@ struct CardTypeRequestView: View {
     }
 
     var body: some View {
-        if gameRunnerViewModel.isShowingCardTypeRequest {
-            ZStack {
-                overlay
-                messageBox
-            }
-        }
+        EmptyView()
+//        if gameRunnerViewModel.isShowingCardTypeRequest {
+//            ZStack {
+//                overlay
+//                messageBox
+//            }
+//        }
     }
 }

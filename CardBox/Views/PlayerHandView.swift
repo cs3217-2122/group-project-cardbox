@@ -10,7 +10,7 @@ import SwiftUI
 struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
     let playerHandViewModel: PlayerHandViewModel
-    @EnvironmentObject private var gameRunnerViewModel: GameRunner
+    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
     let handWidth = 600
 

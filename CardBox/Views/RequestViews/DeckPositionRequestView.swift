@@ -11,13 +11,14 @@ struct DeckPositionRequestView: View {
     @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
 
     var body: some View {
-        if gameRunnerViewModel.isShowingDeckPositionRequest {
-            PositionRequestView(
-                dispatchPositionResponse: gameRunnerViewModel.dispatchDeckPositionResponse,
-                toggleShowPositionRequestView: gameRunnerViewModel.toggleDeckPositionRequest,
-                size: gameRunnerViewModel.deck.count
-            )
-        }
+        EmptyView()
+//        if gameRunnerViewModel.isShowingDeckPositionRequest {
+//            PositionRequestView(
+//                dispatchPositionResponse: gameRunnerViewModel.dispatchDeckPositionResponse,
+//                toggleShowPositionRequestView: gameRunnerViewModel.toggleDeckPositionRequest,
+//                size: gameRunnerViewModel.deck.count
+//            )
+//        }
     }
 }
 

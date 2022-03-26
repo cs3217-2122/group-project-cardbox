@@ -13,4 +13,14 @@ class DefuseCard: ExplodingKittensCard {
             type: .defuse
         )
     }
+
+    override func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
+
+        let hand = ekGameRunner.getHandByPlayer(player)
+
+        // TODO: 
+    }
 }
