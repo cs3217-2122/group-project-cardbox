@@ -29,7 +29,7 @@ class Player: Identifiable {
 
     // To be overwritten
     func canPlay(cards: [Card], gameRunner: GameRunnerProtocol) -> Bool {
-        return true
+        true
     }
 
     // To be overwritten

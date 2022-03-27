@@ -14,9 +14,11 @@ struct CurrentPlayerView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
-        PlayerView(playerViewModel: currentPlayerViewModel,
-                   error: $error,
-                   selectedPlayerViewModel: $selectedPlayerViewModel)
+        PlayerView(
+            playerViewModel: currentPlayerViewModel,
+            error: $error,
+            selectedPlayerViewModel: $selectedPlayerViewModel
+        )
     }
 }
 

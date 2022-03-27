@@ -46,31 +46,31 @@ class PlayerViewModel: ObservableObject {
         return currentPlayer === player
     }
 
-    func canPlayCard(gameRunner: ExplodingKittensGameRunner) -> Bool {
+    func canPlayCard(gameRunner: GameRunnerProtocol) -> Bool {
         player.canPlay(cards: selectedCards, gameRunner: gameRunner)
     }
 
-    func previewCard(card: Card, gameRunner: ExplodingKittensGameRunner) {
+    func previewCard(card: Card, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
         if currentPlayer === player {
-            gameRunner.cardPreview = card
+            gameRunner.setCardPreview(card)
         }
     }
 
-    func unpreviewCard(card: Card, gameRunner: ExplodingKittensGameRunner) {
+    func unpreviewCard(card: Card, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
         if currentPlayer === player {
             if gameRunner.cardPreview === card {
-                gameRunner.cardPreview = nil
+                gameRunner.resetCardPreview()
             }
         }
     }
 
-    func canPlayCardOnPlayer(gameRunner: ExplodingKittensGameRunner, target: PlayerViewModel?) -> Bool {
+    func canPlayCardOnPlayer(gameRunner: GameRunnerProtocol, target: PlayerViewModel?) -> Bool {
         guard let target = target else {
             return canPlayCard(gameRunner: gameRunner)
         }
@@ -81,7 +81,7 @@ class PlayerViewModel: ObservableObject {
         self.player.isOutOfGame
     }
 
-    func playCards(gameRunner: ExplodingKittensGameRunner, target: PlayerViewModel?) {
+    func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?) {
         guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
             print("Cannot play card on player (Player is dead)")
             return

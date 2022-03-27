@@ -25,7 +25,7 @@ struct ContentView: View {
             MainMenuView()
                 .environmentObject(appState)
         } else if appState.page == .game {
-            GameRunnerView()
+            ExplodingKittensGameRunnerView()
                 .environmentObject(appState)
         }
     }

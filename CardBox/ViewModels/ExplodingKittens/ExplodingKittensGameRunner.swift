@@ -8,7 +8,7 @@
 import SwiftUI
 import Foundation
 
-class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
+class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, ObservableObject {
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var playerHands: [UUID: CardCollection]
@@ -28,11 +28,6 @@ class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
         self.gameplayArea = CardCollection()
         self.state = .initialize
         self.cardsPeeking = []
-    }
-
-    // To be overwritten
-    func checkWinningConditions() -> Bool {
-        false
     }
 
     func setup() {
@@ -71,14 +66,23 @@ class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
             self.deck.removeCard(topCards[i])
             playerDeck.addCard(topCards[i])
         }
+
+        let bombs = (1...(numPlayers - 1)).map { _ in
+            BombCard()
+        }
+        bombs.forEach { bomb in
+            self.deck.addCard(bomb)
+        }
+
+        self.deck.shuffle()
     }
 
     private func initCards() -> [Card] {
         var cards: [Card] = []
 
-//        for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
-//            cards.append(generateFavorCard())
-//        }
+        for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
+            cards.append(FavorCard())
+        }
 
         for _ in 0 ..< ExplodingKittensCardType.attack.initialFrequency {
             cards.append(AttackCard())
@@ -96,11 +100,11 @@ class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
             cards.append(SeeTheFutureCard())
         }
 
-//        for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
-//            cards.append(generateRandom1Card())
-//            cards.append(generateRandom2Card())
-//            cards.append(generateRandom3Card())
-//        }
+        for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
+            cards.append(RandomCard(type: .random1))
+            cards.append(RandomCard(type: .random2))
+            cards.append(RandomCard(type: .random3))
+        }
 
         return cards
     }
@@ -112,17 +116,45 @@ class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
 
     // To be overwritten
     func onEndTurn() {
+        let top = deck.getTopNCards(n: 1)
 
+        guard !top.isEmpty else {
+            return
+        }
+
+        guard let currentPlayer = players.currentPlayer else {
+            return
+        }
+
+        guard let hand = playerHands[currentPlayer.id] else {
+            return
+        }
+
+        hand.addCard(top[0])
+        deck.removeCard(top[0])
+
+        top[0].onDraw(gameRunner: self, player: currentPlayer)
     }
 
     // To be overwritten
     func onAdvanceNextPlayer() {
+        players.getPlayers().forEach { player in
+            guard let ekPlayer = player as? ExplodingKittensPlayer else {
+                return
+            }
 
+            ekPlayer.decrementAttackCount()
+        }
+    }
+
+    // To be overwritten
+    func checkWinningConditions() -> Bool {
+        players.getPlayers().filter { !$0.isOutOfGame }.count == 1
     }
 
     // To be overwritten
     func getWinner() -> Player? {
-        nil
+        players.getPlayers().filter { !$0.isOutOfGame }[0]
     }
 
     // To be overwritten
@@ -172,5 +204,13 @@ class ExplodingKittensGameRunner: GameRunnerProtocol, ObservableObject {
 
     func notifyChanges() {
         objectWillChange.send()
+    }
+
+    func setCardPreview(_ card: Card) {
+        self.cardPreview = card
+    }
+
+    func resetCardPreview() {
+        self.cardPreview = nil
     }
 }
