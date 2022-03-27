@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct GameRunnerView: View {
+struct ExplodingKittensGameRunnerView: View {
     @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
+    @State var cardPreview: Card?
 
     var body: some View {
         ZStack {
