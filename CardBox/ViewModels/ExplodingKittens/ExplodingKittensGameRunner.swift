@@ -215,4 +215,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     func resetCardPreview() {
         self.cardPreview = nil
     }
+
+    func setCardsPeeking(cards: [Card]) {
+        self.cardsPeeking = cards
+        self.isShowingPeek = true
+    }
 }

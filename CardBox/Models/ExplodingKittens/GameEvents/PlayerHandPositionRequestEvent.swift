@@ -17,7 +17,7 @@ struct PlayerHandPositionRequestEvent: GameEvent {
     let player: Player
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        let args = PlayerHandPositionRequestArgs(target: target, player: player)
+//        let args = PlayerHandPositionRequestArgs(target: target, player: player)
 //        gameRunner.setPlayerHandPositionRequestArgs(args)
 //        gameRunner.togglePlayerHandPositionRequest(to: true)
     }
