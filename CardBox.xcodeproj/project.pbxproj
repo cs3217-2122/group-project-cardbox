@@ -27,6 +27,7 @@
 		2D9364E427F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9364E327F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift */; };
 		2D9364F527F0205B008C1E53 /* RandomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9364F427F0205B008C1E53 /* RandomCard.swift */; };
 		2D9364FA27F02398008C1E53 /* BombCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9364F927F02398008C1E53 /* BombCard.swift */; };
+		2D93650027F10C41008C1E53 /* CardPositionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9364FF27F10C41008C1E53 /* CardPositionRequest.swift */; };
 		2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3227DADD500063D952 /* CardBoxApp.swift */; };
 		2DA04F3527DADD500063D952 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA04F3427DADD500063D952 /* ContentView.swift */; };
 		2DA04F3727DADD520063D952 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DA04F3627DADD520063D952 /* Assets.xcassets */; };
@@ -79,7 +80,6 @@
 		68466A9327E5076A000387B6 /* GameActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466A9227E5076A000387B6 /* GameActionsView.swift */; };
 		68466A9527E50AAA000387B6 /* MenuButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68466A9427E50AAA000387B6 /* MenuButtonsView.swift */; };
 		6868907627E5F410001C4C62 /* CardPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907527E5F410001C4C62 /* CardPreviewView.swift */; };
-		6868907827E5F47E001C4C62 /* DeckPositionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907727E5F47E001C4C62 /* DeckPositionRequestView.swift */; };
 		6868907A27E5F4D0001C4C62 /* HandPositionRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907927E5F4D0001C4C62 /* HandPositionRequestView.swift */; };
 		6868907C27E60FAF001C4C62 /* CardTypeRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907B27E60FAF001C4C62 /* CardTypeRequestView.swift */; };
 		6868907E27E6199F001C4C62 /* CardTypeRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907D27E6199F001C4C62 /* CardTypeRequestEvent.swift */; };
@@ -123,6 +123,7 @@
 		2D9364E327F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensGameRunnerProtocol.swift; sourceTree = "<group>"; };
 		2D9364F427F0205B008C1E53 /* RandomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomCard.swift; sourceTree = "<group>"; };
 		2D9364F927F02398008C1E53 /* BombCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombCard.swift; sourceTree = "<group>"; };
+		2D9364FF27F10C41008C1E53 /* CardPositionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPositionRequest.swift; sourceTree = "<group>"; };
 		2DA04F2F27DADD500063D952 /* CardBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DA04F3227DADD500063D952 /* CardBoxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBoxApp.swift; sourceTree = "<group>"; };
 		2DA04F3427DADD500063D952 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -181,7 +182,6 @@
 		68466A9227E5076A000387B6 /* GameActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameActionsView.swift; sourceTree = "<group>"; };
 		68466A9427E50AAA000387B6 /* MenuButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonsView.swift; sourceTree = "<group>"; };
 		6868907527E5F410001C4C62 /* CardPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPreviewView.swift; sourceTree = "<group>"; };
-		6868907727E5F47E001C4C62 /* DeckPositionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPositionRequestView.swift; sourceTree = "<group>"; };
 		6868907927E5F4D0001C4C62 /* HandPositionRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandPositionRequestView.swift; sourceTree = "<group>"; };
 		6868907B27E60FAF001C4C62 /* CardTypeRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeRequestView.swift; sourceTree = "<group>"; };
 		6868907D27E6199F001C4C62 /* CardTypeRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeRequestEvent.swift; sourceTree = "<group>"; };
@@ -232,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				2D007F3527E24CF700F0E359 /* PositionRequestView.swift */,
-				6868907727E5F47E001C4C62 /* DeckPositionRequestView.swift */,
 				6868907927E5F4D0001C4C62 /* HandPositionRequestView.swift */,
 				6868907B27E60FAF001C4C62 /* CardTypeRequestView.swift */,
 			);
@@ -262,6 +261,14 @@
 				2D9364E327F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift */,
 			);
 			path = ExplodingKittens;
+			sourceTree = "<group>";
+		};
+		2D9364FE27F10C2A008C1E53 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				2D9364FF27F10C41008C1E53 /* CardPositionRequest.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		2DA04F2627DADD500063D952 = {
@@ -348,6 +355,7 @@
 		2DA04F6927DAE3B00063D952 /* CardGameEngine */ = {
 			isa = PBXGroup;
 			children = (
+				2D9364FE27F10C2A008C1E53 /* Requests */,
 				2DA04F9927DB3ED70063D952 /* GameEvents */,
 				2DA04F6D27DAE61E0063D952 /* Actions */,
 				2DA04F7827DAE9540063D952 /* CardCollection.swift */,
@@ -605,6 +613,7 @@
 				6868907E27E6199F001C4C62 /* CardTypeRequestEvent.swift in Sources */,
 				4E18ED0E27E1B27300458D0A /* AdvanceNextPlayerEvent.swift in Sources */,
 				2D0081EE27EE945600F0E359 /* EndTurnAction.swift in Sources */,
+				2D93650027F10C41008C1E53 /* CardPositionRequest.swift in Sources */,
 				2DA0504927DC4B130063D952 /* AddCardToDeckEvent.swift in Sources */,
 				2DA04F6F27DAE6320063D952 /* Action.swift in Sources */,
 				2D9364E427F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift in Sources */,
@@ -614,7 +623,6 @@
 				2DA04F3527DADD500063D952 /* ContentView.swift in Sources */,
 				2DA050A327DE58250063D952 /* ActionDispatcher.swift in Sources */,
 				2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */,
-				6868907827E5F47E001C4C62 /* DeckPositionRequestView.swift in Sources */,
 				2DA04F7927DAE9540063D952 /* CardCollection.swift in Sources */,
 				2D9364F527F0205B008C1E53 /* RandomCard.swift in Sources */,
 				68466A8F27E5061B000387B6 /* CurrentPlayerView.swift in Sources */,
