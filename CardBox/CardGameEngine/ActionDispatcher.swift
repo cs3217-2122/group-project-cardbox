@@ -6,7 +6,7 @@
 //
 
 class ActionDispatcher {
-    static func runAction(_ action: Action, on gameRunner: GameRunnerReadOnly) {
-        action.executeGameEvents(gameRunner: gameRunner)
+    static func runAction(_ action: Action, on gameRunner: GameRunnerProtocol) {
+        action.run(gameRunner: gameRunner)
     }
 }

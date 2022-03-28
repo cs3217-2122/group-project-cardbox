@@ -9,25 +9,11 @@ import SwiftUI
 
 struct PositionRequestView: View {
     @State private var position: Int = 1
-    @EnvironmentObject var gameRunnerViewModel: GameRunner
-
-    private var dispatchPositionResponse: (Int) -> Void
-    private var toggleShowPositionRequestView: (Bool) -> Void
-    private var size: Int
-
-    init(dispatchPositionResponse: @escaping (Int) -> Void,
-         toggleShowPositionRequestView: @escaping (Bool) -> Void,
-         size: Int) {
-        self.dispatchPositionResponse = dispatchPositionResponse
-        self.toggleShowPositionRequestView = toggleShowPositionRequestView
-        self.size = size
-    }
+    @Binding var cardPositionRequest: CardPositionRequest
 
     var minusButton: some View {
         Button(action: {
-            if position > 1 {
-                self.position -= 1
-            }
+            self.position = max(self.position - 1, cardPositionRequest.minValue ?? 1)
         }) {
             Text("-")
         }
@@ -35,7 +21,9 @@ struct PositionRequestView: View {
 
     var addButton: some View {
         Button(action: {
-            if position < size {
+            if let maxValue = cardPositionRequest.maxValue {
+                self.position = min(self.position + 1, maxValue)
+            } else {
                 self.position += 1
             }
         }) {
@@ -58,8 +46,8 @@ struct PositionRequestView: View {
                 addButton
             }
             Button(action: {
-                dispatchPositionResponse(position - 1)
-                toggleShowPositionRequestView(false)
+                cardPositionRequest.executeCallback(value: position)
+                cardPositionRequest.hideRequest()
             }) {
                 Text("Submit")
             }
@@ -70,9 +58,11 @@ struct PositionRequestView: View {
     }
 
     var body: some View {
-        ZStack {
-            overlay
-            messageBox
+        if cardPositionRequest.isShowing {
+            ZStack {
+                overlay
+                messageBox
+            }
         }
     }
 }

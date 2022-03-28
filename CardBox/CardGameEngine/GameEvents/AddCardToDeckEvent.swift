@@ -7,8 +7,9 @@
 
 struct AddCardToDeckEvent: GameEvent {
     let card: Card
+    let deck: CardCollection
 
-    func updateRunner(gameRunner: GameRunnerUpdateOnly) {
-        gameRunner.deck.addCard(card)
+    func updateRunner(gameRunner: GameRunnerProtocol) {
+        deck.addCard(card)
     }
 }

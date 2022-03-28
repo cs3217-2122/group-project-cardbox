@@ -6,5 +6,5 @@
 //
 
 protocol Action {
-    func executeGameEvents(gameRunner: GameRunnerReadOnly)
+    func run(gameRunner: GameRunnerProtocol)
 }

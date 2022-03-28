@@ -30,31 +30,23 @@ enum TypeOfTargettedCard {
     case noTargetCard
 }
 
-typealias CardPlayCondition = (_ gameRunner: GameRunnerReadOnly, _ player: Player, _ target: GameplayTarget) -> Bool
-
-class Card: Identifiable, ExtendedProperties {
-    private(set) var name: String
-    private(set) var cardDescription: String
-    private(set) var typeOfTargettedCard: TypeOfTargettedCard
-
-    private var onDrawActions: [CardAction]
-    private var onPlayActions: [CardAction]
-
-    private var canPlayConditions: [CardPlayCondition]
-    internal var additionalParams: [String: String]
+class Card: Identifiable {
+    let name: String
+    let cardDescription: String
+    let typeOfTargettedCard: TypeOfTargettedCard
 
     var description: String {
         String(UInt(bitPattern: ObjectIdentifier(self)))
     }
 
-    init(name: String, typeOfTargettedCard: TypeOfTargettedCard) {
+    init(
+        name: String,
+        typeOfTargettedCard: TypeOfTargettedCard,
+        cardDescription: String = ""
+    ) {
         self.name = name
         self.typeOfTargettedCard = typeOfTargettedCard
         self.cardDescription = ""
-        self.onDrawActions = []
-        self.onPlayActions = []
-        self.canPlayConditions = []
-        self.additionalParams = [:]
     }
 
     // Convenience function for testing
@@ -62,27 +54,13 @@ class Card: Identifiable, ExtendedProperties {
         self.init(name: name, typeOfTargettedCard: .noTargetCard)
     }
 
-    func addDrawAction(_ action: CardAction) {
-        self.onDrawActions.append(action)
+    // To be overwritten
+    func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
+
     }
 
-    func addPlayAction(_ action: CardAction) {
-        self.onPlayActions.append(action)
-    }
+    // To be overwritten
+    func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 
-    func onDraw(gameRunner: GameRunnerReadOnly, player: Player) {
-        let args = CardActionArgs(card: self, player: player, target: .none)
-
-        self.onDrawActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, args: args)
-        }
-    }
-
-    func onPlay(gameRunner: GameRunnerReadOnly, player: Player, on target: GameplayTarget) {
-        let args = CardActionArgs(card: self, player: player, target: target)
-
-        self.onPlayActions.forEach { action in
-            action.executeGameEvents(gameRunner: gameRunner, args: args)
-        }
     }
 }
