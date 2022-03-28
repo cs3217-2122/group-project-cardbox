@@ -70,14 +70,12 @@
             ReferencedContainer = "container:CardBox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-UITest_ExplodingKittens"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
-
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
