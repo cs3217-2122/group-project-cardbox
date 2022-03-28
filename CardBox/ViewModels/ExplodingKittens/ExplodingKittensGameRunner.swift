@@ -20,6 +20,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
+    @Published internal var deckPositionRequest: CardPositionRequest
 
     init() {
         self.deck = CardCollection()
@@ -28,6 +29,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.gameplayArea = CardCollection()
         self.state = .initialize
         self.cardsPeeking = []
+        self.deckPositionRequest = CardPositionRequest()
     }
 
     func setup() {
@@ -42,9 +44,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             self.playerHands[player.id] = CardCollection()
         }
 
-        self.playerHands.forEach { _, _ in
+        self.playerHands.forEach { _, hand in
             let defuseCard = DefuseCard()
-            deck.addCard(defuseCard)
+            hand.addCard(defuseCard)
         }
 
         let cards = initCards()
