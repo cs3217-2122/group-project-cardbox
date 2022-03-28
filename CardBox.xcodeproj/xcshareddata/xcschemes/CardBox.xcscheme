@@ -26,7 +26,13 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "NO">
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-UITest_ExplodingKittens"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -70,14 +76,12 @@
             ReferencedContainer = "container:CardBox.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-UITest_ExplodingKittens"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
-
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
