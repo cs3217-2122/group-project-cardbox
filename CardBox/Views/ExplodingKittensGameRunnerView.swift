@@ -40,10 +40,6 @@ struct ExplodingKittensGameRunnerView: View {
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
-                .onAppear(perform: { print(gameRunnerViewModel.deckPositionRequest.isShowing) })
-            HandPositionRequestView(selectedPlayerViewModel: $selectedPlayerViewModel)
-//            CardTypeRequestView(dispatchCardTypeResponse: gameRunnerViewModel.dispatchCardTypeResponse,
-//                                toggleCardTypeRequestView: gameRunnerViewModel.toggleCardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
