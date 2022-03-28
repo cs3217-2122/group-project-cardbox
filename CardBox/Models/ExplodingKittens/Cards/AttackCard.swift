@@ -14,7 +14,7 @@ class AttackCard: ExplodingKittensCard {
         )
     }
 
-    override func onPlay(gameRunner: EKGameRunnerProtocol, player: ExplodingKittensPlayer, on target: GameplayTarget) {
+    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
         guard let nextPlayer = gameRunner.getNextPlayer() as? ExplodingKittensPlayer else {
             return
         }

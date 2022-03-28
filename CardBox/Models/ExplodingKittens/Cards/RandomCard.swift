@@ -6,9 +6,9 @@
 //
 
 class RandomCard: ExplodingKittensCard {
-    init(name: String, type: ExplodingKittensCardType) {
+    init(type: ExplodingKittensCardType) {
         super.init(
-            name: name,
+            name: "Random",
             typeOfTargettedCard: .targetSinglePlayerCard,
             type: type
         )

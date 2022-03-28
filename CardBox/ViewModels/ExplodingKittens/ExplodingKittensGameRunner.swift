@@ -54,9 +54,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             self.deck.addCard(card)
         }
 
-        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            self.deck.shuffle()
-        }
+        self.deck.shuffle()
 
         let topCards = self.deck.getTopNCards(n: numPlayers * initialCardCount)
         topCards.indices.forEach { i in
@@ -78,13 +76,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             self.deck.addCard(bomb)
         }
 
-        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            self.deck.shuffle()
-        }
+        self.deck.shuffle()
     }
 
-    private func initCards() -> [ExplodingKittensCard] {
-        var cards: [ExplodingKittensCard] = []
+    private func initCards() -> [Card] {
+        var cards: [Card] = []
 
         for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
             cards.append(FavorCard())
@@ -107,9 +103,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         }
 
         for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
-            cards.append(RandomCard(name: "Random 1", type: .random1))
-            cards.append(RandomCard(name: "Random 2", type: .random2))
-            cards.append(RandomCard(name: "Random 3", type: .random3))
+            cards.append(RandomCard(type: .random1))
+            cards.append(RandomCard(type: .random2))
+            cards.append(RandomCard(type: .random3))
         }
 
         return cards
@@ -144,10 +140,13 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // To be overwritten
     func onAdvanceNextPlayer() {
-        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
-            return
+        players.getPlayers().forEach { player in
+            guard let ekPlayer = player as? ExplodingKittensPlayer else {
+                return
+            }
+
+            ekPlayer.decrementAttackCount()
         }
-        currentPlayer.decrementAttackCount()
     }
 
     // To be overwritten

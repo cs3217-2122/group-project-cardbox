@@ -14,8 +14,12 @@ class BombCard: ExplodingKittensCard {
         )
     }
 
-    override func onDraw(gameRunner: EKGameRunnerProtocol, player: EKPlayer) {
-        guard let hand = gameRunner.getHandByPlayer(player) else {
+    override func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
+
+        guard let hand = ekGameRunner.getHandByPlayer(player) else {
             return
         }
 
@@ -27,17 +31,12 @@ class BombCard: ExplodingKittensCard {
             return card.type == .defuse
         })
 
-        // Temporary hack, will change to update with events
-        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
-            return
-        }
-
         if hasDefuse { ekGameRunner.deckPositionRequest.showRequest(
                 callback: { position in
                     hand.removeCard(self)
                     ekGameRunner.deck.addCard(self, offsetFromTop: position - 1)
                 },
-                maxValue: gameRunner.deck.count
+                maxValue: ekGameRunner.deck.count
             )
         } else {
             player.setOutOfGame(true)
