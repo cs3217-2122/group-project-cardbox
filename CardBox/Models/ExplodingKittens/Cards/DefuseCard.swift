@@ -13,7 +13,4 @@ class DefuseCard: ExplodingKittensCard {
             type: .defuse
         )
     }
-
-    override func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
-    }
 }

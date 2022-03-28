@@ -13,8 +13,4 @@ class RandomCard: ExplodingKittensCard {
             type: type
         )
     }
-
-    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
-
-    }
 }

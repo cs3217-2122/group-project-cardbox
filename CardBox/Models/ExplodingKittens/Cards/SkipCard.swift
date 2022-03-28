@@ -18,5 +18,7 @@ class SkipCard: ExplodingKittensCard {
         gameRunner.executeGameEvents([
             AdvanceNextPlayerEvent()
         ])
+
+        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }
