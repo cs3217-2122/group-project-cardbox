@@ -10,4 +10,6 @@ import SwiftUI
 protocol ExplodingKittensGameRunnerProtocol: GameRunnerProtocol {
     var cardsPeeking: [Card] { get }
     var isShowingPeek: Bool { get }
+
+    func setCardsPeeking(cards: [Card])
 }

@@ -20,6 +20,10 @@ class ShuffleCard: ExplodingKittensCard {
             return
         }
 
-        ekGameRunner.deck.shuffle()
+        ekGameRunner.executeGameEvents([
+            ShuffleDeckEvent(deck: ekGameRunner.deck)
+        ])
+
+        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }

@@ -15,6 +15,34 @@ class FavorCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
 
+        guard let targetPlayer = target.getPlayerIfTargetSingle() else {
+            return
+        }
+
+        guard let hand = ekGameRunner.getHandByPlayer(player) else {
+            return
+        }
+
+        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
+            return
+        }
+
+        ekGameRunner.deckPositionRequest.showRequest(
+            callback: { position in
+                guard let targetCard = targetHand.getCardByIndex(position - 1) else {
+                    return
+                }
+
+                targetHand.removeCard(targetCard)
+                hand.addCard(targetCard)
+            },
+            maxValue: targetHand.count
+        )
+
+        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }
