@@ -79,7 +79,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         }
 
         if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            print("shuffle")
             self.deck.shuffle()
         }
     }
@@ -145,13 +144,10 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // To be overwritten
     func onAdvanceNextPlayer() {
-        players.getPlayers().forEach { player in
-            guard let ekPlayer = player as? ExplodingKittensPlayer else {
-                return
-            }
-
-            ekPlayer.decrementAttackCount()
+        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
+            return
         }
+        currentPlayer.decrementAttackCount()
     }
 
     // To be overwritten
