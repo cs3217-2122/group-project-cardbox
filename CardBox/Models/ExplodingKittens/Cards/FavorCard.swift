@@ -14,20 +14,21 @@ class FavorCard: ExplodingKittensCard {
         )
     }
 
-    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
-        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
-            return
-        }
-
+    override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
         guard let targetPlayer = target.getPlayerIfTargetSingle() else {
             return
         }
 
-        guard let hand = ekGameRunner.getHandByPlayer(player) else {
+        guard let hand = gameRunner.getHandByPlayer(player) else {
             return
         }
 
-        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
+        guard let targetHand = gameRunner.getHandByPlayer(targetPlayer) else {
+            return
+        }
+
+        // Temporary hack, will change to update with events
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
             return
         }
 
