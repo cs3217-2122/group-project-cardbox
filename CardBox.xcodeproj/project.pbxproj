@@ -430,20 +430,11 @@
 		2DA0509727DC9EA50063D952 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2D00816627E64C3600F0E359 /* RequestViews */,
-				2DA0509D27DC9F780063D952 /* ExplodingKittensGameRunnerView.swift */,
-				2DA050AC27DE5D570063D952 /* CardView.swift */,
-				4589AB1B27E14AF3005FDA07 /* DeckView.swift */,
-				4589AB1727DF3C5F005FDA07 /* PlayerHandView.swift */,
-				2DA050B627DE5EC70063D952 /* PlayerView.swift */,
-				4589AB2327E5B179005FDA07 /* PeekCardsView.swift */,
+				688B76A927F40708006AF1C0 /* JoinGameViews */,
+				688B76A727F406BE006AF1C0 /* GameViews */,
+				688B76A627F40689006AF1C0 /* HostGameViews */,
 				4589AB1327DF2946005FDA07 /* MainMenuView.swift */,
-				68466A8E27E5061B000387B6 /* CurrentPlayerView.swift */,
-				68466A9027E506C2000387B6 /* NonCurrentPlayerView.swift */,
-				68466A9227E5076A000387B6 /* GameActionsView.swift */,
 				68466A9427E50AAA000387B6 /* MenuButtonsView.swift */,
-				6868907527E5F410001C4C62 /* CardPreviewView.swift */,
-				2D00816A27E64C8A00F0E359 /* WinMessageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -456,6 +447,39 @@
 				6868907D27E6199F001C4C62 /* CardTypeRequestEvent.swift */,
 			);
 			path = GameEvents;
+			sourceTree = "<group>";
+		};
+		688B76A627F40689006AF1C0 /* HostGameViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HostGameViews;
+			sourceTree = "<group>";
+		};
+		688B76A727F406BE006AF1C0 /* GameViews */ = {
+			isa = PBXGroup;
+			children = (
+				2D00816627E64C3600F0E359 /* RequestViews */,
+				2DA0509D27DC9F780063D952 /* ExplodingKittensGameRunnerView.swift */,
+				2DA050AC27DE5D570063D952 /* CardView.swift */,
+				4589AB1B27E14AF3005FDA07 /* DeckView.swift */,
+				4589AB1727DF3C5F005FDA07 /* PlayerHandView.swift */,
+				2DA050B627DE5EC70063D952 /* PlayerView.swift */,
+				4589AB2327E5B179005FDA07 /* PeekCardsView.swift */,
+				68466A8E27E5061B000387B6 /* CurrentPlayerView.swift */,
+				68466A9027E506C2000387B6 /* NonCurrentPlayerView.swift */,
+				68466A9227E5076A000387B6 /* GameActionsView.swift */,
+				6868907527E5F410001C4C62 /* CardPreviewView.swift */,
+				2D00816A27E64C8A00F0E359 /* WinMessageView.swift */,
+			);
+			path = GameViews;
+			sourceTree = "<group>";
+		};
+		688B76A927F40708006AF1C0 /* JoinGameViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = JoinGameViews;
 			sourceTree = "<group>";
 		};
 		C1372015279839E3BFFDF289 /* Pods */ = {
