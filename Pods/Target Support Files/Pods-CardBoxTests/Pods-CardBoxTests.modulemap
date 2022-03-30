@@ -1,6 +1,0 @@
-framework module Pods_CardBoxTests {
-  umbrella header "Pods-CardBoxTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
