@@ -5,6 +5,7 @@
 //  Created by Stuart Long on 30/3/22.
 //
 import Firebase
+import SwiftUI
 
 class JoinGameViewModel: ObservableObject {
 
@@ -17,21 +18,25 @@ class JoinGameViewModel: ObservableObject {
         // query database to see if this room exists, if does not, alert user
         let docRef = db.collection("rooms").document(id)
 
-        docRef.getDocument { document, error in
-            if let error = error {
-                print(error)
+        docRef.getDocument { document, _ in
+            guard let document = document, document.exists else {
+                // TODO: find a way to alert
                 self.notJoined()
+                print("document does not exist/ error occurred")
                 return
             }
 
-            if let document = document, document.exists {
-                print("exists")
-                self.joined(id: id, players: document["players"] as? [String] ?? [])
-            } else {
-                // TODO: find a way to alert user
-                self.isJoined = false
-                print("document does not exist")
+            print("exists")
+            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
+            var players = document["players"] as? [String] ?? []
+
+            if let uniqueUserID = uniqueUserID {
+                print(uniqueUserID)
+                players.append(uniqueUserID)
+                docRef.setData(["players": players], merge: true)
             }
+
+            self.joined(id: id, players: players)
         }
     }
 
