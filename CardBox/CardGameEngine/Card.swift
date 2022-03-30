@@ -1,3 +1,5 @@
+import Foundation
+import UniformTypeIdentifiers
 enum GameplayTarget {
     case all
     case none
@@ -24,18 +26,18 @@ enum GameplayTarget {
     }
 }
 
-enum TypeOfTargettedCard {
+enum TypeOfTargettedCard: Codable {
     case targetAllPlayersCard
     case targetSinglePlayerCard
     case noTargetCard
 }
 
-class Card: Identifiable {
+class Card: NSObject, Identifiable, Codable {
     let name: String
     let cardDescription: String
     let typeOfTargettedCard: TypeOfTargettedCard
 
-    var description: String {
+    override var description: String {
         String(UInt(bitPattern: ObjectIdentifier(self)))
     }
 
@@ -62,5 +64,45 @@ class Card: Identifiable {
     // To be overwritten
     func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 
+    }
+}
+
+extension Card: NSItemProviderWriting, NSItemProviderReading {
+    static var readableTypeIdentifiersForItemProvider: [String] {
+        ["cardbox.card"]
+    }
+
+    static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> Self {
+        let decoder = JSONDecoder()
+        do {
+            let json = try decoder.decode(Self.self, from: data)
+            return json
+        } catch {
+            fatalError("Error decoding")
+        }
+    }
+
+    static var uti = UTType("cardbox.card") ?? .data
+
+    static var writableTypeIdentifiersForItemProvider: [String] {
+        ["cardbox.card"]
+    }
+
+    func loadData(withTypeIdentifier typeIdentifier: String,
+                  forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void)
+    -> Progress? {
+        let progress = Progress(totalUnitCount: 100)
+
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(self)
+            let json = String(data: data, encoding: String.Encoding.utf8)
+            progress.completedUnitCount = 100
+            completionHandler(data, nil)
+        } catch {
+            completionHandler(nil, error)
+        }
+        return progress
     }
 }

@@ -66,6 +66,8 @@
 		4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2327E5B179005FDA07 /* PeekCardsView.swift */; };
 		4589AB2627E61963005FDA07 /* MainMenuView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2527E61963005FDA07 /* MainMenuView_UITests.swift */; };
 		4589AB2827E61E79005FDA07 /* GameRunnerView_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4589AB2727E61E79005FDA07 /* GameRunnerView_UITests.swift */; };
+		45CE40F627F1934500ADBAF2 /* CardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE40F527F1934500ADBAF2 /* CardSetView.swift */; };
+		45CE40F827F196C300ADBAF2 /* MonopolyDealGameRunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45CE40F727F196C300ADBAF2 /* MonopolyDealGameRunnerView.swift */; };
 		4E18ED0E27E1B27300458D0A /* AdvanceNextPlayerEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18ED0D27E1B27300458D0A /* AdvanceNextPlayerEvent.swift */; };
 		4E94E72027E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E71F27E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift */; };
 		4E94E72A27E6B414004ED4EF /* ActionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E72927E6B414004ED4EF /* ActionTests.swift */; };
@@ -168,6 +170,8 @@
 		4589AB2327E5B179005FDA07 /* PeekCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeekCardsView.swift; sourceTree = "<group>"; };
 		4589AB2527E61963005FDA07 /* MainMenuView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView_UITests.swift; sourceTree = "<group>"; };
 		4589AB2727E61E79005FDA07 /* GameRunnerView_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRunnerView_UITests.swift; sourceTree = "<group>"; };
+		45CE40F527F1934500ADBAF2 /* CardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetView.swift; sourceTree = "<group>"; };
+		45CE40F727F196C300ADBAF2 /* MonopolyDealGameRunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealGameRunnerView.swift; sourceTree = "<group>"; };
 		4E18ED0D27E1B27300458D0A /* AdvanceNextPlayerEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvanceNextPlayerEvent.swift; sourceTree = "<group>"; };
 		4E94E71F27E5B80B004ED4EF /* PlayerHandPositionRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerHandPositionRequestEvent.swift; sourceTree = "<group>"; };
 		4E94E72927E6B414004ED4EF /* ActionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionTests.swift; sourceTree = "<group>"; };
@@ -426,8 +430,10 @@
 			children = (
 				2D00816627E64C3600F0E359 /* RequestViews */,
 				2DA0509D27DC9F780063D952 /* ExplodingKittensGameRunnerView.swift */,
+				45CE40F727F196C300ADBAF2 /* MonopolyDealGameRunnerView.swift */,
 				2DA050AC27DE5D570063D952 /* CardView.swift */,
 				4589AB1B27E14AF3005FDA07 /* DeckView.swift */,
+				45CE40F527F1934500ADBAF2 /* CardSetView.swift */,
 				4589AB1727DF3C5F005FDA07 /* PlayerHandView.swift */,
 				2DA050B627DE5EC70063D952 /* PlayerView.swift */,
 				4589AB2327E5B179005FDA07 /* PeekCardsView.swift */,
@@ -649,8 +655,10 @@
 				2D007F6727E34C7000F0E359 /* ExplodingKittensConstants.swift in Sources */,
 				68466A9127E506C2000387B6 /* NonCurrentPlayerView.swift in Sources */,
 				68466A9327E5076A000387B6 /* GameActionsView.swift in Sources */,
+				45CE40F627F1934500ADBAF2 /* CardSetView.swift in Sources */,
 				2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */,
 				2D9364DF27EFB04B008C1E53 /* FavorCard.swift in Sources */,
+				45CE40F827F196C300ADBAF2 /* MonopolyDealGameRunnerView.swift in Sources */,
 				2DA0505327DC4B460063D952 /* GameEvent.swift in Sources */,
 				6868907C27E60FAF001C4C62 /* CardTypeRequestView.swift in Sources */,
 				6868907A27E5F4D0001C4C62 /* HandPositionRequestView.swift in Sources */,

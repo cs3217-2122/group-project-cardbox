@@ -14,6 +14,10 @@ class SeeTheFutureCard: ExplodingKittensCard {
         )
     }
 
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
     // To be overwritten
     override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 
