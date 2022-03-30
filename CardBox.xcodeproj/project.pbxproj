@@ -76,6 +76,8 @@
 		6868907627E5F410001C4C62 /* CardPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907527E5F410001C4C62 /* CardPreviewView.swift */; };
 		6868907C27E60FAF001C4C62 /* CardTypeRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907B27E60FAF001C4C62 /* CardTypeRequestView.swift */; };
 		6868907E27E6199F001C4C62 /* CardTypeRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868907D27E6199F001C4C62 /* CardTypeRequestEvent.swift */; };
+		688B76AB27F40A7E006AF1C0 /* JoinGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688B76AA27F40A7E006AF1C0 /* JoinGameView.swift */; };
+		688B76AD27F40A93006AF1C0 /* HostGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688B76AC27F40A93006AF1C0 /* HostGameView.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 		925C79F1EC714DE7F2C2A98B /* Pods_CardBox_CardBoxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0F0F87C4EEE06A9CA6157D /* Pods_CardBox_CardBoxUITests.framework */; };
 		AEC36393AD76D36FD44900A9 /* Pods_CardBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67599CAB4276C436D393E9D9 /* Pods_CardBox.framework */; };
@@ -180,6 +182,8 @@
 		6868907527E5F410001C4C62 /* CardPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPreviewView.swift; sourceTree = "<group>"; };
 		6868907B27E60FAF001C4C62 /* CardTypeRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeRequestView.swift; sourceTree = "<group>"; };
 		6868907D27E6199F001C4C62 /* CardTypeRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeRequestEvent.swift; sourceTree = "<group>"; };
+		688B76AA27F40A7E006AF1C0 /* JoinGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameView.swift; sourceTree = "<group>"; };
+		688B76AC27F40A93006AF1C0 /* HostGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostGameView.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8DBAB5BE1220E950FA491CFF /* Pods-CardBox-CardBoxUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardBox-CardBoxUITests.debug.xcconfig"; path = "Target Support Files/Pods-CardBox-CardBoxUITests/Pods-CardBox-CardBoxUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EA0F0F87C4EEE06A9CA6157D /* Pods_CardBox_CardBoxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardBox_CardBoxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,6 +456,7 @@
 		688B76A627F40689006AF1C0 /* HostGameViews */ = {
 			isa = PBXGroup;
 			children = (
+				688B76AC27F40A93006AF1C0 /* HostGameView.swift */,
 			);
 			path = HostGameViews;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 		688B76A927F40708006AF1C0 /* JoinGameViews */ = {
 			isa = PBXGroup;
 			children = (
+				688B76AA27F40A7E006AF1C0 /* JoinGameView.swift */,
 			);
 			path = JoinGameViews;
 			sourceTree = "<group>";
@@ -753,6 +759,7 @@
 			files = (
 				2DA050B727DE5EC70063D952 /* PlayerView.swift in Sources */,
 				2D9364DA27EFA864008C1E53 /* SkipCard.swift in Sources */,
+				688B76AD27F40A93006AF1C0 /* HostGameView.swift in Sources */,
 				2DA0509227DC9D4A0063D952 /* EndTurnEvent.swift in Sources */,
 				4589AB1C27E14AF3005FDA07 /* DeckView.swift in Sources */,
 				4589AB1A27DF3FB6005FDA07 /* PlayerHandViewModel.swift in Sources */,
@@ -811,6 +818,7 @@
 				2DA050C127DEEB180063D952 /* PlayerCollection.swift in Sources */,
 				6868907627E5F410001C4C62 /* CardPreviewView.swift in Sources */,
 				2D00816B27E64C8A00F0E359 /* WinMessageView.swift in Sources */,
+				688B76AB27F40A7E006AF1C0 /* JoinGameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -977,7 +985,7 @@
 				DEVELOPMENT_TEAM = QQ75T3463Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CardBox/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1000,7 +1008,7 @@
 				DEVELOPMENT_TEAM = QQ75T3463Z;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CardBox/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
