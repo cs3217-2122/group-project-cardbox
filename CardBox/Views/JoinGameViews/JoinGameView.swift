@@ -13,8 +13,12 @@ struct JoinGameView: View {
 
     var body: some View {
         Text("Enter Game Room ID")
-        TextField("Game Room ID", text: $gameRoomID)
-            .submitLabel(.join)
+        HStack {
+            TextField("Game Room ID", text: $gameRoomID)
+            Button("Submit") {
+                print("submit button pressed")
+            }
+        }
     }
 }
 
