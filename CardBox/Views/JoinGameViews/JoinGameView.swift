@@ -10,21 +10,34 @@ import SwiftUI
 struct JoinGameView: View {
 
     @State var gameRoomID: String = ""
-    private var viewModel = JoinGameViewModel()
+    @ObservedObject private var viewModel = JoinGameViewModel()
 
     var body: some View {
-        Text("Enter Game Room ID")
-        HStack {
-            TextField("Game Room ID", text: $gameRoomID)
-            Button("Submit") {
-                print("submit button pressed")
-                if gameRoomID.isEmpty {
-                    print("game room id cannot be empty")
-                } else {
-                    viewModel.joinRoom(id: gameRoomID)
+
+        if !viewModel.isJoined {
+            Text("Enter Game Room ID")
+            HStack {
+                TextField("Game Room ID", text: $gameRoomID)
+                Button("Submit") {
+                    print("submit button pressed")
+                    if gameRoomID.isEmpty {
+                        // TODO: Change to popup or alert or something
+                        print("game room id cannot be empty")
+                    } else {
+                        viewModel.joinRoom(id: gameRoomID)
+                    }
+                }
+            }
+        } else {
+            VStack {
+                Text("Game Room ID: \(viewModel.joinedRoomID)")
+                Text("Players in Lobby")
+                ForEach(viewModel.players, id: \.self) { player in
+                    Text(player)
                 }
             }
         }
+
     }
 }
 
