@@ -9,11 +9,20 @@ import SwiftUI
 
 struct HostGameView: View {
 
-    @State var gameRoomID: String = ""
+    @ObservedObject private var viewModel = HostGameViewModel()
 
     var body: some View {
-        Button("Host Game") {
-            print("host game button pressed")
+        VStack {
+            Button("Host Game") {
+                print("host game button pressed")
+                viewModel.createRoom()
+                print(viewModel.gameRoomId)
+            }
+
+            if !viewModel.gameRoomId.isEmpty {
+                Text("Pass this code to your friends to join: ")
+                Text(viewModel.gameRoomId)
+            }
         }
     }
 }

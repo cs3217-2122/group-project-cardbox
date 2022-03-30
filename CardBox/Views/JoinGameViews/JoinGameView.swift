@@ -10,6 +10,7 @@ import SwiftUI
 struct JoinGameView: View {
 
     @State var gameRoomID: String = ""
+    private var viewModel = JoinGameViewModel()
 
     var body: some View {
         Text("Enter Game Room ID")
@@ -17,6 +18,11 @@ struct JoinGameView: View {
             TextField("Game Room ID", text: $gameRoomID)
             Button("Submit") {
                 print("submit button pressed")
+                if gameRoomID.isEmpty {
+                    print("game room id cannot be empty")
+                } else {
+                    viewModel.joinRoom(id: gameRoomID)
+                }
             }
         }
     }
