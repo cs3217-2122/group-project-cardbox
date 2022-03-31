@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
     static let defaultCardWidth = 150
@@ -68,7 +69,9 @@ struct CardView: View {
         if let card = viewModel.card {
             viewFrame
                 .onDrag {
-                    NSItemProvider(object: card)
+                    gameRunnerViewModel.cardsDragging = [card]
+                    return NSItemProvider(object: card.name as NSString)
+                    // NSItemProvider(object: card)
                 }
         } else {
             viewFrame

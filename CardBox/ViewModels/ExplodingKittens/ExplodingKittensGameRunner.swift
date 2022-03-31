@@ -17,6 +17,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
+    @Published internal var cardsDragging: [Card]
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
