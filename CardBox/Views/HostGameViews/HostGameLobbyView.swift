@@ -16,12 +16,16 @@ struct HostGameLobbyView: View {
         VStack {
             HStack {
                 Text("Pass this code to your friends to join: ")
-                Text(viewModel.gameRoomID)
+                Text(viewModel.gameRoomID).foregroundColor(.blue)
                 // show players
             }
             ForEach(viewModel.players, id: \.self) { player in
                 Text(player)
             }
+
+            Button("Start") {
+                print("online game started")
+            }.foregroundColor(.red)
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .background {
