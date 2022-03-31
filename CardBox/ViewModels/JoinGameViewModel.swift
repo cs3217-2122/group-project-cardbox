@@ -27,16 +27,25 @@ class JoinGameViewModel: ObservableObject {
             }
 
             print("exists")
-            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
             var players = document["players"] as? [String] ?? []
 
-            if let uniqueUserID = uniqueUserID {
-                print(uniqueUserID)
-                players.append(uniqueUserID)
-                docRef.setData(["players": players], merge: true)
-            }
+            // check if full
+            if players.count == 4 {
+                // find a way to alert
+                print("room is full")
+                self.notJoined()
+            } else {
+                // add to room
+                let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
 
-            self.joined(id: id, players: players)
+                if let uniqueUserID = uniqueUserID {
+                    print(uniqueUserID)
+                    players.append(uniqueUserID)
+                    docRef.setData(["players": players], merge: true)
+                }
+
+                self.joined(id: id, players: players)
+            }
         }
     }
 
