@@ -21,9 +21,8 @@ class AttackCard: ExplodingKittensCard {
 
         nextPlayer.incrementAttackCount()
         gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent()
+            AdvanceNextPlayerEvent(),
+            MoveCardHandToGameplayEvent(player: player, card: self)
         ])
-
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }

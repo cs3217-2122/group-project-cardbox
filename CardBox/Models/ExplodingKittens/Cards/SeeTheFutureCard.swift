@@ -23,6 +23,8 @@ class SeeTheFutureCard: ExplodingKittensCard {
         let displayedCards = ekGameRunner.deck.getTopNCards(n: 3)
         ekGameRunner.setCardsPeeking(cards: displayedCards)
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            MoveCardHandToGameplayEvent(player: player, card: self)
+        ])
     }
 }

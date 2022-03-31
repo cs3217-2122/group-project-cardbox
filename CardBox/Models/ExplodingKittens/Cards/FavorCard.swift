@@ -43,6 +43,8 @@ class FavorCard: ExplodingKittensCard {
             maxValue: targetHand.count
         )
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            MoveCardHandToGameplayEvent(player: player, card: self)
+        ])
     }
 }

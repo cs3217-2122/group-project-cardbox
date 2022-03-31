@@ -72,10 +72,47 @@ class ExplodingKittensPlayer: Player {
         if ekCards.count == 1 {
             let card = ekCards[0]
             card.onPlay(gameRunner: gameRunner, player: self, on: target)
+        } else if ekCards.count == 2 {
+            playPairCombo(cards, gameRunner: gameRunner)
+        } else if ekCards.count == 3 {
+            playThreeOfAKindCombo(cards, gameRunner: gameRunner)
+        } else if ekCards.count == 5 {
+            playFiveDifferentCardsCombo(cards, gameRunner: gameRunner)
+        } else {
+            return
         }
     }
 
-    private static func playPairCombo() {
+    private func playPairCombo(_ cards: [Card], gameRunner: GameRunnerProtocol) {
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkSameCards(cards: cards) else {
+            return
+        }
 
+        gameRunner.executeGameEvents([
+        
+        ])
+    }
+
+    private func playThreeOfAKindCombo(_ cards: [Card], gameRunner: GameRunnerProtocol) {
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkSameCards(cards: cards) else {
+            return
+        }
+
+        gameRunner.executeGameEvents([
+        
+        ])
+    }
+
+    private func playFiveDifferentCardsCombo(_ cards: [Card], gameRunner: GameRunnerProtocol) {
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkDifferentCards(cards: cards) else {
+            return
+        }
+
+        gameRunner.executeGameEvents([
+        
+        ])
     }
 }

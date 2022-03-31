@@ -16,9 +16,8 @@ class SkipCard: ExplodingKittensCard {
 
     override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
         gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent()
+            AdvanceNextPlayerEvent(),
+            MoveCardHandToGameplayEvent(player: player, card: self)
         ])
-
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }
