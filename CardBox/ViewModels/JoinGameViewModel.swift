@@ -61,4 +61,28 @@ class JoinGameViewModel: ObservableObject {
         self.players = players
         self.joinedRoomID = id
     }
+
+    func removeFromRoom() {
+        print(joinedRoomID)
+        let docRef = db.collection("rooms").document(joinedRoomID)
+
+        docRef.getDocument { document, _ in
+            guard let document = document, document.exists else {
+                // TODO: find a way to alert
+                self.notJoined()
+                print("document does not exist/ error occurred")
+                return
+            }
+
+            var players = document["players"] as? [String] ?? []
+            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
+            if let uniqueUserID = uniqueUserID {
+                if let index = players.firstIndex(of: uniqueUserID) {
+                    players.remove(at: index)
+                }
+                docRef.setData(["players": players], merge: true)
+                self.notJoined()
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ struct JoinGameView: View {
 
     @State var gameRoomID: String = ""
     @ObservedObject private var viewModel = JoinGameViewModel()
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
 
@@ -34,6 +35,11 @@ struct JoinGameView: View {
                 Text("Players in Lobby")
                 ForEach(viewModel.players, id: \.self) { player in
                     Text(player)
+                }
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .background {
+                    viewModel.removeFromRoom()
                 }
             }
         }

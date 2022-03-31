@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HostGameView: View {
 
+    @Environment(\.scenePhase) private var scenePhase
     @ObservedObject private var viewModel = HostGameViewModel()
 
     var body: some View {
@@ -16,12 +17,17 @@ struct HostGameView: View {
             Button("Host Game") {
                 print("host game button pressed")
                 viewModel.createRoom()
-                print(viewModel.gameRoomId)
+                print(viewModel.gameRoomID)
             }
 
-            if !viewModel.gameRoomId.isEmpty {
+            if !viewModel.gameRoomID.isEmpty {
                 Text("Pass this code to your friends to join: ")
-                Text(viewModel.gameRoomId)
+                Text(viewModel.gameRoomID)
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .background {
+                viewModel.removeFromRoom()
             }
         }
     }
