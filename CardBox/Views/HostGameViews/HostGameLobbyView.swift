@@ -17,7 +17,6 @@ struct HostGameLobbyView: View {
             HStack {
                 Text("Pass this code to your friends to join: ")
                 Text(viewModel.gameRoomID).foregroundColor(.blue)
-                // show players
             }
             ForEach(viewModel.players, id: \.self) { player in
                 Text(player)
