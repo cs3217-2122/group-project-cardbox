@@ -22,11 +22,9 @@ class JoinGameViewModel: ObservableObject {
             guard let document = document, document.exists else {
                 // TODO: find a way to alert
                 self.notJoined()
-                print("document does not exist/ error occurred")
                 return
             }
 
-            print("exists")
             var players = document["players"] as? [String] ?? []
 
             // check if full
@@ -45,6 +43,13 @@ class JoinGameViewModel: ObservableObject {
                 }
 
                 self.joined(id: id, players: players)
+                docRef.addSnapshotListener { documentSnapshot, _ in
+                    guard let document = documentSnapshot else {
+                        return
+                    }
+                    self.players = document["players"] as? [String] ?? []
+                    print(self.players)
+                }
             }
         }
     }

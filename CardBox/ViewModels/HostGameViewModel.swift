@@ -10,6 +10,7 @@ import SwiftUI
 class HostGameViewModel: ObservableObject {
 
     @Published var gameRoomID: String = ""
+    @Published var players: [String] = []
     private let db = Firestore.firestore()
 
     func createRoom() {
@@ -28,6 +29,19 @@ class HostGameViewModel: ObservableObject {
 
                     print("room created with unique ID \(docRef.documentID)")
                     self.gameRoomID = docRef.documentID
+                    print(self.gameRoomID)
+                    self.players = [uniqueUserID]
+                    print(self.players)
+                }
+            }
+            if let docRef = docRef {
+                print("adding listener now")
+                docRef.addSnapshotListener { documentSnapshot, _ in
+                    guard let document = documentSnapshot else {
+                        return
+                    }
+                    self.players = document["players"] as? [String] ?? []
+                    print(self.players)
                 }
             }
         }
