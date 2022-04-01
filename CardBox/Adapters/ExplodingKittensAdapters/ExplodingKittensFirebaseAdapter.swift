@@ -11,7 +11,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 
     @DocumentID var id: String? = UUID().uuidString
     var deck: ExplodingKittensCardCollectionAdapter
-    var players: PlayerCollection
+    var players: PlayerCollectionAdapter
     var playerHands: [ExplodingKittensCardCollectionAdapter]
     var gameplayArea: ExplodingKittensCardCollectionAdapter
     var state: GameState
@@ -20,7 +20,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 
     init(explodingKittensGameRunner: ExplodingKittensGameRunner) {
         self.deck = ExplodingKittensCardCollectionAdapter(explodingKittensGameRunner.deck)
-        self.players = explodingKittensGameRunner.players
+        self.players = PlayerCollectionAdapter(explodingKittensGameRunner.players)
         self.gameplayArea = ExplodingKittensCardCollectionAdapter(explodingKittensGameRunner.gameplayArea)
         self.state = explodingKittensGameRunner.state
         self.isWin = explodingKittensGameRunner.isWin
@@ -56,7 +56,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         id = try container.decode(DocumentID<String>.self, forKey: .id)
           .wrappedValue
         self.deck = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .deck)
-        self.players = try container.decode(PlayerCollection.self, forKey: .players)
+        self.players = try container.decode(PlayerCollectionAdapter.self, forKey: .players)
         self.playerHands = try container.decode([ExplodingKittensCardCollectionAdapter].self, forKey: .playerHands)
         self.gameplayArea = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .gameplayArea)
         self.state = try container.decode(GameState.self, forKey: .state)
@@ -67,7 +67,6 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
         try container.encode(deck, forKey: .deck)
         try container.encode(players, forKey: .players)
         try container.encode(playerHands, forKey: .playerHands)

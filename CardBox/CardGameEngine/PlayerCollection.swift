@@ -1,4 +1,4 @@
-class PlayerCollection: Codable {
+class PlayerCollection {
     private var players: [Player]
     private(set) var currentPlayerIndex: Int
 

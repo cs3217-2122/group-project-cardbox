@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Player: Identifiable, Codable {
+class Player: Identifiable {
     let id: UUID
     private(set) var name: String
     private(set) var isOutOfGame = false

@@ -92,7 +92,7 @@ class JoinGameViewModel: ObservableObject {
         self.joinedRoomID = ""
     }
 
-    private func joined(id: String, players: PlayerCollection) {
+    private func joined(id: String, players: PlayerCollectionAdapter) {
         self.isJoined = true
         print(players)
         self.players = players.names

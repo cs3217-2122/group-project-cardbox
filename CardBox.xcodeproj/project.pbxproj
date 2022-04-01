@@ -90,6 +90,8 @@
 		6892FB4527F6ED190024E974 /* CardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6892FB4427F6ED180024E974 /* CardAdapter.swift */; };
 		6892FB4727F6ED780024E974 /* ExplodingKittensCardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */; };
 		68A94A4A27F76157002EE49A /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 68A94A4927F76157002EE49A /* FirebaseFirestoreSwift-Beta */; };
+		68A94A4C27F788A5002EE49A /* PlayerCollectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */; };
+		68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -198,6 +200,8 @@
 		6892FB4227F6CDF90024E974 /* FirebaseAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAdapter.swift; sourceTree = "<group>"; };
 		6892FB4427F6ED180024E974 /* CardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdapter.swift; sourceTree = "<group>"; };
 		6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensCardAdapter.swift; sourceTree = "<group>"; };
+		68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionAdapter.swift; sourceTree = "<group>"; };
+		68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapter.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -511,6 +515,8 @@
 				6892FB4227F6CDF90024E974 /* FirebaseAdapter.swift */,
 				6892FB4427F6ED180024E974 /* CardAdapter.swift */,
 				686DEE4527F6F36A008AAC7B /* CardCollectionAdapter.swift */,
+				68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */,
+				68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -716,6 +722,7 @@
 				2D00820A27EE97EA00F0E359 /* ExplodingKittensCard.swift in Sources */,
 				2D00821F27EE9CF500F0E359 /* DefuseCard.swift in Sources */,
 				2D00821727EE991200F0E359 /* ExplodingKittensPlayer.swift in Sources */,
+				68A94A4C27F788A5002EE49A /* PlayerCollectionAdapter.swift in Sources */,
 				2DA050BC27DE5ED90063D952 /* PlayerViewModel.swift in Sources */,
 				2D00825127EF8FFB00F0E359 /* MoveCardDeckToDeckEvent.swift in Sources */,
 				2D00824327EF5A2700F0E359 /* GameRunnerProtocol.swift in Sources */,
@@ -728,6 +735,7 @@
 				2DA0504B27DC4B130063D952 /* SetCurrentPlayerEvent.swift in Sources */,
 				2D00822427EE9D2A00F0E359 /* SeeTheFutureCard.swift in Sources */,
 				6892FB4327F6CDF90024E974 /* FirebaseAdapter.swift in Sources */,
+				68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */,
 				2DA04F8327DAFF690063D952 /* GameState.swift in Sources */,
 				681DE8DA27F4AE51006740FF /* JoinGameViewModel.swift in Sources */,
 				4589AB1827DF3C5F005FDA07 /* PlayerHandView.swift in Sources */,
