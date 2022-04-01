@@ -73,6 +73,20 @@ class ExplodingKittensPlayer: Player {
             let card = ekCards[0]
             card.onPlay(gameRunner: gameRunner, player: self, on: target)
         }
+
+        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunnerProtocol else {
+            return
+        }
+
+        guard let playerHand = ekGameRunner.getHandByPlayer(self) else {
+            return
+        }
+
+        let moveCardsEvent = ekCards.map { card in
+            MoveCardDeckToDeckEvent(card: card, fromDeck: playerHand, toDeck: ekGameRunner.gameplayArea)
+        }
+
+        gameRunner.executeGameEvents(moveCardsEvent)
     }
 
     private static func playPairCombo() {

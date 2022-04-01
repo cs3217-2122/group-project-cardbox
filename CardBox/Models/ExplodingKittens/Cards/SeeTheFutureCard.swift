@@ -14,9 +14,10 @@ class SeeTheFutureCard: ExplodingKittensCard {
         )
     }
 
+    override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
+        let displayedCards = gameRunner.deck.getTopNCards(n: 3)
+        gameRunner.setCardsPeeking(cards: displayedCards)
 
-    // To be overwritten
-    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
-
+        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }

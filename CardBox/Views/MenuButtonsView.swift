@@ -23,6 +23,7 @@ struct MenuButtonsView: View {
         }
         .accessibilityIdentifier("LaunchOfflineGame")
         Button {
+            appState.page = .hostGame
         } label: {
             Text("Host Game")
                 .font(.title)
@@ -32,6 +33,7 @@ struct MenuButtonsView: View {
                 .background(Color.blue)
         }
         Button {
+            appState.page = .joinGame
         } label: {
             Text("Join Game")
                 .font(.title)

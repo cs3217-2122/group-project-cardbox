@@ -6,16 +6,11 @@
 //
 
 class RandomCard: ExplodingKittensCard {
-    init(type: ExplodingKittensCardType) {
+    init(name: String, type: ExplodingKittensCardType) {
         super.init(
-            name: "Random",
+            name: name,
             typeOfTargettedCard: .targetSinglePlayerCard,
             type: type
         )
-    }
-
-
-    override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
-
     }
 }
