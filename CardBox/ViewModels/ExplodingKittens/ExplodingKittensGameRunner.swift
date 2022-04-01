@@ -31,6 +31,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.state = .initialize
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
+        self.cardsDragging = []
     }
 
     func setup() {
