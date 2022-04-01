@@ -144,11 +144,9 @@ class ExplodingKittensPlayer: Player {
              ])
         }
 
-        ekGameRunner.deckPositionRequest.showRequest(
-            callback: callback,
-            minValue: 1,
-            maxValue: targetHand.count
-        )
+        ekGameRunner.executeGameEvents([
+            ShowCardPositionRequestEvent(callback: callback, minValue: 1, maxValue: targetHand.count)
+        ])
      }
 
     private func playThreeOfAKindCombo(_ cards: [Card],
