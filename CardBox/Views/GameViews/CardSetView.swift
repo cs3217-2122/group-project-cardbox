@@ -20,7 +20,7 @@ struct CardSetView: View {
             return 0
         }
         return 100
-        //return Double((setHeight - size * CardView.defaultCardWidth) / size)
+        // return Double((setHeight - size * CardView.defaultCardWidth) / size)
     }
 
     var body: some View {

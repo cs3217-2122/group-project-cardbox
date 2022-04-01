@@ -25,7 +25,7 @@ class CardSetViewModel: ObservableObject {
     var topCard: Card? {
         cards.topCard
     }
-    
+
     var size: Int {
         cards.count
     }

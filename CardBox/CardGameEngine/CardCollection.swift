@@ -5,7 +5,7 @@
 //  Created by mactest on 10/03/2022.
 //
 
-class CardCollection {
+class CardCollection: Identifiable {
     private var cards: [Card] = []
 
     init(cards: [Card]) {
