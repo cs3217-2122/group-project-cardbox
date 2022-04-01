@@ -16,6 +16,17 @@ class PlayerViewModel: ObservableObject {
         self.hand = hand
     }
 
+    // for online use
+    init() {
+        let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
+        if let uniqueUserID = uniqueUserID {
+            self.player = Player(name: uniqueUserID)
+        } else {
+            self.player = Player(name: "No unique user ID")
+        }
+        self.hand = CardCollection()
+    }
+
     func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: ExplodingKittensGameRunner) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return

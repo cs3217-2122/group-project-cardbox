@@ -5,6 +5,7 @@
 //  Created by Stuart Long on 30/3/22.
 //
 import Firebase
+import FirebaseFirestoreSwift
 import SwiftUI
 
 class HostGameViewModel: ObservableObject {
@@ -13,44 +14,57 @@ class HostGameViewModel: ObservableObject {
     @Published var players: [String] = []
     private let db = Firestore.firestore()
 
-    func createRoom() {
+    func createRoom(playerViewModel: PlayerViewModel) {
         var docRef: DocumentReference?
-        let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
+        let player = playerViewModel.player
 
-        if let uniqueUserID = uniqueUserID {
-            docRef = db.collection("rooms").addDocument(data: ["players": [uniqueUserID]]) { error in
-                if error != nil {
-                    print("error creating room")
-                    return
-                } else {
-                    guard let docRef = docRef else {
+        // TODO: this only allows exploding kitten, allow customisation to choose games
+        let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player)
+
+        let explodingKittensFirebaseAdapter = ExplodingKittensFirebaseAdapter(
+            explodingKittensGameRunner: explodingKittensGameRunner)
+
+        docRef = db.collection("rooms").document()
+
+        if let docRef = docRef {
+            do {
+                try docRef.setData(from: explodingKittensFirebaseAdapter) { error in
+                    if error != nil {
+                        print("error creating room")
                         return
+                    } else {
+                        print("room created with unique ID \(docRef.documentID)")
+                        self.gameRoomID = docRef.documentID
+                        print(self.gameRoomID)
+                        self.players = [player.name]
+                        print(self.players)
                     }
-
-                    print("room created with unique ID \(docRef.documentID)")
-                    self.gameRoomID = docRef.documentID
-                    print(self.gameRoomID)
-                    self.players = [uniqueUserID]
-                    print(self.players)
                 }
+            } catch {
+                print(error)
             }
-            if let docRef = docRef {
-                print("adding listener now")
-                docRef.addSnapshotListener { documentSnapshot, _ in
-                    guard let document = documentSnapshot else {
-                        return
-                    }
-                    self.players = document["players"] as? [String] ?? []
-                    print(self.players)
+
+            print("adding listener now")
+
+            docRef.addSnapshotListener { documentSnapshot, _ in
+                guard let document = documentSnapshot else {
+                    return
+                }
+                do {
+                    let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+                    self.players = explodingKittensFirebaseAdapter.players.names
+                } catch {
+                    print(error)
                 }
             }
         }
     }
 
-    func removeFromRoom() {
+    func removeFromRoom(playerViewModel: PlayerViewModel) {
         print(gameRoomID)
         print(gameRoomID.isEmpty)
         let docRef = db.collection("rooms").document(gameRoomID)
+        let player = playerViewModel.player
 
         docRef.getDocument { document, _ in
             guard let document = document, document.exists else {
@@ -60,14 +74,14 @@ class HostGameViewModel: ObservableObject {
                 return
             }
 
-            var players = document["players"] as? [String] ?? []
-            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
-            if let uniqueUserID = uniqueUserID {
-                if let index = players.firstIndex(of: uniqueUserID) {
-                    players.remove(at: index)
-                }
-                docRef.setData(["players": players], merge: true)
+            do {
+                let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+                explodingKittensFirebaseAdapter.players.remove(player)
+                try docRef.setData(from: explodingKittensFirebaseAdapter)
+                print(explodingKittensFirebaseAdapter.players)
                 self.gameRoomID = ""
+            } catch {
+                print(error)
             }
         }
     }

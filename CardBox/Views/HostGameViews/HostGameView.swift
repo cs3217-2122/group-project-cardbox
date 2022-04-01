@@ -10,17 +10,18 @@ import SwiftUI
 struct HostGameView: View {
 
     @ObservedObject private var viewModel = HostGameViewModel()
+    private var playerViewModel = PlayerViewModel()
 
     var body: some View {
         VStack {
             if viewModel.gameRoomID.isEmpty {
                 Button("Host Game") {
                     print("host game button pressed")
-                    viewModel.createRoom()
+                    viewModel.createRoom(playerViewModel: playerViewModel)
                     print(viewModel.gameRoomID)
                 }
             } else {
-                HostGameLobbyView(viewModel: viewModel)
+                HostGameLobbyView(viewModel: viewModel, playerViewModel: playerViewModel)
             }
         }
     }

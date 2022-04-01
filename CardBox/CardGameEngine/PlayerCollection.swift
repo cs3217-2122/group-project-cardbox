@@ -1,4 +1,4 @@
-class PlayerCollection {
+class PlayerCollection: Codable {
     private var players: [Player]
     private(set) var currentPlayerIndex: Int
 
@@ -9,6 +9,10 @@ class PlayerCollection {
     init(players: [Player]) {
         self.players = players
         self.currentPlayerIndex = 0
+    }
+
+    var names: [String] {
+        self.players.map { $0.name }
     }
 
     var count: Int {
@@ -61,5 +65,13 @@ class PlayerCollection {
         }
 
         return players[(currentPlayerIndex + index) % self.players.count]
+    }
+
+    func remove(_ player: Player) {
+        if let index = players.firstIndex(where: { $0.id == player.id }) {        players.remove(at: index)
+        }
+        for player in players {
+            print(player.name)
+        }
     }
 }

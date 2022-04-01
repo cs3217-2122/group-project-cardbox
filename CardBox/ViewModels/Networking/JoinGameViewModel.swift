@@ -5,6 +5,7 @@
 //  Created by Stuart Long on 30/3/22.
 //
 import Firebase
+import FirebaseFirestoreSwift
 import SwiftUI
 
 class JoinGameViewModel: ObservableObject {
@@ -14,41 +15,56 @@ class JoinGameViewModel: ObservableObject {
     @Published var joinedRoomID: String = ""
     private let db = Firestore.firestore()
 
-    func joinRoom(id: String) {
+    func joinRoom(id: String, playerViewModel: PlayerViewModel) {
         // query database to see if this room exists, if does not, alert user
         let docRef = db.collection("rooms").document(id)
+        let player = playerViewModel.player
 
         docRef.getDocument { document, _ in
             guard let document = document, document.exists else {
                 // TODO: find a way to alert
+                print("not exist")
                 self.notJoined()
                 return
             }
 
-            var players = document["players"] as? [String] ?? []
+            var explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter?
+            do {
+                explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+            } catch {
+                print(error)
+            }
 
+            guard let explodingKittensFirebaseAdapter = explodingKittensFirebaseAdapter else {
+                return
+            }
             // check if full
-            if players.count == 4 {
+            if explodingKittensFirebaseAdapter.players.count == 4 {
                 // find a way to alert
                 print("room is full")
                 self.notJoined()
             } else {
                 // add to room
-                let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
-
-                if let uniqueUserID = uniqueUserID {
-                    print(uniqueUserID)
-                    players.append(uniqueUserID)
-                    docRef.setData(["players": players], merge: true)
+                explodingKittensFirebaseAdapter.players.addPlayer(player)
+                do {
+                    try docRef.setData(from: explodingKittensFirebaseAdapter)
+                } catch {
+                    print(error)
                 }
 
-                self.joined(id: id, players: players)
+                self.joined(id: id, players: explodingKittensFirebaseAdapter.players)
+
                 docRef.addSnapshotListener { documentSnapshot, _ in
                     guard let document = documentSnapshot else {
                         return
                     }
-                    self.players = document["players"] as? [String] ?? []
-                    print(self.players)
+                    do {
+                        let explodingKittensFirebaseAdapter = try document
+                            .data(as: ExplodingKittensFirebaseAdapter.self)
+                        self.players = explodingKittensFirebaseAdapter.players.names
+                    } catch {
+                        print(error)
+                    }
                 }
             }
         }
@@ -60,14 +76,15 @@ class JoinGameViewModel: ObservableObject {
         self.joinedRoomID = ""
     }
 
-    private func joined(id: String, players: [String]) {
+    private func joined(id: String, players: PlayerCollection) {
         self.isJoined = true
         print(players)
-        self.players = players
+        self.players = players.names
         self.joinedRoomID = id
     }
 
-    func removeFromRoom() {
+    func removeFromRoom(playerViewModel: PlayerViewModel) {
+        let player = playerViewModel.player
         print(joinedRoomID)
         let docRef = db.collection("rooms").document(joinedRoomID)
 
@@ -78,15 +95,13 @@ class JoinGameViewModel: ObservableObject {
                 print("document does not exist/ error occurred")
                 return
             }
-
-            var players = document["players"] as? [String] ?? []
-            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
-            if let uniqueUserID = uniqueUserID {
-                if let index = players.firstIndex(of: uniqueUserID) {
-                    players.remove(at: index)
-                }
-                docRef.setData(["players": players], merge: true)
+            do {
+                let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+                explodingKittensFirebaseAdapter.players.remove(player)
+                try docRef.setData(from: explodingKittensFirebaseAdapter)
                 self.notJoined()
+            } catch {
+                print(error)
             }
         }
     }

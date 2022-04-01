@@ -11,6 +11,7 @@ struct HostGameLobbyView: View {
 
     @Environment(\.scenePhase) private var scenePhase
     @ObservedObject var viewModel: HostGameViewModel
+    var playerViewModel: PlayerViewModel
 
     var body: some View {
         VStack {
@@ -28,7 +29,7 @@ struct HostGameLobbyView: View {
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .background {
-                viewModel.removeFromRoom()
+                viewModel.removeFromRoom(playerViewModel: playerViewModel)
             }
         }
     }
@@ -36,6 +37,6 @@ struct HostGameLobbyView: View {
 
 struct HostGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        HostGameLobbyView(viewModel: HostGameViewModel())
+        HostGameLobbyView(viewModel: HostGameViewModel(), playerViewModel: PlayerViewModel())
     }
 }

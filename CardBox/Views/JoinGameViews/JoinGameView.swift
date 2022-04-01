@@ -11,6 +11,7 @@ struct JoinGameView: View {
 
     @State var gameRoomID: String = ""
     @ObservedObject private var viewModel = JoinGameViewModel()
+    private var playerViewModel = PlayerViewModel()
 
     var body: some View {
 
@@ -24,12 +25,12 @@ struct JoinGameView: View {
                         // TODO: Change to popup or alert or something
                         print("game room id cannot be empty")
                     } else {
-                        viewModel.joinRoom(id: gameRoomID)
+                        viewModel.joinRoom(id: gameRoomID, playerViewModel: playerViewModel)
                     }
                 }
             }
         } else {
-            JoinGameLobbyView(viewModel: viewModel)
+            JoinGameLobbyView(viewModel: viewModel, playerViewModel: playerViewModel)
         }
     }
 }

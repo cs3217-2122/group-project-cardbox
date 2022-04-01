@@ -32,6 +32,13 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.deckPositionRequest = CardPositionRequest()
     }
 
+    // initialiser used by host game view model
+    convenience init(host: Player) {
+        self.init()
+        self.players.addPlayer(host)
+    }
+
+    // TODO: create setup for online to inject online players
     func setup() {
         let numPlayers = 4
         let initialCardCount = 4
