@@ -15,32 +15,39 @@ class BombCard: ExplodingKittensCard {
     }
 
     override func onDraw(gameRunner: EKGameRunnerProtocol, player: EKPlayer) {
-        guard let hand = gameRunner.getHandByPlayer(player) else {
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
             return
         }
 
-        let hasDefuse = hand.containsCard(where: { card in
-            guard let card = card as? ExplodingKittensCard else {
+        guard let defuseCard = playerHand.getCard(where: {
+            guard let ekCard = $0 as? ExplodingKittensCard else {
                 return false
             }
 
-            return card.type == .defuse
-        })
+            return ekCard.type == .defuse
+        }) else {
+            player.setOutOfGame(true)
+            return
+        }
 
         // Temporary hack, will change to update with events
         guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
             return
         }
 
-        if hasDefuse { ekGameRunner.deckPositionRequest.showRequest(
-                callback: { position in
-                    hand.removeCard(self)
-                    ekGameRunner.deck.addCard(self, offsetFromTop: position - 1)
-                },
-                maxValue: gameRunner.deck.count
-            )
-        } else {
-            player.setOutOfGame(true)
-        }
+        ekGameRunner.deckPositionRequest.showRequest(
+            callback: { position in
+                ekGameRunner.executeGameEvents([
+                    MoveCardsDeckToDeckEvent(cards: [defuseCard],
+                                             fromDeck: playerHand,
+                                             toDeck: ekGameRunner.gameplayArea),
+                    MoveCardsDeckToDeckEvent(cards: [self],
+                                             fromDeck: playerHand,
+                                             toDeck: ekGameRunner.deck,
+                                             offsetFromTop: position - 1)
+                ])
+            },
+            maxValue: gameRunner.deck.count
+        )
     }
 }

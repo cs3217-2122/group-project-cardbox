@@ -15,9 +15,15 @@ class SeeTheFutureCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+            return
+        }
+
         let displayedCards = gameRunner.deck.getTopNCards(n: 3)
         gameRunner.setCardsPeeking(cards: displayedCards)
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+         ])
     }
 }

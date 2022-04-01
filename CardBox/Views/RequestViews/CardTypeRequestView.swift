@@ -8,16 +8,10 @@
 import SwiftUI
 
 struct CardTypeRequestView: View {
-    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
-    @State var selectedType = ""
-    private var dispatchCardTypeResponse: (String) -> Void
-    private var toggleCardTypeRequestView: (Bool) -> Void
 
-    init(dispatchCardTypeResponse: @escaping (String) -> Void,
-         toggleCardTypeRequestView: @escaping (Bool) -> Void) {
-        self.dispatchCardTypeResponse = dispatchCardTypeResponse
-        self.toggleCardTypeRequestView = toggleCardTypeRequestView
-    }
+    let cardTypes: [String]
+    @State var selectedType = ""
+    @Binding var cardTypeRequest: CardTypeRequest
 
     var overlay: some View {
         Rectangle()
@@ -28,18 +22,18 @@ struct CardTypeRequestView: View {
 
     var messageBox: some View {
         VStack {
-            ForEach(gameRunnerViewModel.allCardTypes, id: \.self) { cardType in
+            ForEach(cardTypes, id: \.self) { cardType in
                 Button {
-                    selectedType = cardType.rawValue
+                    selectedType = cardType
                 } label: {
-                    Text(cardType.rawValue)
-                        .foregroundColor(selectedType == cardType.rawValue
+                    Text(cardType)
+                        .foregroundColor(selectedType == cardType
                                          ? Color.red : Color.black)
                 }
             }
             Button {
-                dispatchCardTypeResponse(selectedType)
-                toggleCardTypeRequestView(false)
+                cardTypeRequest.executeCallback(value: selectedType)
+                cardTypeRequest.hideRequest()
             } label: {
                 Text("Submit")
             }
@@ -51,11 +45,11 @@ struct CardTypeRequestView: View {
 
     var body: some View {
         EmptyView()
-//        if gameRunnerViewModel.isShowingCardTypeRequest {
-//            ZStack {
-//                overlay
-//                messageBox
-//            }
-//        }
+        if cardTypeRequest.isShowing {
+            ZStack {
+                overlay
+                messageBox
+            }
+        }
     }
 }

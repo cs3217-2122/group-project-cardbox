@@ -24,22 +24,22 @@ struct ExplodingKittensGameRunnerView: View {
                         hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                     )
                     NonCurrentPlayerView(
-                        error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
                     CurrentPlayerView(
-                        error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
+            CardTypeRequestView(cardTypes: gameRunnerViewModel.allCardTypes.map({ $0.rawValue }),
+                                cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {

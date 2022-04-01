@@ -19,7 +19,7 @@ class FavorCard: ExplodingKittensCard {
             return
         }
 
-        guard let hand = gameRunner.getHandByPlayer(player) else {
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
             return
         }
 
@@ -38,12 +38,12 @@ class FavorCard: ExplodingKittensCard {
                     return
                 }
 
-                targetHand.removeCard(targetCard)
-                hand.addCard(targetCard)
+                gameRunner.executeGameEvents([
+                    MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand),
+                    MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+                 ])
             },
             maxValue: targetHand.count
         )
-
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
     }
 }

@@ -19,11 +19,15 @@ class AttackCard: ExplodingKittensCard {
             return
         }
 
-        nextPlayer.incrementAttackCount()
-        gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent()
-        ])
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+            return
+        }
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        nextPlayer.incrementAttackCount()
+
+        gameRunner.executeGameEvents([
+            AdvanceNextPlayerEvent(),
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+        ])
     }
 }

@@ -21,6 +21,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var isWin = false
     internal var winner: Player?
     @Published internal var deckPositionRequest: CardPositionRequest
+    @Published internal var cardTypeRequest: CardTypeRequest
 
     init() {
         self.deck = CardCollection()
@@ -30,6 +31,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.state = .initialize
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
+        self.cardTypeRequest = CardTypeRequest()
     }
 
     func setup() {
