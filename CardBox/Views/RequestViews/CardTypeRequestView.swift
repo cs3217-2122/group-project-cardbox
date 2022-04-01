@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CardTypeRequestView: View {
 
-    let cardTypes: [String]
     @State var selectedType = ""
     @Binding var cardTypeRequest: CardTypeRequest
 
@@ -22,7 +21,7 @@ struct CardTypeRequestView: View {
 
     var messageBox: some View {
         VStack {
-            ForEach(cardTypes, id: \.self) { cardType in
+            ForEach(cardTypeRequest.cardTypes, id: \.self) { cardType in
                 Button {
                     selectedType = cardType
                 } label: {

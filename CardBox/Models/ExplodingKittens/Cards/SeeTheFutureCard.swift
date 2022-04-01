@@ -19,10 +19,8 @@ class SeeTheFutureCard: ExplodingKittensCard {
             return
         }
 
-        let displayedCards = gameRunner.deck.getTopNCards(n: 3)
-        gameRunner.setCardsPeeking(cards: displayedCards)
-
         gameRunner.executeGameEvents([
+            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck)),
             MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
          ])
     }

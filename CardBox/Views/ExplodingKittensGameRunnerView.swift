@@ -38,8 +38,7 @@ struct ExplodingKittensGameRunnerView: View {
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
-            CardTypeRequestView(cardTypes: gameRunnerViewModel.allCardTypes.map({ $0.rawValue }),
-                                cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
+            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {

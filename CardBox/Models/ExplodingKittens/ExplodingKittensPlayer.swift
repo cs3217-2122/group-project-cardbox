@@ -62,6 +62,25 @@ class ExplodingKittensPlayer: Player {
         return cardTypeSet.count == cards.count
     }
 
+    func determineTargetOfCards(_ cards: [Card], gameRunner: GameRunnerProtocol) -> TypeOfTargettedCard? {
+        guard canPlay(cards: cards, gameRunner: gameRunner) else {
+            return nil
+        }
+
+        switch cards.count {
+        case 1:
+            return cards[0].typeOfTargettedCard
+        case 2:
+            return .targetSinglePlayerCard
+        case 3:
+            return .targetSinglePlayerCard
+        case 5:
+            return .noTargetCard
+        default:
+            return nil
+        }
+    }
+
     override func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
         let ekCards = cards.compactMap { $0 as? ExplodingKittensCard }
 
@@ -104,11 +123,6 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        // Temporary hack, will change to update with events
-        guard let ekGameRunner = ekGameRunner as? ExplodingKittensGameRunner else {
-            return
-        }
-
         guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
             return
         }
@@ -121,16 +135,19 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        ekGameRunner.deckPositionRequest.showRequest(
-            callback: { position in
-                guard let targetCard = targetHand.getCardByIndex(position - 1) else {
-                    return
-                }
+        let callback: (Int) -> Void = { position in
+            guard let targetCard = targetHand.getCardByIndex(position - 1) else {
+                return
+            }
 
-                ekGameRunner.executeGameEvents([
-                    MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand)
-                 ])
-            },
+            ekGameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand)
+             ])
+        }
+
+        ekGameRunner.deckPositionRequest.showRequest(
+            callback: callback,
+            minValue: 1,
             maxValue: targetHand.count
         )
      }
@@ -144,11 +161,6 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        // Temporary hack, will change to update with events
-        guard let ekGameRunner = ekGameRunner as? ExplodingKittensGameRunner else {
-            return
-        }
-
         guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
             return
         }
@@ -161,13 +173,13 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        ekGameRunner.cardTypeRequest.showRequest(callback: { card in
+        let callback: (String) -> Void = { cardType in
             guard let chosenCard = targetHand.getCard(where: {
                 guard let ekCard = $0 as? ExplodingKittensCard else {
                     return false
                 }
 
-                return ekCard.type.rawValue == card
+                return ekCard.type.rawValue == cardType
             }) else {
                 return
             }
@@ -175,7 +187,12 @@ class ExplodingKittensPlayer: Player {
             ekGameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: targetHand, toDeck: playerHand)
             ])
-        })
+        }
+
+        ekGameRunner.executeGameEvents([
+            ShowCardTypeRequestEvent(callback: callback,
+                                     cardTypes: ExplodingKittensConstants.allCardTypes.map({ $0.rawValue }))
+        ])
      }
 
     private func playFiveDifferentCardsCombo(_ cards: [Card],
@@ -191,13 +208,42 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        guard let defuseCard = ekGameRunner.gameplayArea.getCard(where: { type(of: $0) == DefuseCard.self }) else {
-            return
+        let callback: (String) -> Void = { cardType in
+            guard let chosenCard = ekGameRunner.gameplayArea.getCard(where: {
+                guard let ekCard = $0 as? ExplodingKittensCard else {
+                    return false
+                }
+
+                return ekCard.type.rawValue == cardType
+            }) else {
+                return
+            }
+
+            ekGameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: ekGameRunner.gameplayArea, toDeck: playerHand)
+            ])
         }
 
-        // TODO: Allow player to choose card, for now default DEFUSE
         ekGameRunner.executeGameEvents([
-            MoveCardsDeckToDeckEvent(cards: [defuseCard], fromDeck: ekGameRunner.gameplayArea, toDeck: playerHand)
+            ShowCardTypeRequestEvent(callback: callback,
+                                     cardTypes: getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
         ])
+
      }
+
+    private func getCardTypesCurrentlyInGameplay(gameRunner: ExplodingKittensGameRunnerProtocol) -> [String] {
+        let nonDistinctCardTypes: [String] = gameRunner.gameplayArea.getCards().map({
+            guard let ekCard = $0 as? ExplodingKittensCard else {
+                return ""
+            }
+            return ekCard.type.rawValue
+        })
+
+        var distinctCardTypes: Set<String> = Set()
+        nonDistinctCardTypes.forEach { cardType in
+            distinctCardTypes.insert(cardType)
+        }
+
+        return Array(distinctCardTypes)
+    }
 }

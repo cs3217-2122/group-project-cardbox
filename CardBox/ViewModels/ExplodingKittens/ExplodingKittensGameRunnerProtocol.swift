@@ -5,7 +5,7 @@
 //  Created by mactest on 26/03/2022.
 //
 
-import SwiftUI
+import Foundation
 
 protocol ExplodingKittensGameRunnerProtocol: GameRunnerProtocol {
     var deck: CardCollection { get }
@@ -14,8 +14,6 @@ protocol ExplodingKittensGameRunnerProtocol: GameRunnerProtocol {
 
     var cardsPeeking: [Card] { get }
     var isShowingPeek: Bool { get }
-
-    var deckPositionRequest: CardPositionRequest { get }
 
     func setCardsPeeking(cards: [Card])
     func getHandByPlayer(_ player: Player) -> CardCollection?
