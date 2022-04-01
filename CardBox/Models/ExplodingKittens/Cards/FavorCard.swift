@@ -14,9 +14,6 @@ class FavorCard: ExplodingKittensCard {
         )
     }
 
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 
     override func onPlay(gameRunner: GameRunnerProtocol, player: Player, on target: GameplayTarget) {
 

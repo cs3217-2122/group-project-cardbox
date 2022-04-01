@@ -14,9 +14,6 @@ class BombCard: ExplodingKittensCard {
         )
     }
 
-    required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
 
     override func onDraw(gameRunner: GameRunnerProtocol, player: Player) {
         guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
