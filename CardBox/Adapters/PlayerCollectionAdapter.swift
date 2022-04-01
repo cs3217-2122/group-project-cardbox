@@ -24,7 +24,8 @@ class PlayerCollectionAdapter: Codable {
     }
 
     func remove(_ player: Player) {
-        if let index = players.firstIndex(where: { $0.id == player.id }) {        players.remove(at: index)
+        if let index = players.firstIndex(where: { $0.id == player.id }) {
+            players.remove(at: index)
         }
         for player in players {
             print(player.name)
