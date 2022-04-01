@@ -31,10 +31,6 @@ class DeckViewModel: ObservableObject {
         guard let player = players.currentPlayer as? ExplodingKittensPlayer else {
             return
         }
-        print("work")
-        // guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
-        //    return
-        // }
 
         if selectedCards.count == 1 {
             if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
