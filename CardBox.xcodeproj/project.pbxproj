@@ -92,6 +92,9 @@
 		68A94A4A27F76157002EE49A /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 68A94A4927F76157002EE49A /* FirebaseFirestoreSwift-Beta */; };
 		68A94A4C27F788A5002EE49A /* PlayerCollectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */; };
 		68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */; };
+		68A94A5027F795F0002EE49A /* JoinGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4F27F795F0002EE49A /* JoinGameManager.swift */; };
+		68A94A5227F7961A002EE49A /* HostGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5127F7961A002EE49A /* HostGameManager.swift */; };
+		68A94A5427F7995A002EE49A /* DatabaseManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -202,6 +205,9 @@
 		6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensCardAdapter.swift; sourceTree = "<group>"; };
 		68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionAdapter.swift; sourceTree = "<group>"; };
 		68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapter.swift; sourceTree = "<group>"; };
+		68A94A4F27F795F0002EE49A /* JoinGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameManager.swift; sourceTree = "<group>"; };
+		68A94A5127F7961A002EE49A /* HostGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostGameManager.swift; sourceTree = "<group>"; };
+		68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerObserver.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -425,6 +431,8 @@
 				2DA050BB27DE5ED90063D952 /* PlayerViewModel.swift */,
 				4589AB1527DF2EC2005FDA07 /* AssetFetcher.swift */,
 				2D00824227EF5A2700F0E359 /* GameRunnerProtocol.swift */,
+				681DE8D927F4AE51006740FF /* JoinGameViewModel.swift */,
+				681DE8DB27F4AE5F006740FF /* HostGameViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -502,8 +510,9 @@
 			isa = PBXGroup;
 			children = (
 				6892FB3C27F637110024E974 /* DatabaseManager.swift */,
-				681DE8D927F4AE51006740FF /* JoinGameViewModel.swift */,
-				681DE8DB27F4AE5F006740FF /* HostGameViewModel.swift */,
+				68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */,
+				68A94A4F27F795F0002EE49A /* JoinGameManager.swift */,
+				68A94A5127F7961A002EE49A /* HostGameManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -694,6 +703,7 @@
 				4589AB1A27DF3FB6005FDA07 /* PlayerHandViewModel.swift in Sources */,
 				4589AB1E27E14C00005FDA07 /* DeckViewModel.swift in Sources */,
 				4589AB1627DF2EC2005FDA07 /* AssetFetcher.swift in Sources */,
+				68A94A5227F7961A002EE49A /* HostGameManager.swift in Sources */,
 				2D00821227EE98BA00F0E359 /* AttackCard.swift in Sources */,
 				6868907E27E6199F001C4C62 /* CardTypeRequestEvent.swift in Sources */,
 				4E18ED0E27E1B27300458D0A /* AdvanceNextPlayerEvent.swift in Sources */,
@@ -747,6 +757,8 @@
 				68466A9127E506C2000387B6 /* NonCurrentPlayerView.swift in Sources */,
 				68466A9327E5076A000387B6 /* GameActionsView.swift in Sources */,
 				2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */,
+				68A94A5427F7995A002EE49A /* DatabaseManagerObserver.swift in Sources */,
+				68A94A5027F795F0002EE49A /* JoinGameManager.swift in Sources */,
 				2D9364DF27EFB04B008C1E53 /* FavorCard.swift in Sources */,
 				2DA0505327DC4B460063D952 /* GameEvent.swift in Sources */,
 				6868907C27E60FAF001C4C62 /* CardTypeRequestView.swift in Sources */,

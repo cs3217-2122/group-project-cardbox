@@ -15,7 +15,7 @@ struct JoinGameLobbyView: View {
 
     var body: some View {
         VStack {
-            Text("Game Room ID: \(viewModel.joinedRoomID)")
+            Text("Game Room ID: \(viewModel.gameRoomID)")
             Text("Players in Lobby")
             ForEach(viewModel.players, id: \.self) { player in
                 Text(player)
