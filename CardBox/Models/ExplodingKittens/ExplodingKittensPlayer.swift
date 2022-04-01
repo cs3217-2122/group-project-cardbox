@@ -70,9 +70,7 @@ class ExplodingKittensPlayer: Player {
         switch cards.count {
         case 1:
             return cards[0].typeOfTargettedCard
-        case 2:
-            return .targetSinglePlayerCard
-        case 3:
+        case 2,3:
             return .targetSinglePlayerCard
         case 5:
             return .noTargetCard
@@ -96,16 +94,17 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        if ekCards.count == 1 {
+        switch ekCards.count {
+        case 1:
             let card = ekCards[0]
             card.onPlay(gameRunner: gameRunner, player: self, on: target)
-        } else if ekCards.count == 2 {
+        case 2:
             playPairCombo(cards, ekGameRunner: ekGameRunner, player: self, on: target)
-        } else if ekCards.count == 3 {
+        case 3:
             playThreeOfAKindCombo(cards, ekGameRunner: ekGameRunner, player: self, on: target)
-        } else if ekCards.count == 5 {
-            playFiveDifferentCardsCombo(cards, ekGameRunner: ekGameRunner, player: self, on: target)
-        } else {
+        case 5:
+            playFiveDifferentCardsCombo(cards, ekGameRunner: ekGameRunner, player: self)
+        default:
             return
         }
 
@@ -197,8 +196,7 @@ class ExplodingKittensPlayer: Player {
 
     private func playFiveDifferentCardsCombo(_ cards: [Card],
                                              ekGameRunner: ExplodingKittensGameRunnerProtocol,
-                                             player: Player,
-                                             on target: GameplayTarget) {
+                                             player: Player) {
          guard let cards = cards as? [ExplodingKittensCard],
                checkDifferentCards(cards: cards) else {
              return
