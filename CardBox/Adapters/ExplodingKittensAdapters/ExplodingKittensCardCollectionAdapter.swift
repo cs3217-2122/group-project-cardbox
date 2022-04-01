@@ -31,7 +31,7 @@ class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter {
         super.init()
     }
 
-    override public func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(cards, forKey: .cards)
     }}

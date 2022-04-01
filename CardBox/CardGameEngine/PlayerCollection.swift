@@ -68,6 +68,7 @@ class PlayerCollection: Codable {
     }
 
     func remove(_ player: Player) {
+        print(player.id)
         if let index = players.firstIndex(where: { $0.id == player.id }) {        players.remove(at: index)
         }
         for player in players {

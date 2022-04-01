@@ -15,6 +15,37 @@ class JoinGameViewModel: ObservableObject {
     @Published var joinedRoomID: String = ""
     private let db = Firestore.firestore()
 
+    private func decodeExplodingKittensFirebaseAdapter(
+        _ document: DocumentSnapshot) -> ExplodingKittensFirebaseAdapter? {
+        do {
+            let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+            return explodingKittensFirebaseAdapter
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+
+    private func encodeExplodingKittensFirebaseAdapter(
+        _ explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter,
+        _ docRef: DocumentReference) {
+        do {
+            try docRef.setData(from: explodingKittensFirebaseAdapter)
+        } catch {
+            print(error)
+        }
+    }
+
+    private func retrieveUpdates(_ document: DocumentSnapshot) {
+        do {
+            let explodingKittensFirebaseAdapter = try document
+                .data(as: ExplodingKittensFirebaseAdapter.self)
+            self.players = explodingKittensFirebaseAdapter.players.names
+        } catch {
+            print(error)
+        }
+    }
+
     func joinRoom(id: String, playerViewModel: PlayerViewModel) {
         // query database to see if this room exists, if does not, alert user
         let docRef = db.collection("rooms").document(id)
@@ -28,12 +59,7 @@ class JoinGameViewModel: ObservableObject {
                 return
             }
 
-            var explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter?
-            do {
-                explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
-            } catch {
-                print(error)
-            }
+            let explodingKittensFirebaseAdapter = self.decodeExplodingKittensFirebaseAdapter(document)
 
             guard let explodingKittensFirebaseAdapter = explodingKittensFirebaseAdapter else {
                 return
@@ -46,11 +72,7 @@ class JoinGameViewModel: ObservableObject {
             } else {
                 // add to room
                 explodingKittensFirebaseAdapter.players.addPlayer(player)
-                do {
-                    try docRef.setData(from: explodingKittensFirebaseAdapter)
-                } catch {
-                    print(error)
-                }
+                self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)
 
                 self.joined(id: id, players: explodingKittensFirebaseAdapter.players)
 
@@ -58,13 +80,7 @@ class JoinGameViewModel: ObservableObject {
                     guard let document = documentSnapshot else {
                         return
                     }
-                    do {
-                        let explodingKittensFirebaseAdapter = try document
-                            .data(as: ExplodingKittensFirebaseAdapter.self)
-                        self.players = explodingKittensFirebaseAdapter.players.names
-                    } catch {
-                        print(error)
-                    }
+                    self.retrieveUpdates(document)
                 }
             }
         }
