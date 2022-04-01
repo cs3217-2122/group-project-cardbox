@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExplodingKittensGameRunnerView: View {
+struct ExplodingKittensOfflineView: View {
     @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?

@@ -20,13 +20,18 @@ struct PlayerHandView: View {
         // TODO: figure out spacing
         return Double((handWidth - size * CardView.defaultCardWidth) / size)
     }
+    
+    var isFaceUp: Bool {
+        // check if online or offline
+        playerViewModel
+          .isCurrentPlayer(gameRunner: gameRunnerViewModel)
+    }
 
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
                 let cardViewModel = CardViewModel(card: card,
-                                                  isFaceUp: playerViewModel
-                                                    .isCurrentPlayer(gameRunner: gameRunnerViewModel),
+                                                  isFaceUp: isFaceUp,
                                                   isSelected: playerViewModel.isSelected(card: card))
                 CardView(cardViewModel: cardViewModel)
                     .onTapGesture {

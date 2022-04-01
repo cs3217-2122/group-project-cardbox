@@ -62,4 +62,12 @@ class PlayerCollection {
 
         return players[(currentPlayerIndex + index) % self.players.count]
     }
+
+    func getPlayerByIndexAfterGiven(start: Int, increment: Int) -> Player? {
+        guard increment > 0 else {
+            return nil
+        }
+
+        return players[(start + increment) % self.players.count]
+    }
 }
