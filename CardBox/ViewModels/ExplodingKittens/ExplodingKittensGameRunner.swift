@@ -62,6 +62,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.init()
         self.players.addPlayer(host)
         self.observers.append(observer)
+        self.playerHands[host.id] = CardCollection()
     }
 
     func initialiseFrom(_ explodingKittensGameRunner: ExplodingKittensGameRunner) {
@@ -84,12 +85,14 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         let numPlayers = 4
         let initialCardCount = 4
 
-        let players = (1...numPlayers).map { i in
-            ExplodingKittensPlayer(name: "Player " + i.description)
-        }
-        players.forEach { player in
-            self.players.addPlayer(player)
-            self.playerHands[player.id] = CardCollection()
+        if players.isEmpty {
+            let players = (1...numPlayers).map { i in
+                ExplodingKittensPlayer(name: "Player " + i.description)
+            }
+            players.forEach { player in
+                self.players.addPlayer(player)
+                self.playerHands[player.id] = CardCollection()
+            }
         }
 
         self.playerHands.forEach { _, hand in

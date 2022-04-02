@@ -49,4 +49,9 @@ class ExplodingKittensCardAdapter: CardAdapter {
         self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
         super.init()
     }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+    }
 }

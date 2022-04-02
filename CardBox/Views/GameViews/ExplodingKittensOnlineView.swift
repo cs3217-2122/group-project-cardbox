@@ -12,12 +12,8 @@ struct ExplodingKittensOnlineView: View {
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
+    var explodingKittensGameRunnerInitialiser: ExplodingKittensGameRunner
     var localPlayerIndex: Int
-
-    init(explodingKittensGameRunner: ExplodingKittensGameRunner, localPlayerIndex: Int) {
-        self.localPlayerIndex = localPlayerIndex
-        self.gameRunnerViewModel.initialiseFrom(explodingKittensGameRunner)
-    }
 
     var body: some View {
         ZStack {
@@ -56,7 +52,7 @@ struct ExplodingKittensOnlineView: View {
     }
 
     private func setup() {
-        gameRunnerViewModel.setup()
+        gameRunnerViewModel.initialiseFrom(explodingKittensGameRunnerInitialiser)
     }
 
     func dismissPeek() {

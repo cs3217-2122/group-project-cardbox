@@ -128,6 +128,8 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
             } else {
                 // add to room
                 explodingKittensFirebaseAdapter.players.addPlayer(player)
+                explodingKittensFirebaseAdapter.playerHands
+                    .append(ExplodingKittensCardCollectionAdapter(CardCollection()))
                 self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)
                 self.joined(id: id,
                             gameRunnerAdapter: explodingKittensFirebaseAdapter)
@@ -220,7 +222,8 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
 
         let docRef = db.collection("rooms").document(gameRoomID)
 
-        gameRunner.state = .start
+        gameRunner.setup()
+//        gameRunner.state = .start
 
         encodeExplodingKittensFirebaseAdapter(
             ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: gameRunner),
