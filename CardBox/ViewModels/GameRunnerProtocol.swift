@@ -11,6 +11,7 @@ protocol GameRunnerProtocol: AnyObject {
     var winner: Player? { get set }
     var isWin: Bool { get set }
     var players: PlayerCollection { get }
+    var cardsDragging: [Card] { get }
 
     // Might remove
     var cardPreview: Card? { get }

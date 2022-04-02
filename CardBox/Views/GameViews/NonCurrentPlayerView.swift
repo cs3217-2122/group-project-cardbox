@@ -49,8 +49,7 @@ struct NonCurrentPlayerView: View {
                 .rotationEffect(.degrees(90))
             }
             Spacer()
-            DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.deck), isFaceUp: false)
-            DeckView(deckViewModel: DeckViewModel(deck: gameRunnerViewModel.gameplayArea), isFaceUp: true)
+            decks
             Spacer()
             if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
                 PlayerView(
@@ -64,6 +63,19 @@ struct NonCurrentPlayerView: View {
                 .rotationEffect(.degrees(-90))
             }
         }
+    }
+    var decks: some View {
+        HStack {
+            DeckView(deckViewModel:
+                        DeckViewModel(deck: gameRunnerViewModel.deck,
+                                      isPlayDeck: false, gameRunner: gameRunnerViewModel),
+                     isFaceUp: false)
+            DeckView(deckViewModel:
+                        DeckViewModel(deck: gameRunnerViewModel.gameplayArea,
+                                      isPlayDeck: true, gameRunner: gameRunnerViewModel),
+                     isFaceUp: true)
+        }
+
     }
 }
 
