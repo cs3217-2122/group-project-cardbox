@@ -12,6 +12,7 @@ struct HostGameLobbyView: View {
     @Environment(\.scenePhase) private var scenePhase
     @ObservedObject var viewModel: HostGameViewModel
     var playerViewModel: PlayerViewModel
+    @EnvironmentObject private var appState: AppState
 
     var body: some View {
         VStack {
@@ -25,6 +26,7 @@ struct HostGameLobbyView: View {
 
             Button("Start") {
                 print("online game started")
+                appState.page = .onlineGame
             }.foregroundColor(.red)
         }
         .onChange(of: scenePhase) { newPhase in

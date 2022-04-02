@@ -54,6 +54,7 @@ class PlayerViewModel: ObservableObject {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return false
         }
+        // TODO: Check if online or offline
         return currentPlayer === player
     }
 

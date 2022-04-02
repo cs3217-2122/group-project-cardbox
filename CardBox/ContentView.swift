@@ -8,12 +8,13 @@
 import SwiftUI
 
 class AppState: ObservableObject {
-
+    @Published var localPlayerIndex = 0
     @Published var page = Page.mainMenu
 }
 
 enum Page {
     case game
+    case onlineGame
     case mainMenu
     case hostGame
     case joinGame
@@ -27,12 +28,16 @@ struct ContentView: View {
             MainMenuView()
                 .environmentObject(appState)
         } else if appState.page == .game {
-            ExplodingKittensGameRunnerView()
+            ExplodingKittensOfflineView()
                 .environmentObject(appState)
+        } else if appState.page == .onlineGame {
+            ExplodingKittensOnlineView(localPlayerIndex: appState.localPlayerIndex)
         } else if appState.page == .hostGame {
             HostGameView()
+                .environmentObject(appState)
         } else if appState.page == .joinGame {
             JoinGameView()
+                .environmentObject(appState)
         }
     }
 }
