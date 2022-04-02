@@ -5,7 +5,7 @@
 //  Created by mactest on 14/03/2022.
 //
 
-enum ExplodingKittensCardType: String, CaseIterable {
+enum ExplodingKittensCardType: String, CaseIterable, Codable {
     case attack = "attack"
     case bomb = "bomb"
     case defuse = "defuse"

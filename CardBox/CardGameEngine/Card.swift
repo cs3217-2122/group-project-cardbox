@@ -1,3 +1,5 @@
+import Foundation
+import UniformTypeIdentifiers
 enum GameplayTarget {
     case all
     case none
@@ -24,18 +26,18 @@ enum GameplayTarget {
     }
 }
 
-enum TypeOfTargettedCard {
+enum TypeOfTargettedCard: Codable {
     case targetAllPlayersCard
     case targetSinglePlayerCard
     case noTargetCard
 }
 
-class Card: Identifiable {
+class Card: NSObject, Identifiable {
     let name: String
     let cardDescription: String
     let typeOfTargettedCard: TypeOfTargettedCard
 
-    var description: String {
+    override var description: String {
         String(UInt(bitPattern: ObjectIdentifier(self)))
     }
 
