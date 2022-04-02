@@ -10,10 +10,10 @@ import SwiftUI
 protocol MonopolyDealGameRunnerProtocol: GameRunnerProtocol {
     var deck: CardCollection { get }
     var playerHands: [UUID: CardCollection] { get }
-    var playerPropertyArea: [UUID: CardCollection] { get }
+    var playerPropertyArea: [UUID: MonopolyDealPlayerPropertyArea] { get }
     var playerMoneyArea: [UUID: CardCollection] { get }
     var gameplayArea: CardCollection { get }
 
     func getHandByPlayer(_ player: Player) -> CardCollection
-    func getPropertyByPlayer(_ player: Player) -> CardCollection
+    func getPropertyAreaByPlayer(_ player: Player) -> MonopolyDealPlayerPropertyArea
 }

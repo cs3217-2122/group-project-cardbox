@@ -15,6 +15,8 @@ enum MonopolyDealCardType: String, CaseIterable {
     case birthday = "birthday"
     case passGo = "pass_go"
     case money = "money"
+    case debtCollector = "debt_collector"
+    case slyDeal = "sly_deal"
 
     var initialFrequency: Int {
         switch self {
@@ -36,6 +38,10 @@ enum MonopolyDealCardType: String, CaseIterable {
             return 10
         case .money:
             return 0
+        case .debtCollector:
+            return 3
+        case .slyDeal:
+            return 3
         }
     }
 }

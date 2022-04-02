@@ -12,7 +12,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var playerHands: [UUID: CardCollection]
-    @Published internal var playerPropertyArea: [UUID: CardCollection]
+    @Published internal var playerPropertyArea: [UUID: MonopolyDealPlayerPropertyArea]
     @Published internal var playerMoneyArea: [UUID: CardCollection]
     @Published internal var gameplayArea: CardCollection
 
@@ -45,7 +45,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         players.forEach { player in
             self.players.addPlayer(player)
             self.playerHands[player.id] = CardCollection()
-            self.playerPropertyArea[player.id] = CardCollection()
+            self.playerPropertyArea[player.id] = MonopolyDealPlayerPropertyArea()
             self.playerMoneyArea[player.id] = CardCollection()
         }
 
@@ -173,8 +173,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.playerHands[player.id] ?? CardCollection()
     }
 
-    func getPropertyByPlayer(_ player: Player) -> CardCollection {
-        self.playerPropertyArea[player.id] ?? CardCollection()
+    func getPropertyAreaByPlayer(_ player: Player) -> MonopolyDealPlayerPropertyArea {
+        self.playerPropertyArea[player.id] ?? MonopolyDealPlayerPropertyArea()
     }
 
     var allCardTypes: [ExplodingKittensCardType] {

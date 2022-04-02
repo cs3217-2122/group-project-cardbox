@@ -65,6 +65,16 @@
 		305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */; };
 		4534CC9327F7535900DADA26 /* ExplodingKittensOnlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */; };
 		4534CC9527F75B5C00DADA26 /* NonPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */; };
+		2DA0514C27E23E7A0063D952 /* DeckPositionRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA0514B27E23E7A0063D952 /* DeckPositionRequestEvent.swift */; };
+		3026763827F9121700CC0F00 /* AddNewPropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */; };
+		3026763A27F9128000CC0F00 /* RemovePropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */; };
+		305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */; };
+		305875B627F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */; };
+		305875B827F8BD0800A11837 /* PassGoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B727F8BD0800A11837 /* PassGoCard.swift */; };
+		305875BA27F8C45100A11837 /* BirthdayCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B927F8C45100A11837 /* BirthdayCard.swift */; };
+		305875BC27F8C5A600A11837 /* DealBreakerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BB27F8C5A600A11837 /* DealBreakerCard.swift */; };
+		305875BE27F8C63D00A11837 /* HouseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BD27F8C63D00A11837 /* HouseCard.swift */; };
+		305875C027F8C6EA00A11837 /* PropertyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BF27F8C6EA00A11837 /* PropertyCard.swift */; };
 		4534CC9727F7669500DADA26 /* CardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9627F7669500DADA26 /* CardSetView.swift */; };
 		4534CC9927F766DC00DADA26 /* CardSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9827F766DC00DADA26 /* CardSetViewModel.swift */; };
 		4534CC9B27F7699300DADA26 /* MonopolyDealOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */; };
@@ -206,6 +216,16 @@
 		305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealCardType.swift; sourceTree = "<group>"; };
 		4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensOnlineView.swift; sourceTree = "<group>"; };
 		4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonPlayerView.swift; sourceTree = "<group>"; };
+		2DA0514B27E23E7A0063D952 /* DeckPositionRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPositionRequestEvent.swift; sourceTree = "<group>"; };
+		3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPropertyAreaEvent.swift; sourceTree = "<group>"; };
+		3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePropertyAreaEvent.swift; sourceTree = "<group>"; };
+		305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealCardType.swift; sourceTree = "<group>"; };
+		305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealPlayerPropertyArea.swift; sourceTree = "<group>"; };
+		305875B727F8BD0800A11837 /* PassGoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassGoCard.swift; sourceTree = "<group>"; };
+		305875B927F8C45100A11837 /* BirthdayCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirthdayCard.swift; sourceTree = "<group>"; };
+		305875BB27F8C5A600A11837 /* DealBreakerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealBreakerCard.swift; sourceTree = "<group>"; };
+		305875BD27F8C63D00A11837 /* HouseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseCard.swift; sourceTree = "<group>"; };
+		305875BF27F8C6EA00A11837 /* PropertyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCard.swift; sourceTree = "<group>"; };
 		4534CC9627F7669500DADA26 /* CardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetView.swift; sourceTree = "<group>"; };
 		4534CC9827F766DC00DADA26 /* CardSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetViewModel.swift; sourceTree = "<group>"; };
 		4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealOfflineView.swift; sourceTree = "<group>"; };
@@ -293,9 +313,11 @@
 		24FF629F27F646B2005BA4E6 /* MonopolyDeal */ = {
 			isa = PBXGroup;
 			children = (
+				3026763627F911F000CC0F00 /* GameEvents */,
 				24FF62A727F64D7B005BA4E6 /* Cards */,
 				24FF62A527F64CE8005BA4E6 /* MonopolyDealPlayer.swift */,
 				305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */,
+				305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */,
 			);
 			path = MonopolyDeal;
 			sourceTree = "<group>";
@@ -314,6 +336,11 @@
 			children = (
 				24FF62A827F64DB6005BA4E6 /* MonopolyDealCard.swift */,
 				2432C1A127F6B07400C20113 /* MoneyCard.swift */,
+				305875B727F8BD0800A11837 /* PassGoCard.swift */,
+				305875B927F8C45100A11837 /* BirthdayCard.swift */,
+				305875BB27F8C5A600A11837 /* DealBreakerCard.swift */,
+				305875BD27F8C63D00A11837 /* HouseCard.swift */,
+				305875BF27F8C6EA00A11837 /* PropertyCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -563,6 +590,15 @@
 			path = ExplodingKittensAdapters;
 			sourceTree = "<group>";
 		};
+		3026763627F911F000CC0F00 /* GameEvents */ = {
+			isa = PBXGroup;
+			children = (
+				3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */,
+				3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */,
+			);
+			path = GameEvents;
+			sourceTree = "<group>";
+		};
 		688B76A627F40689006AF1C0 /* HostGameViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +835,7 @@
 			files = (
 				2DA050B727DE5EC70063D952 /* EKPlayerView.swift in Sources */,
 				2D9364DA27EFA864008C1E53 /* SkipCard.swift in Sources */,
+				3026763A27F9128000CC0F00 /* RemovePropertyAreaEvent.swift in Sources */,
 				688B76AD27F40A93006AF1C0 /* HostGameView.swift in Sources */,
 				2DA0509227DC9D4A0063D952 /* EndTurnEvent.swift in Sources */,
 				4589AB1C27E14AF3005FDA07 /* DeckView.swift in Sources */,
@@ -822,6 +859,7 @@
 				6892FB4527F6ED190024E974 /* CardAdapter.swift in Sources */,
 				2DA0504627DC4B130063D952 /* AddPlayerEvent.swift in Sources */,
 				4534CC9327F7535900DADA26 /* ExplodingKittensOnlineView.swift in Sources */,
+				305875B627F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift in Sources */,
 				2DA04F7E27DAE9930063D952 /* Card.swift in Sources */,
 				2DA04F3527DADD500063D952 /* ContentView.swift in Sources */,
 				6892FB3B27F620640024E974 /* HostGameLobbyView.swift in Sources */,
@@ -847,6 +885,7 @@
 				2D00824327EF5A2700F0E359 /* GameRunnerProtocol.swift in Sources */,
 				2DA050AD27DE5D570063D952 /* CardView.swift in Sources */,
 				68466A9527E50AAA000387B6 /* MenuButtonsView.swift in Sources */,
+				305875BA27F8C45100A11837 /* BirthdayCard.swift in Sources */,
 				2DA0508D27DC9D100063D952 /* StartTurnEvent.swift in Sources */,
 				2D0081F827EE95F900F0E359 /* ExplodingKittensGameRunner.swift in Sources */,
 				4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */,
@@ -858,14 +897,17 @@
 				6892FB4327F6CDF90024E974 /* FirebaseAdapter.swift in Sources */,
 				68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */,
 				2432C1A227F6B07400C20113 /* MoneyCard.swift in Sources */,
+				305875B827F8BD0800A11837 /* PassGoCard.swift in Sources */,
 				2DA04F8327DAFF690063D952 /* GameState.swift in Sources */,
 				681DE8DA27F4AE51006740FF /* JoinGameViewModel.swift in Sources */,
+				3026763827F9121700CC0F00 /* AddNewPropertyAreaEvent.swift in Sources */,
 				4589AB1827DF3C5F005FDA07 /* PlayerHandView.swift in Sources */,
 				305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */,
 				2DA0504827DC4B130063D952 /* ShuffleDeckEvent.swift in Sources */,
 				68AB292127FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift in Sources */,
 				4EB4467427F8277F00EB07C7 /* IncrementAttackCountEvent.swift in Sources */,
 				4534CC9727F7669500DADA26 /* CardSetView.swift in Sources */,
+				305875BE27F8C63D00A11837 /* HouseCard.swift in Sources */,
 				2DA050B227DE5D760063D952 /* CardViewModel.swift in Sources */,
 				4534CCA227F76D7200DADA26 /* PlayerPlayAreaViewModel.swift in Sources */,
 				2D9364FA27F02398008C1E53 /* BombCard.swift in Sources */,
@@ -876,6 +918,7 @@
 				689A70EF27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift in Sources */,
 				68466A9127E506C2000387B6 /* NonBottomPlayerView.swift in Sources */,
 				4EB4467227F8276B00EB07C7 /* DisplayTopNCardsEvent.swift in Sources */,
+				305875C027F8C6EA00A11837 /* PropertyCard.swift in Sources */,
 				68466A9327E5076A000387B6 /* GameActionsView.swift in Sources */,
 				6831742B27F9FF99005400FC /* ExplodingKittensDatabaseManager.swift in Sources */,
 				2DA04F3327DADD500063D952 /* CardBoxApp.swift in Sources */,
@@ -896,6 +939,7 @@
 				6868907627E5F410001C4C62 /* CardPreviewView.swift in Sources */,
 				2D00816B27E64C8A00F0E359 /* WinMessageView.swift in Sources */,
 				688B76AB27F40A7E006AF1C0 /* JoinGameView.swift in Sources */,
+				305875BC27F8C5A600A11837 /* DealBreakerCard.swift in Sources */,
 				4534CC9B27F7699300DADA26 /* MonopolyDealOfflineView.swift in Sources */,
 				24FF62A927F64DB6005BA4E6 /* MonopolyDealCard.swift in Sources */,
 				24FF62A627F64CE8005BA4E6 /* MonopolyDealPlayer.swift in Sources */,
