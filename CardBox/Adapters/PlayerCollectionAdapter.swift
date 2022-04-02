@@ -8,6 +8,14 @@
 class PlayerCollectionAdapter: Codable {
     private var players: [PlayerAdapter]
 
+    var playerCollection: PlayerCollection {
+        let output = PlayerCollection()
+        for player in players {
+            output.addPlayer(player.gamePlayer)
+        }
+        return output
+    }
+
     var names: [String] {
         self.players.map { $0.name }
     }
@@ -21,6 +29,13 @@ class PlayerCollectionAdapter: Codable {
         for player in playerCollection.getPlayers() {
             self.players.append(PlayerAdapter(player))
         }
+    }
+
+    func getPlayerAdapterByName(name: String) -> PlayerAdapter? {
+        for player in players where player.name == name {
+            return player
+        }
+        return nil
     }
 
     func remove(_ player: Player) {

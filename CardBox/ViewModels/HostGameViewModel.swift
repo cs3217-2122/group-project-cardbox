@@ -11,6 +11,18 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var gameRoomID: String = ""
     @Published var players: [String] = []
     private var hostGameManager: HostGameManager
+    private var gameRunner: ExplodingKittensGameRunner?
+
+    var gameStarted: Bool {
+        guard let gameRunner = gameRunner else {
+            return false
+        }
+        return gameRunner.state == .start
+    }
+
+    var isRoomFull: Bool {
+        players.count == 4
+    }
 
     init() {
         self.hostGameManager = DatabaseManager()
@@ -35,5 +47,14 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
 
     func notifyObserver(isJoined: Bool) {
         // do nothing
+    }
+
+    func notifyObserver(gameRunner: ExplodingKittensGameRunner) {
+        self.gameRunner = gameRunner
+    }
+
+    func startGame() {
+        // TODO: Implement start game
+        hostGameManager.startGame()
     }
 }

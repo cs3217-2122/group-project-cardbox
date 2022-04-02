@@ -9,8 +9,15 @@ import SwiftUI
 class PlayerAdapter: Codable {
     let id: UUID
     var name: String
-    private var isOutOfGame = false
-    private var cardsPlayed = 0
+    private var isOutOfGame: Bool
+    private var cardsPlayed: Int
+
+    var gamePlayer: Player {
+        Player(id: id,
+               name: name,
+               isOutOfGame: isOutOfGame,
+               cardsPlayed: cardsPlayed)
+    }
 
     init(_ player: Player) {
         self.id = player.id

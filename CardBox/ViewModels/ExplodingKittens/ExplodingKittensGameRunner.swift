@@ -24,6 +24,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     private var observers: [ExplodingKittensGameRunnerObserver]
 
+    // for offline use
     init() {
         self.deck = CardCollection()
         self.players = PlayerCollection()
@@ -33,6 +34,27 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = []
+    }
+
+    // for online use
+    init(deck: CardCollection,
+         players: PlayerCollection,
+         playerHands: [UUID: CardCollection],
+         gameplayArea: CardCollection,
+         state: GameState,
+         isWin: Bool,
+         winner: Player?,
+         observer: ExplodingKittensGameRunnerObserver) {
+        self.deck = deck
+        self.players = players
+        self.playerHands = playerHands
+        self.gameplayArea = gameplayArea
+        self.state = state
+        self.cardsPeeking = []
+        self.deckPositionRequest = CardPositionRequest()
+        self.observers = [observer]
+        self.isWin = isWin
+        self.winner = winner
     }
 
     // initialiser used by host game view model

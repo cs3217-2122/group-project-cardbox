@@ -15,23 +15,31 @@ struct HostGameLobbyView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("Pass this code to your friends to join: ")
-                Text(viewModel.gameRoomID).foregroundColor(.blue)
-            }
-            ForEach(viewModel.players, id: \.self) { player in
-                Text(player)
-            }
+        if viewModel.gameStarted {
 
-            Button("Start") {
-                print("online game started")
-                appState.page = .onlineGame
-            }.foregroundColor(.red)
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .background {
-                viewModel.removeFromRoom(playerViewModel: playerViewModel)
+        } else {
+            VStack {
+                HStack {
+                    Text("Pass this code to your friends to join: ")
+                    Text(viewModel.gameRoomID).foregroundColor(.blue)
+                }
+                ForEach(viewModel.players, id: \.self) { player in
+                    Text(player)
+                }
+
+                Button("Start") {
+                    // check if game is full first before starting
+                    if viewModel.isRoomFull {
+                        print("online game started")
+                        viewModel.startGame()
+                        appState.page = .onlineGame
+                    }
+                }.foregroundColor(.red)
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .background {
+                    viewModel.removeFromRoom(playerViewModel: playerViewModel)
+                }
             }
         }
     }

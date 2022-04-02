@@ -8,6 +8,14 @@
 class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter {
     private var cards: [ExplodingKittensCardAdapter]
 
+    var cardCollection: CardCollection {
+        let output = CardCollection()
+        for card in cards {
+            output.addCard(card.ekCard)
+        }
+        return output
+    }
+
     init(_ cardCollection: CardCollection) {
         let cards = cardCollection.getCards()
         self.cards = []

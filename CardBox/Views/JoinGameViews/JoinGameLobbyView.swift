@@ -14,16 +14,20 @@ struct JoinGameLobbyView: View {
     var playerViewModel: PlayerViewModel
 
     var body: some View {
-        VStack {
-            Text("Game Room ID: \(viewModel.gameRoomID)")
-            Text("Players in Lobby")
-            ForEach(viewModel.players, id: \.self) { player in
-                Text(player)
+        if viewModel.gameStarted {
+
+        } else {
+            VStack {
+                Text("Game Room ID: \(viewModel.gameRoomID)")
+                Text("Players in Lobby")
+                ForEach(viewModel.players, id: \.self) { player in
+                    Text(player)
+                }
             }
-        }
-        .onChange(of: scenePhase) { newPhase in
-            if newPhase == .background {
-                viewModel.removeFromRoom(playerViewModel: playerViewModel)
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .background {
+                    viewModel.removeFromRoom(playerViewModel: playerViewModel)
+                }
             }
         }
     }

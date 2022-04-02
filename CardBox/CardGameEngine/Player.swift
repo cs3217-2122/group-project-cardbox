@@ -22,6 +22,14 @@ class Player: Identifiable {
         self.init(id: UUID(), name: name)
     }
 
+    // for online game
+    init(id: UUID, name: String, isOutOfGame: Bool, cardsPlayed: Int) {
+        self.id = id
+        self.name = name
+        self.isOutOfGame = isOutOfGame
+        self.cardsPlayed = cardsPlayed
+    }
+
     init(id: UUID, name: String) {
         self.id = id
         self.name = name

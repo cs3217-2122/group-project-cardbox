@@ -40,6 +40,39 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         super.init()
     }
 
+    func toGameRunner(
+        observer: ExplodingKittensGameRunnerObserver) -> ExplodingKittensGameRunner {
+
+            // generate playerHands, winner
+            var winnerPlayer: Player?
+
+            if !winner.isEmpty {
+                if let winnerPlayerAdapter = players.getPlayerAdapterByName(name: winner) {
+                    winnerPlayer = winnerPlayerAdapter.gamePlayer
+                }
+            }
+
+            var playerHandsMapping: [UUID: CardCollection] = [:]
+
+            for index in 0 ..< playerHands.count {
+                guard let player = players.getPlayerByIndex(index) else {
+                    continue
+                }
+
+                playerHandsMapping[player.id] = playerHands[index].cardCollection
+            }
+
+            return ExplodingKittensGameRunner(
+                deck: deck.cardCollection,
+                players: players.playerCollection,
+                playerHands: playerHandsMapping,
+                gameplayArea: gameplayArea.cardCollection,
+                state: state,
+                isWin: isWin,
+                winner: winnerPlayer,
+                observer: observer)
+    }
+
     private enum CodingKeys: String, CodingKey {
         case id
         case deck
