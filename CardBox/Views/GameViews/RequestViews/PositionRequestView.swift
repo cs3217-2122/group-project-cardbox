@@ -48,6 +48,7 @@ struct PositionRequestView: View {
             Button(action: {
                 cardPositionRequest.executeCallback(value: position)
                 cardPositionRequest.hideRequest()
+                self.position = 1
             }) {
                 Text("Submit")
             }
