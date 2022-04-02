@@ -20,7 +20,7 @@ struct PlayerHandView: View {
         // TODO: figure out spacing
         return Double((handWidth - size * CardView.defaultCardWidth) / size)
     }
-    
+
     var isFaceUp: Bool {
         // check if online or offline
         playerViewModel
