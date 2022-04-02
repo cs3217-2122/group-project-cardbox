@@ -64,6 +64,21 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers.append(observer)
     }
 
+    func initialiseFrom(_ explodingKittensGameRunner: ExplodingKittensGameRunner) {
+        self.deck = explodingKittensGameRunner.deck
+        self.players = explodingKittensGameRunner.players
+        self.playerHands = explodingKittensGameRunner.playerHands
+        self.gameplayArea = explodingKittensGameRunner.gameplayArea
+        self.state = explodingKittensGameRunner.state
+        self.cardsPeeking = explodingKittensGameRunner.cardsPeeking
+        self.deckPositionRequest = explodingKittensGameRunner.deckPositionRequest
+        self.observers = explodingKittensGameRunner.observers
+        self.isWin = explodingKittensGameRunner.isWin
+        self.winner = explodingKittensGameRunner.winner
+        self.cardPreview = explodingKittensGameRunner.cardPreview
+        self.isShowingPeek = explodingKittensGameRunner.isShowingPeek
+    }
+
     // TODO: create setup for online to inject online players
     func setup() {
         let numPlayers = 4

@@ -14,6 +14,11 @@ struct ExplodingKittensOnlineView: View {
     @State var cardPreview: Card?
     var localPlayerIndex: Int
 
+    init(explodingKittensGameRunner: ExplodingKittensGameRunner, localPlayerIndex: Int) {
+        self.localPlayerIndex = localPlayerIndex
+        self.gameRunnerViewModel.initialiseFrom(explodingKittensGameRunner)
+    }
+
     var body: some View {
         ZStack {
             Color.green

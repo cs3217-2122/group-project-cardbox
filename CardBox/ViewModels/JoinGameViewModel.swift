@@ -12,7 +12,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var players: [String] = []
     @Published var gameRoomID: String = ""
     private var joinGameManager: JoinGameManager
-    private var gameRunner: ExplodingKittensGameRunner?
+    var gameRunner: ExplodingKittensGameRunner?
 
     var gameStarted: Bool {
         guard let gameRunner = gameRunner else {

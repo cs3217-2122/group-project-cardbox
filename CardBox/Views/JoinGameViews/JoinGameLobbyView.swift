@@ -14,8 +14,8 @@ struct JoinGameLobbyView: View {
     var playerViewModel: PlayerViewModel
 
     var body: some View {
-        if viewModel.gameStarted {
-
+        if viewModel.gameStarted, let gameRunner = viewModel.gameRunner {
+            ExplodingKittensOnlineView(explodingKittensGameRunner: gameRunner, localPlayerIndex: 1)
         } else {
             VStack {
                 Text("Game Room ID: \(viewModel.gameRoomID)")

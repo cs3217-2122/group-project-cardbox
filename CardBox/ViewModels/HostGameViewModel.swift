@@ -11,7 +11,7 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var gameRoomID: String = ""
     @Published var players: [String] = []
     private var hostGameManager: HostGameManager
-    private var gameRunner: ExplodingKittensGameRunner?
+    var gameRunner: ExplodingKittensGameRunner?
 
     var gameStarted: Bool {
         guard let gameRunner = gameRunner else {

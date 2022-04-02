@@ -30,8 +30,8 @@ struct ContentView: View {
         } else if appState.page == .game {
             ExplodingKittensOfflineView()
                 .environmentObject(appState)
-        } else if appState.page == .onlineGame {
-            ExplodingKittensOnlineView(localPlayerIndex: appState.localPlayerIndex)
+//        } else if appState.page == .onlineGame {
+//            ExplodingKittensOnlineView(localPlayerIndex: appState.localPlayerIndex)
         } else if appState.page == .hostGame {
             HostGameView()
                 .environmentObject(appState)

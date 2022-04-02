@@ -15,8 +15,8 @@ struct HostGameLobbyView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
-        if viewModel.gameStarted {
-
+        if viewModel.gameStarted, let gameRunner = viewModel.gameRunner {
+            ExplodingKittensOnlineView(explodingKittensGameRunner: gameRunner, localPlayerIndex: 1)
         } else {
             VStack {
                 HStack {
@@ -32,7 +32,7 @@ struct HostGameLobbyView: View {
                     if viewModel.isRoomFull {
                         print("online game started")
                         viewModel.startGame()
-                        appState.page = .onlineGame
+//                        appState.page = .onlineGame
                     }
                 }.foregroundColor(.red)
             }
