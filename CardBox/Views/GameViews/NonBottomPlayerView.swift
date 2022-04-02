@@ -16,7 +16,7 @@ struct NonBottomPlayerView: View {
     var body: some View {
         VStack {
             if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: player3,
                         hand: gameRunnerViewModel.getHandByPlayer(player3) ?? CardCollection()
@@ -41,10 +41,10 @@ struct NonBottomPlayerView: View {
     var leftPlayer: some View {
         if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
             return AnyView(
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
-                    player: player4,
-                    hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
+                        player: player4,
+                        hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
                     ),
                     currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
@@ -64,7 +64,7 @@ struct NonBottomPlayerView: View {
             decks
             Spacer()
             if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: player2,
                         hand: gameRunnerViewModel.getHandByPlayer(player2) ?? CardCollection()

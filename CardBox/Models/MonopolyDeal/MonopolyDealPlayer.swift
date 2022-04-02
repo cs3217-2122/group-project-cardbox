@@ -38,11 +38,9 @@ class MonopolyDealPlayer: Player {
 
         let playerHand = mdGameRunner.getHandByPlayer(self)
 
-        let moveCardsEvent = mdCards.map { card in
-            MoveCardDeckToDeckEvent(card: card, fromDeck: playerHand, toDeck: mdGameRunner.gameplayArea)
-        }
-
-        gameRunner.executeGameEvents(moveCardsEvent)
+        gameRunner.executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: mdCards, fromDeck: playerHand, toDeck: mdGameRunner.gameplayArea)
+        ])
     }
 
     private static func playPairCombo() {

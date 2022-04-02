@@ -20,6 +20,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var cardPreview: Card?
     @Published internal var isWin = false
     internal var winner: Player?
+    @Published internal var deckPositionRequest: CardPositionRequest
+    @Published internal var cardTypeRequest: CardTypeRequest
 
     init() {
         self.deck = CardCollection()
@@ -29,6 +31,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
         self.cardsDragging = []
+        self.deckPositionRequest = CardPositionRequest()
+        self.cardTypeRequest = CardTypeRequest()
     }
 
     func setup() {
@@ -177,7 +181,20 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         ExplodingKittensConstants.allCardTypes
     }
 
-    func notifyChanges() {
+    func notifyChanges(_ gameEvents: [GameEvent]) {
         objectWillChange.send()
+        // TODO: notify observers
+    }
+
+    func updateState(_ gameRunner: GameRunnerProtocol) {
+        // TODO: Networking update
+    }
+
+    func setCardPreview(_ card: Card) {
+        self.cardPreview = card
+    }
+
+    func resetCardPreview() {
+        self.cardPreview = nil
     }
 }

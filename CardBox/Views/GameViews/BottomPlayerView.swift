@@ -14,7 +14,7 @@ struct BottomPlayerView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
-        PlayerView(
+        EKPlayerView(
             playerViewModel: bottomPlayerViewModel,
             currentPlayerViewModel: bottomPlayerViewModel,
             error: $error,

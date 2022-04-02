@@ -18,7 +18,7 @@ struct NonPlayerView: View {
         VStack {
             if let topPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
                 start: localPlayerIndex, increment: 2) {
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: topPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(topPlayer) ?? CardCollection()
@@ -61,7 +61,7 @@ struct NonPlayerView: View {
         if let leftPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 3) {
             return AnyView(
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: leftPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(leftPlayer) ?? CardCollection()
@@ -81,7 +81,7 @@ struct NonPlayerView: View {
         if let rightPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 1) {
             return AnyView(
-                PlayerView(
+                EKPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: rightPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(rightPlayer) ?? CardCollection()

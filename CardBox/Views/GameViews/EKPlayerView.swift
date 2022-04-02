@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayerView: View {
+struct EKPlayerView: View {
     var playerViewModel: PlayerViewModel
     var currentPlayerViewModel: PlayerViewModel
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner

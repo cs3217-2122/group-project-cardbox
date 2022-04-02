@@ -65,12 +65,4 @@ extension GameRunnerProtocol {
         onAdvanceNextPlayer()
         players.setCurrentPlayer(nextPlayer)
     }
-
-    func setCardPreview(_ card: Card) {
-        self.cardPreview = card
-    }
-
-    func resetCardPreview() {
-        self.cardPreview = nil
-    }
 }

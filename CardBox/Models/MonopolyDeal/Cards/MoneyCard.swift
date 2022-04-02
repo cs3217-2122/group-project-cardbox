@@ -61,7 +61,7 @@ class MoneyCard: MonopolyDealCard {
         }
 
         gameRunner.executeGameEvents([
-            MoveCardDeckToDeckEvent(card: self, fromDeck: hand, toDeck: moneyArea)
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: moneyArea)
         ])
     }
 }
