@@ -22,6 +22,8 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     internal var winner: Player?
     @Published internal var deckPositionRequest: CardPositionRequest
 
+    private var observers: [ExplodingKittensGameRunnerObserver]
+
     init() {
         self.deck = CardCollection()
         self.players = PlayerCollection()
@@ -30,12 +32,14 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.state = .initialize
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
+        self.observers = []
     }
 
     // initialiser used by host game view model
-    convenience init(host: Player) {
+    convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
         self.init()
         self.players.addPlayer(host)
+        self.observers.append(observer)
     }
 
     // TODO: create setup for online to inject online players
@@ -214,6 +218,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     func notifyChanges() {
         objectWillChange.send()
+        for observer in observers {
+            observer.notifyObserver(self)
+        }
     }
 
     func setCardPreview(_ card: Card) {

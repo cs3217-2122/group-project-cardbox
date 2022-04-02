@@ -34,6 +34,6 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     }
 
     func notifyObserver(isJoined: Bool) {
-
+        // do nothing
     }
 }

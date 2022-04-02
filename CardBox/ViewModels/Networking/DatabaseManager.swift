@@ -8,35 +8,35 @@ import Firebase
 import FirebaseFirestoreSwift
 import SwiftUI
 
-class DatabaseManager: JoinGameManager, HostGameManager {
-    // This class is used to propogate changes of the gamestate to the realtime database
+// This class is used to propogate changes of the gamestate to the realtime database.
+// This class is in charge of the joining and hosting of rooms,
+// as well as updating the server when gamestate changes.
+class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRunnerObserver {
+
     internal var isJoined = false {
         didSet {
             notifyObservers(isJoined: isJoined)
         }
     }
+    
     internal var players: [String] = [] {
         didSet {
             notifyObservers(players: players)
         }
     }
+    
     internal var gameRoomID: String = "" {
         didSet {
             notifyObservers(gameRoomID: gameRoomID)
         }
     }
+    
     private var observers: [DatabaseManagerObserver] = []
     private let db = Firestore.firestore()
 
     func addObserver(_ databaseManagerObserver: DatabaseManagerObserver) {
         self.observers.append(databaseManagerObserver)
     }
-
-//    private func notifyObservers() {
-//        for observer in observers {
-//            observer.notifyObserver(isJoined: isJoined, players: players, gameRoomID: gameRoomID)
-//        }
-//    }
 
     private func notifyObservers(gameRoomID: String) {
         for observer in observers {
@@ -78,13 +78,8 @@ class DatabaseManager: JoinGameManager, HostGameManager {
     }
 
     private func retrieveUpdates(_ document: DocumentSnapshot) {
-        do {
-            let explodingKittensFirebaseAdapter = try document
-                .data(as: ExplodingKittensFirebaseAdapter.self)
+        if let explodingKittensFirebaseAdapter = decodeExplodingKittensFirebaseAdapter(document) {
             self.players = explodingKittensFirebaseAdapter.players.names
-//            self.notifyObservers()
-        } catch {
-            print(error)
         }
     }
 
@@ -114,7 +109,6 @@ class DatabaseManager: JoinGameManager, HostGameManager {
                 // add to room
                 explodingKittensFirebaseAdapter.players.addPlayer(player)
                 self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)
-
                 self.joined(id: id, players: explodingKittensFirebaseAdapter.players)
 
                 docRef.addSnapshotListener { documentSnapshot, _ in
@@ -124,8 +118,6 @@ class DatabaseManager: JoinGameManager, HostGameManager {
                     self.retrieveUpdates(document)
                 }
             }
-
-//            self.notifyObservers()
         }
 
     }
@@ -154,16 +146,13 @@ class DatabaseManager: JoinGameManager, HostGameManager {
                 print("document does not exist/ error occurred")
                 return
             }
-            do {
-                let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
+            if let explodingKittensFirebaseAdapter = self.decodeExplodingKittensFirebaseAdapter(document) {
                 explodingKittensFirebaseAdapter.players.remove(player)
-                try docRef.setData(from: explodingKittensFirebaseAdapter)
+                self.encodeExplodingKittensFirebaseAdapter(
+                    explodingKittensFirebaseAdapter,
+                    docRef)
                 self.notJoined()
-            } catch {
-                print(error)
             }
-
-//            self.notifyObservers()
         }
     }
 
@@ -171,7 +160,7 @@ class DatabaseManager: JoinGameManager, HostGameManager {
         var docRef: DocumentReference?
 
         // TODO: this only allows exploding kitten, allow customisation to choose games
-        let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player)
+        let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player, observer: self)
 
         let explodingKittensFirebaseAdapter = ExplodingKittensFirebaseAdapter(
             explodingKittensGameRunner: explodingKittensGameRunner)
@@ -179,22 +168,27 @@ class DatabaseManager: JoinGameManager, HostGameManager {
         docRef = db.collection("rooms").document()
 
         if let docRef = docRef {
-            do {
-                try docRef.setData(from: explodingKittensFirebaseAdapter) { error in
-                    if error != nil {
-                        print("error creating room")
-                        return
-                    } else {
-                        print("room created with unique ID \(docRef.documentID)")
-                        self.gameRoomID = docRef.documentID
-                        print(self.gameRoomID)
-                        self.players = [player.name]
-                        print(self.players)
-                    }
-                }
-            } catch {
-                print(error)
-            }
+//            do {
+//
+//                try docRef.setData(from: explodingKittensFirebaseAdapter) { error in
+//                    if error != nil {
+//                        print("error creating room")
+//                        return
+//                    } else {
+//                        print("room created with unique ID \(docRef.documentID)")
+//                        self.gameRoomID = docRef.documentID
+//                        print(self.gameRoomID)
+//                        self.players = [player.name]
+//                        print(self.players)
+//                    }
+//                }
+//            } catch {
+//                print(error)
+//            }
+            self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter,
+                                                       docRef)
+            self.joined(id: docRef.documentID,
+                        players: explodingKittensFirebaseAdapter.players)
 
             print("adding listener now")
 
@@ -202,16 +196,17 @@ class DatabaseManager: JoinGameManager, HostGameManager {
                 guard let document = documentSnapshot else {
                     return
                 }
-                do {
-                    let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
-                    self.players = explodingKittensFirebaseAdapter.players.names
-                } catch {
-                    print(error)
-                }
+                self.retrieveUpdates(document)
             }
-
-//            self.notifyObservers()
         }
-
     }
+    
+    func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner) {
+        let docRef = db.collection("rooms").document(gameRoomID)
+
+        encodeExplodingKittensFirebaseAdapter(
+            ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner),
+            docRef)
+    }
+    
 }

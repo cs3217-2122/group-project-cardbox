@@ -26,6 +26,7 @@ protocol GameRunnerProtocol: AnyObject {
     func checkWinningConditions() -> Bool
 
     // Must implement this update value
+    // use this to notify server as well
     func notifyChanges()
 
     func executeGameEvents(_ gameEvents: [GameEvent])
@@ -36,12 +37,13 @@ extension GameRunnerProtocol {
         gameEvents.forEach { gameEvent in
             gameEvent.updateRunner(gameRunner: self)
         }
-        notifyChanges()
 
         if checkWinningConditions() {
             self.isWin = true
             self.winner = getWinner()
         }
+
+        notifyChanges()
     }
 
     func endPlayerTurn() {

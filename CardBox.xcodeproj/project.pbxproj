@@ -97,6 +97,7 @@
 		68A94A5027F795F0002EE49A /* JoinGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4F27F795F0002EE49A /* JoinGameManager.swift */; };
 		68A94A5227F7961A002EE49A /* HostGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5127F7961A002EE49A /* HostGameManager.swift */; };
 		68A94A5427F7995A002EE49A /* DatabaseManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */; };
+		68A94A5627F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -212,6 +213,7 @@
 		68A94A4F27F795F0002EE49A /* JoinGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameManager.swift; sourceTree = "<group>"; };
 		68A94A5127F7961A002EE49A /* HostGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostGameManager.swift; sourceTree = "<group>"; };
 		68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerObserver.swift; sourceTree = "<group>"; };
+		68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensGameRunnerObserver.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -281,6 +283,7 @@
 			children = (
 				2D0081F727EE95F900F0E359 /* ExplodingKittensGameRunner.swift */,
 				2D9364E327F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift */,
+				68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */,
 			);
 			path = ExplodingKittens;
 			sourceTree = "<group>";
@@ -760,6 +763,7 @@
 				2DA0504827DC4B130063D952 /* ShuffleDeckEvent.swift in Sources */,
 				2DA050B227DE5D760063D952 /* CardViewModel.swift in Sources */,
 				2D9364FA27F02398008C1E53 /* BombCard.swift in Sources */,
+				68A94A5627F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift in Sources */,
 				4589AB1427DF2946005FDA07 /* MainMenuView.swift in Sources */,
 				2D007F6727E34C7000F0E359 /* ExplodingKittensConstants.swift in Sources */,
 				68466A9127E506C2000387B6 /* NonCurrentPlayerView.swift in Sources */,
