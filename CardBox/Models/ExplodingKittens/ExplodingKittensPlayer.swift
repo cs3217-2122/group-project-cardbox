@@ -70,7 +70,7 @@ class ExplodingKittensPlayer: Player {
         switch cards.count {
         case 1:
             return cards[0].typeOfTargettedCard
-        case 2,3:
+        case 2, 3:
             return .targetSinglePlayerCard
         case 5:
             return .noTargetCard

@@ -479,6 +479,7 @@
 				4EB4466927F718EC00EB07C7 /* DisplayTopNCardsEvent.swift */,
 			);
 			path = CustomizedGameEvents;
+		};
 		688B76A927F40708006AF1C0 /* JoinGameViews */ = {
 			isa = PBXGroup;
 			children = (
