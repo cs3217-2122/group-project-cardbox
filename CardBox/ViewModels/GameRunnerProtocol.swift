@@ -13,7 +13,6 @@ protocol GameRunnerProtocol: AnyObject {
     var players: PlayerCollection { get }
     var cardsDragging: [Card] { get }
 
-    // Might remove
     var cardPreview: Card? { get }
     func setCardPreview(_ card: Card)
     func resetCardPreview()
@@ -65,5 +64,13 @@ extension GameRunnerProtocol {
 
         onAdvanceNextPlayer()
         players.setCurrentPlayer(nextPlayer)
+    }
+
+    func setCardPreview(_ card: Card) {
+        self.cardPreview = card
+    }
+
+    func resetCardPreview() {
+        self.cardPreview = nil
     }
 }

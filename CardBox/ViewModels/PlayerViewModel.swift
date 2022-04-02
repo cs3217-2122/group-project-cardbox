@@ -27,7 +27,7 @@ class PlayerViewModel: ObservableObject {
         self.hand = CardCollection()
     }
 
-    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: ExplodingKittensGameRunner) {
+    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
@@ -50,7 +50,7 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func isCurrentPlayer(gameRunner: ExplodingKittensGameRunner) -> Bool {
+    func isCurrentPlayer(gameRunner: GameRunnerProtocol) -> Bool {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return false
         }
