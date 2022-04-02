@@ -10,7 +10,7 @@ class ExplodingKittensCardAdapter: CardAdapter {
 
     init(explodingKittensCard: ExplodingKittensCard) {
         self.type = explodingKittensCard.type
-        super.init()
+//        super.init()
     }
 
     var ekCard: ExplodingKittensCard {
@@ -47,10 +47,10 @@ class ExplodingKittensCardAdapter: CardAdapter {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
-        super.init()
+//        super.init()
     }
 
-    override func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(type, forKey: .type)
     }

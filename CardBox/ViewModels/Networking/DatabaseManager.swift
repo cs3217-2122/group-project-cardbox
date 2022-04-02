@@ -127,7 +127,11 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
                 self.notJoined()
             } else {
                 // add to room
-                explodingKittensFirebaseAdapter.players.addPlayer(player)
+                explodingKittensFirebaseAdapter.players
+                    .addPlayer(ExplodingKittensPlayer(name: player.name,
+                                                      id: player.id,
+                                                      isOutOfGame: player.isOutOfGame,
+                                                      cardsPlayed: player.cardsPlayed))
                 explodingKittensFirebaseAdapter.playerHands
                     .append(ExplodingKittensCardCollectionAdapter(CardCollection()))
                 self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)

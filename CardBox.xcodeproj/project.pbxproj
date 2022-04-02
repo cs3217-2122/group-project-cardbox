@@ -92,6 +92,7 @@
 		6892FB4527F6ED190024E974 /* CardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6892FB4427F6ED180024E974 /* CardAdapter.swift */; };
 		6892FB4727F6ED780024E974 /* ExplodingKittensCardAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */; };
 		689A70EF27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A70EE27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift */; };
+		689A70F127F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689A70F027F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift */; };
 		68A94A4A27F76157002EE49A /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 68A94A4927F76157002EE49A /* FirebaseFirestoreSwift-Beta */; };
 		68A94A4C27F788A5002EE49A /* PlayerCollectionAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */; };
 		68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */; };
@@ -210,6 +211,7 @@
 		6892FB4427F6ED180024E974 /* CardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAdapter.swift; sourceTree = "<group>"; };
 		6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensCardAdapter.swift; sourceTree = "<group>"; };
 		689A70EE27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensPlayerAdapter.swift; sourceTree = "<group>"; };
+		689A70F027F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensPlayerCollectionAdapter.swift; sourceTree = "<group>"; };
 		68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCollectionAdapter.swift; sourceTree = "<group>"; };
 		68A94A4D27F788C1002EE49A /* PlayerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAdapter.swift; sourceTree = "<group>"; };
 		68A94A4F27F795F0002EE49A /* JoinGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameManager.swift; sourceTree = "<group>"; };
@@ -475,6 +477,7 @@
 				6892FB4627F6ED780024E974 /* ExplodingKittensCardAdapter.swift */,
 				686DEE4727F6F3B3008AAC7B /* ExplodingKittensCardCollectionAdapter.swift */,
 				689A70EE27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift */,
+				689A70F027F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift */,
 			);
 			path = ExplodingKittensAdapters;
 			sourceTree = "<group>";
@@ -738,6 +741,7 @@
 				6892FB3B27F620640024E974 /* HostGameLobbyView.swift in Sources */,
 				2DA050A327DE58250063D952 /* ActionDispatcher.swift in Sources */,
 				6892FB3D27F637110024E974 /* DatabaseManager.swift in Sources */,
+				689A70F127F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift in Sources */,
 				2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */,
 				681DE8DC27F4AE5F006740FF /* HostGameViewModel.swift in Sources */,
 				2DA04F7927DAE9540063D952 /* CardCollection.swift in Sources */,

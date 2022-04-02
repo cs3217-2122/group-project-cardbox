@@ -11,7 +11,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 
     @DocumentID var id: String? = UUID().uuidString
     var deck: ExplodingKittensCardCollectionAdapter
-    var players: PlayerCollectionAdapter
+    var players: ExplodingKittensPlayerCollectionAdapter
     var playerHands: [ExplodingKittensCardCollectionAdapter]
     var gameplayArea: ExplodingKittensCardCollectionAdapter
     var state: GameState
@@ -20,7 +20,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 
     init(explodingKittensGameRunner: ExplodingKittensGameRunner) {
         self.deck = ExplodingKittensCardCollectionAdapter(explodingKittensGameRunner.deck)
-        self.players = PlayerCollectionAdapter(explodingKittensGameRunner.players)
+        self.players = ExplodingKittensPlayerCollectionAdapter(explodingKittensGameRunner.players)
         self.gameplayArea = ExplodingKittensCardCollectionAdapter(explodingKittensGameRunner.gameplayArea)
         self.state = explodingKittensGameRunner.state
         self.isWin = explodingKittensGameRunner.isWin
@@ -37,17 +37,16 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
                 }
             }
         }
-        super.init()
     }
 
     func toGameRunner(
         observer: ExplodingKittensGameRunnerObserver) -> ExplodingKittensGameRunner {
 
             // generate playerHands, winner
-            var winnerPlayer: Player?
+            var winnerPlayer: ExplodingKittensPlayer?
 
             if !winner.isEmpty {
-                if let winnerPlayerAdapter = players.getPlayerAdapterByName(name: winner) {
+                if let winnerPlayerAdapter = players.getExplodingKittensPlayerAdapterByName(name: winner) {
                     winnerPlayer = winnerPlayerAdapter.gamePlayer
                 }
             }
@@ -89,16 +88,16 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         id = try container.decode(DocumentID<String>.self, forKey: .id)
           .wrappedValue
         self.deck = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .deck)
-        self.players = try container.decode(PlayerCollectionAdapter.self, forKey: .players)
+        self.players = try container.decode(ExplodingKittensPlayerCollectionAdapter.self, forKey: .players)
         self.playerHands = try container.decode([ExplodingKittensCardCollectionAdapter].self, forKey: .playerHands)
         self.gameplayArea = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .gameplayArea)
         self.state = try container.decode(GameState.self, forKey: .state)
         self.isWin = try container.decode(Bool.self, forKey: .isWin)
         self.winner = try container.decode(String.self, forKey: .winner)
-        super.init()
+//        super.init()
     }
 
-    override func encode(to encoder: Encoder) throws {
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(deck, forKey: .deck)
         try container.encode(players, forKey: .players)

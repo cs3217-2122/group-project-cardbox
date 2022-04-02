@@ -5,8 +5,19 @@
 //  Created by mactest on 25/03/2022.
 //
 
+import SwiftUI
+
 class ExplodingKittensPlayer: Player {
     private(set) var attackCount = 0
+
+    init(name: String,
+         id: UUID = UUID(),
+         isOutOfGame: Bool = false,
+         cardsPlayed: Int = 0,
+         attackCount: Int = 0) {
+        self.attackCount = attackCount
+        super.init(id: id, name: name, isOutOfGame: isOutOfGame, cardsPlayed: cardsPlayed)
+    }
 
     func incrementAttackCount() {
         self.attackCount += 1

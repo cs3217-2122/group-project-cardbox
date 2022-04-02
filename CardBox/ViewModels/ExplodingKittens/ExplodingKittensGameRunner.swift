@@ -60,7 +60,10 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     // initialiser used by host game view model
     convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
         self.init()
-        self.players.addPlayer(host)
+        self.players.addPlayer(ExplodingKittensPlayer(name: host.name,
+                                                      id: host.id,
+                                                      isOutOfGame: host.isOutOfGame,
+                                                      cardsPlayed: host.cardsPlayed))
         self.observers.append(observer)
         self.playerHands[host.id] = CardCollection()
     }
