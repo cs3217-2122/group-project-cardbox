@@ -15,32 +15,39 @@ class BombCard: ExplodingKittensCard {
     }
 
     override func onDraw(gameRunner: EKGameRunnerProtocol, player: EKPlayer) {
-        guard let hand = gameRunner.getHandByPlayer(player) else {
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
             return
         }
 
-        let hasDefuse = hand.containsCard(where: { card in
-            guard let card = card as? ExplodingKittensCard else {
-                return false
-            }
-
-            return card.type == .defuse
-        })
-
-        // Temporary hack, will change to update with events
-        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+        guard let defuseCard = playerHand.getCard(where: { isDefuseCard($0) }) else {
+            gameRunner.executeGameEvents([SetPlayerOutOfGameEvent(player: player)])
             return
         }
 
-        if hasDefuse { ekGameRunner.deckPositionRequest.showRequest(
-                callback: { position in
-                    hand.removeCard(self)
-                    ekGameRunner.deck.addCard(self, offsetFromTop: position - 1)
-                },
-                maxValue: gameRunner.deck.count
-            )
-        } else {
-            player.setOutOfGame(true)
+        let callback: (Int) -> Void = { position in
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [defuseCard],
+                                         fromDeck: playerHand,
+                                         toDeck: gameRunner.gameplayArea),
+                MoveCardsDeckToDeckEvent(cards: [self],
+                                         fromDeck: playerHand,
+                                         toDeck: gameRunner.deck,
+                                         offsetFromTop: position - 1)
+            ])
         }
+
+        gameRunner.executeGameEvents([
+            ShowCardPositionRequestEvent(callback: callback,
+                                         minValue: 1,
+                                         maxValue: gameRunner.deck.count)
+        ])
+    }
+
+    private func isDefuseCard(_ card: Card) -> Bool {
+        guard let ekCard = card as? ExplodingKittensCard else {
+            return false
+        }
+
+        return ekCard.type == .defuse
     }
 }

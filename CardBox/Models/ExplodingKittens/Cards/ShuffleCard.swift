@@ -15,10 +15,13 @@ class ShuffleCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        gameRunner.executeGameEvents([
-            ShuffleDeckEvent(deck: gameRunner.deck)
-        ])
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+            return
+        }
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            ShuffleDeckEvent(deck: gameRunner.deck),
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+        ])
     }
 }

@@ -11,11 +11,16 @@ protocol GameRunnerProtocol: AnyObject {
     var winner: Player? { get set }
     var isWin: Bool { get set }
     var players: PlayerCollection { get }
+    var cardsDragging: [Card] { get }
 
     // Might remove
     var cardPreview: Card? { get }
     func setCardPreview(_ card: Card)
     func resetCardPreview()
+
+    // Requests
+    var deckPositionRequest: CardPositionRequest { get set }
+    var cardTypeRequest: CardTypeRequest { get set }
 
     func setup()
     func onStartTurn()

@@ -5,21 +5,21 @@
 //  Created by mactest on 26/03/2022.
 //
 
-struct MoveCardDeckToDeckEvent: GameEvent {
-    let card: Card
+struct MoveCardsDeckToDeckEvent: GameEvent {
+    let cards: [Card]
     let fromDeck: CardCollection
     let toDeck: CardCollection
     let offsetFromTop: Int
 
-    init(card: Card, fromDeck: CardCollection, toDeck: CardCollection, offsetFromTop: Int = 0) {
-        self.card = card
+    init(cards: [Card], fromDeck: CardCollection, toDeck: CardCollection, offsetFromTop: Int = 0) {
+        self.cards = cards
         self.fromDeck = fromDeck
         self.toDeck = toDeck
         self.offsetFromTop = offsetFromTop
     }
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        fromDeck.removeCard(card)
-        toDeck.addCard(card, offsetFromTop: offsetFromTop)
+        fromDeck.removeCards(cards)
+        toDeck.addCards(cards, offsetFromTop: offsetFromTop)
     }
 }

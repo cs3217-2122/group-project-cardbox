@@ -13,6 +13,7 @@ struct DeckView: View {
 
     var body: some View {
         CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp))
+            .onDrop(of: ["cardbox.card"], delegate: deckViewModel)
     }
 }
 

@@ -9,11 +9,12 @@ target 'CardBox' do
   pod 'Firebase/Firestore'
 
   target 'CardBoxTests' do
-    inherit! :search_paths
+    inherit! :complete
     # Pods for testing
   end
 
   target 'CardBoxUITests' do
+    inherit! :complete
     # Pods for testing
   end
 

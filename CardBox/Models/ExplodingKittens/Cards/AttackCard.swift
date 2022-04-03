@@ -15,15 +15,19 @@ class AttackCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: ExplodingKittensPlayer, on target: GameplayTarget) {
+
         guard let nextPlayer = gameRunner.getNextPlayer() as? ExplodingKittensPlayer else {
             return
         }
 
-        nextPlayer.incrementAttackCount()
-        gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent()
-        ])
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+            return
+        }
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            CustomizedGameEvent(customizedGameEvent: IncrementAttackCountEvent(player: nextPlayer)),
+            AdvanceNextPlayerEvent(),
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+        ])
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CardView: View {
+    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @ObservedObject var viewModel: CardViewModel
     var isFaceUp: Bool
     static let defaultCardWidth = 150
@@ -54,7 +55,7 @@ struct CardView: View {
         }
     }
 
-    var body: some View {
+    var viewFrame: some View {
         buildView()
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
@@ -62,6 +63,19 @@ struct CardView: View {
             .background(Color.white)
             .border(Color.black)
             .offset(y: viewModel.isSelected ? -35: 0)
+    }
+
+    var body: some View {
+        if let card = viewModel.card {
+            viewFrame
+                .onDrag {
+                    gameRunnerViewModel.cardsDragging = [card]
+                    return NSItemProvider(object: card.name as NSString)
+                    // NSItemProvider(object: card)
+                }
+        } else {
+            viewFrame
+        }
     }
 }
 

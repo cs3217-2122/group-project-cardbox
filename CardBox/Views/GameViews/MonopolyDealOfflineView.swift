@@ -1,14 +1,14 @@
 //
-//  GameRunnerView.swift
+//  MonopolyDealOfflineView.swift
 //  CardBox
 //
-//  Created by mactest on 12/03/2022.
+//  Created by Bernard Wan on 2/4/22.
 //
 
 import SwiftUI
 
-struct ExplodingKittensOfflineView: View {
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
+struct MonopolyDealOfflineView: View {
+    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()// MonopolyDealGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
@@ -24,25 +24,23 @@ struct ExplodingKittensOfflineView: View {
                         hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                     )
                     NonCurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                        error: $error,
+                        currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
                     CurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                        error: $error,
+                        currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
-            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
-        }
-        .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
-            PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
         }
         .environmentObject(gameRunnerViewModel)
         .onAppear(perform: setup)
@@ -52,7 +50,4 @@ struct ExplodingKittensOfflineView: View {
         gameRunnerViewModel.setup()
     }
 
-    func dismissPeek() {
-        gameRunnerViewModel.isShowingPeek = false
-    }
 }

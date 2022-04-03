@@ -19,7 +19,7 @@ class FavorCard: ExplodingKittensCard {
             return
         }
 
-        guard let hand = gameRunner.getHandByPlayer(player) else {
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
             return
         }
 
@@ -27,23 +27,21 @@ class FavorCard: ExplodingKittensCard {
             return
         }
 
-        // Temporary hack, will change to update with events
-        guard let ekGameRunner = gameRunner as? ExplodingKittensGameRunner else {
-            return
+        let callback: (Int) -> Void = { position in
+            guard let targetCard = targetHand.getCardByIndex(position - 1) else {
+                return
+            }
+
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand),
+                MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            ])
         }
 
-        ekGameRunner.deckPositionRequest.showRequest(
-            callback: { position in
-                guard let targetCard = targetHand.getCardByIndex(position - 1) else {
-                    return
-                }
-
-                targetHand.removeCard(targetCard)
-                hand.addCard(targetCard)
-            },
-            maxValue: targetHand.count
-        )
-
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            ShowCardPositionRequestEvent(callback: callback,
+                                         minValue: 1,
+                                         maxValue: targetHand.count)
+        ])
     }
 }
