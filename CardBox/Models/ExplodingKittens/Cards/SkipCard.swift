@@ -15,10 +15,13 @@ class SkipCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent()
-        ])
+        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+            return
+        }
 
-        super.onPlay(gameRunner: gameRunner, player: player, on: target)
+        gameRunner.executeGameEvents([
+            AdvanceNextPlayerEvent(),
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+        ])
     }
 }

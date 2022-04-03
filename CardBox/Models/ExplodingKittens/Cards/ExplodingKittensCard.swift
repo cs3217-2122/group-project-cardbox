@@ -55,11 +55,5 @@ class ExplodingKittensCard: Card {
 
     // To be overridden
     func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        guard let hand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
-
-        hand.removeCard(self)
-        gameRunner.gameplayArea.addCard(self, offsetFromTop: 0)
     }
 }

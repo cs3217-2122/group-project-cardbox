@@ -87,24 +87,27 @@ class PlayerViewModel: ObservableObject {
             return
         }
 
-        if selectedCards.count == 1 {
-            if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
-                player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
-            } else if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.targetAllPlayersCard {
-                player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
-            } else {
-                guard let target = target else {
-                    print("No target chosen")
-                    return
-                }
-                player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
-            }
-        } else {
+        guard let player = player as? ExplodingKittensPlayer else {
+            return
+        }
+
+        guard let typeOfTargettedCard = player.determineTargetOfCards(selectedCards, gameRunner: gameRunner) else {
+            print("Could not determine target")
+            return
+        }
+
+        switch typeOfTargettedCard {
+        case .targetAllPlayersCard:
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+        case .targetSinglePlayerCard:
             guard let target = target else {
                 print("No target chosen")
                 return
             }
+
             player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
+        case .noTargetCard:
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
         }
     }
 

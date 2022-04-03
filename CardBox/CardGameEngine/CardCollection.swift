@@ -61,6 +61,12 @@ class CardCollection: Identifiable {
         cards.remove(at: cardIndex)
     }
 
+    func removeCards(_ cards: [Card]) {
+        for card in cards {
+            removeCard(card)
+        }
+    }
+
     func addCard(_ card: Card) {
         guard !containsCard(card) else {
             return
@@ -78,6 +84,12 @@ class CardCollection: Identifiable {
         let actualIndex = max(0, min(index, cards.count))
 
         cards.insert(card, at: actualIndex)
+    }
+
+    func addCards(_ cards: [Card], offsetFromTop index: Int) {
+        for card in cards {
+            addCard(card, offsetFromTop: index)
+        }
     }
 
     func containsCard(_ card: Card) -> Bool {
