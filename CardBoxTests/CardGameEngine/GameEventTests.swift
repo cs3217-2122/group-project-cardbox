@@ -82,13 +82,19 @@ class GameEventTests: XCTestCase {
         gameRunner.executeGameEvents([AddPlayerEvent(player: player)])
         XCTAssertNotNil(gameRunner.players.currentPlayer)
         XCTAssertIdentical(gameRunner.players.currentPlayer, player)
+        gameRunner.executeGameEvents([SetCurrentPlayerEvent(player: player)])
+        XCTAssertNotNil(gameRunner.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.players.currentPlayer, player)
     }
 
     func test_setCurrentPlayerEvent_playerNotInGame() {
         let inGamePlayer = PlayerStub(name: "In-game player")
-        _ = PlayerStub(name: "Not in-game player")
+        let notInGamePlayer = PlayerStub(name: "Not in-game player")
         XCTAssertNil(gameRunner.players.currentPlayer)
         gameRunner.executeGameEvents([AddPlayerEvent(player: inGamePlayer)])
+        XCTAssertNotNil(gameRunner.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.players.currentPlayer, inGamePlayer)
+        gameRunner.executeGameEvents([SetCurrentPlayerEvent(player: notInGamePlayer)])
         XCTAssertNotNil(gameRunner.players.currentPlayer)
         XCTAssertIdentical(gameRunner.players.currentPlayer, inGamePlayer)
     }
