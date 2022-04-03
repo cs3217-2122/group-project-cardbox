@@ -218,4 +218,71 @@ class GameEventTests: XCTestCase {
         XCTAssertFalse(fromPlayerHand.containsCard(singleTargetCard))
         XCTAssertFalse(toPlayerHand.containsCard(singleTargetCard))
     }
+
+    func test_moveCardsDeckToDeckEvent_playerHasAllTheCards() {
+        let fromPlayer = PlayerStub(name: "From player")
+        let toPlayer = PlayerStub(name: "To player")
+        let players = [fromPlayer, toPlayer]
+        for player in players {
+            let playerHand = CardCollection()
+            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
+        }
+
+        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
+                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+            XCTAssertFalse(true)
+            return
+        }
+
+        gameRunner.executeGameEvents([AddCardToDeckEvent(card: singleTargetCard, deck: fromPlayerHand)])
+        gameRunner.executeGameEvents([AddCardToDeckEvent(card: allTargetCard, deck: fromPlayerHand)])
+
+        XCTAssertTrue(fromPlayerHand.containsCard(singleTargetCard))
+        XCTAssertTrue(fromPlayerHand.containsCard(allTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(allTargetCard))
+
+        gameRunner.executeGameEvents([MoveCardsDeckToDeckEvent(cards: [singleTargetCard, allTargetCard],
+                                                               fromDeck: fromPlayerHand,
+                                                               toDeck: toPlayerHand)])
+
+        XCTAssertFalse(fromPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(fromPlayerHand.containsCard(allTargetCard))
+        XCTAssertTrue(toPlayerHand.containsCard(singleTargetCard))
+        XCTAssertTrue(toPlayerHand.containsCard(allTargetCard))
+    }
+
+    func test_moveCardsDeckToDeckEvent_playerDoesNotHaveAllTheCards() {
+        let fromPlayer = PlayerStub(name: "From player")
+        let toPlayer = PlayerStub(name: "To player")
+        let players = [fromPlayer, toPlayer]
+        for player in players {
+            let playerHand = CardCollection()
+            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
+        }
+
+        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
+                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+            XCTAssertFalse(true)
+            return
+        }
+
+        gameRunner.executeGameEvents([AddCardToDeckEvent(card: singleTargetCard, deck: fromPlayerHand)])
+
+        XCTAssertTrue(fromPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(fromPlayerHand.containsCard(allTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(allTargetCard))
+
+        gameRunner.executeGameEvents([MoveCardsDeckToDeckEvent(cards: [singleTargetCard, allTargetCard],
+                                                               fromDeck: fromPlayerHand,
+                                                               toDeck: toPlayerHand)])
+
+        XCTAssertTrue(fromPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(fromPlayerHand.containsCard(allTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(singleTargetCard))
+        XCTAssertFalse(toPlayerHand.containsCard(allTargetCard))
+    }
 }
