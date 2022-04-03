@@ -19,6 +19,9 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
     }
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
+        guard cards.map({ card in fromDeck.containsCard(card) }).allSatisfy({ $0 && true }) else {
+            return
+        }
         fromDeck.removeCards(cards)
         toDeck.addCards(cards, offsetFromTop: offsetFromTop)
     }
