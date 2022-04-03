@@ -23,7 +23,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
     }
 
     init() {
-        self.joinGameManager = DatabaseManager()
+        self.joinGameManager = ExplodingKittensDatabaseManager()
         self.joinGameManager.addObserver(self)
     }
 

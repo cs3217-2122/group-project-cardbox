@@ -26,7 +26,7 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     }
 
     init() {
-        self.hostGameManager = DatabaseManager()
+        self.hostGameManager = ExplodingKittensDatabaseManager()
         self.hostGameManager.addObserver(self)
     }
 

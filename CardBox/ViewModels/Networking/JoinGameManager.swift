@@ -10,7 +10,7 @@ protocol JoinGameManager {
     var players: [String] { get }
     var gameRoomID: String { get }
     // TODO: make gameRunner be other gameRunners as well
-    var gameRunner: ExplodingKittensGameRunner? { get }
+    var gameRunner: GameRunnerProtocol? { get }
 
     func joinRoom(id: String, player: Player)
     func removeFromRoom(player: Player)
