@@ -108,6 +108,15 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         }
     }
 
+    private func addListener(_ docRef: DocumentReference) {
+        docRef.addSnapshotListener { documentSnapshot, _ in
+            guard let document = documentSnapshot else {
+                return
+            }
+            self.retrieveUpdates(document)
+        }
+    }
+
     func joinRoom(id: String, player: Player) {
         // query database to see if this room exists, if does not, alert user
         let docRef = db.collection("rooms").document(id)
@@ -115,7 +124,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         docRef.getDocument { document, _ in
             guard let document = document, document.exists else {
                 // TODO: find a way to alert
-                print("not exist")
+//                print("not exist")
                 self.notJoined()
                 return
             }
@@ -128,7 +137,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
             // check if full
             if explodingKittensFirebaseAdapter.players.count == 4 {
                 // find a way to alert
-                print("room is full")
+//                print("room is full")
                 self.notJoined()
             } else {
                 // add to room
@@ -142,13 +151,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
                 self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)
                 self.joined(id: id,
                             gameRunnerAdapter: explodingKittensFirebaseAdapter)
-
-                docRef.addSnapshotListener { documentSnapshot, _ in
-                    guard let document = documentSnapshot else {
-                        return
-                    }
-                    self.retrieveUpdates(document)
-                }
+                self.addListener(docRef)
             }
         }
     }
@@ -207,12 +210,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
 
             print("adding listener now")
 
-            docRef.addSnapshotListener { documentSnapshot, _ in
-                guard let document = documentSnapshot else {
-                    return
-                }
-                self.retrieveUpdates(document)
-            }
+            self.addListener(docRef)
         }
     }
 
