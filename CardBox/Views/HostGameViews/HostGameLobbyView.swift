@@ -15,8 +15,8 @@ struct HostGameLobbyView: View {
     @EnvironmentObject private var appState: AppState
 
     var body: some View {
-        if viewModel.gameStarted, let gameRunner = viewModel.gameRunner {
-            ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: 1)
+        if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
+            ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
         } else {
             VStack {
                 HStack {

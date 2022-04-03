@@ -10,4 +10,5 @@ protocol DatabaseManagerObserver {
     func notifyObserver(players: [String])
     func notifyObserver(gameRoomID: String)
     func notifyObserver(gameRunner: ExplodingKittensGameRunner)
+    func notifyObserver(playerIndex: Int)
 }

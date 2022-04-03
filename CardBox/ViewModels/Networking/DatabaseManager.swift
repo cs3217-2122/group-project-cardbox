@@ -41,6 +41,16 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         }
     }
 
+    internal var playerIndex: Int? {
+        didSet {
+            guard let playerIndex = playerIndex else {
+                return
+            }
+
+            notifyObservers(playerIndex: playerIndex)
+        }
+    }
+
     private var observers: [DatabaseManagerObserver] = []
     private let db = Firestore.firestore()
 
@@ -51,6 +61,12 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
     private func notifyObservers(gameRoomID: String) {
         for observer in observers {
             observer.notifyObserver(gameRoomID: gameRoomID)
+        }
+    }
+
+    private func notifyObservers(playerIndex: Int) {
+        for observer in observers {
+            observer.notifyObserver(playerIndex: playerIndex)
         }
     }
 
@@ -160,6 +176,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         self.isJoined = false
         self.players = []
         self.gameRoomID = ""
+        self.playerIndex = nil
     }
 
     private func joined(id: String, gameRunnerAdapter: ExplodingKittensFirebaseAdapter) {
@@ -168,6 +185,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         self.players = gameRunnerAdapter.players.names
         self.gameRoomID = id
         self.gameRunner = gameRunnerAdapter.toGameRunner(observer: self)
+        self.playerIndex = gameRunnerAdapter.players.count - 1
     }
 
     func removeFromRoom(player: Player) {

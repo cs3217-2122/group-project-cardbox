@@ -10,6 +10,7 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
 
     @Published var gameRoomID: String = ""
     @Published var players: [String] = []
+    var playerIndex: Int?
     private var hostGameManager: HostGameManager
     var gameRunner: ExplodingKittensGameRunner?
 
@@ -56,5 +57,9 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     func startGame() {
         // TODO: Implement start game
         hostGameManager.startGame()
+    }
+
+    func notifyObserver(playerIndex: Int) {
+        self.playerIndex = playerIndex
     }
 }

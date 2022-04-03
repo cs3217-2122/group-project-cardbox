@@ -11,6 +11,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var isJoined = false
     @Published var players: [String] = []
     @Published var gameRoomID: String = ""
+    var playerIndex: Int?
     private var joinGameManager: JoinGameManager
     var gameRunner: ExplodingKittensGameRunner?
 
@@ -48,5 +49,9 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
 
     func notifyObserver(gameRunner: ExplodingKittensGameRunner) {
         self.gameRunner = gameRunner
+    }
+
+    func notifyObserver(playerIndex: Int) {
+        self.playerIndex = playerIndex
     }
 }
