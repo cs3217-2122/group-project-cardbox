@@ -30,6 +30,8 @@ protocol GameRunnerProtocol: AnyObject {
     func notifyChanges()
 
     func executeGameEvents(_ gameEvents: [GameEvent])
+
+    func updateState(_ gameRunner: GameRunnerProtocol)
 }
 
 extension GameRunnerProtocol {

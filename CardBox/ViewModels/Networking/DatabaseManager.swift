@@ -99,7 +99,12 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
             for player in players {
                 print(player)
             }
-            self.gameRunner = explodingKittensFirebaseAdapter.toGameRunner(observer: self)
+
+            guard let gameRunner = gameRunner else {
+                return
+            }
+
+            gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
         }
     }
 
@@ -227,7 +232,7 @@ class DatabaseManager: JoinGameManager, HostGameManager, ExplodingKittensGameRun
         let docRef = db.collection("rooms").document(gameRoomID)
 
         gameRunner.setup()
-//        gameRunner.state = .start
+        gameRunner.state = .start
 
         encodeExplodingKittensFirebaseAdapter(
             ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: gameRunner),

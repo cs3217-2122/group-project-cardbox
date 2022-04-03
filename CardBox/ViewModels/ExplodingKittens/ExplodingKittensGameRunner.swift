@@ -68,7 +68,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands[host.id] = CardCollection()
     }
 
-    func initialiseFrom(_ explodingKittensGameRunner: ExplodingKittensGameRunner) {
+    func updateState(_ gameRunner: GameRunnerProtocol) {
+        guard let explodingKittensGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
+
         self.deck = explodingKittensGameRunner.deck
         self.players = explodingKittensGameRunner.players
         self.playerHands = explodingKittensGameRunner.playerHands
@@ -81,6 +85,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.winner = explodingKittensGameRunner.winner
         self.cardPreview = explodingKittensGameRunner.cardPreview
         self.isShowingPeek = explodingKittensGameRunner.isShowingPeek
+
     }
 
     // TODO: create setup for online to inject online players
@@ -262,6 +267,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     func notifyChanges() {
         objectWillChange.send()
         for observer in observers {
+            print(observer)
             observer.notifyObserver(self)
         }
     }

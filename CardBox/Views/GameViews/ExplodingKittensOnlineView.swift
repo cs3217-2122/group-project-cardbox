@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ExplodingKittensOnlineView: View {
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
+    @StateObject var gameRunnerViewModel: ExplodingKittensGameRunner
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
-    var explodingKittensGameRunnerInitialiser: ExplodingKittensGameRunner
+//    var explodingKittensGameRunnerInitialiser: ExplodingKittensGameRunner
     var localPlayerIndex: Int
 
     var body: some View {
@@ -48,11 +48,11 @@ struct ExplodingKittensOnlineView: View {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
         }
         .environmentObject(gameRunnerViewModel)
-        .onAppear(perform: setup)
+//        .onAppear(perform: setup)
     }
 
     private func setup() {
-        gameRunnerViewModel.initialiseFrom(explodingKittensGameRunnerInitialiser)
+//        gameRunnerViewModel.initialiseFrom(explodingKittensGameRunnerInitialiser)
     }
 
     func dismissPeek() {
