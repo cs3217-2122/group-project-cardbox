@@ -94,7 +94,6 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         self.state = try container.decode(GameState.self, forKey: .state)
         self.isWin = try container.decode(Bool.self, forKey: .isWin)
         self.winner = try container.decode(String.self, forKey: .winner)
-//        super.init()
     }
 
     func encode(to encoder: Encoder) throws {

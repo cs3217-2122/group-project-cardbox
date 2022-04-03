@@ -10,7 +10,6 @@ class ExplodingKittensCardAdapter: CardAdapter {
 
     init(explodingKittensCard: ExplodingKittensCard) {
         self.type = explodingKittensCard.type
-//        super.init()
     }
 
     var ekCard: ExplodingKittensCard {

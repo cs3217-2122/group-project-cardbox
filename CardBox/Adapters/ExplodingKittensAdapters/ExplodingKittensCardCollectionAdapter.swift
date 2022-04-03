@@ -26,7 +26,6 @@ class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter {
             self.cards
                 .append(ExplodingKittensCardAdapter(explodingKittensCard: card))
         }
-//        super.init()
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -36,7 +35,6 @@ class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.cards = try container.decode([ExplodingKittensCardAdapter].self, forKey: .cards)
-//        super.init()
     }
 
     func encode(to encoder: Encoder) throws {

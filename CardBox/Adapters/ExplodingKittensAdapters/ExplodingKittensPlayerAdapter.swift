@@ -7,7 +7,6 @@
 import SwiftUI
 
 class ExplodingKittensPlayerAdapter: PlayerAdapter {
-    // TODO: create exploding kittens player adapter class
     let id: UUID
     var name: String
     private var isOutOfGame: Bool
@@ -45,8 +44,6 @@ class ExplodingKittensPlayerAdapter: PlayerAdapter {
         self.isOutOfGame = try container.decode(Bool.self, forKey: .isOutOfGame)
         self.cardsPlayed = try container.decode(Int.self, forKey: .cardsPlayed)
         self.attackCount = try container.decode(Int.self, forKey: .attackCount)
-
-//        super.init()
     }
 
     func encode(to encoder: Encoder) throws {
