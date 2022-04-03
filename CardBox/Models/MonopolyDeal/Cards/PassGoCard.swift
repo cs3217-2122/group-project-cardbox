@@ -23,10 +23,8 @@ class PassGoCard: MonopolyDealCard {
 
         let cards = deck.getTopNCards(n: 2)
 
-        let events = cards.map { card in
-            MoveCardDeckToDeckEvent(card: card, fromDeck: deck, toDeck: hand)
-        }
-
-        gameRunner.executeGameEvents(events)
+        gameRunner.executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: cards, fromDeck: deck, toDeck: hand)
+        ])
     }
 }

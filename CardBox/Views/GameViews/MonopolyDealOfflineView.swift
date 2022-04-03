@@ -21,7 +21,7 @@ struct MonopolyDealOfflineView: View {
                 if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
                     let currentPlayerViewModel = PlayerViewModel(
                         player: currentPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
+                        hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                     )
                     NonBottomPlayerView(
                         error: $error,

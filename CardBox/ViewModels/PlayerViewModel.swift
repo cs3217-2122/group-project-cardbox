@@ -120,6 +120,9 @@ class PlayerViewModel: ObservableObject {
             player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
         case .noTargetCard:
             player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
+        case .targetSingleDeckCard:
+            // TODO:
+            break
         }
     }
 

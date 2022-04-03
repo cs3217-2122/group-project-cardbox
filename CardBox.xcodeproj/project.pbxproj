@@ -61,13 +61,11 @@
 		2DA050BC27DE5ED90063D952 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050BB27DE5ED90063D952 /* PlayerViewModel.swift */; };
 		2DA050C127DEEB180063D952 /* PlayerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050C027DEEB180063D952 /* PlayerCollection.swift */; };
 		2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050FB27DF41FD0063D952 /* ExplodingKittensCardType.swift */; };
-		302F9D0B27FD305100C56FDD /* CardTypeRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */; };
-		305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */; };
-		4534CC9327F7535900DADA26 /* ExplodingKittensOnlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */; };
-		4534CC9527F75B5C00DADA26 /* NonPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */; };
-		2DA0514C27E23E7A0063D952 /* DeckPositionRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA0514B27E23E7A0063D952 /* DeckPositionRequestEvent.swift */; };
 		3026763827F9121700CC0F00 /* AddNewPropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */; };
 		3026763A27F9128000CC0F00 /* RemovePropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */; };
+		3026764027F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */; };
+		3026764227F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */; };
+		302F9D0B27FD305100C56FDD /* CardTypeRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */; };
 		305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */; };
 		305875B627F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */; };
 		305875B827F8BD0800A11837 /* PassGoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B727F8BD0800A11837 /* PassGoCard.swift */; };
@@ -75,6 +73,8 @@
 		305875BC27F8C5A600A11837 /* DealBreakerCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BB27F8C5A600A11837 /* DealBreakerCard.swift */; };
 		305875BE27F8C63D00A11837 /* HouseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BD27F8C63D00A11837 /* HouseCard.swift */; };
 		305875C027F8C6EA00A11837 /* PropertyCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875BF27F8C6EA00A11837 /* PropertyCard.swift */; };
+		4534CC9327F7535900DADA26 /* ExplodingKittensOnlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */; };
+		4534CC9527F75B5C00DADA26 /* NonPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */; };
 		4534CC9727F7669500DADA26 /* CardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9627F7669500DADA26 /* CardSetView.swift */; };
 		4534CC9927F766DC00DADA26 /* CardSetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9827F766DC00DADA26 /* CardSetViewModel.swift */; };
 		4534CC9B27F7699300DADA26 /* MonopolyDealOfflineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */; };
@@ -212,13 +212,11 @@
 		2DA050BB27DE5ED90063D952 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		2DA050C027DEEB180063D952 /* PlayerCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollection.swift; sourceTree = "<group>"; };
 		2DA050FB27DF41FD0063D952 /* ExplodingKittensCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensCardType.swift; sourceTree = "<group>"; };
-		302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTypeRequestView.swift; sourceTree = "<group>"; };
-		305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealCardType.swift; sourceTree = "<group>"; };
-		4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensOnlineView.swift; sourceTree = "<group>"; };
-		4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonPlayerView.swift; sourceTree = "<group>"; };
-		2DA0514B27E23E7A0063D952 /* DeckPositionRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckPositionRequestEvent.swift; sourceTree = "<group>"; };
 		3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPropertyAreaEvent.swift; sourceTree = "<group>"; };
 		3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePropertyAreaEvent.swift; sourceTree = "<group>"; };
+		3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementPlayerPlayCountEvent.swift; sourceTree = "<group>"; };
+		3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPlayerPlayCountEvent.swift; sourceTree = "<group>"; };
+		302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTypeRequestView.swift; sourceTree = "<group>"; };
 		305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealCardType.swift; sourceTree = "<group>"; };
 		305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealPlayerPropertyArea.swift; sourceTree = "<group>"; };
 		305875B727F8BD0800A11837 /* PassGoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassGoCard.swift; sourceTree = "<group>"; };
@@ -226,6 +224,8 @@
 		305875BB27F8C5A600A11837 /* DealBreakerCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealBreakerCard.swift; sourceTree = "<group>"; };
 		305875BD27F8C63D00A11837 /* HouseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseCard.swift; sourceTree = "<group>"; };
 		305875BF27F8C6EA00A11837 /* PropertyCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyCard.swift; sourceTree = "<group>"; };
+		4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensOnlineView.swift; sourceTree = "<group>"; };
+		4534CC9427F75B5C00DADA26 /* NonPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonPlayerView.swift; sourceTree = "<group>"; };
 		4534CC9627F7669500DADA26 /* CardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetView.swift; sourceTree = "<group>"; };
 		4534CC9827F766DC00DADA26 /* CardSetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSetViewModel.swift; sourceTree = "<group>"; };
 		4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealOfflineView.swift; sourceTree = "<group>"; };
@@ -567,6 +567,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		3026763627F911F000CC0F00 /* GameEvents */ = {
+			isa = PBXGroup;
+			children = (
+				3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */,
+				3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */,
+				3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */,
+				3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */,
+			);
+			path = GameEvents;
+			sourceTree = "<group>";
+		};
 		4EB4467027F8275200EB07C7 /* Customized Game Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,15 +599,6 @@
 				68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */,
 			);
 			path = ExplodingKittensAdapters;
-			sourceTree = "<group>";
-		};
-		3026763627F911F000CC0F00 /* GameEvents */ = {
-			isa = PBXGroup;
-			children = (
-				3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */,
-				3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */,
-			);
-			path = GameEvents;
 			sourceTree = "<group>";
 		};
 		688B76A627F40689006AF1C0 /* HostGameViews */ = {
@@ -899,6 +901,7 @@
 				2432C1A227F6B07400C20113 /* MoneyCard.swift in Sources */,
 				305875B827F8BD0800A11837 /* PassGoCard.swift in Sources */,
 				2DA04F8327DAFF690063D952 /* GameState.swift in Sources */,
+				3026764027F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift in Sources */,
 				681DE8DA27F4AE51006740FF /* JoinGameViewModel.swift in Sources */,
 				3026763827F9121700CC0F00 /* AddNewPropertyAreaEvent.swift in Sources */,
 				4589AB1827DF3C5F005FDA07 /* PlayerHandView.swift in Sources */,
@@ -932,6 +935,7 @@
 				4EB4466427F70BB300EB07C7 /* CustomizedGameEvent.swift in Sources */,
 				4EB4465E27F6987700EB07C7 /* CardTypeRequest.swift in Sources */,
 				24FF62A427F647D7005BA4E6 /* MonopolyDealGameRunnerProtocol.swift in Sources */,
+				3026764227F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift in Sources */,
 				2DA04F9527DAFFC30063D952 /* Player.swift in Sources */,
 				2DA0509E27DC9F780063D952 /* ExplodingKittensOfflineView.swift in Sources */,
 				2DA0506227DC4CF50063D952 /* SetPlayerOutOfGameEvent.swift in Sources */,

@@ -9,6 +9,9 @@ import SwiftUI
 import Foundation
 
 class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
+    static let winningPropertySetCount = 3
+    static let drawCards = 2
+
     @Published internal var deck: CardCollection
     @Published internal var players: PlayerCollection
     @Published internal var playerHands: [UUID: CardCollection]
@@ -87,64 +90,45 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         return cards
     }
 
-    // To be overwritten
     func onStartTurn() {
+        guard let currentPlayer = players.currentPlayer as? MonopolyDealPlayer else {
+            return
+        }
 
+        let drawCards = deck.getTopNCards(n: MonopolyDealGameRunner.drawCards)
+
+        let hand = getHandByPlayer(currentPlayer)
+
+        executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: drawCards, fromDeck: deck, toDeck: hand)
+        ])
     }
 
-    // To be overwritten
     func onEndTurn() {
-        let top = deck.getTopNCards(n: 1)
-
-        guard !top.isEmpty else {
-            return
-        }
-
-        guard let currentPlayer = players.currentPlayer else {
-            return
-        }
-
-        guard let hand = playerHands[currentPlayer.id] else {
-            return
-        }
-
-        hand.addCard(top[0])
-        deck.removeCard(top[0])
-
-        top[0].onDraw(gameRunner: self, player: currentPlayer)
     }
 
-    // To be overwritten
     func onAdvanceNextPlayer() {
-        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
+        guard let currentPlayer = players.currentPlayer as? MonopolyDealPlayer else {
             return
         }
-        currentPlayer.decrementAttackCount()
+        currentPlayer.resetPlayCount()
     }
 
-    // To be overwritten
     func checkWinningConditions() -> Bool {
-        players.getPlayers().filter { !$0.isOutOfGame }.count == 1
+        players.getPlayers().filter { _ in
+            playerPropertyArea.count == MonopolyDealGameRunner.winningPropertySetCount
+        }.count >= 1
     }
 
-    // To be overwritten
     func getWinner() -> Player? {
-        players.getPlayers().filter { !$0.isOutOfGame }[0]
+        players.getPlayers().filter { _ in
+            playerPropertyArea.count == MonopolyDealGameRunner.winningPropertySetCount
+        }[0]
     }
 
-    // To be overwritten
     func getNextPlayer() -> Player? {
         guard !players.isEmpty else {
             return nil
-        }
-
-        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
-            return nil
-        }
-
-        let attackCount = currentPlayer.attackCount
-        if attackCount > 0 {
-            return currentPlayer
         }
 
         let currentIndex = players.currentPlayerIndex
@@ -155,10 +139,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
             let nextIndex = (currentIndex + i) % totalCount
 
             guard let player = players.getPlayerByIndex(nextIndex) else {
-                continue
-            }
-
-            if player.isOutOfGame {
                 continue
             }
 
