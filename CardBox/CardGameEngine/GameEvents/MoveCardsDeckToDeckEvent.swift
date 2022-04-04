@@ -19,6 +19,20 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
     }
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
+        print("cards")
+        for card in cards {
+            print(type(of: card))
+        }
+        print("fromDeck")
+        for card in fromDeck.getCards() {
+            print(type(of: card))
+        }
+        print("toDeck")
+        for card in toDeck.getCards() {
+            print(type(of: card))
+        }
+        
+        
         fromDeck.removeCards(cards)
         toDeck.addCards(cards, offsetFromTop: offsetFromTop)
     }

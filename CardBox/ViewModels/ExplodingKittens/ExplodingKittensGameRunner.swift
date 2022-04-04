@@ -87,7 +87,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 //        self.observers = explodingKittensGameRunner.observers
 //        self.isWin = explodingKittensGameRunner.isWin
 //        self.winner = explodingKittensGameRunner.winner
-        
+
         self.deck = explodingKittensGameRunner.deck
         self.players = explodingKittensGameRunner.players
         self.playerHands = explodingKittensGameRunner.playerHands
