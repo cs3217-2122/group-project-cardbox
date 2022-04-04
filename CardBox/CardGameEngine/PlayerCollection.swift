@@ -31,6 +31,10 @@ class PlayerCollection {
         return self.players[self.currentPlayerIndex]
     }
 
+    func updateState(_ players: PlayerCollection) {
+        self.players = players.players
+    }
+
     func addPlayer(_ player: Player) {
         guard !players.contains(where: { $0 === player }) else {
             return

@@ -38,6 +38,10 @@ class CardCollection: Identifiable {
         cards.isEmpty
     }
 
+    func updateState(_ cardCollection: CardCollection) {
+        self.cards = cardCollection.cards
+    }
+
     func getCardByIndex(_ index: Int) -> Card? {
         guard index >= 0 && index < cards.count else {
             return nil
