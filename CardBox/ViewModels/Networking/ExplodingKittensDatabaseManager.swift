@@ -98,6 +98,18 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     private func encodeExplodingKittensFirebaseAdapter(
         _ explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter,
         _ docRef: DocumentReference) {
+
+        var fromFirestore: ExplodingKittensFirebaseAdapter?
+        db.collection("rooms").document(gameRoomID).getDocument { doc, _ in
+            if let doc = doc {
+                fromFirestore = self.decodeExplodingKittensFirebaseAdapter(doc)
+            }
+        }
+
+        if let fromFirestore = fromFirestore {
+            explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
+        }
+
         do {
             try docRef.setData(from: explodingKittensFirebaseAdapter)
         } catch {
@@ -116,11 +128,12 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 return
             }
 
-            if gameRunner.state == .start {
-                gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
-            } else {
-                gameRunner.updateStateMutable(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
-            }
+//            if gameRunner.state == .start {
+//                gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+//            } else {
+//                gameRunner.updateStateMutable(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+//            }
+            gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
         }
     }
 

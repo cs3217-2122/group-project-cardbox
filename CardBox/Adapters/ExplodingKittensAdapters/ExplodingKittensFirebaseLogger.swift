@@ -6,30 +6,41 @@
 //
 
 class ExplodingKittensFirebaseLogger: FirebaseLogger {
-    private var log: [ExplodingKittensFirebaseEventLogger]
+    var logs: [ExplodingKittensFirebaseEventLogger]
 
     init() {
-        self.log = []
+        self.logs = []
     }
 
     func append(_ gameEvents: [GameEvent]) {
         for gameEvent in gameEvents {
-            log
+            logs
                 .append(ExplodingKittensFirebaseEventLogger(gameEvent: gameEvent))
         }
     }
 
+    func appendToFront(_ logs: [ExplodingKittensFirebaseEventLogger]) {
+        var newLog = logs
+//        for log in logs {
+//            newLog.append(log)
+//        }
+        for log in self.logs {
+            newLog.append(log)
+        }
+        self.logs = newLog
+    }
+
     private enum CodingKeys: String, CodingKey {
-        case log
+        case logs
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.log = try container.decode([ExplodingKittensFirebaseEventLogger].self, forKey: .log)
+        self.logs = try container.decode([ExplodingKittensFirebaseEventLogger].self, forKey: .logs)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(log, forKey: .log)
+        try container.encode(logs, forKey: .logs)
     }
 }

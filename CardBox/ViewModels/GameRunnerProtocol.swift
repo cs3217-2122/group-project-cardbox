@@ -37,7 +37,7 @@ protocol GameRunnerProtocol: AnyObject {
     func executeGameEvents(_ gameEvents: [GameEvent])
 
     func updateState(_ gameRunner: GameRunnerProtocol)
-    func updateStateMutable(_ gameRunner: GameRunnerProtocol)
+//    func updateStateMutable(_ gameRunner: GameRunnerProtocol)
 }
 
 extension GameRunnerProtocol {
