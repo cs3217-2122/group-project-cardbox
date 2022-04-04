@@ -29,7 +29,7 @@ struct CardSetView: View {
                 let cardViewModel = CardViewModel(card: card,
                                                   isFaceUp: true,
                                                   isSelected: playerViewModel.isSelected(card: card))
-                CardView(cardViewModel: cardViewModel)
+                CardView(cardViewModel: cardViewModel, currentPlayerViewModel: playerViewModel)
                     .gesture(
                         DragGesture(minimumDistance: 0.0)
                             .onChanged { _ in

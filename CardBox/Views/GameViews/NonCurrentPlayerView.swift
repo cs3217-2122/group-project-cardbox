@@ -29,9 +29,11 @@ struct NonCurrentPlayerView: View {
             }
             Spacer()
             middlePart
-            GameActionsView(error: $error,
-                            currentPlayerViewModel: currentPlayerViewModel,
-                            selectedPlayerViewModel: $selectedPlayerViewModel)
+            if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                GameActionsView(error: $error,
+                                currentPlayerViewModel: currentPlayerViewModel,
+                                selectedPlayerViewModel: $selectedPlayerViewModel)
+            }
         }
     }
 

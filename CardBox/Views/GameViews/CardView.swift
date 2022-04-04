@@ -10,14 +10,16 @@ import SwiftUI
 struct CardView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @ObservedObject var viewModel: CardViewModel
+    var currentPlayerViewModel: PlayerViewModel
     var isFaceUp: Bool
     static let defaultCardWidth = 150
     let cardWidth = CGFloat(150)
     let cardHeight = CGFloat(250)
 
-    init(cardViewModel: CardViewModel) {
+    init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel) {
         self.viewModel = cardViewModel
         self.isFaceUp = cardViewModel.isFaceUp
+        self.currentPlayerViewModel = currentPlayerViewModel
     }
 
     func buildView() -> AnyView {
@@ -66,21 +68,15 @@ struct CardView: View {
     }
 
     var body: some View {
-        if let card = viewModel.card {
+        if let card = viewModel.card,
+            currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
             viewFrame
                 .onDrag {
                     gameRunnerViewModel.cardsDragging = [card]
                     return NSItemProvider(object: card.name as NSString)
-                    // NSItemProvider(object: card)
                 }
         } else {
             viewFrame
         }
-    }
-}
-
-struct Card_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb", typeOfTargettedCard: .noTargetCard)))
     }
 }
