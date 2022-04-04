@@ -34,7 +34,8 @@ struct PlayerHandView: View {
                                                   isFaceUp: isFaceUp,
                                                   isSelected: playerViewModel.isSelected(card: card))
                 if isFaceUp {
-                CardView(cardViewModel: cardViewModel, currentPlayerViewModel: PlayerViewModel())
+                    CardView(cardViewModel: cardViewModel,
+                             currentPlayerViewModel: currentPlayerViewModel, playerViewModel: playerViewModel)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                             playerViewModel
