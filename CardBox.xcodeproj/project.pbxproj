@@ -79,6 +79,8 @@
 		4EB4466C27F71CE100EB07C7 /* ShowCardTypeRequestEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4466B27F71CE100EB07C7 /* ShowCardTypeRequestEvent.swift */; };
 		4EB4467227F8276B00EB07C7 /* DisplayTopNCardsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4467127F8276B00EB07C7 /* DisplayTopNCardsEvent.swift */; };
 		4EB4467427F8277F00EB07C7 /* IncrementAttackCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4467327F8277F00EB07C7 /* IncrementAttackCountEvent.swift */; };
+		4EB4467627F9974500EB07C7 /* GameEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4467527F9974500EB07C7 /* GameEventTests.swift */; };
+		4EB4467827F9981700EB07C7 /* GameEventTests+Stubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4467727F9981700EB07C7 /* GameEventTests+Stubs.swift */; };
 		681DE8DA27F4AE51006740FF /* JoinGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681DE8D927F4AE51006740FF /* JoinGameViewModel.swift */; };
 		681DE8DC27F4AE5F006740FF /* HostGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681DE8DB27F4AE5F006740FF /* HostGameViewModel.swift */; };
 		6831742B27F9FF99005400FC /* ExplodingKittensDatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6831742A27F9FF99005400FC /* ExplodingKittensDatabaseManager.swift */; };
@@ -213,6 +215,8 @@
 		4EB4466B27F71CE100EB07C7 /* ShowCardTypeRequestEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardTypeRequestEvent.swift; sourceTree = "<group>"; };
 		4EB4467127F8276B00EB07C7 /* DisplayTopNCardsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayTopNCardsEvent.swift; sourceTree = "<group>"; };
 		4EB4467327F8277F00EB07C7 /* IncrementAttackCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementAttackCountEvent.swift; sourceTree = "<group>"; };
+		4EB4467527F9974500EB07C7 /* GameEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEventTests.swift; sourceTree = "<group>"; };
+		4EB4467727F9981700EB07C7 /* GameEventTests+Stubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GameEventTests+Stubs.swift"; sourceTree = "<group>"; };
 		681DE8D927F4AE51006740FF /* JoinGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameViewModel.swift; sourceTree = "<group>"; };
 		681DE8DB27F4AE5F006740FF /* HostGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostGameViewModel.swift; sourceTree = "<group>"; };
 		6831742A27F9FF99005400FC /* ExplodingKittensDatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensDatabaseManager.swift; sourceTree = "<group>"; };
@@ -280,6 +284,8 @@
 			children = (
 				2D00814F27E6253200F0E359 /* PlayerCollectionTests.swift */,
 				2D00817827E6D1CA00F0E359 /* CardCollectionTests.swift */,
+				4EB4467527F9974500EB07C7 /* GameEventTests.swift */,
+				4EB4467727F9981700EB07C7 /* GameEventTests+Stubs.swift */,
 			);
 			path = CardGameEngine;
 			sourceTree = "<group>";
@@ -864,6 +870,8 @@
 			files = (
 				2D00815027E6253200F0E359 /* PlayerCollectionTests.swift in Sources */,
 				2D00817927E6D1CA00F0E359 /* CardCollectionTests.swift in Sources */,
+				4EB4467827F9981700EB07C7 /* GameEventTests+Stubs.swift in Sources */,
+				4EB4467627F9974500EB07C7 /* GameEventTests.swift in Sources */,
 				2DA04F4527DADD520063D952 /* CardBoxTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
