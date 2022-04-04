@@ -79,14 +79,24 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             return
         }
 
-        self.deck.updateState(explodingKittensGameRunner.deck)
-        self.players.updateState(explodingKittensGameRunner.players)
-        self.updatePlayerHands(explodingKittensGameRunner.playerHands)
-        self.gameplayArea.updateState(explodingKittensGameRunner.gameplayArea)
+//        self.deck.updateState(explodingKittensGameRunner.deck)
+//        self.players.updateState(explodingKittensGameRunner.players)
+//        self.updatePlayerHands(explodingKittensGameRunner.playerHands)
+//        self.gameplayArea.updateState(explodingKittensGameRunner.gameplayArea)
+//        self.state = explodingKittensGameRunner.state
+//        self.observers = explodingKittensGameRunner.observers
+//        self.isWin = explodingKittensGameRunner.isWin
+//        self.winner = explodingKittensGameRunner.winner
+        
+        self.deck = explodingKittensGameRunner.deck
+        self.players = explodingKittensGameRunner.players
+        self.playerHands = explodingKittensGameRunner.playerHands
+        self.gameplayArea = explodingKittensGameRunner.gameplayArea
         self.state = explodingKittensGameRunner.state
         self.observers = explodingKittensGameRunner.observers
         self.isWin = explodingKittensGameRunner.isWin
         self.winner = explodingKittensGameRunner.winner
+
     }
 
     func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
