@@ -109,6 +109,8 @@
 		68A94A5227F7961A002EE49A /* HostGameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5127F7961A002EE49A /* HostGameManager.swift */; };
 		68A94A5427F7995A002EE49A /* DatabaseManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */; };
 		68A94A5627F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */; };
+		68AB292127FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292027FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift */; };
+		68AB292327FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -237,6 +239,8 @@
 		68A94A5127F7961A002EE49A /* HostGameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostGameManager.swift; sourceTree = "<group>"; };
 		68A94A5327F79959002EE49A /* DatabaseManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerObserver.swift; sourceTree = "<group>"; };
 		68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensGameRunnerObserver.swift; sourceTree = "<group>"; };
+		68AB292027FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensFirebaseLogger.swift; sourceTree = "<group>"; };
+		68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensFirebaseEventLogger.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -511,6 +515,8 @@
 				686DEE4727F6F3B3008AAC7B /* ExplodingKittensCardCollectionAdapter.swift */,
 				689A70EE27F8D2E40026B8D3 /* ExplodingKittensPlayerAdapter.swift */,
 				689A70F027F8D9910026B8D3 /* ExplodingKittensPlayerCollectionAdapter.swift */,
+				68AB292027FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift */,
+				68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */,
 			);
 			path = ExplodingKittensAdapters;
 			sourceTree = "<group>";
@@ -790,6 +796,7 @@
 				68A94A4C27F788A5002EE49A /* PlayerCollectionAdapter.swift in Sources */,
 				2DA050BC27DE5ED90063D952 /* PlayerViewModel.swift in Sources */,
 				2D00825127EF8FFB00F0E359 /* MoveCardsDeckToDeckEvent.swift in Sources */,
+				68AB292327FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift in Sources */,
 				2D00824327EF5A2700F0E359 /* GameRunnerProtocol.swift in Sources */,
 				2DA050AD27DE5D570063D952 /* CardView.swift in Sources */,
 				68466A9527E50AAA000387B6 /* MenuButtonsView.swift in Sources */,
@@ -806,6 +813,7 @@
 				681DE8DA27F4AE51006740FF /* JoinGameViewModel.swift in Sources */,
 				4589AB1827DF3C5F005FDA07 /* PlayerHandView.swift in Sources */,
 				2DA0504827DC4B130063D952 /* ShuffleDeckEvent.swift in Sources */,
+				68AB292127FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift in Sources */,
 				4EB4467427F8277F00EB07C7 /* IncrementAttackCountEvent.swift in Sources */,
 				4534CC9727F7669500DADA26 /* CardSetView.swift in Sources */,
 				2DA050B227DE5D760063D952 /* CardViewModel.swift in Sources */,

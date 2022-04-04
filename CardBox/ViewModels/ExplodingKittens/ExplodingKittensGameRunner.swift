@@ -266,11 +266,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         ExplodingKittensConstants.allCardTypes
     }
 
-    func notifyChanges() {
+    func notifyChanges(_ gameEvents: [GameEvent]) {
         objectWillChange.send()
         for observer in observers {
             print(observer)
-            observer.notifyObserver(self)
+            observer.notifyObserver(self, gameEvents)
         }
     }
 

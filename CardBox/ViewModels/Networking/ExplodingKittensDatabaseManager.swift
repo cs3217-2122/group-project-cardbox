@@ -228,12 +228,15 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner) {
+    func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner, _ gameEvents: [GameEvent]) {
         let docRef = db.collection("rooms").document(gameRoomID)
 
-        encodeExplodingKittensFirebaseAdapter(
-            ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner),
-            docRef)
+        let toEncode = ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner)
+        
+        toEncode.log.append(gameEvents)
+        
+        encodeExplodingKittensFirebaseAdapter(toEncode,
+                                              docRef)
     }
 
     func startGame() {

@@ -17,6 +17,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
     var state: GameState
     var isWin = false
     var winner: String
+    var log: ExplodingKittensFirebaseLogger
 
     init(explodingKittensGameRunner: ExplodingKittensGameRunner) {
         self.deck = ExplodingKittensCardCollectionAdapter(explodingKittensGameRunner.deck)
@@ -37,6 +38,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
                 }
             }
         }
+        self.log = ExplodingKittensFirebaseLogger()
     }
 
     func toGameRunner(
@@ -81,6 +83,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         case state
         case isWin
         case winner
+        case log
     }
 
     required init(from decoder: Decoder) throws {
@@ -94,6 +97,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         self.state = try container.decode(GameState.self, forKey: .state)
         self.isWin = try container.decode(Bool.self, forKey: .isWin)
         self.winner = try container.decode(String.self, forKey: .winner)
+        self.log = try container.decode(ExplodingKittensFirebaseLogger.self, forKey: .log)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -105,5 +109,6 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
         try container.encode(state, forKey: .state)
         try container.encode(isWin, forKey: .isWin)
         try container.encode(winner, forKey: .winner)
+        try container.encode(log, forKey: .log)
     }
 }

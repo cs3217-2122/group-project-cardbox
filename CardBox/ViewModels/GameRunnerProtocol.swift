@@ -32,7 +32,7 @@ protocol GameRunnerProtocol: AnyObject {
 
     // Must implement this update value
     // use this to notify server as well
-    func notifyChanges()
+    func notifyChanges(_ gameEvents: [GameEvent])
 
     func executeGameEvents(_ gameEvents: [GameEvent])
 
@@ -50,7 +50,7 @@ extension GameRunnerProtocol {
             self.winner = getWinner()
         }
 
-        notifyChanges()
+        notifyChanges(gameEvents)
     }
 
     func endPlayerTurn() {
