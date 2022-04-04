@@ -232,9 +232,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         let docRef = db.collection("rooms").document(gameRoomID)
 
         let toEncode = ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner)
-        
+
         toEncode.log.append(gameEvents)
-        
+
         encodeExplodingKittensFirebaseAdapter(toEncode,
                                               docRef)
     }

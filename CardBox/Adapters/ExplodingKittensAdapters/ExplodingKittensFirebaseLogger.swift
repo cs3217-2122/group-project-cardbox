@@ -7,18 +7,18 @@
 
 class ExplodingKittensFirebaseLogger: FirebaseLogger {
     private var log: [ExplodingKittensFirebaseEventLogger]
-    
+
     init() {
         self.log = []
     }
 
-    func append(_ gameEvents: [GameEvent])  {
+    func append(_ gameEvents: [GameEvent]) {
         for gameEvent in gameEvents {
             log
                 .append(ExplodingKittensFirebaseEventLogger(gameEvent: gameEvent))
         }
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case log
     }

@@ -13,7 +13,7 @@ class ExplodingKittensFirebaseEventLogger: FirebaseEventLogger {
     init(gameEvent: GameEvent) {
         self.type = String(describing: Swift.type(of: gameEvent))
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case type
         case timeStamp
