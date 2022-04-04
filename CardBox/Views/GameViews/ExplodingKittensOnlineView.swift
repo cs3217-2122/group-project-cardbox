@@ -1,55 +1,58 @@
 //
-//  GameRunnerView.swift
+//  ExplodingKittensOnlineView.swift
 //  CardBox
 //
-//  Created by mactest on 12/03/2022.
+//  Created by Bernard Wan on 1/4/22.
 //
 
 import SwiftUI
 
-struct ExplodingKittensGameRunnerView: View {
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
+struct ExplodingKittensOnlineView: View {
+    @StateObject var gameRunnerViewModel: ExplodingKittensGameRunner
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
+//    var explodingKittensGameRunnerInitialiser: ExplodingKittensGameRunner
+    var localPlayerIndex: Int
 
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
             VStack {
-                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+                if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
                     let currentPlayerViewModel = PlayerViewModel(
-                        player: currentPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
+                        player: localPlayer,
+                        hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()
                     )
-                    NonCurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                    NonPlayerView(
+                        error: $error, localPlayerIndex: localPlayerIndex,
+                        currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
                     CurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                        error: $error,
+                        currentPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
-            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
         }
         .environmentObject(gameRunnerViewModel)
-        .onAppear(perform: setup)
+//        .onAppear(perform: setup)
     }
 
     private func setup() {
-        gameRunnerViewModel.setup()
+//        gameRunnerViewModel.initialiseFrom(explodingKittensGameRunnerInitialiser)
     }
 
     func dismissPeek() {

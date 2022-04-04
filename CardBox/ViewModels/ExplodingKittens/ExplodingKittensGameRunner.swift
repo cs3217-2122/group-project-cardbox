@@ -24,6 +24,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var deckPositionRequest: CardPositionRequest
     @Published internal var cardTypeRequest: CardTypeRequest
 
+    private var observers: [ExplodingKittensGameRunnerObserver]
+
+    // for offline use
     init() {
         self.deck = CardCollection()
         self.players = PlayerCollection()
@@ -32,20 +35,78 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.state = .initialize
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
+        self.observers = []
         self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
 
+    // for online use
+    init(deck: CardCollection,
+         players: PlayerCollection,
+         playerHands: [UUID: CardCollection],
+         gameplayArea: CardCollection,
+         state: GameState,
+         isWin: Bool,
+         winner: Player?,
+         observer: ExplodingKittensGameRunnerObserver) {
+        self.deck = deck
+        self.players = players
+        self.playerHands = playerHands
+        self.gameplayArea = gameplayArea
+        self.state = state
+        self.cardsPeeking = []
+        self.deckPositionRequest = CardPositionRequest()
+        self.observers = [observer]
+        self.isWin = isWin
+        self.winner = winner
+        self.cardTypeRequest = CardTypeRequest()
+        self.cardsDragging = []
+    }
+
+    // initialiser used by host game view model
+    convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
+        self.init()
+        self.players.addPlayer(ExplodingKittensPlayer(name: host.name,
+                                                      id: host.id,
+                                                      isOutOfGame: host.isOutOfGame,
+                                                      cardsPlayed: host.cardsPlayed))
+        self.observers.append(observer)
+        self.playerHands[host.id] = CardCollection()
+    }
+
+    func updateState(_ gameRunner: GameRunnerProtocol) {
+        guard let explodingKittensGameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            return
+        }
+
+        self.deck = explodingKittensGameRunner.deck
+        self.players = explodingKittensGameRunner.players
+        self.playerHands = explodingKittensGameRunner.playerHands
+        self.gameplayArea = explodingKittensGameRunner.gameplayArea
+        self.state = explodingKittensGameRunner.state
+        self.cardsPeeking = explodingKittensGameRunner.cardsPeeking
+        self.deckPositionRequest = explodingKittensGameRunner.deckPositionRequest
+        self.observers = explodingKittensGameRunner.observers
+        self.isWin = explodingKittensGameRunner.isWin
+        self.winner = explodingKittensGameRunner.winner
+        self.cardPreview = explodingKittensGameRunner.cardPreview
+        self.isShowingPeek = explodingKittensGameRunner.isShowingPeek
+
+    }
+
+    // TODO: create setup for online to inject online players
     func setup() {
         let numPlayers = 4
         let initialCardCount = 4
 
-        let players = (1...numPlayers).map { i in
-            ExplodingKittensPlayer(name: "Player " + i.description)
-        }
-        players.forEach { player in
-            self.players.addPlayer(player)
-            self.playerHands[player.id] = CardCollection()
+        if players.isEmpty {
+            let players = (1...numPlayers).map { i in
+                ExplodingKittensPlayer(name: "Player " + i.description)
+            }
+            players.forEach { player in
+                self.players.addPlayer(player)
+                self.playerHands[player.id] = CardCollection()
+            }
         }
 
         self.playerHands.forEach { _, hand in
@@ -211,6 +272,10 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     func notifyChanges() {
         objectWillChange.send()
+        for observer in observers {
+            print(observer)
+            observer.notifyObserver(self)
+        }
     }
 
     func setCardPreview(_ card: Card) {

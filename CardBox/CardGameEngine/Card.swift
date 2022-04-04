@@ -26,7 +26,7 @@ enum GameplayTarget {
     }
 }
 
-enum TypeOfTargettedCard: Codable {
+enum TypeOfTargettedCard: String, Codable {
     case targetAllPlayersCard
     case targetSinglePlayerCard
     case noTargetCard

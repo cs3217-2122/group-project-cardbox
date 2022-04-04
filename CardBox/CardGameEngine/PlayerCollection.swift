@@ -11,6 +11,10 @@ class PlayerCollection {
         self.currentPlayerIndex = 0
     }
 
+    var names: [String] {
+        self.players.map { $0.name }
+    }
+
     var count: Int {
         self.players.count
     }
@@ -61,5 +65,23 @@ class PlayerCollection {
         }
 
         return players[(currentPlayerIndex + index) % self.players.count]
+    }
+
+    func remove(_ player: Player) {
+        print(player.id)
+        if let index = players.firstIndex(where: { $0.id == player.id }) {
+            players.remove(at: index)
+        }
+        for player in players {
+            print(player.name)
+        }
+    }
+
+    func getPlayerByIndexAfterGiven(start: Int, increment: Int) -> Player? {
+        guard increment > 0 else {
+            return nil
+        }
+
+        return players[(start + increment) % self.players.count]
     }
 }

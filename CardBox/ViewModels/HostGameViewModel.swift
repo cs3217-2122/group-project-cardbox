@@ -4,71 +4,62 @@
 //
 //  Created by Stuart Long on 30/3/22.
 //
-import Firebase
 import SwiftUI
 
-class HostGameViewModel: ObservableObject {
+class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
 
     @Published var gameRoomID: String = ""
     @Published var players: [String] = []
-    private let db = Firestore.firestore()
+    var playerIndex: Int?
+    private var hostGameManager: HostGameManager
+    var gameRunner: ExplodingKittensGameRunner?
 
-    func createRoom() {
-        var docRef: DocumentReference?
-        let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
-
-        if let uniqueUserID = uniqueUserID {
-            docRef = db.collection("rooms").addDocument(data: ["players": [uniqueUserID]]) { error in
-                if error != nil {
-                    print("error creating room")
-                    return
-                } else {
-                    guard let docRef = docRef else {
-                        return
-                    }
-
-                    print("room created with unique ID \(docRef.documentID)")
-                    self.gameRoomID = docRef.documentID
-                    print(self.gameRoomID)
-                    self.players = [uniqueUserID]
-                    print(self.players)
-                }
-            }
-            if let docRef = docRef {
-                print("adding listener now")
-                docRef.addSnapshotListener { documentSnapshot, _ in
-                    guard let document = documentSnapshot else {
-                        return
-                    }
-                    self.players = document["players"] as? [String] ?? []
-                    print(self.players)
-                }
-            }
+    var gameStarted: Bool {
+        guard let gameRunner = gameRunner else {
+            return false
         }
+        return gameRunner.state == .start
     }
 
-    func removeFromRoom() {
-        print(gameRoomID)
-        print(gameRoomID.isEmpty)
-        let docRef = db.collection("rooms").document(gameRoomID)
+    var isRoomFull: Bool {
+        players.count == 4
+    }
 
-        docRef.getDocument { document, _ in
-            guard let document = document, document.exists else {
-                // TODO: find a way to alert
-                self.gameRoomID = ""
-                print("document does not exist/ error occurred")
-                return
-            }
+    init() {
+        self.hostGameManager = ExplodingKittensDatabaseManager()
+        self.hostGameManager.addObserver(self)
+    }
 
-            var players = document["players"] as? [String] ?? []
-            let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString
-            if let uniqueUserID = uniqueUserID {
-                if let index = players.firstIndex(of: uniqueUserID) {
-                    players.remove(at: index)
-                }
-                docRef.setData(["players": players], merge: true)
-                self.gameRoomID = ""
-            }
-        }
+    func createRoom(playerViewModel: PlayerViewModel) {
+        hostGameManager.createRoom(player: playerViewModel.player)
+    }
+
+    func removeFromRoom(playerViewModel: PlayerViewModel) {
+        hostGameManager.removeFromRoom(player: playerViewModel.player)
+    }
+
+    func notifyObserver(gameRoomID: String) {
+        self.gameRoomID = gameRoomID
+    }
+
+    func notifyObserver(players: [String]) {
+        self.players = players
+    }
+
+    func notifyObserver(isJoined: Bool) {
+        // do nothing
+    }
+
+    func notifyObserver(gameRunner: ExplodingKittensGameRunner) {
+        self.gameRunner = gameRunner
+    }
+
+    func startGame() {
+        // TODO: Implement start game
+        hostGameManager.startGame()
+    }
+
+    func notifyObserver(playerIndex: Int) {
+        self.playerIndex = playerIndex
     }
 }
