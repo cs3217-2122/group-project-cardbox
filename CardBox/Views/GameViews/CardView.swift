@@ -69,6 +69,8 @@ struct CardView: View {
 
     var body: some View {
         if let card = viewModel.card,
+           // offline: can drag current player cards
+           // online: local player can drag local player cards (if local player is current player)
             currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
             viewFrame
                 .onDrag {

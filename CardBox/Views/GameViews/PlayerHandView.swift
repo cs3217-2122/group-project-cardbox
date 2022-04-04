@@ -24,10 +24,7 @@ struct PlayerHandView: View {
     }
 
     var isFaceUp: Bool {
-        // check if playervm = currentplayer
         currentPlayerViewModel.player.id == playerViewModel.player.id
-        // playerViewModel
-        // .isCurrentPlayer(gameRunner: gameRunnerViewModel)
     }
 
     var body: some View {
@@ -36,6 +33,7 @@ struct PlayerHandView: View {
                 let cardViewModel = CardViewModel(card: card,
                                                   isFaceUp: isFaceUp,
                                                   isSelected: playerViewModel.isSelected(card: card))
+                if isFaceUp {
                 CardView(cardViewModel: cardViewModel, currentPlayerViewModel: PlayerViewModel())
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
@@ -53,6 +51,9 @@ struct PlayerHandView: View {
                                 playerViewModel.unpreviewCard(card: card, gameRunner: gameRunnerViewModel)
                             }
                     )
+                } else {
+                    CardView(cardViewModel: cardViewModel, currentPlayerViewModel: PlayerViewModel())
+                }
             }
         }
     }

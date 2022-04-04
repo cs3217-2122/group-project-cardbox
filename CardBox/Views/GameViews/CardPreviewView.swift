@@ -18,9 +18,3 @@ struct CardPreviewView: View {
         }
     }
 }
-
-struct CardPreviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardPreviewView()
-    }
-}
