@@ -98,6 +98,10 @@ extension GameEventTests {
             // Do nothing
         }
 
+        func updateState(_ gameRunner: GameRunnerProtocol) {
+            // Do nothing
+        }
+
     }
 
     static func generateSingleTargetCard() -> CardStub {
