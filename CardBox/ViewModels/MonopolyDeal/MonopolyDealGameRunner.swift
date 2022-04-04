@@ -70,8 +70,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
                 return
             }
 
-            self.deck.removeCard(topCards[i]
-)
+            self.deck.removeCard(topCards[i])
             playerDeck.addCard(topCards[i])
         }
     }
@@ -85,6 +84,22 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
             for _ in 0 ..< moneyCardValue.initialFrequency {
                 cards.append(MoneyCard(value: moneyCardValue))
             }
+        }
+
+        for _ in 0 ..< MonopolyDealCardType.passGo  .initialFrequency {
+            cards.append(PassGoCard())
+        }
+
+        for _ in 0 ..< MonopolyDealCardType.birthday  .initialFrequency {
+            cards.append(BirthdayCard())
+        }
+
+        for _ in 0 ..< MonopolyDealCardType.dealBreaker.initialFrequency {
+            cards.append(DealBreakerCard())
+        }
+
+        for _ in 0 ..< MonopolyDealCardType.house.initialFrequency {
+            cards.append(HouseCard())
         }
 
         return cards
@@ -167,6 +182,10 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     }
 
     func updateState(_ gameRunner: GameRunnerProtocol) {
+        guard let mdGameRunner = gameRunner as? MonopolyDealGameRunner else {
+            return
+        }
+
         // TODO: Networking update
     }
 
@@ -177,4 +196,5 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     func resetCardPreview() {
         self.cardPreview = nil
     }
+
 }

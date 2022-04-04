@@ -13,7 +13,7 @@ protocol GameRunnerProtocol: AnyObject {
     var players: PlayerCollection { get }
     var cardsDragging: [Card] { get }
 
-    var cardPreview: Card? { get }
+    var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
     func resetCardPreview()
 
