@@ -11,6 +11,7 @@ struct CardView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @ObservedObject var viewModel: CardViewModel
     var currentPlayerViewModel: PlayerViewModel
+    var playerViewModel: PlayerViewModel?
     var isFaceUp: Bool
     static let defaultCardWidth = 150
     let cardWidth = CGFloat(150)
@@ -20,6 +21,21 @@ struct CardView: View {
         self.viewModel = cardViewModel
         self.isFaceUp = cardViewModel.isFaceUp
         self.currentPlayerViewModel = currentPlayerViewModel
+    }
+
+    init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel, playerViewModel: PlayerViewModel) {
+        self.viewModel = cardViewModel
+        self.isFaceUp = cardViewModel.isFaceUp
+        self.currentPlayerViewModel = currentPlayerViewModel
+        self.playerViewModel = playerViewModel
+    }
+
+    var canInteract: Bool {
+        if let playerViewModel = playerViewModel {
+            return currentPlayerViewModel.player.id == playerViewModel.player.id
+        } else {
+            return false
+        }
     }
 
     func buildView() -> AnyView {
@@ -69,7 +85,9 @@ struct CardView: View {
 
     var body: some View {
         if let card = viewModel.card,
-            currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+           // offline: can drag current player cards
+           // online: local player can drag local player cards (if local player is current player)
+            canInteract {
             viewFrame
                 .onDrag {
                     gameRunnerViewModel.cardsDragging = [card]
