@@ -28,7 +28,7 @@ struct ContentView: View {
             MainMenuView()
                 .environmentObject(appState)
         } else if appState.page == .game {
-            ExplodingKittensOfflineView()
+            MonopolyDealOfflineView()
                 .environmentObject(appState)
 //        } else if appState.page == .onlineGame {
 //            ExplodingKittensOnlineView(localPlayerIndex: appState.localPlayerIndex)

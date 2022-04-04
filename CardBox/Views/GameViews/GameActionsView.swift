@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct GameActionsView: View {
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @Binding var error: Bool
     var currentPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
@@ -28,7 +32,10 @@ struct GameActionsView: View {
             }
             Button {
                 if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                    currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel, target: selectedPlayerViewModel)
+                    currentPlayerViewModel.playCards(
+                        gameRunner: gameRunnerViewModel,
+                        target: selectedPlayerViewModel
+                    )
                 }
             } label: {
                 Text("Play")

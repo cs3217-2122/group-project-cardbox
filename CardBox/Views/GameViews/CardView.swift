@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct CardView: View {
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @ObservedObject var viewModel: CardViewModel
     var bottomPlayerViewModel: PlayerViewModel
     var playerViewModel: PlayerViewModel?
@@ -39,7 +43,7 @@ struct CardView: View {
         }
     }
 
-    func buildView() -> AnyView {
+    var buildView: some View {
         if let card = viewModel.card {
             guard let imageName = viewModel.imageName else {
                 return AnyView(
@@ -75,7 +79,7 @@ struct CardView: View {
     }
 
     var viewFrame: some View {
-        buildView()
+        buildView
             .padding()
             .aspectRatio(0.5, contentMode: .fill)
             .frame(width: cardWidth, height: cardHeight)

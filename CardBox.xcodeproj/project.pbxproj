@@ -66,6 +66,7 @@
 		3026764027F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */; };
 		3026764227F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */; };
 		302F9D0B27FD305100C56FDD /* CardTypeRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */; };
+		302A338127FACBDE004C0D84 /* GameRunnerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 302A338027FACBDE004C0D84 /* GameRunnerDelegate.swift */; };
 		305875B027F8A2BB00A11837 /* MonopolyDealCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */; };
 		305875B627F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */; };
 		305875B827F8BD0800A11837 /* PassGoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305875B727F8BD0800A11837 /* PassGoCard.swift */; };
@@ -217,6 +218,7 @@
 		3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementPlayerPlayCountEvent.swift; sourceTree = "<group>"; };
 		3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPlayerPlayCountEvent.swift; sourceTree = "<group>"; };
 		302F9D0A27FD305100C56FDD /* CardTypeRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTypeRequestView.swift; sourceTree = "<group>"; };
+		302A338027FACBDE004C0D84 /* GameRunnerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRunnerDelegate.swift; sourceTree = "<group>"; };
 		305875AF27F8A2BB00A11837 /* MonopolyDealCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealCardType.swift; sourceTree = "<group>"; };
 		305875B527F8B44300A11837 /* MonopolyDealPlayerPropertyArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonopolyDealPlayerPropertyArea.swift; sourceTree = "<group>"; };
 		305875B727F8BD0800A11837 /* PassGoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassGoCard.swift; sourceTree = "<group>"; };
@@ -578,6 +580,16 @@
 			path = GameEvents;
 			sourceTree = "<group>";
 		};
+		302A338227FACF1A004C0D84 /* GameRunnerViews */ = {
+			isa = PBXGroup;
+			children = (
+				4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */,
+				2DA0509D27DC9F780063D952 /* ExplodingKittensOfflineView.swift */,
+				4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */,
+			);
+			path = GameRunnerViews;
+			sourceTree = "<group>";
+		};
 		4EB4467027F8275200EB07C7 /* Customized Game Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -613,10 +625,8 @@
 		688B76A727F406BE006AF1C0 /* GameViews */ = {
 			isa = PBXGroup;
 			children = (
+				302A338227FACF1A004C0D84 /* GameRunnerViews */,
 				2D00816627E64C3600F0E359 /* RequestViews */,
-				4534CC9227F7535900DADA26 /* ExplodingKittensOnlineView.swift */,
-				2DA0509D27DC9F780063D952 /* ExplodingKittensOfflineView.swift */,
-				4534CC9A27F7699300DADA26 /* MonopolyDealOfflineView.swift */,
 				2DA050AC27DE5D570063D952 /* CardView.swift */,
 				4589AB1B27E14AF3005FDA07 /* DeckView.swift */,
 				4534CC9627F7669500DADA26 /* CardSetView.swift */,
@@ -630,6 +640,7 @@
 				68466A9227E5076A000387B6 /* GameActionsView.swift */,
 				6868907527E5F410001C4C62 /* CardPreviewView.swift */,
 				2D00816A27E64C8A00F0E359 /* WinMessageView.swift */,
+				302A338027FACBDE004C0D84 /* GameRunnerDelegate.swift */,
 			);
 			path = GameViews;
 			sourceTree = "<group>";
@@ -891,6 +902,7 @@
 				2DA0508D27DC9D100063D952 /* StartTurnEvent.swift in Sources */,
 				2D0081F827EE95F900F0E359 /* ExplodingKittensGameRunner.swift in Sources */,
 				4589AB2427E5B179005FDA07 /* PeekCardsView.swift in Sources */,
+				302A338127FACBDE004C0D84 /* GameRunnerDelegate.swift in Sources */,
 				2DA0508827DC9CAB0063D952 /* SetupEvent.swift in Sources */,
 				4EB4466827F70FCD00EB07C7 /* ShowCardPositionRequestEvent.swift in Sources */,
 				2DA0504B27DC4B130063D952 /* SetCurrentPlayerEvent.swift in Sources */,

@@ -7,34 +7,21 @@
 
 import SwiftUI
 
-struct BottomPlayerView: View {
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
-    @Binding var error: Bool
-    var bottomPlayerViewModel: PlayerViewModel
-    @Binding var selectedPlayerViewModel: PlayerViewModel?
+struct BottomPlayerView<PlayerArea: View>: View {
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
+    let playerArea: () -> PlayerArea
 
     var body: some View {
-        EKPlayerView(
-            playerViewModel: bottomPlayerViewModel,
-            currentPlayerViewModel: bottomPlayerViewModel,
-            error: $error,
-            selectedPlayerViewModel: $selectedPlayerViewModel
-        )
+        playerArea()
     }
 }
 
 struct CurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomPlayerView(
-            error: .constant(false),
-            bottomPlayerViewModel: PlayerViewModel(
-                player: Player(
-                    name: "test"
-                ),
-                hand: CardCollection()
-            ),
-            selectedPlayerViewModel: .constant(nil)
-        )
-        .accessibilityIdentifier("currentPlayer")
+        EmptyView()
     }
 }

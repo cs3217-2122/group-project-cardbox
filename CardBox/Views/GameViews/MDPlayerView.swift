@@ -11,7 +11,11 @@ struct MDPlayerView: View {
     var playerViewModel: PlayerViewModel
     var currentPlayerViewModel: PlayerViewModel
     let playerPlayAreaViewModel: PlayerPlayAreaViewModel
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner // MonopolyDeal
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: MonopolyDealGameRunnerProtocol? {
+        gameRunnerDelegate.runner as? MonopolyDealGameRunnerProtocol
+    }
+
     @Binding var error: Bool
     let handWidth = 600
 
@@ -20,7 +24,7 @@ struct MDPlayerView: View {
         if playerViewModel.player.isOutOfGame {
             playerName += "(Dead)"
         }
-        if playerViewModel.player === gameRunnerViewModel.players.currentPlayer {
+        if playerViewModel.player === gameRunnerViewModel?.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
         return playerName
@@ -40,9 +44,11 @@ struct MDPlayerView: View {
                 // Money Pile
                 // DeckView(deckViewModel: , isFaceUp: true)
                 ForEach(playerPlayAreaViewModel.sets) { cardSet in
-                    let cardSetViewModel =
-                    CardSetViewModel(cards: cardSet, isPlayDeck: true, gameRunner: gameRunnerViewModel)
-                    CardSetView(playerViewModel: playerViewModel, cardSetViewModel: cardSetViewModel, error: $error)
+                    if let mdViewModel = gameRunnerViewModel {
+                        let cardSetViewModel =
+                        CardSetViewModel(cards: cardSet, isPlayDeck: true, gameRunner: mdViewModel)
+                        CardSetView(playerViewModel: playerViewModel, cardSetViewModel: cardSetViewModel, error: $error)
+                    }
                 }
             }
             PlayerHandView(playerViewModel: playerViewModel,

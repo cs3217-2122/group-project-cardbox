@@ -7,27 +7,25 @@
 
 import SwiftUI
 
-struct NonPlayerView: View {
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+struct NonPlayerView<PlayerView: View, CentreView: View>: View {
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @Binding var error: Bool
     let localPlayerIndex: Int
     var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
+    @ViewBuilder let playerArea: (Player) -> PlayerView
+    @ViewBuilder let center: () -> CentreView
 
     var body: some View {
         VStack {
             if let topPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
                 start: localPlayerIndex, increment: 2) {
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: topPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(topPlayer) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-                .rotationEffect(.degrees(-180))
+                playerArea(topPlayer)
+                    .rotationEffect(.degrees(-180))
 
             }
             Spacer()
@@ -44,56 +42,31 @@ struct NonPlayerView: View {
         HStack {
             leftPlayer
             Spacer()
-            DeckView(deckViewModel:
-                        DeckViewModel(deck: gameRunnerViewModel.deck,
-                                      isPlayDeck: false, gameRunner: gameRunnerViewModel),
-                     isFaceUp: false)
-            DeckView(deckViewModel:
-                        DeckViewModel(deck: gameRunnerViewModel.gameplayArea,
-                                      isPlayDeck: true, gameRunner: gameRunnerViewModel),
-                     isFaceUp: true)
+            center()
             Spacer()
             rightPlayer
         }
     }
 
+    @ViewBuilder
     var leftPlayer: some View {
         if let leftPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 3) {
-            return AnyView(
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: leftPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(leftPlayer) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
+            playerArea(leftPlayer)
                 .rotationEffect(.degrees(90))
-            )
         } else {
-            return AnyView(EmptyView())
+            EmptyView()
         }
     }
 
+    @ViewBuilder
     var rightPlayer: some View {
         if let rightPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 1) {
-            return AnyView(
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: rightPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(rightPlayer) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
+            playerArea(rightPlayer)
                 .rotationEffect(.degrees(-90))
-            )
         } else {
-            return AnyView(EmptyView())
+            EmptyView()
         }
     }
 }

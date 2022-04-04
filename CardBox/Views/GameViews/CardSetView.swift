@@ -10,7 +10,11 @@ import SwiftUI
 struct CardSetView: View {
     var playerViewModel: PlayerViewModel
     let cardSetViewModel: CardSetViewModel
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @Binding var error: Bool
     let setHeight = 600
 
@@ -20,15 +24,16 @@ struct CardSetView: View {
             return 0
         }
         return 100
-        // return Double((setHeight - size * CardView.defaultCardWidth) / size)
     }
 
     var body: some View {
         VStack(spacing: CGFloat(spacing)) {
             ForEach(cardSetViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(card: card,
-                                                  isFaceUp: true,
-                                                  isSelected: playerViewModel.isSelected(card: card))
+                let cardViewModel = CardViewModel(
+                    card: card,
+                    isFaceUp: true,
+                    isSelected: playerViewModel.isSelected(card: card)
+                )
                 CardView(cardViewModel: cardViewModel, currentPlayerViewModel: playerViewModel)
                     .gesture(
                         DragGesture(minimumDistance: 0.0)

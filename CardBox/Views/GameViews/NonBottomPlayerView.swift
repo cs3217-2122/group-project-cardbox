@@ -7,25 +7,23 @@
 
 import SwiftUI
 
-struct NonBottomPlayerView: View {
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @Binding var error: Bool
     var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
+    @ViewBuilder let playerArea: (Player) -> PlayerView
+    @ViewBuilder let center: () -> CentreView
 
     var body: some View {
         VStack {
             if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: player3,
-                        hand: gameRunnerViewModel.getHandByPlayer(player3) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-                .rotationEffect(.degrees(-180))
+                playerArea(player3)
+                    .rotationEffect(.degrees(-180))
 
             }
             Spacer()
@@ -38,22 +36,13 @@ struct NonBottomPlayerView: View {
         }
     }
 
+    @ViewBuilder
     var leftPlayer: some View {
         if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
-            return AnyView(
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: player4,
-                        hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-            .rotationEffect(.degrees(90))
-            )
+            playerArea(player4)
+                .rotationEffect(.degrees(90))
         } else {
-            return AnyView(EmptyView())
+            EmptyView()
         }
     }
 
@@ -64,29 +53,14 @@ struct NonBottomPlayerView: View {
             decks
             Spacer()
             if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: player2,
-                        hand: gameRunnerViewModel.getHandByPlayer(player2) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-                .rotationEffect(.degrees(-90))
+                playerArea(player2)
+                    .rotationEffect(.degrees(-90))
             }
         }
     }
     var decks: some View {
         HStack {
-            DeckView(deckViewModel:
-                        DeckViewModel(deck: gameRunnerViewModel.deck,
-                                      isPlayDeck: false, gameRunner: gameRunnerViewModel),
-                     isFaceUp: false)
-            DeckView(deckViewModel:
-                        DeckViewModel(deck: gameRunnerViewModel.gameplayArea,
-                                      isPlayDeck: true, gameRunner: gameRunnerViewModel),
-                     isFaceUp: true)
+            center()
         }
 
     }
@@ -94,13 +68,6 @@ struct NonBottomPlayerView: View {
 
 struct NonCurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        NonBottomPlayerView(
-            error: .constant(false),
-            bottomPlayerViewModel: PlayerViewModel(
-                player: Player(name: "test"),
-                hand: CardCollection()
-            ),
-            selectedPlayerViewModel: .constant(nil)
-        )
+        EmptyView()
     }
 }

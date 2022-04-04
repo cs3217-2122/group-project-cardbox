@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct WinMessageView: View {
-    @EnvironmentObject var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
 
     var overlay: some View {
         Rectangle()
