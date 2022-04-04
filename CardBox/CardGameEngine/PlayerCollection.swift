@@ -33,6 +33,7 @@ class PlayerCollection {
 
     func updateState(_ players: PlayerCollection) {
         self.players = players.players
+        self.currentPlayerIndex = players.currentPlayerIndex
     }
 
     func addPlayer(_ player: Player) {
