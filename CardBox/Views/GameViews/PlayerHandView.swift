@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
+    var currentPlayerViewModel: PlayerViewModel
     let playerHandViewModel: PlayerHandViewModel
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
@@ -23,9 +24,10 @@ struct PlayerHandView: View {
     }
 
     var isFaceUp: Bool {
-        // check if online or offline
-        playerViewModel
-          .isCurrentPlayer(gameRunner: gameRunnerViewModel)
+        // check if playervm = currentplayer
+        currentPlayerViewModel.player.id == playerViewModel.player.id
+        // playerViewModel
+        // .isCurrentPlayer(gameRunner: gameRunnerViewModel)
     }
 
     var body: some View {

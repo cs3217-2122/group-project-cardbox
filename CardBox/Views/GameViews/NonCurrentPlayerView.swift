@@ -21,6 +21,7 @@ struct NonCurrentPlayerView: View {
                         player: player3,
                         hand: gameRunnerViewModel.getHandByPlayer(player3) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -37,19 +38,28 @@ struct NonCurrentPlayerView: View {
         }
     }
 
-    var middlePart: some View {
-        HStack {
-            if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
+    var leftPlayer: some View {
+        if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
+            return AnyView(
                 PlayerView(
                     playerViewModel: PlayerViewModel(
-                        player: player4,
-                        hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
+                    player: player4,
+                    hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
-                .rotationEffect(.degrees(90))
-            }
+            .rotationEffect(.degrees(90))
+            )
+        } else {
+            return AnyView(EmptyView())
+        }
+    }
+
+    var middlePart: some View {
+        HStack {
+            leftPlayer
             Spacer()
             decks
             Spacer()
@@ -59,6 +69,7 @@ struct NonCurrentPlayerView: View {
                         player: player2,
                         hand: gameRunnerViewModel.getHandByPlayer(player2) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )

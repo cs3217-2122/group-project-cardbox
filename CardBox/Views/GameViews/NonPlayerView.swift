@@ -23,6 +23,7 @@ struct NonPlayerView: View {
                         player: topPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(topPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -63,6 +64,7 @@ struct NonPlayerView: View {
                         player: leftPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(leftPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -82,6 +84,7 @@ struct NonPlayerView: View {
                         player: rightPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(rightPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: currentPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )

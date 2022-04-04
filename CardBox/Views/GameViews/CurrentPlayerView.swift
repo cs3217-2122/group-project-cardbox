@@ -16,6 +16,7 @@ struct CurrentPlayerView: View {
     var body: some View {
         PlayerView(
             playerViewModel: currentPlayerViewModel,
+            currentPlayerViewModel: currentPlayerViewModel,
             error: $error,
             selectedPlayerViewModel: $selectedPlayerViewModel
         )
