@@ -27,15 +27,15 @@ struct ExplodingKittensOnlineView: View {
                     )
                     NonPlayerView(
                         error: $error, localPlayerIndex: localPlayerIndex,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
-                    CurrentPlayerView(
+                    BottomPlayerView(
                         error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }

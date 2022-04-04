@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct NonCurrentPlayerView: View {
+struct NonBottomPlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
-    var currentPlayerViewModel: PlayerViewModel
+    var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
@@ -21,7 +21,7 @@ struct NonCurrentPlayerView: View {
                         player: player3,
                         hand: gameRunnerViewModel.getHandByPlayer(player3) ?? CardCollection()
                     ),
-                    currentPlayerViewModel: currentPlayerViewModel,
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -30,9 +30,9 @@ struct NonCurrentPlayerView: View {
             }
             Spacer()
             middlePart
-            if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                 GameActionsView(error: $error,
-                                currentPlayerViewModel: currentPlayerViewModel,
+                                currentPlayerViewModel: bottomPlayerViewModel,
                                 selectedPlayerViewModel: $selectedPlayerViewModel)
             }
         }
@@ -46,7 +46,7 @@ struct NonCurrentPlayerView: View {
                     player: player4,
                     hand: gameRunnerViewModel.getHandByPlayer(player4) ?? CardCollection()
                     ),
-                    currentPlayerViewModel: currentPlayerViewModel,
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -69,7 +69,7 @@ struct NonCurrentPlayerView: View {
                         player: player2,
                         hand: gameRunnerViewModel.getHandByPlayer(player2) ?? CardCollection()
                     ),
-                    currentPlayerViewModel: currentPlayerViewModel,
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -94,9 +94,9 @@ struct NonCurrentPlayerView: View {
 
 struct NonCurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        NonCurrentPlayerView(
+        NonBottomPlayerView(
             error: .constant(false),
-            currentPlayerViewModel: PlayerViewModel(
+            bottomPlayerViewModel: PlayerViewModel(
                 player: Player(name: "test"),
                 hand: CardCollection()
             ),

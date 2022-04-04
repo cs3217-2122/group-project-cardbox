@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct CurrentPlayerView: View {
+struct BottomPlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
-    var currentPlayerViewModel: PlayerViewModel
+    var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
         PlayerView(
-            playerViewModel: currentPlayerViewModel,
-            currentPlayerViewModel: currentPlayerViewModel,
+            playerViewModel: bottomPlayerViewModel,
+            currentPlayerViewModel: bottomPlayerViewModel,
             error: $error,
             selectedPlayerViewModel: $selectedPlayerViewModel
         )
@@ -25,9 +25,9 @@ struct CurrentPlayerView: View {
 
 struct CurrentPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        CurrentPlayerView(
+        BottomPlayerView(
             error: .constant(false),
-            currentPlayerViewModel: PlayerViewModel(
+            bottomPlayerViewModel: PlayerViewModel(
                 player: Player(
                     name: "test"
                 ),

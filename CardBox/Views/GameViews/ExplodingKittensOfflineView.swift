@@ -23,15 +23,15 @@ struct ExplodingKittensOfflineView: View {
                         player: currentPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                     )
-                    NonCurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                    NonBottomPlayerView(
+                        error: $error, bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
-                    CurrentPlayerView(
-                        error: $error, currentPlayerViewModel: currentPlayerViewModel,
+                    BottomPlayerView(
+                        error: $error, bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }

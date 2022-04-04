@@ -31,8 +31,7 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
         for card in toDeck.getCards() {
             print(type(of: card))
         }
-        
-        
+
         fromDeck.removeCards(cards)
         toDeck.addCards(cards, offsetFromTop: offsetFromTop)
     }
