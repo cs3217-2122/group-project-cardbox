@@ -33,8 +33,7 @@ class FavorCard: ExplodingKittensCard {
             }
 
             gameRunner.executeGameEvents([
-                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand),
-                MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand)
             ])
         }
 

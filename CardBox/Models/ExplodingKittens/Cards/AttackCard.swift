@@ -26,8 +26,7 @@ class AttackCard: ExplodingKittensCard {
 
         gameRunner.executeGameEvents([
             CustomizedGameEvent(customizedGameEvent: IncrementAttackCountEvent(player: nextPlayer)),
-            AdvanceNextPlayerEvent(),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            AdvanceNextPlayerEvent()
         ])
     }
 }

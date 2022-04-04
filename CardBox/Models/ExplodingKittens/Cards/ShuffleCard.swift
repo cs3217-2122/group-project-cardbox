@@ -20,8 +20,7 @@ class ShuffleCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            ShuffleDeckEvent(deck: gameRunner.deck),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            ShuffleDeckEvent(deck: gameRunner.deck)
         ])
     }
 }

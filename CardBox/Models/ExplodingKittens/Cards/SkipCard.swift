@@ -20,8 +20,7 @@ class SkipCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            AdvanceNextPlayerEvent(),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            AdvanceNextPlayerEvent()
         ])
     }
 }

@@ -20,8 +20,7 @@ class SeeTheFutureCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck)),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck))
          ])
     }
 }

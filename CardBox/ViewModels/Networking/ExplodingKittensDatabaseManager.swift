@@ -112,11 +112,15 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 print(player)
             }
 
-            guard let gameRunner = gameRunner else {
+            guard let gameRunner = gameRunner as? ExplodingKittensGameRunner else {
                 return
             }
 
-            gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+            if gameRunner.state == .start {
+                gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+            } else {
+                gameRunner.updateStateMutable(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+            }
         }
     }
 
