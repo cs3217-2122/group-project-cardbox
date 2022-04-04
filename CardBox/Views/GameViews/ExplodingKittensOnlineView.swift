@@ -42,6 +42,7 @@ struct ExplodingKittensOnlineView: View {
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
+            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
