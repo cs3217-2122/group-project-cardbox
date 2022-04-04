@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
-    var currentPlayerViewModel: PlayerViewModel
+    var bottomPlayerViewModel: PlayerViewModel
     let playerHandViewModel: PlayerHandViewModel
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
@@ -24,7 +24,7 @@ struct PlayerHandView: View {
     }
 
     var isFaceUp: Bool {
-        currentPlayerViewModel.player.id == playerViewModel.player.id
+        bottomPlayerViewModel.player.id == playerViewModel.player.id
     }
 
     var body: some View {
@@ -35,7 +35,7 @@ struct PlayerHandView: View {
                                                   isSelected: playerViewModel.isSelected(card: card))
                 if isFaceUp {
                     CardView(cardViewModel: cardViewModel,
-                             currentPlayerViewModel: currentPlayerViewModel, playerViewModel: playerViewModel)
+                             currentPlayerViewModel: bottomPlayerViewModel, playerViewModel: playerViewModel)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                             playerViewModel
