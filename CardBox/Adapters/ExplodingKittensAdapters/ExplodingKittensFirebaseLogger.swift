@@ -5,7 +5,7 @@
 //  Created by Stuart Long on 4/4/22.
 //
 
-class ExplodingKittensFirebaseLogger {
+class ExplodingKittensFirebaseLogger: FirebaseLogger {
     private var log: [ExplodingKittensFirebaseEventLogger]
     
     init() {

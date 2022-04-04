@@ -111,6 +111,8 @@
 		68A94A5627F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */; };
 		68AB292127FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292027FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift */; };
 		68AB292327FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */; };
+		68AB292527FAE54600766069 /* FirebaseLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292427FAE54600766069 /* FirebaseLogger.swift */; };
+		68AB292727FAE55800766069 /* FirebaseEventLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AB292627FAE55800766069 /* FirebaseEventLogger.swift */; };
 		68EEFCF727F207AD00E1D42B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +243,8 @@
 		68A94A5527F835A3002EE49A /* ExplodingKittensGameRunnerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensGameRunnerObserver.swift; sourceTree = "<group>"; };
 		68AB292027FADDCE00766069 /* ExplodingKittensFirebaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensFirebaseLogger.swift; sourceTree = "<group>"; };
 		68AB292227FADEB000766069 /* ExplodingKittensFirebaseEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensFirebaseEventLogger.swift; sourceTree = "<group>"; };
+		68AB292427FAE54600766069 /* FirebaseLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLogger.swift; sourceTree = "<group>"; };
+		68AB292627FAE55800766069 /* FirebaseEventLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEventLogger.swift; sourceTree = "<group>"; };
 		68EEFCF627F207AD00E1D42B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -580,6 +584,8 @@
 			children = (
 				686DEE4927F6F3F9008AAC7B /* ExplodingKittensAdapters */,
 				6892FB4227F6CDF90024E974 /* FirebaseAdapter.swift */,
+				68AB292427FAE54600766069 /* FirebaseLogger.swift */,
+				68AB292627FAE55800766069 /* FirebaseEventLogger.swift */,
 				6892FB4427F6ED180024E974 /* CardAdapter.swift */,
 				686DEE4527F6F36A008AAC7B /* CardCollectionAdapter.swift */,
 				68A94A4B27F788A5002EE49A /* PlayerCollectionAdapter.swift */,
@@ -788,6 +794,7 @@
 				2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */,
 				681DE8DC27F4AE5F006740FF /* HostGameViewModel.swift in Sources */,
 				2DA04F7927DAE9540063D952 /* CardCollection.swift in Sources */,
+				68AB292527FAE54600766069 /* FirebaseLogger.swift in Sources */,
 				2D9364F527F0205B008C1E53 /* RandomCard.swift in Sources */,
 				68466A8F27E5061B000387B6 /* CurrentPlayerView.swift in Sources */,
 				2D00820A27EE97EA00F0E359 /* ExplodingKittensCard.swift in Sources */,
@@ -807,6 +814,7 @@
 				4EB4466827F70FCD00EB07C7 /* ShowCardPositionRequestEvent.swift in Sources */,
 				2DA0504B27DC4B130063D952 /* SetCurrentPlayerEvent.swift in Sources */,
 				2D00822427EE9D2A00F0E359 /* SeeTheFutureCard.swift in Sources */,
+				68AB292727FAE55800766069 /* FirebaseEventLogger.swift in Sources */,
 				6892FB4327F6CDF90024E974 /* FirebaseAdapter.swift in Sources */,
 				68A94A4E27F788C1002EE49A /* PlayerAdapter.swift in Sources */,
 				2DA04F8327DAFF690063D952 /* GameState.swift in Sources */,

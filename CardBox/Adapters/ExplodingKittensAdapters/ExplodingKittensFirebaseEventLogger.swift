@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class ExplodingKittensFirebaseEventLogger {
+class ExplodingKittensFirebaseEventLogger: FirebaseEventLogger {
     private var type: String
     private var timeStamp = NSDate().timeIntervalSince1970
 
