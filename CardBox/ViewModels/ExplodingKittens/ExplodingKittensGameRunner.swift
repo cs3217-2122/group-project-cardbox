@@ -84,13 +84,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands = explodingKittensGameRunner.playerHands
         self.gameplayArea = explodingKittensGameRunner.gameplayArea
         self.state = explodingKittensGameRunner.state
-        self.cardsPeeking = explodingKittensGameRunner.cardsPeeking
-        self.deckPositionRequest = explodingKittensGameRunner.deckPositionRequest
         self.observers = explodingKittensGameRunner.observers
         self.isWin = explodingKittensGameRunner.isWin
         self.winner = explodingKittensGameRunner.winner
-        self.cardPreview = explodingKittensGameRunner.cardPreview
-        self.isShowingPeek = explodingKittensGameRunner.isShowingPeek
 
     }
 
