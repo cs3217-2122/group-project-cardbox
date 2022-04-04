@@ -6,9 +6,9 @@ class PlayerCollection {
         self.init(players: [])
     }
 
-    init(players: [Player]) {
+    init(players: [Player], currentPlayerIndex: Int = 0) {
         self.players = players
-        self.currentPlayerIndex = 0
+        self.currentPlayerIndex = currentPlayerIndex
     }
 
     var names: [String] {
