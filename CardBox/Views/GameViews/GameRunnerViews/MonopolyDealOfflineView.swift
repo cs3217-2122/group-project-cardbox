@@ -11,6 +11,7 @@ struct MonopolyDealOfflineView: View {
     @StateObject var gameRunnerViewModel = MonopolyDealGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
+    @State var selectedCardSetViewModel: CardSetViewModel?
     @State var cardPreview: Card?
 
     @ViewBuilder
@@ -40,6 +41,7 @@ struct MonopolyDealOfflineView: View {
             error: $error,
             bottomPlayerViewModel: bottomPlayerViewModel,
             selectedPlayerViewModel: $selectedPlayerViewModel,
+            selectedCardSetViewModel: $selectedCardSetViewModel,
             playerArea: { player in
                 MDNonPlayerView(
                     playerViewModel: PlayerViewModel(
@@ -49,6 +51,7 @@ struct MonopolyDealOfflineView: View {
                     playerPlayAreaViewModel: PlayerPlayAreaViewModel(
                         sets: gameRunnerViewModel.getPropertyAreaByPlayer(player)
                     ),
+                    selectedCardSetViewModel: $selectedCardSetViewModel,
                     error: $error
                 )
             },
@@ -67,6 +70,7 @@ struct MonopolyDealOfflineView: View {
                     playerPlayAreaViewModel: PlayerPlayAreaViewModel(
                         sets: gameRunnerViewModel.getPropertyAreaByPlayer(bottomPlayerViewModel.player)
                     ),
+                    selectedCardSetViewModel: $selectedCardSetViewModel,
                     error: $error
                 )
             }

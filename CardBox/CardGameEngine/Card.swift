@@ -4,7 +4,7 @@ enum GameplayTarget {
     case all
     case none
     case single(Player)
-    case deck(CardCollection)
+    case deck(CardCollection?)
 
     var description: String {
         switch self {

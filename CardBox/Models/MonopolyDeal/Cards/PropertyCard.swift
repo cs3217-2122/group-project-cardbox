@@ -22,7 +22,7 @@ class PropertyCard: MonopolyDealCard {
         self.colors = colors
         super.init(
             name: name,
-            typeOfTargettedCard: .noTargetCard,
+            typeOfTargettedCard: .targetSingleDeckCard,
             type: .property
         )
     }
@@ -37,43 +37,47 @@ class PropertyCard: MonopolyDealCard {
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let deck) = target {
-            let hand = gameRunner.getHandByPlayer(player)
+            if let deck = deck {
+                let hand = gameRunner.getHandByPlayer(player)
 
-            guard let baseCard = deck.getCardByIndex(0) as? PropertyCard else {
-                return
-            }
+                guard let baseCard = deck.getCardByIndex(0) as? PropertyCard else {
+                    return
+                }
 
-            let baseColors = baseCard.colors
+                let baseColors = baseCard.colors
 
-            guard baseColors.count == 1 else {
-                return
-            }
-            guard let baseColor = baseColors.first else {
-                return
-            }
+                guard baseColors.count == 1 else {
+                    return
+                }
+                guard let baseColor = baseColors.first else {
+                    return
+                }
 
-            let baseSize = baseCard.setSize
-            guard deck.count < baseSize else {
-                return
-            }
+                let baseSize = baseCard.setSize
+                guard deck.count < baseSize else {
+                    return
+                }
 
-            if self.colors.contains(baseColor) {
+                if self.colors.contains(baseColor) {
+                    gameRunner.executeGameEvents([
+                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: deck)
+                    ])
+                }
+            } else {
+                let hand = gameRunner.getHandByPlayer(player)
+
+                guard colors.count == 1 else {
+                    return
+                }
+
+                let newCollection = CardCollection()
+                newCollection.addCard(self)
+
+                let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
                 gameRunner.executeGameEvents([
-                    MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: deck)
+                    AddNewPropertyAreaEvent(propertyArea: propertyArea, cards: newCollection, fromHand: hand)
                 ])
             }
-        } else if case .none = target {
-            guard colors.count == 1 else {
-                return
-            }
-
-            let newCollection = CardCollection()
-            newCollection.addCard(self)
-
-            let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
-            gameRunner.executeGameEvents([
-                AddNewPropertyAreaEvent(propertyArea: propertyArea, cards: newCollection)
-            ])
         }
     }
 }

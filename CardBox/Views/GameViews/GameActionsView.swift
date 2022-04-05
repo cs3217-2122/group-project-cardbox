@@ -16,6 +16,7 @@ struct GameActionsView: View {
     @Binding var error: Bool
     var currentPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
+    @Binding var selectedCardSetViewModel: CardSetViewModel?
 
     var body: some View {
         HStack {
@@ -34,8 +35,12 @@ struct GameActionsView: View {
                 if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                     currentPlayerViewModel.playCards(
                         gameRunner: gameRunnerViewModel,
-                        target: selectedPlayerViewModel
+                        target: selectedPlayerViewModel,
+                        targetCardSet: selectedCardSetViewModel
                     )
+                    // Reset selected on play
+                    self.selectedCardSetViewModel = nil
+                    self.selectedPlayerViewModel = nil
                 }
             } label: {
                 Text("Play")
@@ -57,7 +62,8 @@ struct GameActionsView_Previews: PreviewProvider {
                 player: Player(name: "test"),
                 hand: CardCollection()
             ),
-            selectedPlayerViewModel: .constant(nil)
+            selectedPlayerViewModel: .constant(nil),
+            selectedCardSetViewModel: .constant(nil)
         )
     }
 }

@@ -15,35 +15,43 @@ struct CardSetView: View {
         gameRunnerDelegate.runner
     }
 
+    @Binding var selectedCardSetViewModel: CardSetViewModel?
+
     @Binding var error: Bool
-    let setHeight = 600
+    let setHeight = 100
 
     var spacing: Double {
         let size = cardSetViewModel.size
         guard size > 0 else {
             return 0
         }
-        return 100
+        return Double((setHeight - size * CardView.defaultCardWidth) / size)
     }
 
     var body: some View {
-        VStack(spacing: CGFloat(spacing)) {
-            ForEach(cardSetViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(
-                    card: card,
-                    isFaceUp: true,
-                    isSelected: playerViewModel.isSelected(card: card)
-                )
-                CardView(cardViewModel: cardViewModel, currentPlayerViewModel: playerViewModel)
-                    .gesture(
-                        DragGesture(minimumDistance: 0.0)
-                            .onChanged { _ in
-                                playerViewModel.previewCard(card: card, gameRunner: gameRunnerViewModel)
-                            }
-                            .onEnded { _ in
-                                playerViewModel.unpreviewCard(card: card, gameRunner: gameRunnerViewModel)
-                            }
+        ZStack {
+            HStack(spacing: CGFloat(spacing)) {
+                ForEach(cardSetViewModel.getCards()) { card in
+                    let cardViewModel = CardViewModel(
+                        card: card,
+                        isFaceUp: true,
+                        isSelected: playerViewModel.isSelected(card: card)
                     )
+                    CardView(cardViewModel: cardViewModel, currentPlayerViewModel: playerViewModel)
+                        .gesture(
+                            DragGesture(minimumDistance: 0.0)
+                                .onChanged { _ in
+                                    if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
+                                        self.selectedCardSetViewModel = nil
+                                    } else {
+                                        self.selectedCardSetViewModel = cardSetViewModel
+                                    }
+                                }
+                        )
+                }
+            }
+            if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
+                Text("Chosen Card")
             }
         }
     }

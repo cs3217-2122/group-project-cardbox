@@ -42,6 +42,7 @@ struct ExplodingKittensOnlineView: View {
             localPlayerIndex: localPlayerIndex,
             bottomPlayerViewModel: bottomPlayerViewModel,
             selectedPlayerViewModel: $selectedPlayerViewModel,
+            selectedCardSetViewModel: .constant(nil),
             playerArea: { player in
                 EKPlayerView(
                     playerViewModel: PlayerViewModel(

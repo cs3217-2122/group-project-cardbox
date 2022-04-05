@@ -102,6 +102,26 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
             cards.append(HouseCard())
         }
 
+        let blueNames = ["Blue 1", "Blue 2", "Blue 3", "Blue 4", "Blue 5"]
+        blueNames.forEach { name in
+            cards.append(PropertyCard(
+                name: name,
+                setSize: 3,
+                rentAmounts: [100, 400, 500],
+                colors: Set([.blue])
+            ))
+        }
+
+        let redNames = ["Red 1", "Red 2", "Red 3", "Red 4", "Red 5"]
+        redNames.forEach { name in
+            cards.append(PropertyCard(
+                name: name,
+                setSize: 3,
+                rentAmounts: [200, 300, 700],
+                colors: Set([.red])
+            ))
+        }
+
         return cards
     }
 

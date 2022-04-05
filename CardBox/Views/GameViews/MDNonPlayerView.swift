@@ -10,6 +10,7 @@ import SwiftUI
 struct MDNonPlayerView: View {
     var playerViewModel: PlayerViewModel
     let playerPlayAreaViewModel: PlayerPlayAreaViewModel
+    @Binding var selectedCardSetViewModel: CardSetViewModel?
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: MonopolyDealGameRunnerProtocol? {
         gameRunnerDelegate.runner as? MonopolyDealGameRunnerProtocol
@@ -46,14 +47,20 @@ struct MDNonPlayerView: View {
                     ForEach(playerPlayAreaViewModel.sets.area) { cardSet in
                         let cardSetViewModel =
                         CardSetViewModel(cards: cardSet, isPlayDeck: true, gameRunner: mdViewModel)
-                        CardSetView(playerViewModel: playerViewModel, cardSetViewModel: cardSetViewModel, error: $error)
+                        CardSetView(
+                            playerViewModel: playerViewModel,
+                            cardSetViewModel: cardSetViewModel,
+                            selectedCardSetViewModel: $selectedCardSetViewModel,
+                            error: $error
+                        )
                     }
                     DeckView(
                         deckViewModel: DeckViewModel(
                             deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player),
                             isPlayDeck: false,
                             gameRunner: mdViewModel
-                        ), isFaceUp: true
+                        ),
+                        isFaceUp: true
                     )
                 }
             }

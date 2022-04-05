@@ -93,7 +93,7 @@ class PlayerViewModel: ObservableObject {
         self.player.isOutOfGame
     }
 
-    func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?) {
+    func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?, targetCardSet: CardSetViewModel?) {
         guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
             print("Cannot play card on player (Player is dead)")
             return
@@ -117,8 +117,7 @@ class PlayerViewModel: ObservableObject {
         case .noTargetCard:
             player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
         case .targetSingleDeckCard:
-            // TODO:
-            break
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
         }
     }
 

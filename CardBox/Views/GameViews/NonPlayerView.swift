@@ -17,6 +17,7 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
     let localPlayerIndex: Int
     var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
+    @Binding var selectedCardSetViewModel: CardSetViewModel?
     @ViewBuilder let playerArea: (Player) -> PlayerView
     @ViewBuilder let center: () -> CentreView
 
@@ -33,7 +34,8 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
             if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                 GameActionsView(error: $error,
                                 currentPlayerViewModel: bottomPlayerViewModel,
-                                selectedPlayerViewModel: $selectedPlayerViewModel)
+                                selectedPlayerViewModel: $selectedPlayerViewModel,
+                                selectedCardSetViewModel: $selectedCardSetViewModel)
             }
         }
     }

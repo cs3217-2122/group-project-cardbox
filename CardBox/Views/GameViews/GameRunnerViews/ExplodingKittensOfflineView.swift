@@ -40,6 +40,7 @@ struct ExplodingKittensOfflineView: View {
             error: $error,
             bottomPlayerViewModel: bottomPlayerViewModel,
             selectedPlayerViewModel: $selectedPlayerViewModel,
+            selectedCardSetViewModel: .constant(nil),
             playerArea: { player in
                 EKPlayerView(
                     playerViewModel: PlayerViewModel(
