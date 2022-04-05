@@ -124,7 +124,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands.forEach { _, hand in
             let defuseCard = DefuseCard()
             hand.addCard(defuseCard)
-            hand.shuffle()
         }
 
         let cards = initCards()
@@ -147,6 +146,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
             self.deck.removeCard(topCards[i])
             playerDeck.addCard(topCards[i])
+            playerDeck.shuffle()
         }
 
         let bombs = (1...(numPlayers - 1)).map { _ in
