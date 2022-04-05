@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 25/03/2022.
 //
+import Foundation
 
 class AttackCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "Attack",
+            typeOfTargettedCard: .noTargetCard,
+            type: .attack
+        )
+    }
+    
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "Attack",
             typeOfTargettedCard: .noTargetCard,
             type: .attack

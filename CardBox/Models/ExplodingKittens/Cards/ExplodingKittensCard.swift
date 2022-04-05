@@ -4,6 +4,7 @@
 //
 //  Created by mactest on 25/03/2022.
 //
+import Foundation
 
 class ExplodingKittensCard: Card {
     typealias EKGameRunnerProtocol = ExplodingKittensGameRunnerProtocol
@@ -19,6 +20,22 @@ class ExplodingKittensCard: Card {
     ) {
         self.type = type
         super.init(
+            name: name,
+            typeOfTargettedCard: typeOfTargettedCard,
+            cardDescription: cardDescription
+        )
+    }
+
+    init(
+        id: UUID,
+        name: String,
+        typeOfTargettedCard: TypeOfTargettedCard,
+        type: ExplodingKittensCardType,
+        cardDescription: String = ""
+    ) {
+        self.type = type
+        super.init(
+            id: id
             name: name,
             typeOfTargettedCard: typeOfTargettedCard,
             cardDescription: cardDescription

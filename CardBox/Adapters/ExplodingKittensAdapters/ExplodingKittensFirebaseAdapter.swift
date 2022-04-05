@@ -5,7 +5,7 @@
 //  Created by Stuart Long on 1/4/22.
 //
 import FirebaseFirestoreSwift
-import SwiftUI
+import Foundation
 
 class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
 

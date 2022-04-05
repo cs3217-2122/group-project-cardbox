@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 25/03/2022.
 //
+import Foundation
 
 class ShuffleCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "Shuffle",
+            typeOfTargettedCard: .noTargetCard,
+            type: .shuffle
+        )
+    }
+    
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "Shuffle",
             typeOfTargettedCard: .noTargetCard,
             type: .shuffle

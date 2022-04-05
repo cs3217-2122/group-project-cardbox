@@ -5,7 +5,7 @@
 //  Created by mactest on 25/03/2022.
 //
 
-import SwiftUI
+import Foundation
 
 class ExplodingKittensPlayer: Player {
     private(set) var attackCount = 0

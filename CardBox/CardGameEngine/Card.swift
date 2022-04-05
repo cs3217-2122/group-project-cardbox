@@ -52,6 +52,18 @@ class Card: NSObject, Identifiable {
         self.typeOfTargettedCard = typeOfTargettedCard
         self.cardDescription = ""
     }
+    
+    init(
+        id: UUID,
+        name: String,
+        typeOfTargettedCard: TypeOfTargettedCard,
+        cardDescription: String = ""
+    ) {
+        self.id = id
+        self.name = name
+        self.typeOfTargettedCard = typeOfTargettedCard
+        self.cardDescription = ""
+    }
 
     // Convenience function for testing
     convenience init(name: String) {
