@@ -18,6 +18,7 @@ enum Page {
     case mainMenu
     case hostGame
     case joinGame
+    case monopolyDeal
 }
 
 struct ContentView: View {
@@ -27,11 +28,12 @@ struct ContentView: View {
         if appState.page == .mainMenu {
             MainMenuView()
                 .environmentObject(appState)
-        } else if appState.page == .game {
+        } else if appState.page == .monopolyDeal {
             MonopolyDealOfflineView()
                 .environmentObject(appState)
-//        } else if appState.page == .onlineGame {
-//            ExplodingKittensOnlineView(localPlayerIndex: appState.localPlayerIndex)
+        } else if appState.page == .game {
+            ExplodingKittensOfflineView()
+                .environmentObject(appState)
         } else if appState.page == .hostGame {
             HostGameView()
                 .environmentObject(appState)

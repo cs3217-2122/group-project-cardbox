@@ -23,6 +23,16 @@ struct MenuButtonsView: View {
         }
         .accessibilityIdentifier("LaunchOfflineGame")
         Button {
+            appState.page = .monopolyDeal
+        } label: {
+            Text("Play Monopoly Deal")
+                .font(.title)
+                .frame(width: 400, height: 100)
+                .border(Color.black)
+                .foregroundColor(Color.orange)
+                .background(Color.blue)
+        }
+        Button {
             appState.page = .hostGame
         } label: {
             Text("Host Game")

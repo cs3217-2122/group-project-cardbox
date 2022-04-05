@@ -13,63 +13,75 @@ struct MonopolyDealOfflineView: View {
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
 
+    @ViewBuilder
+    var centerArea: some View {
+        HStack {
+            DeckView(
+                deckViewModel: DeckViewModel(
+                    deck: gameRunnerViewModel.deck,
+                    isPlayDeck: false,
+                    gameRunner: gameRunnerViewModel
+                ),
+                isFaceUp: false
+            )
+            DeckView(
+                deckViewModel: DeckViewModel(
+                    deck: gameRunnerViewModel.gameplayArea,
+                    isPlayDeck: true,
+                    gameRunner: gameRunnerViewModel
+                ),
+                isFaceUp: true
+            )
+        }
+    }
+
+    func getNonCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+        NonBottomPlayerView(
+            error: $error,
+            bottomPlayerViewModel: bottomPlayerViewModel,
+            selectedPlayerViewModel: $selectedPlayerViewModel,
+            playerArea: { player in
+                MDPlayerView(
+                    playerViewModel: PlayerViewModel(
+                        player: player,
+                        hand: gameRunnerViewModel.getHandByPlayer(player)
+                    ),
+                    currentPlayerViewModel: bottomPlayerViewModel,
+                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
+                    error: $error
+                )
+            },
+            center: {
+                centerArea
+            }
+        )
+    }
+
+    func getCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+        BottomPlayerView(
+            playerArea: {
+                MDPlayerView(
+                    playerViewModel: bottomPlayerViewModel,
+                    currentPlayerViewModel: bottomPlayerViewModel,
+                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
+                    error: $error
+                )
+            }
+        )
+    }
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            VStack {
-                if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
-                    let bottomPlayerViewModel = PlayerViewModel(
-                        player: currentPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
-                    )
-                    NonBottomPlayerView(
-                        error: $error,
-                        bottomPlayerViewModel: bottomPlayerViewModel,
-                        selectedPlayerViewModel: $selectedPlayerViewModel,
-                        playerArea: { player in
-                            MDPlayerView(
-                                playerViewModel: PlayerViewModel(
-                                    player: player,
-                                    hand: gameRunnerViewModel.getHandByPlayer(player)
-                                ),
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
-                                error: $error
-                            )
-                        },
-                        center: {
-                            DeckView(
-                                deckViewModel: DeckViewModel(
-                                    deck: gameRunnerViewModel.deck,
-                                    isPlayDeck: false,
-                                    gameRunner: gameRunnerViewModel
-                                ),
-                                isFaceUp: false
-                            )
-                            DeckView(
-                                deckViewModel: DeckViewModel(
-                                    deck: gameRunnerViewModel.gameplayArea,
-                                    isPlayDeck: true,
-                                    gameRunner: gameRunnerViewModel
-                                ),
-                                isFaceUp: true
-                            )
-                        }
-                    )
-
+            if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+                let bottomPlayerViewModel = PlayerViewModel(
+                    player: currentPlayer,
+                    hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
+                )
+                VStack {
+                    getNonCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                     Spacer()
-
-                    BottomPlayerView(
-                        playerArea: {
-                            MDPlayerView(
-                                playerViewModel: bottomPlayerViewModel,
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
-                                error: $error
-                            )
-                        }
-                    )
+                    getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                 }
             }
             CardPreviewView()

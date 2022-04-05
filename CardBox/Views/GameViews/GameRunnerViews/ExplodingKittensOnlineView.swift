@@ -14,63 +14,77 @@ struct ExplodingKittensOnlineView: View {
     @State var cardPreview: Card?
     var localPlayerIndex: Int
 
+    @ViewBuilder
+    var centerArea: some View {
+        HStack {
+            DeckView(
+                deckViewModel: DeckViewModel(
+                    deck: gameRunnerViewModel.deck,
+                    isPlayDeck: false,
+                    gameRunner: gameRunnerViewModel
+                ),
+                isFaceUp: false
+            )
+            DeckView(
+                deckViewModel: DeckViewModel(
+                    deck: gameRunnerViewModel.gameplayArea,
+                    isPlayDeck: true,
+                    gameRunner: gameRunnerViewModel
+                ),
+                isFaceUp: true
+            )
+        }
+    }
+
+    func getNonPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+        NonPlayerView(
+            error: $error,
+            localPlayerIndex: localPlayerIndex,
+            bottomPlayerViewModel: bottomPlayerViewModel,
+            selectedPlayerViewModel: $selectedPlayerViewModel,
+            playerArea: { player in
+                EKPlayerView(
+                    playerViewModel: PlayerViewModel(
+                        player: player,
+                        hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection()
+                    ),
+                    currentPlayerViewModel: bottomPlayerViewModel,
+                    error: $error,
+                    selectedPlayerViewModel: $selectedPlayerViewModel
+                )
+            },
+            center: {
+                centerArea
+            }
+        )
+    }
+
+    func getCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+        BottomPlayerView(
+            playerArea: {
+                EKPlayerView(
+                    playerViewModel: bottomPlayerViewModel,
+                    currentPlayerViewModel: bottomPlayerViewModel,
+                    error: $error,
+                    selectedPlayerViewModel: $selectedPlayerViewModel
+                )
+            }
+        )
+    }
+
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            VStack {
-                if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
-                    let bottomPlayerViewModel = PlayerViewModel(
-                        player: localPlayer,
-                        hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()
-                    )
-                    NonPlayerView(
-                        error: $error, localPlayerIndex: localPlayerIndex,
-                        bottomPlayerViewModel: bottomPlayerViewModel,
-                        selectedPlayerViewModel: $selectedPlayerViewModel,
-                        playerArea: { player in
-                            EKPlayerView(
-                                playerViewModel: PlayerViewModel(
-                                    player: player,
-                                    hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection()
-                                ),
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                error: $error,
-                                selectedPlayerViewModel: $selectedPlayerViewModel
-                            )
-                        },
-                        center: {
-                            DeckView(
-                                deckViewModel: DeckViewModel(
-                                    deck: gameRunnerViewModel.deck,
-                                    isPlayDeck: false,
-                                    gameRunner: gameRunnerViewModel
-                                ),
-                                isFaceUp: false
-                            )
-                            DeckView(
-                                deckViewModel: DeckViewModel(
-                                    deck: gameRunnerViewModel.gameplayArea,
-                                    isPlayDeck: true,
-                                    gameRunner: gameRunnerViewModel
-                                ),
-                                isFaceUp: true
-                            )
-                        }
-                    )
-
+            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
+                let bottomPlayerViewModel = PlayerViewModel(
+                    player: localPlayer,
+                    hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()
+                )
+                VStack {
+                    getNonPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                     Spacer()
-
-                    BottomPlayerView(
-                        playerArea: {
-                            EKPlayerView(
-                                playerViewModel: bottomPlayerViewModel,
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                error: $error,
-                                selectedPlayerViewModel: $selectedPlayerViewModel
-                            )
-                        }
-                    )
+                    getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                 }
             }
             CardPreviewView()
