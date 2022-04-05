@@ -100,19 +100,24 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         _ docRef: DocumentReference) {
 
         if !gameRoomID.isEmpty {
+            print("retrieving data before log")
             var fromFirestore: ExplodingKittensFirebaseAdapter?
 
             db.collection("rooms").document(gameRoomID).getDocument { doc, _ in
                 if let doc = doc {
+                    print("decoding data")
                     fromFirestore = self.decodeExplodingKittensFirebaseAdapter(doc)
                 }
             }
 
             if let fromFirestore = fromFirestore {
+                print("decoded successfully")
                 for log in fromFirestore.log.logs {
                     print(log.type)
                 }
                 explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
+            } else {
+                print("did not decode")
             }
         }
 

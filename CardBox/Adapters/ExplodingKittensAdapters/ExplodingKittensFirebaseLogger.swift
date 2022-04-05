@@ -27,7 +27,7 @@ class ExplodingKittensFirebaseLogger: FirebaseLogger {
         for log in self.logs {
             newLog.append(log)
         }
-        
+
         // TODO: remove after testing
         for log in newLog {
             print(log.type)
