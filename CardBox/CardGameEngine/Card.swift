@@ -33,6 +33,7 @@ enum TypeOfTargettedCard: String, Codable {
 }
 
 class Card: NSObject, Identifiable {
+    let id: UUID
     let name: String
     let cardDescription: String
     let typeOfTargettedCard: TypeOfTargettedCard
@@ -46,6 +47,7 @@ class Card: NSObject, Identifiable {
         typeOfTargettedCard: TypeOfTargettedCard,
         cardDescription: String = ""
     ) {
+        self.id = UUID()
         self.name = name
         self.typeOfTargettedCard = typeOfTargettedCard
         self.cardDescription = ""
@@ -54,6 +56,14 @@ class Card: NSObject, Identifiable {
     // Convenience function for testing
     convenience init(name: String) {
         self.init(name: name, typeOfTargettedCard: .noTargetCard)
+    }
+
+    override func isEqual(_ object: Any?) -> Bool {
+        if let other = object as? Card {
+            return self.id == other.id
+        } else {
+            return false
+        }
     }
 
     // To be overwritten
