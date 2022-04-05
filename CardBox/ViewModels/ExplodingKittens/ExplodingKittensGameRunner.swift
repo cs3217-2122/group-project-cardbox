@@ -124,6 +124,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands.forEach { _, hand in
             let defuseCard = DefuseCard()
             hand.addCard(defuseCard)
+            hand.shuffle()
         }
 
         let cards = initCards()
