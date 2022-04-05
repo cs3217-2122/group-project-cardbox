@@ -99,10 +99,6 @@ class PlayerViewModel: ObservableObject {
             return
         }
 
-        guard let player = player as? ExplodingKittensPlayer else {
-            return
-        }
-
         guard let typeOfTargettedCard = player.determineTargetOfCards(selectedCards, gameRunner: gameRunner) else {
             print("Could not determine target")
             return

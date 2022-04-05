@@ -73,7 +73,7 @@ class ExplodingKittensPlayer: Player {
         return cardTypeSet.count == cards.count
     }
 
-    func determineTargetOfCards(_ cards: [Card], gameRunner: GameRunnerProtocol) -> TypeOfTargettedCard? {
+    override func determineTargetOfCards(_ cards: [Card], gameRunner: GameRunnerProtocol) -> TypeOfTargettedCard? {
         guard canPlay(cards: cards, gameRunner: gameRunner) else {
             return nil
         }

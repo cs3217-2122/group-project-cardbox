@@ -60,6 +60,16 @@ class MonopolyDealPlayer: Player {
         ])
     }
 
-    private static func playPairCombo() {
+    override func determineTargetOfCards(_ cards: [Card], gameRunner: GameRunnerProtocol) -> TypeOfTargettedCard? {
+        guard canPlay(cards: cards, gameRunner: gameRunner) else {
+            return nil
+        }
+
+        switch cards.count {
+        case 1:
+            return cards[0].typeOfTargettedCard
+        default:
+            return nil
+        }
     }
 }
