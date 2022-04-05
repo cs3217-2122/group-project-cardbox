@@ -18,7 +18,7 @@ struct MDPlayerView: View {
     }
 
     @Binding var error: Bool
-    let handWidth = 600
+    let handWidth = 300
 
     var playerText: String {
         var playerName = playerViewModel.player.name
