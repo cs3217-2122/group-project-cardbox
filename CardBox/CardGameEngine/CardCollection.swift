@@ -59,7 +59,7 @@ class CardCollection: Identifiable {
     }
 
     func removeCard(_ card: Card) {
-        guard let cardIndex = cards.firstIndex(where: { $0 === card }) else {
+        guard let cardIndex = cards.firstIndex(where: { $0.isEqual(card) }) else {
             return
         }
         cards.remove(at: cardIndex)
