@@ -131,10 +131,6 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     private func retrieveUpdates(_ document: DocumentSnapshot) {
         if let explodingKittensFirebaseAdapter = decodeExplodingKittensFirebaseAdapter(document) {
             self.players = explodingKittensFirebaseAdapter.players.names
-            for player in players {
-                print(player)
-            }
-
             guard let gameRunner = gameRunner as? ExplodingKittensGameRunner else {
                 return
             }
@@ -205,7 +201,6 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
 
     private func joined(id: String, gameRunnerAdapter: ExplodingKittensFirebaseAdapter) {
         self.isJoined = true
-        print(players)
         self.players = gameRunnerAdapter.players.names
         self.gameRoomID = id
         self.gameRunner = gameRunnerAdapter.toGameRunner(observer: self)

@@ -64,9 +64,6 @@ class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
         if let index = players.firstIndex(where: { $0.id == player.id }) {
             players.remove(at: index)
         }
-        for player in players {
-            print(player.name)
-        }
     }
 
     func addPlayer(_ player: ExplodingKittensPlayer) {
