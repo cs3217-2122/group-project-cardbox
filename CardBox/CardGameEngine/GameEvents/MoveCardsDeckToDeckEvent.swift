@@ -34,6 +34,7 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
         }
 
         guard cards.map({ card in fromDeck.containsCard(card) }).allSatisfy({ $0 && true }) else {
+            print("MOVE CARD CONDITIONS FAILED")
             return
         }
 
