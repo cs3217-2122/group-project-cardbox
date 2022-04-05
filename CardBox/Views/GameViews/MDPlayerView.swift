@@ -45,7 +45,7 @@ struct MDPlayerView: View {
                 if let mdViewModel = gameRunnerViewModel {
                     // Money Pile
                     // DeckView(deckViewModel: , isFaceUp: true)
-                    ForEach(playerPlayAreaViewModel.sets.area) { cardSet in
+                    ForEach(playerPlayAreaViewModel.sets.getArea()) { cardSet in
                         let cardSetViewModel =
                         CardSetViewModel(cards: cardSet, isPlayDeck: true, gameRunner: mdViewModel)
                         CardSetView(

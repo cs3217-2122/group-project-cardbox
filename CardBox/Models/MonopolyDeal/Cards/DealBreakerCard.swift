@@ -9,14 +9,39 @@ class DealBreakerCard: MonopolyDealCard {
     init() {
         super.init(
             name: "Deal Breaker",
-            typeOfTargettedCard: .targetAllPlayersCard,
+            typeOfTargettedCard: .targetSingleDeckCard,
             type: .dealBreaker
         )
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        if case .all = target {
-            // Request 2 million from all players
+        if case .deck(let deck) = target {
+            if let deck = deck {
+                let hand = gameRunner.getHandByPlayer(player)
+
+                guard let baseCard = deck.topCard as? PropertyCard else {
+                    return
+                }
+
+                let baseColors = baseCard.colors
+
+                guard baseColors.count == 1 else {
+                    return
+                }
+                let baseSize = baseCard.setSize
+
+                let playerPropertyArea = gameRunner.getPropertyAreaByPlayer(player)
+
+                // Only remove full sets
+                if baseSize == deck.count {
+                    // TODO: Fix from area
+                    gameRunner.executeGameEvents([
+                        MovePropertyAreaEvent(cardSet: deck, fromArea: playerPropertyArea, toArea: playerPropertyArea),
+                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea)
+                    ])
+
+                }
+            }
         }
     }
 }

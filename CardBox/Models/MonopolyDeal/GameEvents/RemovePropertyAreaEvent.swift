@@ -10,9 +10,6 @@ struct RemovePropertyAreaEvent: GameEvent {
     let cards: CardCollection
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        guard let index = propertyArea.area.firstIndex(where: { $0 === cards }) else {
-            return
-        }
-        propertyArea.area.remove(at: index)
+        propertyArea.removeCardCollection(cards)
     }
 }

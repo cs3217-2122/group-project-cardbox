@@ -16,7 +16,11 @@ class HouseCard: MonopolyDealCard {
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let collection) = target {
+            let hand = gameRunner.getHandByPlayer(player)
 
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: collection)
+            ])
         }
     }
 }

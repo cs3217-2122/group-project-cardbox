@@ -61,6 +61,7 @@
 		2DA050BC27DE5ED90063D952 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050BB27DE5ED90063D952 /* PlayerViewModel.swift */; };
 		2DA050C127DEEB180063D952 /* PlayerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050C027DEEB180063D952 /* PlayerCollection.swift */; };
 		2DA050FC27DF41FD0063D952 /* ExplodingKittensCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA050FB27DF41FD0063D952 /* ExplodingKittensCardType.swift */; };
+		300FD14827FCC77100CC1BE4 /* MovePropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300FD14727FCC77100CC1BE4 /* MovePropertyAreaEvent.swift */; };
 		3026763827F9121700CC0F00 /* AddNewPropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */; };
 		3026763A27F9128000CC0F00 /* RemovePropertyAreaEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */; };
 		3026764027F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */; };
@@ -214,6 +215,7 @@
 		2DA050BB27DE5ED90063D952 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		2DA050C027DEEB180063D952 /* PlayerCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollection.swift; sourceTree = "<group>"; };
 		2DA050FB27DF41FD0063D952 /* ExplodingKittensCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplodingKittensCardType.swift; sourceTree = "<group>"; };
+		300FD14727FCC77100CC1BE4 /* MovePropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovePropertyAreaEvent.swift; sourceTree = "<group>"; };
 		3026763727F9121700CC0F00 /* AddNewPropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewPropertyAreaEvent.swift; sourceTree = "<group>"; };
 		3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemovePropertyAreaEvent.swift; sourceTree = "<group>"; };
 		3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementPlayerPlayCountEvent.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				3026763927F9128000CC0F00 /* RemovePropertyAreaEvent.swift */,
 				3026763F27F9172D00CC0F00 /* IncrementPlayerPlayCountEvent.swift */,
 				3026764127F9176200CC0F00 /* ResetPlayerPlayCountEvent.swift */,
+				300FD14727FCC77100CC1BE4 /* MovePropertyAreaEvent.swift */,
 			);
 			path = GameEvents;
 			sourceTree = "<group>";
@@ -869,6 +872,7 @@
 				2D93650027F10C41008C1E53 /* CardPositionRequest.swift in Sources */,
 				2DA0504927DC4B130063D952 /* AddCardToDeckEvent.swift in Sources */,
 				3064DAC427FCA26000261EF7 /* MDNonPlayerView.swift in Sources */,
+				300FD14827FCC77100CC1BE4 /* MovePropertyAreaEvent.swift in Sources */,
 				6892FB4127F6CDD90024E974 /* ExplodingKittensFirebaseAdapter.swift in Sources */,
 				2DA04F6F27DAE6320063D952 /* Action.swift in Sources */,
 				2D9364E427F010E6008C1E53 /* ExplodingKittensGameRunnerProtocol.swift in Sources */,
