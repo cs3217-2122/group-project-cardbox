@@ -16,8 +16,10 @@ struct GameActionsView: View {
     var body: some View {
         HStack {
             Button {
-                gameRunnerViewModel.endPlayerTurn()
-                selectedPlayerViewModel = nil
+                if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                    gameRunnerViewModel.endPlayerTurn()
+                    selectedPlayerViewModel = nil
+                }
             } label: {
                 Text("End")
                     .font(.title)
@@ -25,7 +27,9 @@ struct GameActionsView: View {
                     .border(Color.black)
             }
             Button {
-                currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel, target: selectedPlayerViewModel)
+                if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                    currentPlayerViewModel.playCards(gameRunner: gameRunnerViewModel, target: selectedPlayerViewModel)
+                }
             } label: {
                 Text("Play")
                     .font(.title)

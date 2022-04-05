@@ -12,7 +12,8 @@ struct DeckView: View {
     var isFaceUp: Bool
 
     var body: some View {
-        CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp))
+        CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp),
+                 currentPlayerViewModel: PlayerViewModel())
             .onDrop(of: ["cardbox.card"], delegate: deckViewModel)
     }
 }

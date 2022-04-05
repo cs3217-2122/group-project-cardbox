@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 25/03/2022.
 //
+import Foundation
 
 class SeeTheFutureCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "See The Future",
+            typeOfTargettedCard: .noTargetCard,
+            type: .seeTheFuture
+        )
+    }
+
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "See The Future",
             typeOfTargettedCard: .noTargetCard,
             type: .seeTheFuture
@@ -20,8 +30,7 @@ class SeeTheFutureCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck)),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck))
          ])
     }
 }

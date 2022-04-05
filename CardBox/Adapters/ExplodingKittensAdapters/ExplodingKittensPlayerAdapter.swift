@@ -4,7 +4,7 @@
 //
 //  Created by Stuart Long on 3/4/22.
 //
-import SwiftUI
+import Foundation
 
 class ExplodingKittensPlayerAdapter: PlayerAdapter {
     let id: UUID

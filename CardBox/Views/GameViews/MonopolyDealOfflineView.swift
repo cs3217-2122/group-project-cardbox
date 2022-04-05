@@ -23,17 +23,17 @@ struct MonopolyDealOfflineView: View {
                         player: currentPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                     )
-                    NonCurrentPlayerView(
+                    NonBottomPlayerView(
                         error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
-                    CurrentPlayerView(
+                    BottomPlayerView(
                         error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }

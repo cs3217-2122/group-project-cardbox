@@ -27,21 +27,22 @@ struct ExplodingKittensOnlineView: View {
                     )
                     NonPlayerView(
                         error: $error, localPlayerIndex: localPlayerIndex,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
 
                     Spacer()
 
-                    CurrentPlayerView(
+                    BottomPlayerView(
                         error: $error,
-                        currentPlayerViewModel: currentPlayerViewModel,
+                        bottomPlayerViewModel: currentPlayerViewModel,
                         selectedPlayerViewModel: $selectedPlayerViewModel
                     )
                 }
             }
             CardPreviewView()
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
+            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {

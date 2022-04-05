@@ -55,7 +55,7 @@ class PlayerViewModel: ObservableObject {
             return false
         }
         // TODO: Check if online or offline
-        return currentPlayer === player
+        return currentPlayer.id == player.id
     }
 
     func canPlayCard(gameRunner: GameRunnerProtocol) -> Bool {

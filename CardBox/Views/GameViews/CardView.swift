@@ -10,14 +10,33 @@ import SwiftUI
 struct CardView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @ObservedObject var viewModel: CardViewModel
+    var bottomPlayerViewModel: PlayerViewModel
+    var playerViewModel: PlayerViewModel?
     var isFaceUp: Bool
     static let defaultCardWidth = 150
     let cardWidth = CGFloat(150)
     let cardHeight = CGFloat(250)
 
-    init(cardViewModel: CardViewModel) {
+    init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel) {
         self.viewModel = cardViewModel
         self.isFaceUp = cardViewModel.isFaceUp
+        self.bottomPlayerViewModel = currentPlayerViewModel
+    }
+
+    init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel, playerViewModel: PlayerViewModel) {
+        self.viewModel = cardViewModel
+        self.isFaceUp = cardViewModel.isFaceUp
+        self.bottomPlayerViewModel = currentPlayerViewModel
+        self.playerViewModel = playerViewModel
+    }
+
+    var canInteract: Bool {
+        if let playerViewModel = playerViewModel {
+            return bottomPlayerViewModel.player.id == playerViewModel.player.id
+            && bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel)
+        } else {
+            return false
+        }
     }
 
     func buildView() -> AnyView {
@@ -66,21 +85,17 @@ struct CardView: View {
     }
 
     var body: some View {
-        if let card = viewModel.card {
+        if let card = viewModel.card,
+           // offline: can drag current player cards
+           // online: local player can drag local player cards (if local player is current player)
+            canInteract {
             viewFrame
                 .onDrag {
                     gameRunnerViewModel.cardsDragging = [card]
                     return NSItemProvider(object: card.name as NSString)
-                    // NSItemProvider(object: card)
                 }
         } else {
             viewFrame
         }
-    }
-}
-
-struct Card_Previews: PreviewProvider {
-    static var previews: some View {
-        CardView(cardViewModel: CardViewModel(card: Card(name: "Bomb", typeOfTargettedCard: .noTargetCard)))
     }
 }

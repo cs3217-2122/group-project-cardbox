@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 26/03/2022.
 //
+import Foundation
 
 class FavorCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "Favor",
+            typeOfTargettedCard: .targetSinglePlayerCard,
+            type: .favor
+        )
+    }
+
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "Favor",
             typeOfTargettedCard: .targetSinglePlayerCard,
             type: .favor
@@ -33,8 +43,7 @@ class FavorCard: ExplodingKittensCard {
             }
 
             gameRunner.executeGameEvents([
-                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand),
-                MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+                MoveCardsDeckToDeckEvent(cards: [targetCard], fromDeck: targetHand, toDeck: playerHand)
             ])
         }
 

@@ -79,18 +79,30 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             return
         }
 
-        self.deck = explodingKittensGameRunner.deck
-        self.players = explodingKittensGameRunner.players
-        self.playerHands = explodingKittensGameRunner.playerHands
-        self.gameplayArea = explodingKittensGameRunner.gameplayArea
+        if explodingKittensGameRunner.state == .start {
+            self.deck.updateState(explodingKittensGameRunner.deck)
+            self.players.updateState(explodingKittensGameRunner.players)
+            self.updatePlayerHands(explodingKittensGameRunner.playerHands)
+            self.gameplayArea.updateState(explodingKittensGameRunner.gameplayArea)
+        } else {
+            self.deck = explodingKittensGameRunner.deck
+            self.players = explodingKittensGameRunner.players
+            self.playerHands = explodingKittensGameRunner.playerHands
+            self.gameplayArea = explodingKittensGameRunner.gameplayArea
+        }
         self.state = explodingKittensGameRunner.state
-        self.cardsPeeking = explodingKittensGameRunner.cardsPeeking
-        self.deckPositionRequest = explodingKittensGameRunner.deckPositionRequest
         self.observers = explodingKittensGameRunner.observers
         self.isWin = explodingKittensGameRunner.isWin
         self.winner = explodingKittensGameRunner.winner
-        self.cardPreview = explodingKittensGameRunner.cardPreview
-        self.isShowingPeek = explodingKittensGameRunner.isShowingPeek
+    }
+
+    func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
+        for (key, value) in newPlayerHands {
+            guard let current = playerHands[key] else {
+                continue
+            }
+            current.updateState(value)
+        }
 
     }
 
@@ -134,6 +146,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
             self.deck.removeCard(topCards[i])
             playerDeck.addCard(topCards[i])
+            playerDeck.shuffle()
         }
 
         let bombs = (1...(numPlayers - 1)).map { _ in
@@ -270,11 +283,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         ExplodingKittensConstants.allCardTypes
     }
 
-    func notifyChanges() {
+    func notifyChanges(_ gameEvents: [GameEvent]) {
         objectWillChange.send()
         for observer in observers {
             print(observer)
-            observer.notifyObserver(self)
+            observer.notifyObserver(self, gameEvents)
         }
     }
 

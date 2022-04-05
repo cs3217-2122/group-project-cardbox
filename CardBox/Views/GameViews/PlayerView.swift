@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PlayerView: View {
     var playerViewModel: PlayerViewModel
+    var currentPlayerViewModel: PlayerViewModel
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
     @Binding var selectedPlayerViewModel: PlayerViewModel?
@@ -42,7 +43,7 @@ struct PlayerView: View {
                 }
 
             }
-            PlayerHandView(playerViewModel: playerViewModel,
+            PlayerHandView(playerViewModel: playerViewModel, bottomPlayerViewModel: currentPlayerViewModel,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
                            error: $error)
                 .opacity(playerViewModel.isDead() ? 0.5 : 1)

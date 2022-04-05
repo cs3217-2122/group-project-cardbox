@@ -11,7 +11,7 @@ struct NonPlayerView: View {
     @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
     @Binding var error: Bool
     let localPlayerIndex: Int
-    var currentPlayerViewModel: PlayerViewModel
+    var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
     var body: some View {
@@ -23,6 +23,7 @@ struct NonPlayerView: View {
                         player: topPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(topPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -31,9 +32,11 @@ struct NonPlayerView: View {
             }
             Spacer()
             middlePart
-            GameActionsView(error: $error,
-                            currentPlayerViewModel: currentPlayerViewModel,
-                            selectedPlayerViewModel: $selectedPlayerViewModel)
+            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                GameActionsView(error: $error,
+                                currentPlayerViewModel: bottomPlayerViewModel,
+                                selectedPlayerViewModel: $selectedPlayerViewModel)
+            }
         }
     }
 
@@ -63,6 +66,7 @@ struct NonPlayerView: View {
                         player: leftPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(leftPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )
@@ -82,6 +86,7 @@ struct NonPlayerView: View {
                         player: rightPlayer,
                         hand: gameRunnerViewModel.getHandByPlayer(rightPlayer) ?? CardCollection()
                     ),
+                    currentPlayerViewModel: bottomPlayerViewModel,
                     error: $error,
                     selectedPlayerViewModel: $selectedPlayerViewModel
                 )

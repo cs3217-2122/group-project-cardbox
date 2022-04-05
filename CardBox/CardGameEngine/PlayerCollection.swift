@@ -6,9 +6,9 @@ class PlayerCollection {
         self.init(players: [])
     }
 
-    init(players: [Player]) {
+    init(players: [Player], currentPlayerIndex: Int = 0) {
         self.players = players
-        self.currentPlayerIndex = 0
+        self.currentPlayerIndex = currentPlayerIndex
     }
 
     var names: [String] {
@@ -29,6 +29,11 @@ class PlayerCollection {
         }
 
         return self.players[self.currentPlayerIndex]
+    }
+
+    func updateState(_ players: PlayerCollection) {
+        self.players = players.players
+        self.currentPlayerIndex = players.currentPlayerIndex
     }
 
     func addPlayer(_ player: Player) {
@@ -68,12 +73,8 @@ class PlayerCollection {
     }
 
     func remove(_ player: Player) {
-        print(player.id)
         if let index = players.firstIndex(where: { $0.id == player.id }) {
             players.remove(at: index)
-        }
-        for player in players {
-            print(player.name)
         }
     }
 

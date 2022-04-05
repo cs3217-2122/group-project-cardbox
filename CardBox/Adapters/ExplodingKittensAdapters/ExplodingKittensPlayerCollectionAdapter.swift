@@ -7,13 +7,14 @@
 
 class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
     private var players: [ExplodingKittensPlayerAdapter]
+    private var currentPlayerIndex: Int
 
     var playerCollection: PlayerCollection {
-        let output = PlayerCollection()
+        var output: [Player] = []
         for player in players {
-            output.addPlayer(player.gamePlayer)
+            output.append(player.gamePlayer)
         }
-        return output
+        return PlayerCollection(players: output, currentPlayerIndex: currentPlayerIndex)
     }
 
     var names: [String] {
@@ -26,16 +27,19 @@ class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
 
     private enum CodingKeys: String, CodingKey {
         case players
+        case currentPlayerIndex
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.players = try container.decode([ExplodingKittensPlayerAdapter].self, forKey: .players)
+        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(players, forKey: .players)
+        try container.encode(currentPlayerIndex, forKey: .currentPlayerIndex)
     }
 
     init(_ playerCollection: PlayerCollection) {
@@ -46,6 +50,7 @@ class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
                     ExplodingKittensPlayerAdapter(player))
             }
         }
+        self.currentPlayerIndex = playerCollection.currentPlayerIndex
     }
 
     func getExplodingKittensPlayerAdapterByName(name: String) -> ExplodingKittensPlayerAdapter? {
@@ -58,9 +63,6 @@ class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
     func remove(_ player: Player) {
         if let index = players.firstIndex(where: { $0.id == player.id }) {
             players.remove(at: index)
-        }
-        for player in players {
-            print(player.name)
         }
     }
 

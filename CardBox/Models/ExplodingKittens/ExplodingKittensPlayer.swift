@@ -5,7 +5,7 @@
 //  Created by mactest on 25/03/2022.
 //
 
-import SwiftUI
+import Foundation
 
 class ExplodingKittensPlayer: Player {
     private(set) var attackCount = 0
@@ -92,6 +92,10 @@ class ExplodingKittensPlayer: Player {
 
     override func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
         let ekCards = cards.compactMap { $0 as? ExplodingKittensCard }
+
+        guard canPlay(cards: cards, gameRunner: gameRunner) else {
+            return
+        }
 
         guard !ekCards.isEmpty else {
             return

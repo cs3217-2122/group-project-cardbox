@@ -19,9 +19,26 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
     }
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        guard cards.map({ card in fromDeck.containsCard(card) }).allSatisfy({ $0 && true }) else {
+
+        print("cards")
+        for card in cards {
+            print(type(of: card))
+        }
+        print("fromDeck")
+        for card in fromDeck.getCards() {
+            print(type(of: card))
+        }
+        print("toDeck")
+        for card in toDeck.getCards() {
+            print(type(of: card))
+        }
+
+        guard cards.map({ card in fromDeck.containsCard(where: { $0.isEqual(card) }) })
+                .allSatisfy({ $0 && true }) else {
+            print("MOVE CARD CONDITIONS FAILED")
             return
         }
+
         fromDeck.removeCards(cards)
         toDeck.addCards(cards, offsetFromTop: offsetFromTop)
     }

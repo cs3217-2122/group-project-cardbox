@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 25/03/2022.
 //
+import Foundation
 
 class AttackCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "Attack",
+            typeOfTargettedCard: .noTargetCard,
+            type: .attack
+        )
+    }
+
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "Attack",
             typeOfTargettedCard: .noTargetCard,
             type: .attack
@@ -26,8 +36,7 @@ class AttackCard: ExplodingKittensCard {
 
         gameRunner.executeGameEvents([
             CustomizedGameEvent(customizedGameEvent: IncrementAttackCountEvent(player: nextPlayer)),
-            AdvanceNextPlayerEvent(),
-            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: playerHand, toDeck: gameRunner.gameplayArea)
+            AdvanceNextPlayerEvent()
         ])
     }
 }

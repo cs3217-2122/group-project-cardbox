@@ -94,7 +94,7 @@ extension GameEventTests {
             false
         }
 
-        func notifyChanges() {
+        func notifyChanges(_ gameEvents: [GameEvent]) {
             // Do nothing
         }
 

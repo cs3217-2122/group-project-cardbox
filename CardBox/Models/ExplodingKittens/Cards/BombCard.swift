@@ -4,10 +4,20 @@
 //
 //  Created by mactest on 26/03/2022.
 //
+import Foundation
 
 class BombCard: ExplodingKittensCard {
     init() {
         super.init(
+            name: "Bomb",
+            typeOfTargettedCard: .targetSinglePlayerCard,
+            type: .bomb
+        )
+    }
+
+    init(id: UUID) {
+        super.init(
+            id: id,
             name: "Bomb",
             typeOfTargettedCard: .targetSinglePlayerCard,
             type: .bomb
