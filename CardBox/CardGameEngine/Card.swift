@@ -52,7 +52,7 @@ class Card: NSObject, Identifiable {
         self.typeOfTargettedCard = typeOfTargettedCard
         self.cardDescription = ""
     }
-    
+
     init(
         id: UUID,
         name: String,

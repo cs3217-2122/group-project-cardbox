@@ -17,7 +17,7 @@ class FavorCard: ExplodingKittensCard {
 
     init(id: UUID) {
         super.init(
-            id: id
+            id: id,
             name: "Favor",
             typeOfTargettedCard: .targetSinglePlayerCard,
             type: .favor

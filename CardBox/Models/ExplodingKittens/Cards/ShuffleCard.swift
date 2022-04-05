@@ -14,7 +14,7 @@ class ShuffleCard: ExplodingKittensCard {
             type: .shuffle
         )
     }
-    
+
     init(id: UUID) {
         super.init(
             id: id,

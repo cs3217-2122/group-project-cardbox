@@ -35,7 +35,7 @@ class ExplodingKittensCard: Card {
     ) {
         self.type = type
         super.init(
-            id: id
+            id: id,
             name: name,
             typeOfTargettedCard: typeOfTargettedCard,
             cardDescription: cardDescription

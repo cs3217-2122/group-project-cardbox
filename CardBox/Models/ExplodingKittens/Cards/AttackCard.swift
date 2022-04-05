@@ -14,7 +14,7 @@ class AttackCard: ExplodingKittensCard {
             type: .attack
         )
     }
-    
+
     init(id: UUID) {
         super.init(
             id: id,

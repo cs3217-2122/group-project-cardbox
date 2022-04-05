@@ -14,7 +14,7 @@ class RandomCard: ExplodingKittensCard {
             type: type
         )
     }
-    
+
     init(id: UUID, name: String, type: ExplodingKittensCardType) {
         super.init(
             id: id,

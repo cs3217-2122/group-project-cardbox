@@ -14,7 +14,7 @@ class DefuseCard: ExplodingKittensCard {
             type: .defuse
         )
     }
-    
+
     init(id: UUID) {
         super.init(
             id: id,
