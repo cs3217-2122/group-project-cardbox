@@ -18,8 +18,8 @@ struct CardView: View {
     var playerViewModel: PlayerViewModel?
     var isFaceUp: Bool
     static let defaultCardWidth = 150
-    let cardWidth = CGFloat(150)
-    let cardHeight = CGFloat(250)
+    let cardWidth = CGFloat(120)
+    let cardHeight = CGFloat(200)
 
     init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel) {
         self.viewModel = cardViewModel

@@ -7,4 +7,8 @@
 
 class MonopolyDealPlayerPropertyArea {
     var area: [CardCollection] = []
+
+    var count: Int {
+        area.count
+    }
 }

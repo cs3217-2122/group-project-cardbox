@@ -1,15 +1,14 @@
 //
-//  PlayerPlayArea.swift
+//  MDNonPlayerView.swift
 //  CardBox
 //
-//  Created by Bernard Wan on 2/4/22.
+//  Created by user213938 on 4/6/22.
 //
 
 import SwiftUI
 
-struct MDPlayerView: View {
+struct MDNonPlayerView: View {
     var playerViewModel: PlayerViewModel
-    var currentPlayerViewModel: PlayerViewModel
     let playerPlayAreaViewModel: PlayerPlayAreaViewModel
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: MonopolyDealGameRunnerProtocol? {
@@ -58,10 +57,6 @@ struct MDPlayerView: View {
                     )
                 }
             }
-            PlayerHandView(playerViewModel: playerViewModel,
-                           bottomPlayerViewModel: currentPlayerViewModel,
-                           playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
-                           error: $error)
         }
     }
 }

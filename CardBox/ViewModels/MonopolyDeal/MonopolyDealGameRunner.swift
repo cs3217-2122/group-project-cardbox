@@ -172,6 +172,10 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.playerPropertyArea[player.id] ?? MonopolyDealPlayerPropertyArea()
     }
 
+    func getMoneyAreaByPlayer(_ player: Player) -> CardCollection {
+        self.playerMoneyArea[player.id] ?? CardCollection()
+    }
+
     var allCardTypes: [ExplodingKittensCardType] {
         ExplodingKittensConstants.allCardTypes
     }

@@ -16,4 +16,5 @@ protocol MonopolyDealGameRunnerProtocol: GameRunnerProtocol {
 
     func getHandByPlayer(_ player: Player) -> CardCollection
     func getPropertyAreaByPlayer(_ player: Player) -> MonopolyDealPlayerPropertyArea
+    func getMoneyAreaByPlayer(_ player: Player) -> CardCollection
 }

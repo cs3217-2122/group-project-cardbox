@@ -41,13 +41,14 @@ struct MonopolyDealOfflineView: View {
             bottomPlayerViewModel: bottomPlayerViewModel,
             selectedPlayerViewModel: $selectedPlayerViewModel,
             playerArea: { player in
-                MDPlayerView(
+                MDNonPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: player,
                         hand: gameRunnerViewModel.getHandByPlayer(player)
                     ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
+                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(
+                        sets: gameRunnerViewModel.getPropertyAreaByPlayer(player)
+                    ),
                     error: $error
                 )
             },
@@ -63,7 +64,9 @@ struct MonopolyDealOfflineView: View {
                 MDPlayerView(
                     playerViewModel: bottomPlayerViewModel,
                     currentPlayerViewModel: bottomPlayerViewModel,
-                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(sets: []),
+                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(
+                        sets: gameRunnerViewModel.getPropertyAreaByPlayer(bottomPlayerViewModel.player)
+                    ),
                     error: $error
                 )
             }
