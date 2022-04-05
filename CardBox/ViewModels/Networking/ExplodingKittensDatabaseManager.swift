@@ -99,15 +99,18 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         _ explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter,
         _ docRef: DocumentReference) {
 
-        var fromFirestore: ExplodingKittensFirebaseAdapter?
-        db.collection("rooms").document(gameRoomID).getDocument { doc, _ in
-            if let doc = doc {
-                fromFirestore = self.decodeExplodingKittensFirebaseAdapter(doc)
-            }
-        }
+        if !gameRoomID.isEmpty {
+            var fromFirestore: ExplodingKittensFirebaseAdapter?
 
-        if let fromFirestore = fromFirestore {
-            explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
+            db.collection("rooms").document(gameRoomID).getDocument { doc, _ in
+                if let doc = doc {
+                    fromFirestore = self.decodeExplodingKittensFirebaseAdapter(doc)
+                }
+            }
+
+            if let fromFirestore = fromFirestore {
+                explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
+            }
         }
 
         do {
