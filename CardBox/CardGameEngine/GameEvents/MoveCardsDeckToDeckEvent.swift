@@ -19,6 +19,7 @@ struct MoveCardsDeckToDeckEvent: GameEvent {
     }
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
+
         print("cards")
         for card in cards {
             print(type(of: card))

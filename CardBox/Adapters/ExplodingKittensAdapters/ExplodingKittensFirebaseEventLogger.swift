@@ -7,7 +7,8 @@
 import Foundation
 
 class ExplodingKittensFirebaseEventLogger: FirebaseEventLogger {
-    private var type: String
+    // TODO: set back to private
+    var type: String
     private var timeStamp = NSDate().timeIntervalSince1970
 
     init(gameEvent: GameEvent) {

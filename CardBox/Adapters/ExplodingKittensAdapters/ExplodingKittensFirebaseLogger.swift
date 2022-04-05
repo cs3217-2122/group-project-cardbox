@@ -19,13 +19,18 @@ class ExplodingKittensFirebaseLogger: FirebaseLogger {
         }
     }
 
-    func appendToFront(_ logs: [ExplodingKittensFirebaseEventLogger]) {
-        var newLog = logs
+    func appendToFront(_ oldLogs: [ExplodingKittensFirebaseEventLogger]) {
+        var newLog = oldLogs
 //        for log in logs {
 //            newLog.append(log)
 //        }
         for log in self.logs {
             newLog.append(log)
+        }
+        
+        // TODO: remove after testing
+        for log in newLog {
+            print(log.type)
         }
         self.logs = newLog
     }

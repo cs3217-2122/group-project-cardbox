@@ -109,6 +109,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
             }
 
             if let fromFirestore = fromFirestore {
+                for log in fromFirestore.log.logs {
+                    print(log.type)
+                }
                 explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
             }
         }
