@@ -18,36 +18,44 @@ struct GameActionsView: View {
     @Binding var selectedPlayerViewModel: PlayerViewModel?
     @Binding var selectedCardSetViewModel: CardSetViewModel?
 
+    var endButton: some View {
+        Button {
+            if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                gameRunnerViewModel.endPlayerTurn()
+                selectedPlayerViewModel = nil
+            }
+        } label: {
+            Text("End")
+                .font(.title)
+                .frame(width: 70, height: 50)
+                .border(Color.black)
+        }
+    }
+
+    var playButton: some View {
+        Button {
+            if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                currentPlayerViewModel.playCards(
+                    gameRunner: gameRunnerViewModel,
+                    target: selectedPlayerViewModel,
+                    targetCardSet: selectedCardSetViewModel
+                )
+                // Reset selected on play
+                self.selectedCardSetViewModel = nil
+                self.selectedPlayerViewModel = nil
+            }
+        } label: {
+            Text("Play")
+                .font(.title)
+                .frame(width: 70, height: 50)
+                .border(Color.black)
+        }
+    }
+
     var body: some View {
         HStack {
-            Button {
-                if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                    gameRunnerViewModel.endPlayerTurn()
-                    selectedPlayerViewModel = nil
-                }
-            } label: {
-                Text("End")
-                    .font(.title)
-                    .frame(width: 70, height: 50)
-                    .border(Color.black)
-            }
-            Button {
-                if currentPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                    currentPlayerViewModel.playCards(
-                        gameRunner: gameRunnerViewModel,
-                        target: selectedPlayerViewModel,
-                        targetCardSet: selectedCardSetViewModel
-                    )
-                    // Reset selected on play
-                    self.selectedCardSetViewModel = nil
-                    self.selectedPlayerViewModel = nil
-                }
-            } label: {
-                Text("Play")
-                    .font(.title)
-                    .frame(width: 70, height: 50)
-                    .border(Color.black)
-            }
+            endButton
+            playButton
         }
         Text(error ? "Invalid combination" : "Valid combination")
             .foregroundColor(error ? Color.red : Color.black)
