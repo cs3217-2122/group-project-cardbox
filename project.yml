@@ -17,12 +17,12 @@ targetTemplates:
 name: CardBox
 options:
   bundleIdPrefix: cs3217
-  xcodeVersion: 13.2
+  xcodeVersion: 13.3
   deploymentTarget:
     iOS: 15.1
   groupSortPosition: top
   generateEmptyDirectories: true
-  minimumXcodeGenVersion: 2.18.0
+  objectVersion: 52
 
 packages:
   Firebase:
@@ -49,10 +49,9 @@ targets:
     settings:
       TEST_HOST: '$(BUILT_PRODUCTS_DIR)/CardBox.app/CardBox'
     dependencies:
-      - package: Firebase
-        product: FirebaseFirestore
-      - package: Firebase
-        product: FirebaseFirestoreSwift-Beta
+      - target: CardBox
   CardBoxUITests:
     templates: [UITestTarget]
-
+    TEST_TARGET_NAME: 'CardBox'
+    dependencies:
+      - target: CardBox
