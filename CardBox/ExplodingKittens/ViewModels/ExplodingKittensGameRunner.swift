@@ -37,7 +37,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // for offline use
     init() {
-        self.gameState = ExplodingKittensGameState()
+        self.gameState = ExplodingKittensFactory.generateGameState()
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = []
@@ -68,6 +68,16 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsDragging = []
     }
 
+    // for online use (join Room)
+    init(gameState: GameState, observer: ExplodingKittensGameRunnerObserver) {
+        self.gameState = gameState
+        self.cardsPeeking = []
+        self.deckPositionRequest = CardPositionRequest()
+        self.observers = [observer]
+        self.cardTypeRequest = CardTypeRequest()
+        self.cardsDragging = []
+    }
+
     // initialiser used by host game view model
     convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
         self.init()
@@ -88,95 +98,17 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers = explodingKittensGameRunner.observers
     }
 
-    // TODO: create setup for online to inject online players
-    func setup() {
+    func updateState(gameState: GameState) {
         guard let gameState = gameState as? ExplodingKittensGameState else {
             return
         }
 
-        let numPlayers = 4
-        let initialCardCount = 4
-
-        if gameState.players.isEmpty {
-            let players = (1...numPlayers).map { i in
-                ExplodingKittensPlayer(name: "Player " + i.description)
-            }
-            players.forEach { player in
-                self.gameState.players.addPlayer(player)
-                self.gameState.playerHands[player.id] = CardCollection()
-            }
-        }
-
-        self.gameState.playerHands.forEach { _, hand in
-            let defuseCard = DefuseCard()
-            hand.addCard(defuseCard)
-        }
-
-        let cards = initCards()
-        cards.forEach { card in
-            gameState.deck.addCard(card)
-        }
-
-        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            gameState.deck.shuffle()
-        }
-
-        let topCards = gameState.deck.getTopNCards(n: numPlayers * initialCardCount)
-        topCards.indices.forEach { i in
-            guard let player = self.gameState.players.getPlayerByIndex(i % numPlayers) else {
-                return
-            }
-            guard let playerDeck = self.gameState.playerHands[player.id] else {
-                return
-            }
-
-            gameState.deck.removeCard(topCards[i])
-            playerDeck.addCard(topCards[i])
-            playerDeck.shuffle()
-        }
-
-        let bombs = (1...(numPlayers - 1)).map { _ in
-            BombCard()
-        }
-        bombs.forEach { bomb in
-            gameState.deck.addCard(bomb)
-        }
-
-        if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            gameState.deck.shuffle()
-        }
+        gameState.updateState(gameState: gameState)
     }
 
-    private func initCards() -> [ExplodingKittensCard] {
-        var cards: [ExplodingKittensCard] = []
-
-        for _ in 0 ..< ExplodingKittensCardType.favor.initialFrequency {
-            cards.append(FavorCard())
-        }
-
-        for _ in 0 ..< ExplodingKittensCardType.attack.initialFrequency {
-            cards.append(AttackCard())
-        }
-
-        for _ in 0 ..< ExplodingKittensCardType.shuffle.initialFrequency {
-            cards.append(ShuffleCard())
-        }
-
-        for _ in 0 ..< ExplodingKittensCardType.skip.initialFrequency {
-            cards.append(SkipCard())
-        }
-
-        for _ in 0 ..< ExplodingKittensCardType.seeTheFuture.initialFrequency {
-            cards.append(SeeTheFutureCard())
-        }
-
-        for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
-            cards.append(RandomCard(name: "Random 1", type: .random1))
-            cards.append(RandomCard(name: "Random 2", type: .random2))
-            cards.append(RandomCard(name: "Random 3", type: .random3))
-        }
-
-        return cards
+    // TODO: create setup for online to inject online players
+    func setup() {
+        ExplodingKittensFactory.initialiseGameState(gameState: self.gameState)
     }
 
     // To be overwritten
@@ -275,9 +207,13 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     func notifyChanges(_ gameEvents: [GameEvent]) {
         objectWillChange.send()
+        guard let gameState = gameState as? ExplodingKittensGameState else {
+            return
+        }
+
         for observer in observers {
             print(observer)
-            observer.notifyObserver(self, gameEvents)
+            observer.notifyObserver(gameState, gameEvents)
         }
     }
 

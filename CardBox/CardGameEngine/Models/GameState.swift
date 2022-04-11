@@ -55,4 +55,7 @@ class GameState: Codable {
         }
     }
 
+    func addPlayerHand(playerId: UUID, cards: CardCollection) {
+        self.playerHands[playerId] = cards
+    }
 }
