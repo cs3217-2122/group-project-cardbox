@@ -54,7 +54,7 @@ extension GameRunnerProtocol {
         }
 
         notifyChanges(gameEvents)
-        resolvePendingRequests()
+        resolvePendingRequests() // TODO: Add to the method called after factory method updates gamestate
     }
 
     func endPlayerTurn() {
@@ -72,12 +72,12 @@ extension GameRunnerProtocol {
 
     func resolvePendingRequests() {
         for request in localPendingRequests {
-            if let response = globalResponses.first(where: { $0.id == request.id }) {
-                request.callback(response.value)
-                let requestId = request.id
-                globalResponses.removeAll(where: { $0.id == requestId })
-                globalRequests.removeAll(where: { $0.id == requestId })
+            let requestId = request.id
+            for response in globalResponses where response.requestId == requestId {
+                globalResponses.removeAll(where: { $0.id == response.id })
                 localPendingRequests.removeAll(where: { $0.id == requestId })
+                globalRequests.removeAll(where: { $0.id == requestId })
+                request.callback(response.value)
             }
         }
     }

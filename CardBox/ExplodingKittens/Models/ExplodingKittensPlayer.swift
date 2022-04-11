@@ -160,7 +160,12 @@ class ExplodingKittensPlayer: Player {
         }
 
         ekGameRunner.executeGameEvents([
-            ShowCardPositionRequestEvent(callback: callback, minValue: 1, maxValue: targetHand.count)
+            SendRequestEvent(request: IntRequest(description: "Please choose the position of the card you want to take",
+                                                 fromPlayer: player,
+                                                 toPlayer: player,
+                                                 minValue: 1,
+                                                 maxValue: targetHand.count,
+                                                 callback: callback))
         ])
      }
 

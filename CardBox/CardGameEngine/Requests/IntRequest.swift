@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct IntRequest: Identifiable {
+struct IntRequest {
     private(set) var id = UUID()
     private(set) var description: String // TODO: Add request description to view
     private(set) var fromPlayer: Player
@@ -17,6 +17,6 @@ struct IntRequest: Identifiable {
     private(set) var callback: (Int) -> Void
 
     func createResponse(with value: Int) -> IntResponse {
-        IntResponse(id: id, value: value)
+        IntResponse(requestId: id, value: value)
     }
 }

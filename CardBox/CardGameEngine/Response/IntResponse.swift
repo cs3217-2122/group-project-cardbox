@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct IntResponse: Identifiable {
-    var id: UUID
+struct IntResponse {
+    var id = UUID()
+    var requestId: UUID
     var value: Int
 }
