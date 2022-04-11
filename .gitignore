@@ -90,3 +90,8 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+project.pbxproj
+Package.resolved
+CardBox.xcscheme
+

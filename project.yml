@@ -1,0 +1,57 @@
+targetTemplates:
+  BaseTarget:
+    platform: iOS
+  AppTarget:
+    templates: [BaseTarget]
+    type: application
+    sources: ["CardBox"]
+  UITestTarget:
+    templates: [BaseTarget]
+    type: bundle.ui-testing
+    sources: ["CardBoxUITests"]
+  UnitTestTarget:
+    templates: [BaseTarget]
+    type: bundle.unit-test
+    sources: ["CardBoxTests"]
+
+name: CardBox
+options:
+  bundleIdPrefix: cs3217
+  xcodeVersion: 13.3
+  deploymentTarget:
+    iOS: 15.1
+  groupSortPosition: top
+  generateEmptyDirectories: true
+  objectVersion: 52
+
+packages:
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk.git
+    version: 8.14.0
+
+targets:
+  CardBox:
+    templates: [AppTarget]
+    dependencies:
+      - package: Firebase
+        product: FirebaseFirestore
+      - package: Firebase
+        product: FirebaseFirestoreSwift-Beta
+    preBuildScripts:
+      - path: scripts/swiftlint.sh
+        name: Run Swiftlint
+    scheme:
+      testTargets:
+        - CardBoxTests
+        - CardBoxUITests
+  CardBoxTests:
+    templates: [UnitTestTarget]
+    settings:
+      TEST_HOST: '$(BUILT_PRODUCTS_DIR)/CardBox.app/CardBox'
+    dependencies:
+      - target: CardBox
+  CardBoxUITests:
+    templates: [UITestTarget]
+    TEST_TARGET_NAME: 'CardBox'
+    dependencies:
+      - target: CardBox
