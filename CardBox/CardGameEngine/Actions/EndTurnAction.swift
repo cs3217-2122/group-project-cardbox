@@ -10,7 +10,6 @@ struct EndTurnAction: Action {
         gameRunner.executeGameEvents([
             EndTurnEvent(),
             AdvanceNextPlayerEvent(),
-//            SetGameStateEvent(gameState: .start),
             StartTurnEvent()
         ])
     }

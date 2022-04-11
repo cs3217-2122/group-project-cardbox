@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MonopolyDealOfflineView: View {
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()// MonopolyDealGameRunner()
+    @StateObject var gameRunnerViewModel = MonopolyDealGameRunner()
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
@@ -39,7 +39,6 @@ struct MonopolyDealOfflineView: View {
                 }
             }
             CardPreviewView()
-            PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
             WinMessageView()
         }
         .environmentObject(gameRunnerViewModel)

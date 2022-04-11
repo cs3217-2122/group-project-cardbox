@@ -4,6 +4,7 @@ enum GameplayTarget {
     case all
     case none
     case single(Player)
+    case deck(CardCollection?)
 
     var description: String {
         switch self {
@@ -13,6 +14,8 @@ enum GameplayTarget {
             return "none"
         case .single:
             return "single"
+        case .deck:
+            return "deck"
         }
     }
 
@@ -20,7 +23,16 @@ enum GameplayTarget {
         switch self {
         case let .single(targetPlayer):
             return targetPlayer
-        case .all, .none:
+        case .all, .none, .deck:
+            return nil
+        }
+    }
+
+    func getDeckIfTargetSingle() -> CardCollection? {
+        switch self {
+        case let .deck(collection):
+            return collection
+        case .all, .none, .single:
             return nil
         }
     }
@@ -29,6 +41,7 @@ enum GameplayTarget {
 enum TypeOfTargettedCard: String, Codable {
     case targetAllPlayersCard
     case targetSinglePlayerCard
+    case targetSingleDeckCard
     case noTargetCard
 }
 

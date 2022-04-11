@@ -10,7 +10,6 @@ import Firebase
 
 @main
 struct CardBoxApp: App {
-
     init() {
         FirebaseApp.configure()
     }

@@ -7,10 +7,14 @@
 
 import SwiftUI
 
-struct PlayerView: View {
+struct EKPlayerView: View {
     var playerViewModel: PlayerViewModel
     var currentPlayerViewModel: PlayerViewModel
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: ExplodingKittensGameRunnerProtocol? {
+        gameRunnerDelegate.runner as? ExplodingKittensGameRunnerProtocol
+    }
+
     @Binding var error: Bool
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
@@ -19,7 +23,7 @@ struct PlayerView: View {
         if playerViewModel.player.isOutOfGame {
             playerName += "(Dead)"
         }
-        if playerViewModel.player === gameRunnerViewModel.players.currentPlayer {
+        if playerViewModel.player === gameRunnerViewModel?.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
         return playerName
@@ -28,7 +32,10 @@ struct PlayerView: View {
     var body: some View {
         VStack {
             Button {
-                if !playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                guard let ekRunner = self.gameRunnerViewModel else {
+                    return
+                }
+                if !playerViewModel.isCurrentPlayer(gameRunner: ekRunner) {
                     if !playerViewModel.isDead() {
                         selectedPlayerViewModel = playerViewModel
                     }

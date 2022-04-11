@@ -48,7 +48,10 @@ class Player: Identifiable {
         guard !isOutOfGame else {
             return
         }
+    }
 
+    func determineTargetOfCards(_ cards: [Card], gameRunner: GameRunnerProtocol) -> TypeOfTargettedCard? {
+        nil
     }
 
     func setOutOfGame(_ outOfGame: Bool) {

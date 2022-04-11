@@ -11,7 +11,11 @@ struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
     var bottomPlayerViewModel: PlayerViewModel
     let playerHandViewModel: PlayerHandViewModel
-    @EnvironmentObject private var gameRunnerViewModel: ExplodingKittensGameRunner
+    @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
+    var gameRunnerViewModel: GameRunnerProtocol {
+        gameRunnerDelegate.runner
+    }
+
     @Binding var error: Bool
     let handWidth = 600
 

@@ -27,7 +27,7 @@ class PlayerViewModel: ObservableObject {
         self.hand = CardCollection()
     }
 
-    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: ExplodingKittensGameRunner) {
+    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
@@ -50,7 +50,7 @@ class PlayerViewModel: ObservableObject {
         }
     }
 
-    func isCurrentPlayer(gameRunner: ExplodingKittensGameRunner) -> Bool {
+    func isCurrentPlayer(gameRunner: GameRunnerProtocol) -> Bool {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return false
         }
@@ -93,13 +93,9 @@ class PlayerViewModel: ObservableObject {
         self.player.isOutOfGame
     }
 
-    func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?) {
+    func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?, targetCardSet: CardSetViewModel?) {
         guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
             print("Cannot play card on player (Player is dead)")
-            return
-        }
-
-        guard let player = player as? ExplodingKittensPlayer else {
             return
         }
 
@@ -120,6 +116,8 @@ class PlayerViewModel: ObservableObject {
             player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
         case .noTargetCard:
             player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
+        case .targetSingleDeckCard:
+            player.playCards(selectedCards, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
         }
     }
 

@@ -8,9 +8,9 @@
 import SwiftUI
 
 class PlayerPlayAreaViewModel: ObservableObject {
-    var sets: [CardCollection]
+    var sets: MonopolyDealPlayerPropertyArea
 
-    init(sets: [CardCollection]) {
+    init(sets: MonopolyDealPlayerPropertyArea) {
         self.sets = sets
     }
 
