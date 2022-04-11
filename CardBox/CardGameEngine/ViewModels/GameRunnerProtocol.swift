@@ -20,6 +20,9 @@ protocol GameRunnerProtocol: AnyObject {
     // Requests
     var deckPositionRequest: CardPositionRequest { get set }
     var cardTypeRequest: CardTypeRequest { get set }
+    var globalRequests: [IntRequest] { get set } // TODO: Generalise to any type of request
+    var globalResponses: [IntResponse] { get set } // TODO: Generalise to any type of response
+    var localPendingRequests: [IntRequest] { get set } // TODO: Generalise to any type of response
 
     func setup()
     func onStartTurn()
@@ -51,6 +54,7 @@ extension GameRunnerProtocol {
         }
 
         notifyChanges(gameEvents)
+        resolvePendingRequests()
     }
 
     func endPlayerTurn() {
@@ -64,5 +68,17 @@ extension GameRunnerProtocol {
 
         onAdvanceNextPlayer()
         players.setCurrentPlayer(nextPlayer)
+    }
+
+    func resolvePendingRequests() {
+        for request in localPendingRequests {
+            if let response = globalResponses.first(where: { $0.id == request.id }) {
+                request.callback(response.value)
+                let requestId = request.id
+                globalResponses.removeAll(where: { $0.id == requestId })
+                globalRequests.removeAll(where: { $0.id == requestId })
+                localPendingRequests.removeAll(where: { $0.id == requestId })
+            }
+        }
     }
 }

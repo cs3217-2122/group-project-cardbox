@@ -32,10 +32,7 @@ struct PositionRequestView: View {
     }
 
     var overlay: some View {
-        Rectangle()
-            .background(Color.black)
-            .opacity(0.5)
-            .allowsHitTesting(true)
+        NoInteractionOverlayView()
     }
 
     var messageBox: some View {

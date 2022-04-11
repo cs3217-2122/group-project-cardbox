@@ -48,9 +48,15 @@ class FavorCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            ShowCardPositionRequestEvent(callback: callback,
-                                         minValue: 1,
-                                         maxValue: targetHand.count)
+            SendRequestEvent(
+                request: IntRequest(description: "Please choose the position of the card you want to give away",
+                                    fromPlayer: player,
+                                    toPlayer: targetPlayer,
+                                    minValue: 1,
+                                    maxValue: targetHand.count,
+                                    callback: callback
+                                   )
+            )
         ])
     }
 }

@@ -19,6 +19,10 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var playerMoneyArea: [UUID: CardCollection]
     @Published internal var gameplayArea: CardCollection
 
+    @Published internal var globalRequests: [IntRequest]
+    @Published internal var globalResponses: [IntResponse]
+    internal var localPendingRequests: [IntRequest]
+
     @Published internal var cardsDragging: [Card]
     @Published internal var cardPreview: Card?
     @Published internal var isWin = false
@@ -33,6 +37,11 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.gameplayArea = CardCollection()
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsDragging = []
         self.deckPositionRequest = CardPositionRequest()
         self.cardTypeRequest = CardTypeRequest()

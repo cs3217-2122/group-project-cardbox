@@ -15,6 +15,10 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
+    @Published internal var globalRequests: [IntRequest]
+    @Published internal var globalResponses: [IntResponse]
+    internal var localPendingRequests: [IntRequest]
+
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
@@ -33,6 +37,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands = [:]
         self.gameplayArea = CardCollection()
         self.state = .initialize
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = []
@@ -54,6 +63,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands = playerHands
         self.gameplayArea = gameplayArea
         self.state = state
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = [observer]
