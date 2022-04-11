@@ -18,20 +18,10 @@ struct ExplodingKittensOnlineView: View {
     var centerArea: some View {
         HStack {
             DeckView(
-                deckViewModel: DeckViewModel(
-                    deck: gameRunnerViewModel.deck,
-                    isPlayDeck: false,
-                    gameRunner: gameRunnerViewModel
-                ),
-                isFaceUp: false
+                    deck: gameRunnerViewModel.deck
             )
             DeckView(
-                deckViewModel: DeckViewModel(
-                    deck: gameRunnerViewModel.gameplayArea,
-                    isPlayDeck: true,
-                    gameRunner: gameRunnerViewModel
-                ),
-                isFaceUp: true
+                    deck: gameRunnerViewModel.gameplayArea
             )
         }
     }

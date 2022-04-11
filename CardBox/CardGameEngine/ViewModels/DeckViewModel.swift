@@ -17,6 +17,10 @@ class DeckViewModel: ObservableObject {
         self.gameRunner = gameRunner
     }
 
+    func setGameRunner(gameRunner: GameRunnerProtocol) {
+        self.gameRunner = gameRunner
+    }
+
     func getCards() -> [Card] {
         deck.getCards()
     }

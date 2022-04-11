@@ -56,12 +56,7 @@ struct MDPlayerView: View {
                         )
                     }
                     DeckView(
-                        deckViewModel: DeckViewModel(
-                            deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player),
-                            isPlayDeck: false,
-                            gameRunner: mdViewModel
-                        ),
-                        isFaceUp: true
+                        deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player)
                     )
                 }
             }

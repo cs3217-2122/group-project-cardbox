@@ -8,8 +8,21 @@
 import SwiftUI
 
 struct DeckView: View {
+    @EnvironmentObject var gameRunnerDelegate: GameRunnerDelegate
     let deckViewModel: DeckViewModel
-    var isFaceUp: Bool
+
+    init(deck: CardCollection) {
+        deckViewModel = DeckViewModel(
+            deck: deck,
+            isPlayDeck: false,
+            gameRunner: ExplodingKittensGameRunner()
+        )
+        deckViewModel.setGameRunner(gameRunner: gameRunnerDelegate.runner)
+    }
+
+    var isFaceUp: Bool {
+        deckViewModel.deck.isFaceUp
+    }
 
     var body: some View {
         CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp),
