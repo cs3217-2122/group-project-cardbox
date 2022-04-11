@@ -7,7 +7,7 @@
 import FirebaseFirestoreSwift
 import Foundation
 
-class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
+class ExplodingKittensFirebaseAdapter: FirebaseAdapter, Codable {
 
     @DocumentID var id: String? = UUID().uuidString
     var deck: ExplodingKittensCardCollectionAdapter
@@ -74,41 +74,41 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter {
                 observer: observer)
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case deck
-        case players
-        case playerHands
-        case gameplayArea
-        case state
-        case isWin
-        case winner
-        case log
-    }
-
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(DocumentID<String>.self, forKey: .id)
-          .wrappedValue
-        self.deck = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .deck)
-        self.players = try container.decode(ExplodingKittensPlayerCollectionAdapter.self, forKey: .players)
-        self.playerHands = try container.decode([ExplodingKittensCardCollectionAdapter].self, forKey: .playerHands)
-        self.gameplayArea = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .gameplayArea)
-        self.state = try container.decode(GameState.self, forKey: .state)
-        self.isWin = try container.decode(Bool.self, forKey: .isWin)
-        self.winner = try container.decode(String.self, forKey: .winner)
-        self.log = try container.decode(ExplodingKittensFirebaseLogger.self, forKey: .log)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(deck, forKey: .deck)
-        try container.encode(players, forKey: .players)
-        try container.encode(playerHands, forKey: .playerHands)
-        try container.encode(gameplayArea, forKey: .gameplayArea)
-        try container.encode(state, forKey: .state)
-        try container.encode(isWin, forKey: .isWin)
-        try container.encode(winner, forKey: .winner)
-        try container.encode(log, forKey: .log)
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case id
+//        case deck
+//        case players
+//        case playerHands
+//        case gameplayArea
+//        case state
+//        case isWin
+//        case winner
+//        case log
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        id = try container.decode(DocumentID<String>.self, forKey: .id)
+//          .wrappedValue
+//        self.deck = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .deck)
+//        self.players = try container.decode(ExplodingKittensPlayerCollectionAdapter.self, forKey: .players)
+//        self.playerHands = try container.decode([ExplodingKittensCardCollectionAdapter].self, forKey: .playerHands)
+//        self.gameplayArea = try container.decode(ExplodingKittensCardCollectionAdapter.self, forKey: .gameplayArea)
+//        self.state = try container.decode(GameState.self, forKey: .state)
+//        self.isWin = try container.decode(Bool.self, forKey: .isWin)
+//        self.winner = try container.decode(String.self, forKey: .winner)
+//        self.log = try container.decode(ExplodingKittensFirebaseLogger.self, forKey: .log)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(deck, forKey: .deck)
+//        try container.encode(players, forKey: .players)
+//        try container.encode(playerHands, forKey: .playerHands)
+//        try container.encode(gameplayArea, forKey: .gameplayArea)
+//        try container.encode(state, forKey: .state)
+//        try container.encode(isWin, forKey: .isWin)
+//        try container.encode(winner, forKey: .winner)
+//        try container.encode(log, forKey: .log)
+//    }
 }

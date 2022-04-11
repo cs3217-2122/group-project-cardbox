@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class ExplodingKittensCardAdapter: CardAdapter {
+class ExplodingKittensCardAdapter: CardAdapter, Codable {
     let id: UUID
     let type: ExplodingKittensCardType
 
@@ -42,20 +42,20 @@ class ExplodingKittensCardAdapter: CardAdapter {
         }
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case type
-    }
-
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(UUID.self, forKey: .id)
-        self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(type, forKey: .type)
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case id
+//        case type
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.id = try container.decode(UUID.self, forKey: .id)
+//        self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(type, forKey: .type)
+//    }
 }

@@ -5,7 +5,7 @@
 //  Created by Stuart Long on 3/4/22.
 //
 
-class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
+class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter, Codable {
     private var players: [ExplodingKittensPlayerAdapter]
     private var currentPlayerIndex: Int
 
@@ -25,22 +25,22 @@ class ExplodingKittensPlayerCollectionAdapter: PlayerCollectionAdapter {
         self.players.count
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case players
-        case currentPlayerIndex
-    }
-
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.players = try container.decode([ExplodingKittensPlayerAdapter].self, forKey: .players)
-        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(players, forKey: .players)
-        try container.encode(currentPlayerIndex, forKey: .currentPlayerIndex)
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case players
+//        case currentPlayerIndex
+//    }
+//
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.players = try container.decode([ExplodingKittensPlayerAdapter].self, forKey: .players)
+//        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
+//    }
+//
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(players, forKey: .players)
+//        try container.encode(currentPlayerIndex, forKey: .currentPlayerIndex)
+//    }
 
     init(_ playerCollection: PlayerCollection) {
         self.players = []

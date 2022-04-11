@@ -14,13 +14,13 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var playerHands: [UUID: CardCollection]
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
+    @Published internal var isWin = false
+    internal var winner: Player?
 
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
     @Published internal var isShowingPeek = false
-    @Published internal var isWin = false
-    internal var winner: Player?
     @Published internal var deckPositionRequest: CardPositionRequest
     @Published internal var cardTypeRequest: CardTypeRequest
 
