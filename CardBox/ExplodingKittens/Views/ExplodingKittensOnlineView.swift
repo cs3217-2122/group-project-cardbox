@@ -77,7 +77,7 @@ struct ExplodingKittensOnlineView: View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex) {
                 let bottomPlayerViewModel = PlayerViewModel(
                     player: localPlayer,
                     hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()

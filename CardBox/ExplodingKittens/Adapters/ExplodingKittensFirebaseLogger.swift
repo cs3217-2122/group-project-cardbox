@@ -34,18 +34,4 @@ class ExplodingKittensFirebaseLogger: FirebaseLogger, Codable {
         }
         self.logs = newLog
     }
-
-//    private enum CodingKeys: String, CodingKey {
-//        case logs
-//    }
-//
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.logs = try container.decode([ExplodingKittensFirebaseEventLogger].self, forKey: .logs)
-//    }
-//
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(logs, forKey: .logs)
-//    }
 }

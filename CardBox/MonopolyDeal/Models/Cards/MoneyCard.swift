@@ -5,7 +5,7 @@
 //  Created by Temp on 01.04.2022.
 //
 
-enum MoneyCardValue: Int {
+enum MoneyCardValue: Int, Codable {
     case ten = 10
     case one = 1
     case two = 2
@@ -63,5 +63,21 @@ class MoneyCard: MonopolyDealCard {
         gameRunner.executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: moneyArea)
         ])
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case cardValue
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.cardValue = try container.decode(MoneyCardValue.self, forKey: .cardValue)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cardValue, forKey: .cardValue)
+        try super.encode(to: encoder)
     }
 }

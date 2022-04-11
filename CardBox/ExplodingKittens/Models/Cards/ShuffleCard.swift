@@ -29,8 +29,20 @@ class ShuffleCard: ExplodingKittensCard {
             return
         }
 
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
+
         gameRunner.executeGameEvents([
-            ShuffleDeckEvent(deck: gameRunner.deck)
+            ShuffleDeckEvent(deck: gameState.deck)
         ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

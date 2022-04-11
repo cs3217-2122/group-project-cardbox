@@ -257,4 +257,20 @@ class ExplodingKittensPlayer: Player {
 
         return Array(distinctCardTypes)
     }
+
+    private enum CodingKeys: String, CodingKey {
+        case attackCount
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.attackCount = try container.decode(Int.self, forKey: .attackCount)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(attackCount, forKey: .attackCount)
+        try super.encode(to: encoder)
+    }
 }

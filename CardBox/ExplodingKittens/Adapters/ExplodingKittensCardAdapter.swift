@@ -41,21 +41,4 @@ class ExplodingKittensCardAdapter: CardAdapter, Codable {
             return RandomCard(id: id, name: "Random 3", type: .random3)
         }
     }
-
-//    private enum CodingKeys: String, CodingKey {
-//        case id
-//        case type
-//    }
-//
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.id = try container.decode(UUID.self, forKey: .id)
-//        self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
-//    }
-//
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(type, forKey: .type)
-//    }
 }

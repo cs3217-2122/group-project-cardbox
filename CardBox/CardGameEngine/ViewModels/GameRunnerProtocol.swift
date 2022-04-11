@@ -8,10 +8,11 @@
 import SwiftUI
 
 protocol GameRunnerProtocol: AnyObject {
-    var winner: Player? { get set }
-    var isWin: Bool { get set }
-    var players: PlayerCollection { get }
+//    var winner: Player? { get set }
+//    var isWin: Bool { get set }
+//    var players: PlayerCollection { get }
     var cardsDragging: [Card] { get set }
+    var gameState: GameState { get set }
 
     var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
@@ -46,8 +47,8 @@ extension GameRunnerProtocol {
         }
 
         if checkWinningConditions() {
-            self.isWin = true
-            self.winner = getWinner()
+            self.gameState.isWin = true
+            self.gameState.winner = getWinner()
         }
 
         notifyChanges(gameEvents)
@@ -63,6 +64,6 @@ extension GameRunnerProtocol {
         }
 
         onAdvanceNextPlayer()
-        players.setCurrentPlayer(nextPlayer)
+        gameState.players.setCurrentPlayer(nextPlayer)
     }
 }

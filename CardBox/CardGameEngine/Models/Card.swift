@@ -45,7 +45,7 @@ enum TypeOfTargettedCard: String, Codable {
     case noTargetCard
 }
 
-class Card: NSObject, Identifiable {
+class Card: NSObject, Identifiable, Codable {
     let id: UUID
     let name: String
     let cardDescription: String

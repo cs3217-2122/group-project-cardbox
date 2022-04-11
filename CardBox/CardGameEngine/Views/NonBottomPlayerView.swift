@@ -22,7 +22,7 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
 
     var body: some View {
         VStack {
-            if let player3 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(2) {
+            if let player3 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(2) {
                 playerArea(player3)
                     .rotationEffect(.degrees(-180))
 
@@ -40,7 +40,7 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
 
     @ViewBuilder
     var leftPlayer: some View {
-        if let player4 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(3) {
+        if let player4 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(3) {
             playerArea(player4)
                 .rotationEffect(.degrees(90))
         } else {
@@ -54,7 +54,7 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
             Spacer()
             decks
             Spacer()
-            if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
+            if let player2 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(1) {
                 playerArea(player2)
                     .rotationEffect(.degrees(-90))
             }

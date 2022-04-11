@@ -27,18 +27,4 @@ class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter, Codable {
                 .append(ExplodingKittensCardAdapter(explodingKittensCard: card))
         }
     }
-
-//    private enum CodingKeys: String, CodingKey {
-//        case cards
-//    }
-//
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        self.cards = try container.decode([ExplodingKittensCardAdapter].self, forKey: .cards)
-//    }
-//
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(cards, forKey: .cards)
-//    }
 }

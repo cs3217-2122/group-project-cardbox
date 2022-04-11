@@ -9,7 +9,7 @@ import Foundation
 
 protocol ExplodingKittensGameRunnerProtocol: GameRunnerProtocol {
     var deck: CardCollection { get }
-    var playerHands: [UUID: CardCollection] { get }
+//    var playerHands: [UUID: CardCollection] { get }
     var gameplayArea: CardCollection { get }
 
     var cardsPeeking: [Card] { get }

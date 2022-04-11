@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/2/22.
 //
 
-enum MonopolyDealCardType: String, CaseIterable {
+enum MonopolyDealCardType: String, CaseIterable, Codable {
     case property = "property"
     case dealBreaker = "deal_breaker"
     case doubleRent = "double_rent"

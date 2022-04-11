@@ -234,8 +234,10 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         // TODO: this only allows exploding kitten, allow customisation to choose games
         let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player, observer: self)
 
-        let explodingKittensFirebaseAdapter = ExplodingKittensFirebaseAdapter(
-            explodingKittensGameRunner: explodingKittensGameRunner)
+        guard let gameState = explodingKittensGameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
+        let explodingKittensFirebaseAdapter = ExplodingKittensFirebaseAdapter(gameState: gameState)
 
         docRef = db.collection("rooms").document()
 
@@ -254,7 +256,11 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner, _ gameEvents: [GameEvent]) {
         let docRef = db.collection("rooms").document(gameRoomID)
 
-        let toEncode = ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner)
+        guard let gameState = explodingKittensGameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
+
+        let toEncode = ExplodingKittensFirebaseAdapter(gameState: gameState)
 
         toEncode.log.append(gameEvents)
 
@@ -267,13 +273,16 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
             return
         }
 
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
         let docRef = db.collection("rooms").document(gameRoomID)
 
         gameRunner.setup()
-        gameRunner.state = .start
+        gameRunner.gameState.state = .start
 
         encodeExplodingKittensFirebaseAdapter(
-            ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: gameRunner),
+            ExplodingKittensFirebaseAdapter(gameState: gameState),
             docRef)
     }
 }

@@ -9,14 +9,7 @@ import SwiftUI
 import Foundation
 
 class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, ObservableObject {
-    @Published internal var deck: CardCollection
-    @Published internal var players: PlayerCollection
-    @Published internal var playerHands: [UUID: CardCollection]
-    @Published internal var gameplayArea: CardCollection
-    @Published internal var state: GameState
-    @Published internal var isWin = false
-    internal var winner: Player?
-
+    @Published internal var gameState: GameState
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
@@ -24,15 +17,27 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var deckPositionRequest: CardPositionRequest
     @Published internal var cardTypeRequest: CardTypeRequest
 
+    var deck: CardCollection {
+        if let gameState = gameState as? ExplodingKittensGameState {
+            return gameState.deck
+        } else {
+            return CardCollection()
+        }
+    }
+
+    var gameplayArea: CardCollection {
+        if let gameState = gameState as? ExplodingKittensGameState {
+            return gameState.gameplayArea
+        } else {
+            return CardCollection()
+        }
+    }
+
     private var observers: [ExplodingKittensGameRunnerObserver]
 
     // for offline use
     init() {
-        self.deck = CardCollection()
-        self.players = PlayerCollection()
-        self.playerHands = [:]
-        self.gameplayArea = CardCollection()
-        self.state = .initialize
+        self.gameState = ExplodingKittensGameState()
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = []
@@ -45,20 +50,20 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
          players: PlayerCollection,
          playerHands: [UUID: CardCollection],
          gameplayArea: CardCollection,
-         state: GameState,
+         state: GameModeState,
          isWin: Bool,
          winner: Player?,
          observer: ExplodingKittensGameRunnerObserver) {
-        self.deck = deck
-        self.players = players
-        self.playerHands = playerHands
-        self.gameplayArea = gameplayArea
-        self.state = state
+        self.gameState = ExplodingKittensGameState(deck: deck,
+                                                   players: players,
+                                                   playerHands: playerHands,
+                                                   gameplayArea: gameplayArea,
+                                                   isWin: isWin,
+                                                   winner: winner,
+                                                   state: state)
         self.cardsPeeking = []
         self.deckPositionRequest = CardPositionRequest()
         self.observers = [observer]
-        self.isWin = isWin
-        self.winner = winner
         self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
@@ -66,12 +71,12 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     // initialiser used by host game view model
     convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
         self.init()
-        self.players.addPlayer(ExplodingKittensPlayer(name: host.name,
-                                                      id: host.id,
-                                                      isOutOfGame: host.isOutOfGame,
-                                                      cardsPlayed: host.cardsPlayed))
+        self.gameState.addPlayer(player: ExplodingKittensPlayer(name: host.name,
+                                                                id: host.id,
+                                                                isOutOfGame: host.isOutOfGame,
+                                                                cardsPlayed: host.cardsPlayed))
         self.observers.append(observer)
-        self.playerHands[host.id] = CardCollection()
+//        self.gameState.addPlayerHands(player: host.id, hand: CardCollection())
     }
 
     func updateState(_ gameRunner: GameRunnerProtocol) {
@@ -79,72 +84,53 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             return
         }
 
-        if explodingKittensGameRunner.state == .start {
-            self.deck.updateState(explodingKittensGameRunner.deck)
-            self.players.updateState(explodingKittensGameRunner.players)
-            self.updatePlayerHands(explodingKittensGameRunner.playerHands)
-            self.gameplayArea.updateState(explodingKittensGameRunner.gameplayArea)
-        } else {
-            self.deck = explodingKittensGameRunner.deck
-            self.players = explodingKittensGameRunner.players
-            self.playerHands = explodingKittensGameRunner.playerHands
-            self.gameplayArea = explodingKittensGameRunner.gameplayArea
-        }
-        self.state = explodingKittensGameRunner.state
+        gameState.updateState(gameState: explodingKittensGameRunner.gameState)
         self.observers = explodingKittensGameRunner.observers
-        self.isWin = explodingKittensGameRunner.isWin
-        self.winner = explodingKittensGameRunner.winner
-    }
-
-    func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
-        for (key, value) in newPlayerHands {
-            guard let current = playerHands[key] else {
-                continue
-            }
-            current.updateState(value)
-        }
-
     }
 
     // TODO: create setup for online to inject online players
     func setup() {
+        guard let gameState = gameState as? ExplodingKittensGameState else {
+            return
+        }
+
         let numPlayers = 4
         let initialCardCount = 4
 
-        if players.isEmpty {
+        if gameState.players.isEmpty {
             let players = (1...numPlayers).map { i in
                 ExplodingKittensPlayer(name: "Player " + i.description)
             }
             players.forEach { player in
-                self.players.addPlayer(player)
-                self.playerHands[player.id] = CardCollection()
+                self.gameState.players.addPlayer(player)
+                self.gameState.playerHands[player.id] = CardCollection()
             }
         }
 
-        self.playerHands.forEach { _, hand in
+        self.gameState.playerHands.forEach { _, hand in
             let defuseCard = DefuseCard()
             hand.addCard(defuseCard)
         }
 
         let cards = initCards()
         cards.forEach { card in
-            self.deck.addCard(card)
+            gameState.deck.addCard(card)
         }
 
         if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            self.deck.shuffle()
+            gameState.deck.shuffle()
         }
 
-        let topCards = self.deck.getTopNCards(n: numPlayers * initialCardCount)
+        let topCards = gameState.deck.getTopNCards(n: numPlayers * initialCardCount)
         topCards.indices.forEach { i in
-            guard let player = self.players.getPlayerByIndex(i % numPlayers) else {
+            guard let player = self.gameState.players.getPlayerByIndex(i % numPlayers) else {
                 return
             }
-            guard let playerDeck = self.playerHands[player.id] else {
+            guard let playerDeck = self.gameState.playerHands[player.id] else {
                 return
             }
 
-            self.deck.removeCard(topCards[i])
+            gameState.deck.removeCard(topCards[i])
             playerDeck.addCard(topCards[i])
             playerDeck.shuffle()
         }
@@ -153,11 +139,11 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             BombCard()
         }
         bombs.forEach { bomb in
-            self.deck.addCard(bomb)
+            gameState.deck.addCard(bomb)
         }
 
         if !CommandLine.arguments.contains("-UITest_ExplodingKittens") {
-            self.deck.shuffle()
+            gameState.deck.shuffle()
         }
     }
 
@@ -200,29 +186,33 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // To be overwritten
     func onEndTurn() {
-        let top = deck.getTopNCards(n: 1)
+        guard let gameState = gameState as? ExplodingKittensGameState else {
+            return
+        }
+
+        let top = gameState.deck.getTopNCards(n: 1)
 
         guard !top.isEmpty else {
             return
         }
 
-        guard let currentPlayer = players.currentPlayer else {
+        guard let currentPlayer = gameState.players.currentPlayer else {
             return
         }
 
-        guard let hand = playerHands[currentPlayer.id] else {
+        guard let hand = gameState.playerHands[currentPlayer.id] else {
             return
         }
 
         hand.addCard(top[0])
-        deck.removeCard(top[0])
+        gameState.deck.removeCard(top[0])
 
         top[0].onDraw(gameRunner: self, player: currentPlayer)
     }
 
     // To be overwritten
     func onAdvanceNextPlayer() {
-        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
+        guard let currentPlayer = gameState.players.currentPlayer as? ExplodingKittensPlayer else {
             return
         }
         currentPlayer.decrementAttackCount()
@@ -230,21 +220,21 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // To be overwritten
     func checkWinningConditions() -> Bool {
-        players.getPlayers().filter { !$0.isOutOfGame }.count == 1
+        gameState.players.getPlayers().filter { !$0.isOutOfGame }.count == 1
     }
 
     // To be overwritten
     func getWinner() -> Player? {
-        players.getPlayers().filter { !$0.isOutOfGame }[0]
+        gameState.players.getPlayers().filter { !$0.isOutOfGame }[0]
     }
 
     // To be overwritten
     func getNextPlayer() -> Player? {
-        guard !players.isEmpty else {
+        guard !gameState.players.isEmpty else {
             return nil
         }
 
-        guard let currentPlayer = players.currentPlayer as? ExplodingKittensPlayer else {
+        guard let currentPlayer = gameState.players.currentPlayer as? ExplodingKittensPlayer else {
             return nil
         }
 
@@ -253,14 +243,14 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
             return currentPlayer
         }
 
-        let currentIndex = players.currentPlayerIndex
-        let totalCount = players.count
+        let currentIndex = gameState.players.currentPlayerIndex
+        let totalCount = gameState.players.count
         var nextPlayer: Player?
 
         for i in 1...totalCount {
             let nextIndex = (currentIndex + i) % totalCount
 
-            guard let player = players.getPlayerByIndex(nextIndex) else {
+            guard let player = gameState.players.getPlayerByIndex(nextIndex) else {
                 continue
             }
 
@@ -276,7 +266,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     }
 
     func getHandByPlayer(_ player: Player) -> CardCollection? {
-        self.playerHands[player.id]
+        self.gameState.playerHands[player.id]
     }
 
     var allCardTypes: [ExplodingKittensCardType] {

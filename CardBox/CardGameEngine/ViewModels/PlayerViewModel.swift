@@ -28,7 +28,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunnerProtocol) {
-        guard let currentPlayer = gameRunner.players.currentPlayer else {
+        guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
             return
         }
         if currentPlayer === player {
@@ -51,7 +51,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func isCurrentPlayer(gameRunner: GameRunnerProtocol) -> Bool {
-        guard let currentPlayer = gameRunner.players.currentPlayer else {
+        guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
             return false
         }
         // TODO: Check if online or offline
@@ -63,7 +63,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func previewCard(card: Card, gameRunner: GameRunnerProtocol) {
-        guard let currentPlayer = gameRunner.players.currentPlayer else {
+        guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
             return
         }
         if currentPlayer === player {
@@ -72,7 +72,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func unpreviewCard(card: Card, gameRunner: GameRunnerProtocol) {
-        guard let currentPlayer = gameRunner.players.currentPlayer else {
+        guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
             return
         }
         if currentPlayer === player {

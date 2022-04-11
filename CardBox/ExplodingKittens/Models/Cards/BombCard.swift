@@ -34,14 +34,17 @@ class BombCard: ExplodingKittensCard {
             return
         }
 
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
         let callback: (Int) -> Void = { position in
             gameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: [defuseCard],
                                          fromDeck: playerHand,
-                                         toDeck: gameRunner.gameplayArea),
+                                         toDeck: gameState.gameplayArea),
                 MoveCardsDeckToDeckEvent(cards: [self],
                                          fromDeck: playerHand,
-                                         toDeck: gameRunner.deck,
+                                         toDeck: gameState.deck,
                                          offsetFromTop: position - 1)
             ])
         }
@@ -49,7 +52,7 @@ class BombCard: ExplodingKittensCard {
         gameRunner.executeGameEvents([
             ShowCardPositionRequestEvent(callback: callback,
                                          minValue: 1,
-                                         maxValue: gameRunner.deck.count)
+                                         maxValue: gameState.deck.count)
         ])
     }
 
@@ -59,5 +62,13 @@ class BombCard: ExplodingKittensCard {
         }
 
         return ekCard.type == .defuse
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

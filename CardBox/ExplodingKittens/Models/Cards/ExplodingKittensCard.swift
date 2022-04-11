@@ -73,4 +73,21 @@ class ExplodingKittensCard: Card {
     // To be overridden
     func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
     }
+
+    private enum CodingKeys: String, CodingKey {
+        case type
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(type, forKey: .type)
+//        let superEncoder = container.superEncoder()
+        try super.encode(to: encoder)
+    }
 }
