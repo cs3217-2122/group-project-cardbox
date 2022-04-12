@@ -60,6 +60,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     func setup() {
         MonopolyDealFactory.initialiseGameState(gameState: self.gameState)
+        notifyChanges([])
     }
 
     func onStartTurn() {
