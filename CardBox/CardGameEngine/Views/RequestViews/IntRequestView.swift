@@ -81,7 +81,10 @@ struct IntRequestView: View {
             }
             Button(action: {
                 gameRunnerViewModel.executeGameEvents([
-                    SendResponseEvent(response: intRequest.createResponse(with: integerResponse))
+                    SendResponseEvent(
+                        response: IntResponse(requestId: intRequest.id,
+                                              value: integerResponse)
+                    )
                 ])
                 self.integerResponse = 1
             }) {

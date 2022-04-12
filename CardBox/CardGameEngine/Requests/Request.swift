@@ -5,11 +5,10 @@
 //  Created by Bryann Yeap Kok Keong on 11/4/22.
 //
 
-// enum
-
 protocol Request {
+//    var id = UUID() { get }
 //    var description: String { get }
-//    var sourcePlayer: Player { get }
-//    var destinationPlayer: Player { get }
-//    var genericTypeOfRequest: 
+//    var fromPlayer: Player { get }
+//    var toPlayer: Player { get }
+//    var callback: (Any) -> Void { get }
 }

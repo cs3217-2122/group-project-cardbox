@@ -54,7 +54,7 @@ extension GameRunnerProtocol {
         }
 
         notifyChanges(gameEvents)
-        resolvePendingRequests() // TODO: Add to the method called after factory method updates gamestate
+        resolvePendingRequests()
     }
 
     func endPlayerTurn() {

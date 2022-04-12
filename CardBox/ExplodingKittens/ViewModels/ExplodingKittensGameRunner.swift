@@ -108,6 +108,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers = explodingKittensGameRunner.observers
         self.isWin = explodingKittensGameRunner.isWin
         self.winner = explodingKittensGameRunner.winner
+        self.resolvePendingRequests()
     }
 
     func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
