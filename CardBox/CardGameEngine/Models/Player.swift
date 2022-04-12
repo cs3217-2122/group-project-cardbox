@@ -18,8 +18,9 @@ class Player: Identifiable, Codable {
         name
     }
 
-    convenience init(name: String) {
-        self.init(id: UUID(), name: name)
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
     }
 
     // for online game

@@ -80,7 +80,7 @@ struct MonopolyDealOfflineView: View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+            if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
                 let bottomPlayerViewModel = PlayerViewModel(
                     player: currentPlayer,
                     hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)

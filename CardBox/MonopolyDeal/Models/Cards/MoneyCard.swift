@@ -52,11 +52,15 @@ class MoneyCard: MonopolyDealCard {
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        guard let hand = gameRunner.playerHands[player.id] else {
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
             return
         }
 
-        guard let moneyArea = gameRunner.playerMoneyArea[player.id] else {
+        guard let hand = gameState.playerHands[player.id] else {
+            return
+        }
+
+        guard let moneyArea = gameState.playerMoneyArea[player.id] else {
             return
         }
 

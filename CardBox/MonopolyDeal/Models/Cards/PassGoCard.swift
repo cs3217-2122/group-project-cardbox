@@ -15,9 +15,13 @@ class PassGoCard: MonopolyDealCard {
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        let deck = gameRunner.deck
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
+            return
+        }
 
-        guard let hand = gameRunner.playerHands[player.id] else {
+        let deck = gameState.deck
+
+        guard let hand = gameState.playerHands[player.id] else {
             return
         }
 

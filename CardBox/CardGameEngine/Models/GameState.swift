@@ -46,7 +46,7 @@ class GameState: Codable {
         self.winner = gameState.winner
     }
 
-    func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
+    private func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
         for (key, value) in newPlayerHands {
             guard let current = playerHands[key] else {
                 continue
