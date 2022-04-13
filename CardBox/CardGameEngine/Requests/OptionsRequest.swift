@@ -1,18 +1,17 @@
 //
-//  IntRequest.swift
+//  OptionsRequest.swift
 //  CardBox
 //
-//  Created by Bryann Yeap Kok Keong on 11/4/22.
+//  Created by Bryann Yeap Kok Keong on 14/4/22.
 //
 
 import Foundation
 
-struct IntRequest: Request {
+struct OptionsRequest: Request {
     private(set) var id = UUID()
     private(set) var description: String
     private(set) var fromPlayer: Player
     private(set) var toPlayer: Player
     private(set) var callback: (Response) -> Void
-    private(set) var minValue: Int?
-    private(set) var maxValue: Int?
+    private (set) var stringRepresentationOfOptions: [String]
 }

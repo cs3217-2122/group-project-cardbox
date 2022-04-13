@@ -92,7 +92,6 @@ struct ExplodingKittensOfflineView: View {
                 RequestViewFactory(request: request, isOnline: false)
             }
 
-            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {

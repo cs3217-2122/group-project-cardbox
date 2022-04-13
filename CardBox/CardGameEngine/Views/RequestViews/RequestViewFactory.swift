@@ -14,6 +14,8 @@ struct RequestViewFactory: View {
     var body: some View {
         if let intRequest = request as? IntRequest {
             IntRequestView(intRequest: intRequest, isOnline: isOnline)
+        } else if let optionsRequest = request as? OptionsRequest {
+            OptionsRequestView(optionsRequest: optionsRequest, isOnline: isOnline)
         }
     }
 }

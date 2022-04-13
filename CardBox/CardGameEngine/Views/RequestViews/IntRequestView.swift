@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct IntRequestView: View {
+
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: GameRunnerProtocol {
         gameRunnerDelegate.runner
@@ -17,30 +18,14 @@ struct IntRequestView: View {
 
     private var intRequest: IntRequest
     private var isOnline: Bool
-    private var recipientHeader: String
-    private var senderHeader: String
 
     init(intRequest: IntRequest, isOnline: Bool) {
         self.intRequest = intRequest
         self.isOnline = isOnline
-        self.recipientHeader = "Request for " + intRequest.toPlayer.name
-        self.senderHeader = "Request from " + intRequest.fromPlayer.name
     }
 
     var header: some View {
-        let header: String
-        if isOnline {
-            header = senderHeader
-        } else {
-            header = recipientHeader
-        }
-        return Text(header)
-            .fontWeight(.black)
-            .multilineTextAlignment(.center)
-    }
-
-    var description: some View {
-        Text(intRequest.description).padding()
+        RequestHeaderView(request: intRequest, isOnline: isOnline)
     }
 
     var minusButton: some View {
@@ -71,21 +56,13 @@ struct IntRequestView: View {
     var messageBox: some View {
         VStack {
             header
-            Divider()
-                .background(Color.black)
-            description
             HStack {
                 minusButton
                 Text(integerResponse.description)
                 addButton
             }
             Button(action: {
-                gameRunnerViewModel.executeGameEvents([
-                    SendResponseEvent(
-                        response: IntResponse(requestId: intRequest.id,
-                                              value: integerResponse)
-                    )
-                ])
+                gameRunnerViewModel.sendResponse(requestId: intRequest.id, value: integerResponse)
                 self.integerResponse = 1
             }) {
                 Text("Submit")
@@ -105,17 +82,16 @@ struct IntRequestView: View {
     }
 }
 
- // TODO: DELETE THIS
  struct IntRequestView_Previews: PreviewProvider {
     static var previews: some View {
         IntRequestView(intRequest:
                         IntRequest(description: "Choose a number from 1 to 5",
                                    fromPlayer: Player(name: "Player 2"),
                                    toPlayer: Player(name: "Player 1 "),
-                                   minValue: 1,
-                                   maxValue: 5,
                                    callback: { _ in
-        }),
+        },
+                                   minValue: 1,
+                                   maxValue: 5),
                        isOnline: false)
     }
  }

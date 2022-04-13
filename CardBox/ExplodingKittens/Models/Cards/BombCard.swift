@@ -52,12 +52,12 @@ class BombCard: ExplodingKittensCard {
 
         gameRunner.executeGameEvents([
             SendRequestEvent(request: IntRequest(
-                description: "Please choose the position of the draw deck to place the bomb back in",
+                description: "You drew the bomb :( Please choose a position of the draw deck to insert the bomb in",
                 fromPlayer: player,
                 toPlayer: player,
+                callback: callback,
                 minValue: 1,
-                maxValue: gameRunner.deck.count,
-                callback: callback
+                maxValue: gameRunner.deck.count
             ))
         ])
     }

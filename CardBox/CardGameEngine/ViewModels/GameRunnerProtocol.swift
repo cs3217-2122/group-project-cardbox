@@ -80,4 +80,16 @@ extension GameRunnerProtocol {
             }
         }
     }
+
+    func sendResponse(requestId: UUID, value: Any) {
+        guard let request = globalRequests.first(where: { $0.id == requestId }) else {
+            return
+        }
+
+        if request is IntRequest, let intValue = value as? Int {
+            executeGameEvents([SendResponseEvent(response: IntResponse(requestId: requestId, value: intValue))])
+        } else if request is OptionsRequest, let optionsValue = value as? String {
+            executeGameEvents([SendResponseEvent(response: OptionsResponse(requestId: requestId, value: optionsValue))])
+        }
+    }
 }
