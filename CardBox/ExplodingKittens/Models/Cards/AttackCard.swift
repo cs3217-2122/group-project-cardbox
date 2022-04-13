@@ -30,10 +30,6 @@ class AttackCard: ExplodingKittensCard {
             return
         }
 
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
-
         gameRunner.executeGameEvents([
             CustomizedGameEvent(customizedGameEvent: IncrementAttackCountEvent(player: nextPlayer)),
             AdvanceNextPlayerEvent()
