@@ -35,7 +35,7 @@ struct InputTextRequestView: View {
     var messageBox: some View {
         VStack {
             header
-            TextField("Type your response here", text: $inputTextResponse)
+            TextField("Type your response here", text: $inputTextResponse)                .textFieldStyle(RoundedBorderTextFieldStyle())
             Button {
                 gameRunnerViewModel.executeGameEvents(
                     [SendResponseEvent(requestId: inputTextRequest.id, value: inputTextResponse)]
