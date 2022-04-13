@@ -18,7 +18,6 @@ protocol GameRunnerProtocol: AnyObject {
     func resetCardPreview()
 
     // Requests
-    var cardTypeRequest: CardTypeRequest { get set }
     var globalRequests: [Request] { get set }
     var globalResponses: [Response] { get set }
     var localPendingRequests: [Request] { get set }

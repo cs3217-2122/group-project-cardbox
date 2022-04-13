@@ -27,7 +27,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var cardPreview: Card?
     @Published internal var isWin = false
     internal var winner: Player?
-    @Published internal var cardTypeRequest: CardTypeRequest
 
     init() {
         self.deck = CardCollection()
@@ -42,7 +41,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.localPendingRequests = []
 
         self.cardsDragging = []
-        self.cardTypeRequest = CardTypeRequest()
     }
 
     func setup() {

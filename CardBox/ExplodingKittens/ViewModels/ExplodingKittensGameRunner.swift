@@ -25,7 +25,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
-    @Published internal var cardTypeRequest: CardTypeRequest
 
     private var observers: [ExplodingKittensGameRunnerObserver]
 
@@ -43,7 +42,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
         self.cardsPeeking = []
         self.observers = []
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
 
@@ -70,7 +68,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers = [observer]
         self.isWin = isWin
         self.winner = winner
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
 
