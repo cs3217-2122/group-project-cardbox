@@ -8,15 +8,15 @@
 class ExplodingKittensCardCollectionAdapter: CardCollectionAdapter, Codable {
     private var cards: [ExplodingKittensCardAdapter]
 
-    var cardCollection: CardCollection {
-        let output = CardCollection()
+    var cardCollection: EKCardCollection {
+        let output = EKCardCollection()
         for card in cards {
             output.addCard(card.ekCard)
         }
         return output
     }
 
-    init(_ cardCollection: CardCollection) {
+    init(_ cardCollection: EKCardCollection) {
         let cards = cardCollection.getCards()
         self.cards = []
         for card in cards {

@@ -12,6 +12,17 @@ class CardCollection: Identifiable, Codable {
         self.cards = cards
     }
 
+    enum CodingKeys: CodingKey {
+        case cards
+    }
+
+    init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Card]) throws {
+        // TODO
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
+        self.cards = mapFunc(objectsArray)
+    }
+
     convenience init() {
         self.init(cards: [])
     }

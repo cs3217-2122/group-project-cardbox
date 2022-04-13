@@ -46,10 +46,10 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     }
 
     // for online use
-    init(deck: CardCollection,
+    init(deck: EKCardCollection,
          players: PlayerCollection,
-         playerHands: [UUID: CardCollection],
-         gameplayArea: CardCollection,
+         playerHands: [UUID: EKCardCollection],
+         gameplayArea: EKCardCollection,
          state: GameModeState,
          isWin: Bool,
          winner: Player?,

@@ -33,7 +33,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter, Codable {
         self.playerHands = []
         for index in 0..<gameState.players.count {
             if let player = gameState.players.getPlayerByIndex(index) {
-                if let playerHand = gameState.playerHands[player.id] {
+                if let playerHand = gameState.playerHands[player.id] as? EKCardCollection {
                     self.playerHands.append(ExplodingKittensCardCollectionAdapter(playerHand))
                 }
             }
@@ -53,7 +53,7 @@ class ExplodingKittensFirebaseAdapter: FirebaseAdapter, Codable {
                 }
             }
 
-            var playerHandsMapping: [UUID: CardCollection] = [:]
+            var playerHandsMapping: [UUID: EKCardCollection] = [:]
 
             for index in 0 ..< playerHands.count {
                 guard let player = players.getPlayerByIndex(index) else {
