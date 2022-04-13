@@ -91,9 +91,12 @@ struct ExplodingKittensOnlineView: View {
             CardPreviewView()
 
             if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex),
-               let request = gameRunnerViewModel.globalRequests.first,
-               request.toPlayer.id == localPlayer.id {
-                IntRequestView(intRequest: request, isOnline: true)
+               let request = gameRunnerViewModel.globalRequests.first {
+                if request.toPlayer.id == localPlayer.id {
+                    RequestViewFactory(request: request, isOnline: true)
+                } else {
+                    NoInteractionOverlayView()
+                }
             }
 
             WinMessageView()

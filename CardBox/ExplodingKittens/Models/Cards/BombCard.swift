@@ -34,7 +34,11 @@ class BombCard: ExplodingKittensCard {
             return
         }
 
-        let callback: (Int) -> Void = { position in
+        let callback: (Response) -> Void = { response in
+            guard let intResponse = response as? IntResponse else {
+                return
+            }
+
             gameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: [defuseCard],
                                          fromDeck: playerHand,
@@ -42,7 +46,7 @@ class BombCard: ExplodingKittensCard {
                 MoveCardsDeckToDeckEvent(cards: [self],
                                          fromDeck: playerHand,
                                          toDeck: gameRunner.deck,
-                                         offsetFromTop: position - 1)
+                                         offsetFromTop: intResponse.value - 1)
             ])
         }
 

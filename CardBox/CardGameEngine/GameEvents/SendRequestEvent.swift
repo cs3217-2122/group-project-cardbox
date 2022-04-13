@@ -6,7 +6,7 @@
 //
 
 struct SendRequestEvent: GameEvent {
-    let request: IntRequest
+    let request: Request
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
         // Adds to the global collection of requests

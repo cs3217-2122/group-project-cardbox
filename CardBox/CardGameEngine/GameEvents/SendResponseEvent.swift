@@ -6,7 +6,7 @@
 //
 
 struct SendResponseEvent: GameEvent {
-    let response: IntResponse
+    let response: Response
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
         gameRunner.globalResponses.append(response)

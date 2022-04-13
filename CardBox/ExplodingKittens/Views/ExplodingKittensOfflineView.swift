@@ -89,7 +89,7 @@ struct ExplodingKittensOfflineView: View {
             CardPreviewView()
 
             if let request = gameRunnerViewModel.globalRequests.first {
-                IntRequestView(intRequest: request, isOnline: false)
+                RequestViewFactory(request: request, isOnline: false)
             }
 
             CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)

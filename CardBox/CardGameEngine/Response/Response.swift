@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol Response: Identifiable {
-//    associatedtype ResponseType
-//    var requestID: UUID { get }
-//    var response: ResponseType { get }
+protocol Response {
+    var id: UUID { get }
+    var requestId: UUID { get }
 }

@@ -15,9 +15,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
-    @Published internal var globalRequests: [IntRequest]
-    @Published internal var globalResponses: [IntResponse]
-    internal var localPendingRequests: [IntRequest]
+    internal var globalRequests: [Request]
+    internal var globalResponses: [Response]
+    internal var localPendingRequests: [Request]
 
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
@@ -25,7 +25,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
-    @Published internal var deckPositionRequest: CardPositionRequest
     @Published internal var cardTypeRequest: CardTypeRequest
 
     private var observers: [ExplodingKittensGameRunnerObserver]
@@ -43,7 +42,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.localPendingRequests = []
 
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = []
         self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
@@ -69,7 +67,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.localPendingRequests = []
 
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = [observer]
         self.isWin = isWin
         self.winner = winner
