@@ -58,11 +58,11 @@ class MonopolyDealCardFactory: CardFactory {
             }
         }
 
-        for _ in 0 ..< MonopolyDealCardType.passGo  .initialFrequency {
+        for _ in 0 ..< MonopolyDealCardType.passGo.initialFrequency {
             cards.append(PassGoCard())
         }
 
-        for _ in 0 ..< MonopolyDealCardType.birthday  .initialFrequency {
+        for _ in 0 ..< MonopolyDealCardType.birthday.initialFrequency {
             cards.append(BirthdayCard())
         }
 

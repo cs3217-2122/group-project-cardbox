@@ -95,6 +95,30 @@ class ExplodingKittensCardFactory: CardFactory {
 
         return cards
     }
+
+    static func getCardFromType(array: UnkeyedDecodingContainer, type: ExplodingKittensCardType) -> Card? {
+        var arrayCopy = array
+        switch type {
+        case .attack:
+            return try? arrayCopy.decode(AttackCard.self)
+        case .bomb:
+            return try? arrayCopy.decode(BombCard.self)
+        case .defuse:
+            return try? arrayCopy.decode(DefuseCard.self)
+        case .favor:
+            return try? arrayCopy.decode(FavorCard.self)
+        case .seeTheFuture:
+            return try? arrayCopy.decode(SeeTheFutureCard.self)
+        case .shuffle:
+            return try? arrayCopy.decode(ShuffleCard.self)
+        case .skip:
+            return try? arrayCopy.decode(SkipCard.self)
+        case .random1, .random2, .random3:
+            return try? arrayCopy.decode(RandomCard.self)
+        default:
+            return try? arrayCopy.decode(ExplodingKittensCard.self)
+        }
+    }
 }
 
 enum ExplodingKittensCardType: String, CaseIterable, Codable {

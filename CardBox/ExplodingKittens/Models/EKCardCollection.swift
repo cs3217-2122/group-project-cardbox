@@ -30,16 +30,7 @@ class EKCardCollection: CardCollection {
                     guard let type = try? object.decode(ExplodingKittensCardType.self, forKey: ObjectTypeKey.type) else {
                         continue
                     }
-                    let card: Card? = {
-                        switch type {
-                        case .attack:
-                            return try? array.decode(AttackCard.self)
-                        case .bomb:
-                            return try? array.decode(BombCard.self)
-                        default:
-                            return try? array.decode(ExplodingKittensCard.self)
-                        }
-                    }()
+                    let card: Card? = ExplodingKittensCardFactory.getCardFromType(array: array, type: type)
                     if let card = card {
                         items.append(card)
                     }
@@ -49,4 +40,5 @@ class EKCardCollection: CardCollection {
             }
         )
     }
+
 }
