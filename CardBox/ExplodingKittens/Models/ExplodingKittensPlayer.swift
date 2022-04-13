@@ -263,11 +263,12 @@ class ExplodingKittensPlayer: Player {
 
         ekGameRunner.executeGameEvents([
             SendRequestEvent(
-                request: OptionsRequest(description: "Please choose the card that you want to take from the gameplay area",
+                request: OptionsRequest(description: "Please choose a card that you want to take from the play area",
                                         fromPlayer: player,
                                         toPlayer: player,
                                         callback: callback,
-                                        stringRepresentationOfOptions: getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
+                                        stringRepresentationOfOptions:
+                                            getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
             )
         ])
      }

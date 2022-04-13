@@ -14,7 +14,7 @@ struct OptionsRequestView: View {
         gameRunnerDelegate.runner
     }
 
-    @State private var selectedOption = ""
+    @State private var optionsResponse = ""
 
     private var optionsRequest: OptionsRequest
     private var isOnline: Bool
@@ -37,16 +37,18 @@ struct OptionsRequestView: View {
             header
             ForEach(optionsRequest.stringRepresentationOfOptions, id: \.self) { option in
                 Button {
-                    selectedOption = option
+                    optionsResponse = option
                 } label: {
                     Text(option)
-                        .foregroundColor(selectedOption == option
+                        .foregroundColor(optionsResponse == option
                                          ? Color.red : Color.black)
                 }
             }
             Button {
-                gameRunnerViewModel.sendResponse(requestId: optionsRequest.id, value: selectedOption)
-                selectedOption = ""
+                gameRunnerViewModel.executeGameEvents(
+                    [SendResponseEvent(requestId: optionsRequest.id, value: optionsResponse)]
+                )
+                optionsResponse = ""
             } label: {
                 Text("Submit")
             }

@@ -62,7 +62,9 @@ struct IntRequestView: View {
                 addButton
             }
             Button(action: {
-                gameRunnerViewModel.sendResponse(requestId: intRequest.id, value: integerResponse)
+                gameRunnerViewModel.executeGameEvents(
+                    [SendResponseEvent(requestId: intRequest.id, value: integerResponse)]
+                )
                 self.integerResponse = 1
             }) {
                 Text("Submit")
