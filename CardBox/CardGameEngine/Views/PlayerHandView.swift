@@ -34,8 +34,9 @@ struct PlayerHandView: View {
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
+                let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                 if isFaceUp {
-                    CardView(card: card, isFaceUp: isFaceUp, isSelected: playerViewModel.isSelected(card: card),
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
                              bottomPlayer: bottomPlayerViewModel.player)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
@@ -54,7 +55,7 @@ struct PlayerHandView: View {
                             }
                     )
                 } else {
-                    CardView(card: card, isFaceUp: isFaceUp, isSelected: playerViewModel.isSelected(card: card),
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
                              bottomPlayer: bottomPlayerViewModel.player)
                 }
             }

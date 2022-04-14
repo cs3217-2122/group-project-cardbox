@@ -8,7 +8,6 @@ import SwiftUI
 
 class PlayerViewModel: ObservableObject {
     var player: Player
-    @Published var selectedCards: [Card] = []
     var hand: CardCollection
 
     init(player: Player, hand: CardCollection) {
@@ -37,21 +36,16 @@ class PlayerViewModel: ObservableObject {
         }
         // gameRunner.selectedCards and gameRunner.canTap(card)
         // not in selectedCards and canTap
-        
-        
+
         if currentPlayer === player {
-            if selectedCards.contains(card) {
-                if hand.containsCard(card) {
-                    if let indexOf = selectedCards.firstIndex(where: { cardObject in
-                        cardObject === card
-                    }) {
-                        selectedCards.remove(at: indexOf)
-                    }
+            if gameRunner.cardsSelected.contains(card) {
+                if let indexOf = gameRunner.cardsSelected.firstIndex(where: { cardObject in
+                    cardObject === card
+                }) {
+                    gameRunner.cardsSelected.remove(at: indexOf)
                 }
             } else {
-                if hand.containsCard(card) {
-                    selectedCards.append(card)
-                }
+                gameRunner.cardsSelected.append(card)
             }
         }
     }
@@ -65,7 +59,8 @@ class PlayerViewModel: ObservableObject {
     }
 
     func canPlayCard(gameRunner: GameRunnerProtocol) -> Bool {
-        player.canPlay(cards: selectedCards, gameRunner: gameRunner)
+        // hand.containsCard
+        player.canPlay(cards: gameRunner.cardsSelected, gameRunner: gameRunner)
     }
 
     func previewCard(card: Card, gameRunner: GameRunnerProtocol) {
@@ -105,30 +100,31 @@ class PlayerViewModel: ObservableObject {
             return
         }
 
-        guard let typeOfTargettedCard = player.determineTargetOfCards(selectedCards, gameRunner: gameRunner) else {
+        guard let typeOfTargettedCard = player.determineTargetOfCards(
+            gameRunner.cardsSelected, gameRunner: gameRunner) else {
             print("Could not determine target")
             return
         }
 
         switch typeOfTargettedCard {
         case .targetAllPlayersCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .all)
         case .targetSinglePlayerCard:
             guard let target = target else {
                 print("No target chosen")
                 return
             }
 
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .single(target.player))
         case .noTargetCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .none)
         case .targetSingleDeckCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
         }
     }
 
-    func isSelected(card: Card) -> Bool {
-        for selectedCard in selectedCards where selectedCard === card {
+    func isSelected(card: Card, gameRunner: GameRunnerProtocol) -> Bool {
+        for selectedCard in gameRunner.cardsSelected where selectedCard === card {
             return true
         }
         return false

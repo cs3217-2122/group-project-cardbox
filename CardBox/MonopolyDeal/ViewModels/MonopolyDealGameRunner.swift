@@ -20,6 +20,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var gameplayArea: CardCollection
 
     @Published internal var cardsDragging: [Card]
+    @Published internal var cardsSelected: [Card]
     @Published internal var cardPreview: Card?
     @Published internal var isWin = false
     internal var winner: Player?
@@ -34,6 +35,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
         self.cardsDragging = []
+        self.cardsSelected = []
         self.deckPositionRequest = CardPositionRequest()
         self.cardTypeRequest = CardTypeRequest()
     }

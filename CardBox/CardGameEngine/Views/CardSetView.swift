@@ -32,7 +32,8 @@ struct CardSetView: View {
         ZStack {
             HStack(spacing: CGFloat(spacing)) {
                 ForEach(cardSetViewModel.getCards()) { card in
-                    CardView(card: card, isFaceUp: true, isSelected: playerViewModel.isSelected(card: card),
+                    let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
+                    CardView(card: card, isFaceUp: true, isSelected: isSelected,
                              bottomPlayer: playerViewModel.player)
                         .gesture(
                             DragGesture(minimumDistance: 0.0)
