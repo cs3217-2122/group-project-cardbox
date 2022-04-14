@@ -19,12 +19,14 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var playerMoneyArea: [UUID: CardCollection]
     @Published internal var gameplayArea: CardCollection
 
+    internal var globalRequests: [Request]
+    internal var globalResponses: [Response]
+    internal var localPendingRequests: [Request]
+
     @Published internal var cardsDragging: [Card]
     @Published internal var cardPreview: Card?
     @Published internal var isWin = false
     internal var winner: Player?
-    @Published internal var deckPositionRequest: CardPositionRequest
-    @Published internal var cardTypeRequest: CardTypeRequest
 
     init() {
         self.deck = CardCollection()
@@ -33,9 +35,12 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.gameplayArea = CardCollection()
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsDragging = []
-        self.deckPositionRequest = CardPositionRequest()
-        self.cardTypeRequest = CardTypeRequest()
     }
 
     func setup() {

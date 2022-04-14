@@ -15,14 +15,16 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
+    internal var globalRequests: [Request]
+    internal var globalResponses: [Response]
+    internal var localPendingRequests: [Request]
+
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
-    @Published internal var deckPositionRequest: CardPositionRequest
-    @Published internal var cardTypeRequest: CardTypeRequest
 
     private var observers: [ExplodingKittensGameRunnerObserver]
 
@@ -33,10 +35,13 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands = [:]
         self.gameplayArea = CardCollection()
         self.state = .initialize
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = []
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
 
@@ -54,12 +59,15 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.playerHands = playerHands
         self.gameplayArea = gameplayArea
         self.state = state
+
+        self.globalRequests = []
+        self.globalResponses = []
+        self.localPendingRequests = []
+
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = [observer]
         self.isWin = isWin
         self.winner = winner
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
     }
 
@@ -94,6 +102,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers = explodingKittensGameRunner.observers
         self.isWin = explodingKittensGameRunner.isWin
         self.winner = explodingKittensGameRunner.winner
+        self.resolvePendingRequests()
     }
 
     func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {

@@ -87,8 +87,11 @@ struct ExplodingKittensOfflineView: View {
                 }
             }
             CardPreviewView()
-            PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
-            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
+
+            if let request = gameRunnerViewModel.globalRequests.first {
+                RequestViewFactory(request: request, isOnline: false)
+            }
+
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {

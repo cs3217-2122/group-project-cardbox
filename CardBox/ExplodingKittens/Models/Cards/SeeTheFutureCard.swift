@@ -25,10 +25,6 @@ class SeeTheFutureCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
-
         gameRunner.executeGameEvents([
             CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck))
          ])
