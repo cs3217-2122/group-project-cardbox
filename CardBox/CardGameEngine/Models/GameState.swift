@@ -34,13 +34,16 @@ class GameState: Codable {
     }
 
     func updateState(gameState: GameState) {
-        if state == .start {
-            self.players.updateState(gameState.players)
-            self.updatePlayerHands(gameState.playerHands)
-        } else {
-            self.players = gameState.players
-            self.playerHands = gameState.playerHands
-        }
+//        if state == .start {
+//            self.players.updateState(gameState.players)
+//            self.updatePlayerHands(gameState.playerHands)
+//        } else {
+//            self.players = gameState.players
+//            self.playerHands = gameState.playerHands
+//        }
+        self.players.updateState(gameState.players)
+        self.updatePlayerHands(gameState.playerHands)
+
         self.isWin = gameState.isWin
         self.state = gameState.state
         self.winner = gameState.winner
@@ -48,10 +51,11 @@ class GameState: Codable {
 
     private func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
         for (key, value) in newPlayerHands {
-            guard let current = playerHands[key] else {
-                continue
+            if let current = playerHands[key] {
+                current.updateState(value)
+            } else {
+                playerHands[key] = value
             }
-            current.updateState(value)
         }
     }
 
