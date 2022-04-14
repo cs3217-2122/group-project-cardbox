@@ -40,13 +40,13 @@ struct ExplodingKittensOnlineView: View {
         }
     }
 
-    func getNonPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+    func getNonPlayer(bottomPlayer: Player) -> some View {
         NonPlayerView(
-            error: $error,
-            localPlayerIndex: localPlayerIndex,
-            bottomPlayerViewModel: bottomPlayerViewModel,
+            bottomPlayer: bottomPlayer,
             selectedPlayerViewModel: $selectedPlayerViewModel,
             selectedCardSetViewModel: .constant(nil),
+            localPlayerIndex: localPlayerIndex,
+            error: $error,
             playerArea: playerArea,
             center: {
                 centerArea
@@ -63,12 +63,8 @@ struct ExplodingKittensOnlineView: View {
             Color.green
                 .ignoresSafeArea()
             if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
-                let bottomPlayerViewModel = PlayerViewModel(
-                    player: localPlayer,
-                    hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()
-                )
                 VStack {
-                    getNonPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
+                    getNonPlayer(bottomPlayer: localPlayer)
                     Spacer()
                     getCurrentPlayer(bottomPlayer: localPlayer)
                 }
