@@ -43,6 +43,7 @@ struct GameActionsView: View {
                 // Reset selected on play
                 self.selectedCardSetViewModel = nil
                 self.selectedPlayerViewModel = nil
+                gameRunnerViewModel.cardsSelected = []
             }
         } label: {
             Text("Play")

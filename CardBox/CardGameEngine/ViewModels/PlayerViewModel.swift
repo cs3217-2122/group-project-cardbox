@@ -59,7 +59,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func canPlayCard(gameRunner: GameRunnerProtocol) -> Bool {
-        // hand.containsCard
+        // Might need to check for other player card sets
         player.canPlay(cards: gameRunner.cardsSelected, gameRunner: gameRunner)
     }
 
