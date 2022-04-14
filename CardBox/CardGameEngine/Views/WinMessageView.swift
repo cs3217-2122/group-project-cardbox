@@ -14,10 +14,7 @@ struct WinMessageView: View {
     }
 
     var overlay: some View {
-        Rectangle()
-            .background(Color.black)
-            .opacity(0.5)
-            .allowsHitTesting(true)
+        NoInteractionOverlayView()
     }
 
     var winnerName: String {

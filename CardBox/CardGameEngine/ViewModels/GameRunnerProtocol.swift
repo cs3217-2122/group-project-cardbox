@@ -5,22 +5,14 @@
 //  Created by mactest on 26/03/2022.
 //
 
-import SwiftUI
-
 protocol GameRunnerProtocol: AnyObject {
-//    var winner: Player? { get set }
-//    var isWin: Bool { get set }
-//    var players: PlayerCollection { get }
     var cardsDragging: [Card] { get set }
     var gameState: GameState { get set }
+    var localPendingRequests: [Request] { get set }
 
     var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
     func resetCardPreview()
-
-    // Requests
-    var deckPositionRequest: CardPositionRequest { get set }
-    var cardTypeRequest: CardTypeRequest { get set }
 
     func setup()
     func onStartTurn()
@@ -54,6 +46,7 @@ extension GameRunnerProtocol {
         }
 
         notifyChanges(gameEvents)
+        resolvePendingRequests()
     }
 
     func endPlayerTurn() {
@@ -67,5 +60,17 @@ extension GameRunnerProtocol {
 
         onAdvanceNextPlayer()
         gameState.players.setCurrentPlayer(nextPlayer)
+    }
+
+    func resolvePendingRequests() {
+        for request in self.localPendingRequests {
+            let requestId = request.id
+            for response in gameState.globalResponses where response.requestId == requestId {
+                gameState.globalResponses.removeAll(where: { $0.id == response.id })
+                self.localPendingRequests.removeAll(where: { $0.id == requestId })
+                gameState.globalRequests.removeAll(where: { $0.id == requestId })
+                request.callback.callback(response)
+            }
+        }
     }
 }

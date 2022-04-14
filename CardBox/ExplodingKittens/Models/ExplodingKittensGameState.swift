@@ -23,10 +23,18 @@ class ExplodingKittensGameState: GameState {
          gameplayArea: ExplodingKittensCardCollection,
          isWin: Bool,
          winner: ExplodingKittensPlayer?,
-         state: GameModeState) {
+         state: GameModeState,
+         globalRequests: [Request],
+         globalResponses: [Response]) {
         self.deck = deck
         self.gameplayArea = gameplayArea
-        super.init(players: players, playerHands: playerHands, isWin: isWin, winner: winner, state: state)
+        super.init(players: players,
+                   playerHands: playerHands,
+                   isWin: isWin,
+                   winner: winner,
+                   state: state,
+                   globalRequests: globalRequests,
+                   globalResponses: globalResponses)
     }
 
     override func updateState(gameState: GameState) {
@@ -51,6 +59,8 @@ class ExplodingKittensGameState: GameState {
         case winner
         case deck
         case gameplayArea
+        case globalRequests
+        case globalResponses
     }
 
     required init(from decoder: Decoder) throws {
@@ -67,9 +77,17 @@ class ExplodingKittensGameState: GameState {
         } else {
             winner = nil
         }
+        let globalRequests = try container.decode([Request].self, forKey: .globalRequests)
+        let globalResponses = try container.decode([Response].self, forKey: .globalResponses)
 //        let winner = try container.decode(ExplodingKittensPlayer?.self, forKey: .winner)
 
-        super.init(players: players, playerHands: playerHands, isWin: isWin, winner: winner, state: state)
+        super.init(players: players,
+                   playerHands: playerHands,
+                   isWin: isWin,
+                   winner: winner,
+                   state: state,
+                   globalRequests: globalRequests,
+                   globalResponses: globalResponses)
     }
 
     override func encode(to encoder: Encoder) throws {

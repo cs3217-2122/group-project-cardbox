@@ -15,8 +15,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var gameState: GameState
     @Published internal var cardsDragging: [Card]
     @Published internal var cardPreview: Card?
-    @Published internal var deckPositionRequest: CardPositionRequest
-    @Published internal var cardTypeRequest: CardTypeRequest
+    internal var localPendingRequests: [Request]
 
     var deck: CardCollection {
         if let gameState = gameState as? MonopolyDealGameState {
@@ -37,25 +36,15 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     init() {
         self.gameState = MonopolyDealFactory.generateGameState()
         self.cardsDragging = []
-        self.deckPositionRequest = CardPositionRequest()
-        self.cardTypeRequest = CardTypeRequest()
+        self.localPendingRequests = []
     }
 
     func updateState(_ gameRunner: GameRunnerProtocol) {
-//        guard let explodingKittensGameRunner = gameRunner as? ExplodingKittensGameRunner else {
-//            return
-//        }
-//
-//        gameState.updateState(gameState: explodingKittensGameRunner.gameState)
-//        self.observers = explodingKittensGameRunner.observers
+
     }
 
     func updateState(gameState: GameState) {
-//        guard let gameState = gameState as? ExplodingKittensGameState else {
-//            return
-//        }
-//
-//        gameState.updateState(gameState: gameState)
+
     }
 
     func setup() {

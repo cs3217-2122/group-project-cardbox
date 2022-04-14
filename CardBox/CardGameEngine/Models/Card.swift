@@ -28,7 +28,7 @@ enum GameplayTarget {
         }
     }
 
-    func getDeckIfTargetSingle() -> CardCollection? {
+    func getDeckIfTargetDeck() -> CardCollection? {
         switch self {
         case let .deck(collection):
             return collection

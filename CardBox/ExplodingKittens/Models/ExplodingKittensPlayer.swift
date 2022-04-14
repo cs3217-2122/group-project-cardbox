@@ -149,8 +149,12 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        let callback: (Int) -> Void = { position in
-            guard let targetCard = targetHand.getCardByIndex(position - 1) else {
+        let callback: (Response) -> Void = { response in
+            guard let intResponse = response as? IntResponse else {
+                return
+            }
+
+            guard let targetCard = targetHand.getCardByIndex(intResponse.value - 1) else {
                 return
             }
 
@@ -160,7 +164,14 @@ class ExplodingKittensPlayer: Player {
         }
 
         ekGameRunner.executeGameEvents([
-            ShowCardPositionRequestEvent(callback: callback, minValue: 1, maxValue: targetHand.count)
+            SendRequestEvent(request: IntRequest(description: "Please choose the position of the card you want to take",
+                                                 fromPlayer: player,
+                                                 toPlayer: player,
+                                                 callback: Callback(callback: callback),
+                                                 minValue: 1,
+                                                 maxValue: targetHand.count
+                                                )
+                            )
         ])
      }
 
@@ -185,13 +196,17 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        let callback: (String) -> Void = { cardType in
+        let callback: (Response) -> Void = { response in
+            guard let optionsResponse = response as? OptionsResponse else {
+                return
+            }
+
             guard let chosenCard = targetHand.getCard(where: {
                 guard let ekCard = $0 as? ExplodingKittensCard else {
                     return false
                 }
 
-                return ekCard.type.rawValue == cardType
+                return ekCard.type.rawValue == optionsResponse.value
             }) else {
                 return
             }
@@ -202,8 +217,15 @@ class ExplodingKittensPlayer: Player {
         }
 
         ekGameRunner.executeGameEvents([
-            ShowCardTypeRequestEvent(callback: callback,
-                                     cardTypes: ExplodingKittensConstants.allCardTypes.map({ $0.rawValue }))
+            SendRequestEvent(
+                request: OptionsRequest(description: "Please choose the type of card that you want to take",
+                                        fromPlayer: player,
+                                        toPlayer: targetPlayer,
+                                        callback: Callback(callback: callback),
+                                        stringRepresentationOfOptions: ExplodingKittensConstants.allCardTypes.map({
+                                            $0.rawValue
+                                        }))
+            )
         ])
      }
 
@@ -219,13 +241,17 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        let callback: (String) -> Void = { cardType in
+        let callback: (Response) -> Void = { response in
+            guard let optionsResponse = response as? OptionsResponse else {
+                return
+            }
+
             guard let chosenCard = ekGameRunner.gameplayArea.getCard(where: {
                 guard let ekCard = $0 as? ExplodingKittensCard else {
                     return false
                 }
 
-                return ekCard.type.rawValue == cardType
+                return ekCard.type.rawValue == optionsResponse.value
             }) else {
                 return
             }
@@ -236,10 +262,15 @@ class ExplodingKittensPlayer: Player {
         }
 
         ekGameRunner.executeGameEvents([
-            ShowCardTypeRequestEvent(callback: callback,
-                                     cardTypes: getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
+            SendRequestEvent(
+                request: OptionsRequest(description: "Please choose a card that you want to take from the play area",
+                                        fromPlayer: player,
+                                        toPlayer: player,
+                                        callback: Callback(callback: callback),
+                                        stringRepresentationOfOptions:
+                                            getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
+            )
         ])
-
      }
 
     private func getCardTypesCurrentlyInGameplay(gameRunner: ExplodingKittensGameRunnerProtocol) -> [String] {

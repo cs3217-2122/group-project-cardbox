@@ -14,8 +14,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
     @Published internal var isShowingPeek = false
-    @Published internal var deckPositionRequest: CardPositionRequest
-    @Published internal var cardTypeRequest: CardTypeRequest
+    internal var localPendingRequests: [Request]
 
     var deck: CardCollection {
         if let gameState = gameState as? ExplodingKittensGameState {
@@ -39,46 +38,21 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     init() {
         self.gameState = ExplodingKittensFactory.generateGameState()
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = []
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
-    }
-
-    // for online use
-    init(deck: ExplodingKittensCardCollection,
-         players: ExplodingKittensPlayerCollection,
-         playerHands: [UUID: ExplodingKittensCardCollection],
-         gameplayArea: ExplodingKittensCardCollection,
-         state: GameModeState,
-         isWin: Bool,
-         winner: ExplodingKittensPlayer?,
-         observer: ExplodingKittensGameRunnerObserver) {
-        self.gameState = ExplodingKittensGameState(deck: deck,
-                                                   players: players,
-                                                   playerHands: playerHands,
-                                                   gameplayArea: gameplayArea,
-                                                   isWin: isWin,
-                                                   winner: winner,
-                                                   state: state)
-        self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
-        self.observers = [observer]
-        self.cardTypeRequest = CardTypeRequest()
-        self.cardsDragging = []
+        self.localPendingRequests = []
     }
 
     // for online use (join Room)
     init(gameState: GameState, observer: ExplodingKittensGameRunnerObserver) {
         self.gameState = gameState
         self.cardsPeeking = []
-        self.deckPositionRequest = CardPositionRequest()
         self.observers = [observer]
-        self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
+        self.localPendingRequests = []
     }
 
-    // initialiser used by host game view model
+    // initialiser used by host game view model (create room)
     convenience init(host: Player, observer: ExplodingKittensGameRunnerObserver) {
         self.init()
         self.gameState.addPlayer(player: ExplodingKittensPlayer(name: host.name,
@@ -86,7 +60,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
                                                                 isOutOfGame: host.isOutOfGame,
                                                                 cardsPlayed: host.cardsPlayed))
         self.observers.append(observer)
-//        self.gameState.addPlayerHands(player: host.id, hand: CardCollection())
     }
 
     func updateState(_ gameRunner: GameRunnerProtocol) {
@@ -104,6 +77,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         }
 
         self.gameState.updateState(gameState: gameState)
+        self.resolvePendingRequests()
         objectWillChange.send()
     }
 

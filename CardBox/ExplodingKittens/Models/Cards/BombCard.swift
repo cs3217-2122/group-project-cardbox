@@ -37,22 +37,32 @@ class BombCard: ExplodingKittensCard {
         guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
             return
         }
-        let callback: (Int) -> Void = { position in
+
+        let callback: (Response) -> Void = { response in
+            guard let intResponse = response as? IntResponse else {
+                return
+            }
+
             gameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: [defuseCard],
                                          fromDeck: playerHand,
                                          toDeck: gameState.gameplayArea),
                 MoveCardsDeckToDeckEvent(cards: [self],
                                          fromDeck: playerHand,
-                                         toDeck: gameState.deck,
-                                         offsetFromTop: position - 1)
+                                         toDeck: gameRunner.deck,
+                                         offsetFromTop: intResponse.value - 1)
             ])
         }
 
         gameRunner.executeGameEvents([
-            ShowCardPositionRequestEvent(callback: callback,
-                                         minValue: 1,
-                                         maxValue: gameState.deck.count)
+            SendRequestEvent(request: IntRequest(
+                description: "You drew the bomb :( Please choose a position of the draw deck to insert the bomb in",
+                fromPlayer: player,
+                toPlayer: player,
+                callback: Callback(callback: callback),
+                minValue: 1,
+                maxValue: gameRunner.deck.count
+            ))
         ])
     }
 

@@ -89,8 +89,16 @@ struct ExplodingKittensOnlineView: View {
                 }
             }
             CardPreviewView()
-            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
-            PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
+
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex),
+               let request = gameRunnerViewModel.gameState.globalRequests.first {
+                if request.toPlayer.id == localPlayer.id {
+                    RequestViewFactory(request: request, isOnline: true)
+                } else {
+                    NoInteractionOverlayView()
+                }
+            }
+
             WinMessageView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
