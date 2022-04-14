@@ -18,23 +18,14 @@ extension GameEventTests {
     }
 
     class GameRunnerStub: GameRunnerProtocol {
-
+        func updateState(gameState: GameState) {
+            
+        }
+        
         init() {
         }
 
-        var winner: Player?
-
-        var isWin = false
-
         var isShowingPeek = false
-
-        var players = PlayerCollection()
-
-        var playerHands: [UUID: CardCollection] = [:]
-
-        var globalRequests: [Request] = []
-
-        var globalResponses: [Response] = []
 
         var localPendingRequests: [Request] = []
 
@@ -42,14 +33,13 @@ extension GameEventTests {
 
         var cardPreview: Card?
 
-        var deck = CardCollection(cards: [
-            generateSingleTargetCard(),
-            generateSingleTargetCard(),
-            generateAllTargetCard(),
-            generateAllTargetCard(),
-            generateNoneTargetCard(),
-            generateNoneTargetCard()
-        ])
+        var gameState = GameState(players: PlayerCollection(),
+                                  playerHands: [:],
+                                  isWin: false,
+                                  winner: nil,
+                                  state: .start,
+                                  globalRequests: [],
+                                  globalResponses: [])
 
         func setCardPreview(_ card: Card) {
             // Do nothing
