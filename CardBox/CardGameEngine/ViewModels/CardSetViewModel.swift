@@ -33,7 +33,7 @@ class CardSetViewModel: ObservableObject {
     func addCards() {
         let selectedCards = gameRunner.cardsDragging
         let players = gameRunner.gameState.players
-        guard let player = players.currentPlayer as? ExplodingKittensPlayer else {
+        guard (players.currentPlayer as? ExplodingKittensPlayer) != nil else {
             return
         }
 
