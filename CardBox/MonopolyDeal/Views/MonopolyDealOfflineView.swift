@@ -82,6 +82,11 @@ struct MonopolyDealOfflineView: View {
                 }
             }
             CardPreviewView()
+
+            if let request = gameRunnerViewModel.globalRequests.first {
+                RequestViewFactory(request: request, isOnline: false)
+            }
+
             WinMessageView()
         }
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))

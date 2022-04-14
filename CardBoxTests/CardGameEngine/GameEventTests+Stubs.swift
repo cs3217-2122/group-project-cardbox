@@ -32,6 +32,12 @@ extension GameEventTests {
 
         var playerHands: [UUID: CardCollection] = [:]
 
+        var globalRequests: [Request] = []
+
+        var globalResponses: [Response] = []
+
+        var localPendingRequests: [Request] = []
+
         var cardsDragging: [Card] = []
 
         var cardPreview: Card?
@@ -52,10 +58,6 @@ extension GameEventTests {
         func resetCardPreview() {
             // Do nothing
         }
-
-        var deckPositionRequest = CardPositionRequest()
-
-        var cardTypeRequest = CardTypeRequest()
 
         func setup() {
             deck = CardCollection(cards: [])

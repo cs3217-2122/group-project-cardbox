@@ -37,8 +37,12 @@ class FavorCard: ExplodingKittensCard {
             return
         }
 
-        let callback: (Int) -> Void = { position in
-            guard let targetCard = targetHand.getCardByIndex(position - 1) else {
+        let callback: (Response) -> Void = { response in
+            guard let intResponse = response as? IntResponse else {
+                return
+            }
+
+            guard let targetCard = targetHand.getCardByIndex(intResponse.value - 1) else {
                 return
             }
 
@@ -48,9 +52,15 @@ class FavorCard: ExplodingKittensCard {
         }
 
         gameRunner.executeGameEvents([
-            ShowCardPositionRequestEvent(callback: callback,
-                                         minValue: 1,
-                                         maxValue: targetHand.count)
+            SendRequestEvent(
+                request: IntRequest(description: "Please choose the position of the card you want to give away",
+                                    fromPlayer: player,
+                                    toPlayer: targetPlayer,
+                                    callback: callback,
+                                    minValue: 1,
+                                    maxValue: targetHand.count
+                                   )
+            )
         ])
     }
 }
