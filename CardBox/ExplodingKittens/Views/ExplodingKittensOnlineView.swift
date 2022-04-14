@@ -89,6 +89,7 @@ struct ExplodingKittensOnlineView: View {
                 }
             }
             CardPreviewView()
+            CardTypeRequestView(cardTypeRequest: $gameRunnerViewModel.cardTypeRequest)
             PositionRequestView(cardPositionRequest: $gameRunnerViewModel.deckPositionRequest)
             WinMessageView()
         }
