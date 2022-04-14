@@ -19,6 +19,14 @@ class PlayerViewModel: ObservableObject {
         self.hand = hand
     }
 
+    var handSize: Int {
+        hand.count
+    }
+
+    func getCards() -> [Card] {
+        hand.getCards()
+    }
+
     // for online use
     init() {
         let uniqueUserID = UIDevice.current.identifierForVendor?.uuidString

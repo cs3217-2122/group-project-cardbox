@@ -60,9 +60,9 @@ struct MDPlayerView: View {
                     )
                 }
             }
-            PlayerHandView(playerViewModel: playerViewModel,
+            PlayerHandView(player: playerViewModel.player,
+                           hand: playerViewModel.hand,
                            bottomPlayer: currentPlayerViewModel.player,
-                           playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
                            error: $error)
         }
     }

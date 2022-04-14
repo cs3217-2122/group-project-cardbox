@@ -59,8 +59,9 @@ struct EKPlayerView: View {
                 }
 
             }
-            PlayerHandView(playerViewModel: playerViewModel, bottomPlayer: bottomPlayer,
-                           playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
+            PlayerHandView(player: playerViewModel.player,
+                           hand: playerViewModel.hand,
+                           bottomPlayer: bottomPlayer,
                            error: $error)
                 .opacity(playerViewModel.isDead() ? 0.5 : 1)
         }

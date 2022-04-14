@@ -10,7 +10,6 @@ import SwiftUI
 struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
     var bottomPlayer: Player
-    let playerHandViewModel: PlayerHandViewModel
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: GameRunnerProtocol {
         gameRunnerDelegate.runner
@@ -19,8 +18,15 @@ struct PlayerHandView: View {
     @Binding var error: Bool
     let handWidth = 600
 
+    init(player: Player, hand: CardCollection, bottomPlayer: Player, error: Binding<Bool>) {
+        playerViewModel = PlayerViewModel(player: player,
+                                          hand: hand)
+        self.bottomPlayer = bottomPlayer
+        self._error = error
+    }
+
     var spacing: Double {
-        let size = playerHandViewModel.handSize
+        let size = playerViewModel.handSize
         guard size > 0 else {
             return 0
         }
@@ -33,7 +39,7 @@ struct PlayerHandView: View {
 
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
-            ForEach(playerHandViewModel.getCards()) { card in
+            ForEach(playerViewModel.getCards()) { card in
                 let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                 if isFaceUp {
                     CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
