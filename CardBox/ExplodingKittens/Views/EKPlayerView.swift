@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EKPlayerView: View {
     var playerViewModel: PlayerViewModel
-    var currentPlayerViewModel: PlayerViewModel
+    var bottomPlayer: Player
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: ExplodingKittensGameRunnerProtocol? {
         gameRunnerDelegate.runner as? ExplodingKittensGameRunnerProtocol
@@ -17,6 +17,15 @@ struct EKPlayerView: View {
 
     @Binding var error: Bool
     @Binding var selectedPlayerViewModel: PlayerViewModel?
+
+    init(player: Player, hand: CardCollection, bottomPlayer: Player,
+         error: Binding<Bool>, selectedPlayerViewModel: Binding<PlayerViewModel?>) {
+        playerViewModel = PlayerViewModel(player: player,
+                                          hand: hand)
+        self.bottomPlayer = bottomPlayer
+        self._error = error
+        self._selectedPlayerViewModel = selectedPlayerViewModel
+    }
 
     var playerText: String {
         var playerName = playerViewModel.player.name
@@ -50,7 +59,7 @@ struct EKPlayerView: View {
                 }
 
             }
-            PlayerHandView(playerViewModel: playerViewModel, bottomPlayerViewModel: currentPlayerViewModel,
+            PlayerHandView(playerViewModel: playerViewModel, bottomPlayer: bottomPlayer,
                            playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
                            error: $error)
                 .opacity(playerViewModel.isDead() ? 0.5 : 1)

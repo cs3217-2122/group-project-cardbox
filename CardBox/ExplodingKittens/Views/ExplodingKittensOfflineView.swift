@@ -26,40 +26,35 @@ struct ExplodingKittensOfflineView: View {
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))
     }
 
+    @ViewBuilder
+    func playerArea(player: Player) -> some View {
+        if let bottomPlayer = gameRunnerViewModel.players.currentPlayer {
+            EKPlayerView(
+                player: player,
+                hand: gameRunnerViewModel.getHandByPlayer(player)
+                ?? CardCollection(),
+                bottomPlayer: bottomPlayer,
+                error: $error,
+                selectedPlayerViewModel: $selectedPlayerViewModel
+            )
+        }
+    }
+
     func getNonCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
         NonBottomPlayerView(
             error: $error,
             bottomPlayerViewModel: bottomPlayerViewModel,
             selectedPlayerViewModel: $selectedPlayerViewModel,
             selectedCardSetViewModel: .constant(nil),
-            playerArea: { player in
-                EKPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: player,
-                        hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection()
-                    ),
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-            },
+            playerArea: playerArea,
             center: {
                 centerArea
             }
         )
     }
 
-    func getCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
-        BottomPlayerView(
-            playerArea: {
-                EKPlayerView(
-                    playerViewModel: bottomPlayerViewModel,
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    error: $error,
-                    selectedPlayerViewModel: $selectedPlayerViewModel
-                )
-            }
-        )
+    func getCurrentPlayer(bottomPlayer: Player) -> some View {
+        playerArea(player: bottomPlayer)
     }
 
     var body: some View {
@@ -74,7 +69,7 @@ struct ExplodingKittensOfflineView: View {
                 VStack {
                     getNonCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                     Spacer()
-                    getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
+                    getCurrentPlayer(bottomPlayer: currentPlayer)
                 }
             }
             CardPreviewView()
