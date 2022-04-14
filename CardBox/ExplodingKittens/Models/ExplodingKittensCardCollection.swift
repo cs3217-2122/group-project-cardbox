@@ -22,7 +22,7 @@ class ExplodingKittensCardCollection: CardCollection {
                 var oriArray = objectsArray
                 var items = [Card]()
 
-                let array = objectsArray
+                var array = objectsArray
                 while !oriArray.isAtEnd {
                     guard let object = try? oriArray.nestedContainer(keyedBy: ObjectTypeKey.self) else {
                         continue
@@ -34,23 +34,23 @@ class ExplodingKittensCardCollection: CardCollection {
                     let card: Card? = {
                         switch type {
                         case .attack:
-                            return try? arrayCopy.decode(AttackCard.self)
+                            return try? array.decode(AttackCard.self)
                         case .bomb:
-                            return try? arrayCopy.decode(BombCard.self)
+                            return try? array.decode(BombCard.self)
                         case .defuse:
-                            return try? arrayCopy.decode(DefuseCard.self)
+                            return try? array.decode(DefuseCard.self)
                         case .favor:
-                            return try? arrayCopy.decode(FavorCard.self)
+                            return try? array.decode(FavorCard.self)
                         case .seeTheFuture:
-                            return try? arrayCopy.decode(SeeTheFutureCard.self)
+                            return try? array.decode(SeeTheFutureCard.self)
                         case .shuffle:
-                            return try? arrayCopy.decode(ShuffleCard.self)
+                            return try? array.decode(ShuffleCard.self)
                         case .skip:
-                            return try? arrayCopy.decode(SkipCard.self)
+                            return try? array.decode(SkipCard.self)
                         case .random1, .random2, .random3:
-                            return try? arrayCopy.decode(RandomCard.self)
+                            return try? array.decode(RandomCard.self)
                         default:
-                            return try? arrayCopy.decode(ExplodingKittensCard.self)
+                            return try? array.decode(ExplodingKittensCard.self)
                         }
                     }()
                     if let card = card {
