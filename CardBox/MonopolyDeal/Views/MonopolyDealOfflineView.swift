@@ -26,12 +26,12 @@ struct MonopolyDealOfflineView: View {
         }
     }
 
-    func getNonCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+    func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
         NonBottomPlayerView(
-            error: $error,
-            bottomPlayerViewModel: bottomPlayerViewModel,
+            bottomPlayer: bottomPlayer,
             selectedPlayerViewModel: $selectedPlayerViewModel,
-            selectedCardSetViewModel: $selectedCardSetViewModel,
+            selectedCardSetViewModel: .constant(nil),
+            error: $error,
             playerArea: { player in
                 MDNonPlayerView(
                     playerViewModel: PlayerViewModel(
@@ -76,7 +76,7 @@ struct MonopolyDealOfflineView: View {
                     hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
                 )
                 VStack {
-                    getNonCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
+                    getNonCurrentPlayer(bottomPlayer: currentPlayer)
                     Spacer()
                     getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                 }
