@@ -21,4 +21,9 @@ class ExplodingKittensPlayerFactory: PlayerFactory {
             gameState.playerHands[player.id] = CardCollection()
         }
     }
+
+    static func getPlayer(array: UnkeyedDecodingContainer) -> Player? {
+        var arrayCopy = array
+        return try? arrayCopy.decode(ExplodingKittensPlayer.self)
+    }
 }

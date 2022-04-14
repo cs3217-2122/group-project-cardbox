@@ -87,6 +87,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     private func decodeGameState(_ document: DocumentSnapshot) -> ExplodingKittensGameState? {
         do {
             let explodingKittensGameState = try document.data(as: ExplodingKittensGameState.self)
+            print("decoded")
             return explodingKittensGameState
         } catch {
             print(error)
@@ -105,8 +106,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     private func retrieveUpdates(_ document: DocumentSnapshot) {
         if let gameState = decodeGameState(document), let gameRunner = gameRunner {
             self.players = gameState.players.names
-
+            print("gamestate after decoding: \(gameState.playerHands)")
             gameRunner.updateState(gameState: gameState)
+            print("gamestate after updatestate: \(gameRunner.gameState.playerHands)")
         }
     }
 
@@ -138,7 +140,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
 
             // check if full
             if gameState.players.count == 4 {
-                // find a way to alert
+                // TODO: find a way to alert
                 self.notJoined()
             } else {
                 // add to room

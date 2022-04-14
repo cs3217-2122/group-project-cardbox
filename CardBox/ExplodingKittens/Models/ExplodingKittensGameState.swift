@@ -18,11 +18,11 @@ class ExplodingKittensGameState: GameState {
     }
 
     init(deck: ExplodingKittensCardCollection,
-         players: PlayerCollection,
+         players: ExplodingKittensPlayerCollection,
          playerHands: [UUID: ExplodingKittensCardCollection],
          gameplayArea: ExplodingKittensCardCollection,
          isWin: Bool,
-         winner: Player?,
+         winner: ExplodingKittensPlayer?,
          state: GameModeState) {
         self.deck = deck
         self.gameplayArea = gameplayArea
@@ -44,6 +44,11 @@ class ExplodingKittensGameState: GameState {
     }
 
     private enum CodingKeys: String, CodingKey {
+        case players
+        case playerHands
+        case state
+        case isWin
+        case winner
         case deck
         case gameplayArea
     }
@@ -52,7 +57,19 @@ class ExplodingKittensGameState: GameState {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.deck = try container.decode(ExplodingKittensCardCollection.self, forKey: .deck)
         self.gameplayArea = try container.decode(ExplodingKittensCardCollection.self, forKey: .gameplayArea)
-        try super.init(from: decoder)
+        let players = try container.decode(ExplodingKittensPlayerCollection.self, forKey: .players)
+        let playerHands = try container.decode([UUID: ExplodingKittensCardCollection].self, forKey: .playerHands)
+        let state = try container.decode(GameModeState.self, forKey: .state)
+        let isWin = try container.decode(Bool.self, forKey: .isWin)
+        let winner: ExplodingKittensPlayer?
+        if container.contains(.winner) {
+            winner = try container.decode(ExplodingKittensPlayer.self, forKey: .winner)
+        } else {
+            winner = nil
+        }
+//        let winner = try container.decode(ExplodingKittensPlayer?.self, forKey: .winner)
+
+        super.init(players: players, playerHands: playerHands, isWin: isWin, winner: winner, state: state)
     }
 
     override func encode(to encoder: Encoder) throws {

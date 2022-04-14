@@ -47,12 +47,12 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
 
     // for online use
     init(deck: ExplodingKittensCardCollection,
-         players: PlayerCollection,
+         players: ExplodingKittensPlayerCollection,
          playerHands: [UUID: ExplodingKittensCardCollection],
          gameplayArea: ExplodingKittensCardCollection,
          state: GameModeState,
          isWin: Bool,
-         winner: Player?,
+         winner: ExplodingKittensPlayer?,
          observer: ExplodingKittensGameRunnerObserver) {
         self.gameState = ExplodingKittensGameState(deck: deck,
                                                    players: players,
