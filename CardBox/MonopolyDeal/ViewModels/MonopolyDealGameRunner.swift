@@ -43,9 +43,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
         self.cardsDragging = []
         self.cardsSelected = []
-        self.deckPositionRequest = CardPositionRequest()
-        self.cardTypeRequest = CardTypeRequest()
-
     }
 
     func setup() {
