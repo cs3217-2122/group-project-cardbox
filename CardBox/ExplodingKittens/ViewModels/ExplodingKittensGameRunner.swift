@@ -104,6 +104,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         }
 
         self.gameState.updateState(gameState: gameState)
+        notifyChanges([])
     }
 
     // TODO: create setup for online to inject online players
