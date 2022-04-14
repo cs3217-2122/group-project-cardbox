@@ -8,19 +8,19 @@
 import Foundation
 
 class ExplodingKittensGameState: GameState {
-    internal var deck: EKCardCollection
-    internal var gameplayArea: EKCardCollection
+    internal var deck: ExplodingKittensCardCollection
+    internal var gameplayArea: ExplodingKittensCardCollection
 
     override init() {
-        self.deck = EKCardCollection()
-        self.gameplayArea = EKCardCollection()
+        self.deck = ExplodingKittensCardCollection()
+        self.gameplayArea = ExplodingKittensCardCollection()
         super.init()
     }
 
-    init(deck: EKCardCollection,
+    init(deck: ExplodingKittensCardCollection,
          players: PlayerCollection,
-         playerHands: [UUID: EKCardCollection],
-         gameplayArea: EKCardCollection,
+         playerHands: [UUID: ExplodingKittensCardCollection],
+         gameplayArea: ExplodingKittensCardCollection,
          isWin: Bool,
          winner: Player?,
          state: GameModeState) {
@@ -50,8 +50,8 @@ class ExplodingKittensGameState: GameState {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.deck = try container.decode(EKCardCollection.self, forKey: .deck)
-        self.gameplayArea = try container.decode(EKCardCollection.self, forKey: .gameplayArea)
+        self.deck = try container.decode(ExplodingKittensCardCollection.self, forKey: .deck)
+        self.gameplayArea = try container.decode(ExplodingKittensCardCollection.self, forKey: .gameplayArea)
         try super.init(from: decoder)
     }
 

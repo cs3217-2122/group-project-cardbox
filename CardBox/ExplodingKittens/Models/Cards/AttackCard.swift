@@ -30,7 +30,7 @@ class AttackCard: ExplodingKittensCard {
             return
         }
 
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
+        guard (gameRunner.getHandByPlayer(player)) != nil else {
             return
         }
 
