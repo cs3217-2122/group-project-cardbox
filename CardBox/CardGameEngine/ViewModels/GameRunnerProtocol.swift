@@ -12,6 +12,7 @@ protocol GameRunnerProtocol: AnyObject {
     var isWin: Bool { get set }
     var players: PlayerCollection { get }
     var cardsDragging: [Card] { get set }
+    var cardsSelected: [Card] { get set }
 
     var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
@@ -28,6 +29,7 @@ protocol GameRunnerProtocol: AnyObject {
     func getWinner() -> Player?
     func getNextPlayer() -> Player?
     func checkWinningConditions() -> Bool
+    func getHandByPlayer(_ player: Player) -> CardCollection?
 
     // Must implement this update value
     // use this to notify server as well

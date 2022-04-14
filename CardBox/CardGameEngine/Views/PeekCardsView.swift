@@ -13,8 +13,7 @@ struct PeekCardsView: View {
     var body: some View {
         HStack {
             ForEach(cards) { card in
-                CardView(cardViewModel: CardViewModel(card: card, isFaceUp: true),
-                         currentPlayerViewModel: PlayerViewModel())
+                CardView(card: card, isFaceUp: true, isSelected: false)
             }
         }
     }

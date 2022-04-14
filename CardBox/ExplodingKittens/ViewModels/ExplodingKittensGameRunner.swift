@@ -18,6 +18,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
+    @Published internal var cardsSelected: [Card]
     @Published internal var isShowingPeek = false
     @Published internal var isWin = false
     internal var winner: Player?
@@ -38,6 +39,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers = []
         self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
+        self.cardsSelected = []
     }
 
     // for online use
@@ -61,6 +63,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.winner = winner
         self.cardTypeRequest = CardTypeRequest()
         self.cardsDragging = []
+        self.cardsSelected = []
     }
 
     // initialiser used by host game view model

@@ -8,11 +8,15 @@ import SwiftUI
 
 class PlayerViewModel: ObservableObject {
     var player: Player
-    var selectedCards: [Card] = []
+    @Published var selectedCards: [Card] = []
     var hand: CardCollection
 
     init(player: Player, hand: CardCollection) {
         self.player = player
+        self.hand = hand
+    }
+
+    func setHand(hand: CardCollection) {
         self.hand = hand
     }
 
@@ -27,24 +31,26 @@ class PlayerViewModel: ObservableObject {
         self.hand = CardCollection()
     }
 
-    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunnerProtocol) {
+    func tapCard(card: Card, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.players.currentPlayer else {
             return
         }
+        // gameRunner.selectedCards and gameRunner.canTap(card)
+        // not in selectedCards and canTap
+        
+        
         if currentPlayer === player {
-            if cardViewModel.isSelected {
+            if selectedCards.contains(card) {
                 if hand.containsCard(card) {
                     if let indexOf = selectedCards.firstIndex(where: { cardObject in
                         cardObject === card
                     }) {
                         selectedCards.remove(at: indexOf)
                     }
-                    cardViewModel.isSelected = false
                 }
             } else {
                 if hand.containsCard(card) {
                     selectedCards.append(card)
-                    cardViewModel.isSelected = true
                 }
             }
         }

@@ -52,7 +52,7 @@ class MonopolyDealPlayer: Player {
             return
         }
 
-        let playerHand = mdGameRunner.getHandByPlayer(self)
+        let playerHand = mdGameRunner.getHandByPlayer(self) ?? CardCollection()
 
         gameRunner.executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: mdCards, fromDeck: playerHand, toDeck: mdGameRunner.gameplayArea),

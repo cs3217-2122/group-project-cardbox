@@ -34,16 +34,13 @@ struct PlayerHandView: View {
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerHandViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(card: card,
-                                                  isFaceUp: isFaceUp,
-                                                  isSelected: playerViewModel.isSelected(card: card))
                 if isFaceUp {
-                    CardView(cardViewModel: cardViewModel,
-                             currentPlayerViewModel: bottomPlayerViewModel, playerViewModel: playerViewModel)
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: playerViewModel.isSelected(card: card),
+                             bottomPlayer: bottomPlayerViewModel.player)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                             playerViewModel
-                                .tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                                .tapCard(card: card, gameRunner: gameRunnerViewModel)
                             error = !playerViewModel.canPlayCard(gameRunner: gameRunnerViewModel)
                         }
                     }
@@ -57,15 +54,10 @@ struct PlayerHandView: View {
                             }
                     )
                 } else {
-                    CardView(cardViewModel: cardViewModel, currentPlayerViewModel: PlayerViewModel())
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: playerViewModel.isSelected(card: card),
+                             bottomPlayer: bottomPlayerViewModel.player)
                 }
             }
         }
-    }
-}
-
-struct PlayerHandView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("stub")
     }
 }

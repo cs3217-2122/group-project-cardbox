@@ -61,17 +61,3 @@ struct GameActionsView: View {
             .foregroundColor(error ? Color.red : Color.black)
     }
 }
-
-struct GameActionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        GameActionsView(
-            error: .constant(false),
-            currentPlayerViewModel: PlayerViewModel(
-                player: Player(name: "test"),
-                hand: CardCollection()
-            ),
-            selectedPlayerViewModel: .constant(nil),
-            selectedCardSetViewModel: .constant(nil)
-        )
-    }
-}

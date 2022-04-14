@@ -16,5 +16,4 @@ protocol ExplodingKittensGameRunnerProtocol: GameRunnerProtocol {
     var isShowingPeek: Bool { get }
 
     func setCardsPeeking(cards: [Card])
-    func getHandByPlayer(_ player: Player) -> CardCollection?
 }

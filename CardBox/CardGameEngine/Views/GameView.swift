@@ -7,24 +7,12 @@
 
 import SwiftUI
 
-struct ExplodingKittensOfflineView: View {
-    @StateObject var gameRunnerViewModel = ExplodingKittensGameRunner()
+struct GameView<PlayerView: View, CentreView: View>: View {
+    @StateObject var gameRunnerViewModel: GameRunnerProtocol
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var cardPreview: Card?
-
-    @ViewBuilder
-    var centerArea: some View {
-        HStack {
-            DeckView(
-                deck: gameRunnerViewModel.deck
-            )
-            DeckView(
-                deck: gameRunnerViewModel.gameplayArea
-            )
-        }
-        .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))
-    }
+    let centerArea: () -> CentreView
 
     func getNonCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
         NonBottomPlayerView(

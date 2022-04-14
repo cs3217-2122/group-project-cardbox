@@ -132,7 +132,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
         let drawCards = deck.getTopNCards(n: MonopolyDealGameRunner.drawCards)
 
-        let hand = getHandByPlayer(currentPlayer)
+        let hand = getHandByPlayer(currentPlayer) ?? CardCollection()
 
         executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: drawCards, fromDeck: deck, toDeck: hand)
@@ -184,8 +184,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         return nextPlayer
     }
 
-    func getHandByPlayer(_ player: Player) -> CardCollection {
-        self.playerHands[player.id] ?? CardCollection()
+    func getHandByPlayer(_ player: Player) -> CardCollection? {
+        self.playerHands[player.id]
     }
 
     func getPropertyAreaByPlayer(_ player: Player) -> MonopolyDealPlayerPropertyArea {

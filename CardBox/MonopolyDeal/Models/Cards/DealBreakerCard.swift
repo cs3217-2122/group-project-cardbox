@@ -17,7 +17,7 @@ class DealBreakerCard: MonopolyDealCard {
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let deck) = target {
             if let deck = deck {
-                let hand = gameRunner.getHandByPlayer(player)
+                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
 
                 guard let baseCard = deck.topCard as? PropertyCard else {
                     return
