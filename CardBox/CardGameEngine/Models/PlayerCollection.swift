@@ -7,13 +7,13 @@ class PlayerCollection: Codable {
         case currentPlayerIndex
     }
 
-//    init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Player]) throws {
-//        // TODO
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.players)
-//        self.players = mapFunc(objectsArray)
-//        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
-//    }
+    init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Player]) throws {
+        // TODO
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.players)
+        self.players = mapFunc(objectsArray)
+        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
+    }
 
     convenience init() {
         self.init(players: [])

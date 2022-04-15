@@ -17,35 +17,18 @@ class ExplodingKittensGameState: GameState {
         super.init()
     }
 
-    init(deck: ExplodingKittensCardCollection,
-         players: ExplodingKittensPlayerCollection,
-         playerHands: [UUID: ExplodingKittensCardCollection],
-         gameplayArea: ExplodingKittensCardCollection,
-         isWin: Bool,
-         winner: ExplodingKittensPlayer?,
-         state: GameModeState,
-         globalRequests: [Request],
-         globalResponses: [Response]) {
-        self.deck = deck
-        self.gameplayArea = gameplayArea
-        super.init(players: players,
-                   playerHands: playerHands,
-                   isWin: isWin,
-                   winner: winner,
-                   state: state,
-                   globalRequests: globalRequests,
-                   globalResponses: globalResponses)
-    }
-
     override func updateState(gameState: GameState) {
         if let gameState = gameState as? ExplodingKittensGameState {
-            if gameState.state == .start {
-                self.deck.updateState(gameState.deck)
-                self.gameplayArea.updateState(gameState.gameplayArea)
-            } else {
-                self.deck = gameState.deck
-                self.gameplayArea = gameState.gameplayArea
-            }
+//            if gameState.state == .start {
+//                self.deck.updateState(gameState.deck)
+//                self.gameplayArea.updateState(gameState.gameplayArea)
+//            } else {
+//                self.deck = gameState.deck
+//                self.gameplayArea = gameState.gameplayArea
+//            }
+            self.deck.updateState(gameState.deck)
+            self.gameplayArea.updateState(gameState.gameplayArea)
+
         }
 
         super.updateState(gameState: gameState)
@@ -57,10 +40,10 @@ class ExplodingKittensGameState: GameState {
         case state
         case isWin
         case winner
-        case deck
-        case gameplayArea
         case globalRequests
         case globalResponses
+        case deck
+        case gameplayArea
     }
 
     required init(from decoder: Decoder) throws {
@@ -79,7 +62,6 @@ class ExplodingKittensGameState: GameState {
         }
         let globalRequests = try container.decode([Request].self, forKey: .globalRequests)
         let globalResponses = try container.decode([Response].self, forKey: .globalResponses)
-//        let winner = try container.decode(ExplodingKittensPlayer?.self, forKey: .winner)
 
         super.init(players: players,
                    playerHands: playerHands,
