@@ -43,13 +43,13 @@ class MonopolyDealGameState: GameState {
                                                        forKey: .playerPropertyArea)
         self.playerMoneyArea = try container.decode([UUID: MonopolyDealCardCollection].self, forKey: .playerMoneyArea)
         self.gameplayArea = try container.decode(MonopolyDealCardCollection.self, forKey: .gameplayArea)
-        let players = try container.decode(ExplodingKittensPlayerCollection.self, forKey: .players)
-        let playerHands = try container.decode([UUID: ExplodingKittensCardCollection].self, forKey: .playerHands)
+        let players = try container.decode(MonopolyDealPlayerCollection.self, forKey: .players)
+        let playerHands = try container.decode([UUID: MonopolyDealCardCollection].self, forKey: .playerHands)
         let state = try container.decode(GameModeState.self, forKey: .state)
         let isWin = try container.decode(Bool.self, forKey: .isWin)
-        let winner: ExplodingKittensPlayer?
+        let winner: MonopolyDealPlayer?
         if container.contains(.winner) {
-            winner = try container.decode(ExplodingKittensPlayer.self, forKey: .winner)
+            winner = try container.decode(MonopolyDealPlayer.self, forKey: .winner)
         } else {
             winner = nil
         }
