@@ -18,7 +18,7 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
         guard let gameRunner = gameRunner else {
             return false
         }
-        return gameRunner.state == .start
+        return gameRunner.gameState.state == .start
     }
 
     var isRoomFull: Bool {

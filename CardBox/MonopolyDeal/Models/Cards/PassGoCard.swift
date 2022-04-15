@@ -15,9 +15,13 @@ class PassGoCard: MonopolyDealCard {
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        let deck = gameRunner.deck
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
+            return
+        }
 
-        guard let hand = gameRunner.playerHands[player.id] else {
+        let deck = gameState.deck
+
+        guard let hand = gameState.playerHands[player.id] else {
             return
         }
 
@@ -26,5 +30,13 @@ class PassGoCard: MonopolyDealCard {
         gameRunner.executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: cards, fromDeck: deck, toDeck: hand)
         ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

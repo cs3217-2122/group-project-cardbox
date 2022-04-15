@@ -31,7 +31,7 @@ class DeckViewModel: ObservableObject {
 
     func playCards() {
         let selectedCards = gameRunner.cardsDragging
-        let players = gameRunner.players
+        let players = gameRunner.gameState.players
         guard let player = players.currentPlayer as? ExplodingKittensPlayer else {
             return
         }

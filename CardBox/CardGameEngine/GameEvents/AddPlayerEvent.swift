@@ -9,6 +9,6 @@ struct AddPlayerEvent: GameEvent {
     let player: Player
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        gameRunner.players.addPlayer(player)
+        gameRunner.gameState.players.addPlayer(player)
     }
 }

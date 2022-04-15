@@ -70,7 +70,7 @@ struct MonopolyDealOfflineView: View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+            if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
                 let bottomPlayerViewModel = PlayerViewModel(
                     player: currentPlayer,
                     hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
@@ -83,7 +83,7 @@ struct MonopolyDealOfflineView: View {
             }
             CardPreviewView()
 
-            if let request = gameRunnerViewModel.globalRequests.first {
+            if let request = gameRunnerViewModel.gameState.globalRequests.first {
                 RequestViewFactory(request: request, isOnline: false)
             }
 

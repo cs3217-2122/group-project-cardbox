@@ -5,23 +5,15 @@
 //  Created by mactest on 26/03/2022.
 //
 
-import SwiftUI
-
 protocol GameRunnerProtocol: AnyObject {
-    var winner: Player? { get set }
-    var isWin: Bool { get set }
-    var players: PlayerCollection { get }
     var cardsDragging: [Card] { get set }
     var cardsSelected: [Card] { get set }
+    var gameState: GameState { get set }
+    var localPendingRequests: [Request] { get set }
 
     var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
     func resetCardPreview()
-
-    // Requests
-    var globalRequests: [Request] { get set }
-    var globalResponses: [Response] { get set }
-    var localPendingRequests: [Request] { get set }
 
     func setup()
     func onStartTurn()
@@ -38,8 +30,10 @@ protocol GameRunnerProtocol: AnyObject {
 
     func executeGameEvents(_ gameEvents: [GameEvent])
 
+    // TODO: remove if not used anywhere
     func updateState(_ gameRunner: GameRunnerProtocol)
-//    func updateStateMutable(_ gameRunner: GameRunnerProtocol)
+
+    func updateState(gameState: GameState)
 }
 
 extension GameRunnerProtocol {
@@ -49,8 +43,8 @@ extension GameRunnerProtocol {
         }
 
         if checkWinningConditions() {
-            self.isWin = true
-            self.winner = getWinner()
+            self.gameState.isWin = true
+            self.gameState.winner = getWinner()
         }
 
         notifyChanges(gameEvents)
@@ -67,17 +61,17 @@ extension GameRunnerProtocol {
         }
 
         onAdvanceNextPlayer()
-        players.setCurrentPlayer(nextPlayer)
+        gameState.players.setCurrentPlayer(nextPlayer)
     }
 
     func resolvePendingRequests() {
-        for request in localPendingRequests {
+        for request in self.localPendingRequests {
             let requestId = request.id
-            for response in globalResponses where response.requestId == requestId {
-                globalResponses.removeAll(where: { $0.id == response.id })
-                localPendingRequests.removeAll(where: { $0.id == requestId })
-                globalRequests.removeAll(where: { $0.id == requestId })
-                request.callback(response)
+            for response in gameState.globalResponses.getResponses() where response.requestId == requestId {
+                gameState.globalResponses.removeAll(where: { $0.id == response.id })
+                self.localPendingRequests.removeAll(where: { $0.id == requestId })
+                gameState.globalRequests.removeAll(where: { $0.id == requestId })
+                request.callback.callback(response)
             }
         }
     }

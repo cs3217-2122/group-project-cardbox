@@ -90,8 +90,7 @@ struct IntRequestView: View {
                         IntRequest(description: "Choose a number from 1 to 5",
                                    fromPlayer: Player(name: "Player 2"),
                                    toPlayer: Player(name: "Player 1 "),
-                                   callback: { _ in
-        },
+                                   callback: Callback(),
                                    minValue: 1,
                                    maxValue: 5),
                        isOnline: false)

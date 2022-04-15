@@ -73,9 +73,7 @@ struct OptionsRequestView_Previews: PreviewProvider {
                             OptionsRequest(description: "Choose an option",
                                            fromPlayer: Player(name: "Player 1"),
                                            toPlayer: Player(name: "Player 2"),
-                                           callback: { _ in
-
-       },
+                                           callback: Callback(),
                                            stringRepresentationOfOptions: ["Option 1", "Option 2", "Option 3"]),
                           isOnline: true)
    }

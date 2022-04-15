@@ -67,10 +67,7 @@ struct InputTextRequestView: View {
                                 InputTextRequest(description: "Input your response",
                                                  fromPlayer: Player(name: "Player 2"),
                                                  toPlayer: Player(name: "Player 1 "),
-                                                 callback: { _ in
-        },
-                                                 isValidInput: { _ in true }
-                                                ),
-                       isOnline: false)
+                                                 callback: Callback()),
+                             isOnline: false)
     }
  }

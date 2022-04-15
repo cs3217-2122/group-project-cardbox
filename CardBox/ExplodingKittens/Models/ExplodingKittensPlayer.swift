@@ -52,7 +52,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkSameCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
         return cardTypes.allSatisfy({ cardType in
@@ -62,12 +62,14 @@ class ExplodingKittensPlayer: Player {
 
     private func checkDifferentCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
-        var cardTypeSet: Set<ExplodingKittensCardType> = Set()
+        var cardTypeSet: [ExplodingKittensCard.Type] = []
         cardTypes.forEach { cardType in
-            cardTypeSet.insert(cardType)
+            if !cardTypeSet.contains(where: { $0 == cardType }) {
+                cardTypeSet.append(cardType)
+            }
         }
 
         return cardTypeSet.count == cards.count
@@ -167,7 +169,7 @@ class ExplodingKittensPlayer: Player {
             SendRequestEvent(request: IntRequest(description: "Please choose the position of the card you want to take",
                                                  fromPlayer: player,
                                                  toPlayer: player,
-                                                 callback: callback,
+                                                 callback: Callback(callback),
                                                  minValue: 1,
                                                  maxValue: targetHand.count
                                                 )
@@ -221,7 +223,7 @@ class ExplodingKittensPlayer: Player {
                 request: OptionsRequest(description: "Please choose the type of card that you want to take",
                                         fromPlayer: player,
                                         toPlayer: targetPlayer,
-                                        callback: callback,
+                                        callback: Callback(callback),
                                         stringRepresentationOfOptions: ExplodingKittensConstants.allCardTypes.map({
                                             $0.rawValue
                                         }))
@@ -232,10 +234,10 @@ class ExplodingKittensPlayer: Player {
     private func playFiveDifferentCardsCombo(_ cards: [Card],
                                              ekGameRunner: ExplodingKittensGameRunnerProtocol,
                                              player: Player) {
-         guard let cards = cards as? [ExplodingKittensCard],
-               checkDifferentCards(cards: cards) else {
-             return
-         }
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkDifferentCards(cards: cards) else {
+            return
+        }
 
         guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
             return
@@ -266,7 +268,7 @@ class ExplodingKittensPlayer: Player {
                 request: OptionsRequest(description: "Please choose a card that you want to take from the play area",
                                         fromPlayer: player,
                                         toPlayer: player,
-                                        callback: callback,
+                                        callback: Callback(callback),
                                         stringRepresentationOfOptions:
                                             getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
             )
@@ -287,5 +289,21 @@ class ExplodingKittensPlayer: Player {
         }
 
         return Array(distinctCardTypes)
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case attackCount
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.attackCount = try container.decode(Int.self, forKey: .attackCount)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(attackCount, forKey: .attackCount)
+        try super.encode(to: encoder)
     }
 }

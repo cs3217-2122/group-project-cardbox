@@ -30,9 +30,21 @@ class AttackCard: ExplodingKittensCard {
             return
         }
 
+        guard (gameRunner.getHandByPlayer(player)) != nil else {
+            return
+        }
+
         gameRunner.executeGameEvents([
             CustomizedGameEvent(customizedGameEvent: IncrementAttackCountEvent(player: nextPlayer)),
             AdvanceNextPlayerEvent()
         ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

@@ -32,7 +32,7 @@ struct EKPlayerView: View {
         if playerViewModel.player.isOutOfGame {
             playerName += "(Dead)"
         }
-        if playerViewModel.player === gameRunnerViewModel?.players.currentPlayer {
+        if playerViewModel.player === gameRunnerViewModel?.gameState.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
         return playerName

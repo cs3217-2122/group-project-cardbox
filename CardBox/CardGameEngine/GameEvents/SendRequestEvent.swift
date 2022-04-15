@@ -10,7 +10,7 @@ struct SendRequestEvent: GameEvent {
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
         // Adds to the global collection of requests
-        gameRunner.globalRequests.append(request)
+        gameRunner.gameState.globalRequests.append(request)
 
         // Only the caller of the request will add the request to it's local pending request collection
         gameRunner.localPendingRequests.append(request)

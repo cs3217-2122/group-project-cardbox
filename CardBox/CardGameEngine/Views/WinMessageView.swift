@@ -18,7 +18,7 @@ struct WinMessageView: View {
     }
 
     var winnerName: String {
-        if let winner = gameRunnerViewModel.winner {
+        if let winner = gameRunnerViewModel.gameState.winner {
             return winner.name + " has won"
         }
         return ""
@@ -34,7 +34,7 @@ struct WinMessageView: View {
     }
 
     var body: some View {
-        if gameRunnerViewModel.isWin {
+        if gameRunnerViewModel.gameState.isWin {
             ZStack {
                 overlay
                 messageBox
