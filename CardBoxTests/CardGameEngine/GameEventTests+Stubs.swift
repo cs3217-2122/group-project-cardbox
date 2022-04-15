@@ -41,6 +41,15 @@ extension GameEventTests {
                                   globalRequests: [],
                                   globalResponses: [])
 
+        var deck = CardCollection(cards: [
+            generateSingleTargetCard(),
+            generateSingleTargetCard(),
+            generateAllTargetCard(),
+            generateAllTargetCard(),
+            generateNoneTargetCard(),
+            generateNoneTargetCard()
+        ])
+
         func setCardPreview(_ card: Card) {
             // Do nothing
         }
@@ -50,15 +59,15 @@ extension GameEventTests {
         }
 
         func setup() {
-//            deck = CardCollection(cards: [])
+            deck = CardCollection(cards: [])
         }
 
         func onStartTurn() {
-//            deck = CardCollection(cards: [])
+            deck = CardCollection(cards: [])
         }
 
         func onEndTurn() {
-//            deck = CardCollection(cards: [])
+            deck = CardCollection(cards: [])
         }
 
         func onAdvanceNextPlayer() {
@@ -78,7 +87,9 @@ extension GameEventTests {
                 return nil
             }
 
-            let nextPlayer = gameState.players.getPlayerByIndex(max(players.currentPlayerIndex, players.count - 1))
+            let nextPlayer = gameState.players.getPlayerByIndex(
+                max(gameState.players.currentPlayerIndex, gameState.players.count - 1)
+            )
             return nextPlayer
         }
 
