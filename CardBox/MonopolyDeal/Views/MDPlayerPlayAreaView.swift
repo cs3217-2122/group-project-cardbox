@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MDNonPlayerView: View {
+struct MDPlayerPlayAreaView: View {
     var playerViewModel: PlayerViewModel
     let playerPlayAreaViewModel: PlayerPlayAreaViewModel
     @Binding var selectedCardSetViewModel: CardSetViewModel?

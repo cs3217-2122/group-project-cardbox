@@ -48,19 +48,6 @@ struct CardView: View {
         self.bottomPlayer = bottomPlayer
     }
 
-    // init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel) {
-    //    self.viewModel = cardViewModel
-    //    self.isFaceUp = cardViewModel.isFaceUp
-    //    self.bottomPlayerViewModel = currentPlayerViewModel
-    // }
-
-    // init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel, playerViewModel: PlayerViewModel) {
-    //    self.viewModel = cardViewModel
-    //    self.isFaceUp = cardViewModel.isFaceUp
-    //    self.bottomPlayerViewModel = currentPlayerViewModel
-    //    self.playerViewModel = playerViewModel
-    // }
-
     var canInteract: Bool {
         if let player = player, let bottomPlayerViewModel = bottomPlayerViewModel {
             return bottomPlayerViewModel.player.id == player.id
