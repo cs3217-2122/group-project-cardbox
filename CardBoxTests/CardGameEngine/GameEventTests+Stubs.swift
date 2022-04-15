@@ -50,15 +50,15 @@ extension GameEventTests {
         }
 
         func setup() {
-            deck = CardCollection(cards: [])
+//            deck = CardCollection(cards: [])
         }
 
         func onStartTurn() {
-            deck = CardCollection(cards: [])
+//            deck = CardCollection(cards: [])
         }
 
         func onEndTurn() {
-            deck = CardCollection(cards: [])
+//            deck = CardCollection(cards: [])
         }
 
         func onAdvanceNextPlayer() {
@@ -66,7 +66,7 @@ extension GameEventTests {
                 return
             }
 
-            players.setCurrentPlayer(nextPlayer)
+            gameState.players.setCurrentPlayer(nextPlayer)
         }
 
         func getWinner() -> Player? {
@@ -74,11 +74,11 @@ extension GameEventTests {
         }
 
         func getNextPlayer() -> Player? {
-            guard !players.isEmpty else {
+            guard !gameState.players.isEmpty else {
                 return nil
             }
 
-            let nextPlayer = players.getPlayerByIndex(max(players.currentPlayerIndex, players.count - 1))
+            let nextPlayer = gameState.players.getPlayerByIndex(max(players.currentPlayerIndex, players.count - 1))
             return nextPlayer
         }
 
