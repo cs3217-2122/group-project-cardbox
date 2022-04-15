@@ -65,7 +65,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
         let drawCards = gameState.deck.getTopNCards(n: MonopolyDealGameRunner.drawCards)
 
-        let hand = getHandByPlayer(currentPlayer) ?? CardCollection()
+        let hand = getHandByPlayer(currentPlayer)
 
         executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: drawCards, fromDeck: gameState.deck, toDeck: hand)

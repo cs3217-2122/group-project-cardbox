@@ -25,9 +25,6 @@ class ShuffleCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        guard (gameRunner.getHandByPlayer(player)) != nil else {
-            return
-        }
 
         guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
             return

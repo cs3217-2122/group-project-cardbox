@@ -31,8 +31,7 @@ struct ExplodingKittensOnlineView: View {
         if let bottomPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
             EKPlayerView(
                 player: player,
-                hand: gameRunnerViewModel.getHandByPlayer(player)
-                ?? CardCollection(),
+                hand: gameRunnerViewModel.getHandByPlayer(player),
                 bottomPlayer: bottomPlayer,
                 error: $error,
                 selectedPlayerViewModel: $selectedPlayerViewModel

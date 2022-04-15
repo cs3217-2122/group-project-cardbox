@@ -36,7 +36,7 @@ struct MonopolyDealOfflineView: View {
                 MDNonPlayerView(
                     playerViewModel: PlayerViewModel(
                         player: player,
-                        hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection()
+                        hand: gameRunnerViewModel.getHandByPlayer(player)
                     ),
                     playerPlayAreaViewModel: PlayerPlayAreaViewModel(
                         sets: gameRunnerViewModel.getPropertyAreaByPlayer(player)
@@ -73,7 +73,7 @@ struct MonopolyDealOfflineView: View {
             if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
                 let bottomPlayerViewModel = PlayerViewModel(
                     player: currentPlayer,
-                    hand: gameRunnerViewModel.getHandByPlayer(currentPlayer) ?? CardCollection()
+                    hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
                 )
                 VStack {
                     getNonCurrentPlayer(bottomPlayer: currentPlayer)

@@ -114,8 +114,7 @@ struct CardView: View {
             .offset(y: viewModel.isSelected ? -35: 0)
             .onAppear {
                 if let bottomPlayer = bottomPlayer {
-                    bottomPlayerViewModel?.setHand(hand: gameRunnerViewModel.getHandByPlayer(bottomPlayer)
-                                                   ?? CardCollection())
+                    bottomPlayerViewModel?.setHand(hand: gameRunnerViewModel.getHandByPlayer(bottomPlayer))
                 }
             }
     }

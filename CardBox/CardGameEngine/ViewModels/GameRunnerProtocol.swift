@@ -22,7 +22,7 @@ protocol GameRunnerProtocol: AnyObject {
     func getWinner() -> Player?
     func getNextPlayer() -> Player?
     func checkWinningConditions() -> Bool
-    func getHandByPlayer(_ player: Player) -> CardCollection?
+    func getHandByPlayer(_ player: Player) -> CardCollection
 
     // Must implement this update value
     // use this to notify server as well

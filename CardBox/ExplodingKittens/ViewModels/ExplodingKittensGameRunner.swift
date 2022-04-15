@@ -176,8 +176,12 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         return nextPlayer
     }
 
-    func getHandByPlayer(_ player: Player) -> CardCollection? {
-        self.gameState.playerHands[player.id]
+    func getHandByPlayer(_ player: Player) -> CardCollection {
+        guard let gameState = gameState as? ExplodingKittensGameState else {
+            return CardCollection()
+        }
+
+        return gameState.playerHands[player.id] ?? CardCollection()
     }
 
     var allCardTypes: [ExplodingKittensCardType] {

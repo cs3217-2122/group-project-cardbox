@@ -38,7 +38,7 @@ class PropertyCard: MonopolyDealCard {
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let deck) = target {
             if let deck = deck {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 guard let baseCard = deck.getCardByIndex(0) as? PropertyCard else {
                     return
@@ -64,7 +64,7 @@ class PropertyCard: MonopolyDealCard {
                     ])
                 }
             } else {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 guard colors.count == 1 else {
                     return

@@ -107,9 +107,7 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(self) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(self)
 
         switch ekCards.count {
         case 1:
@@ -139,17 +137,13 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         guard let targetPlayer = target.getPlayerIfTargetSingle() else {
             return
         }
 
-        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
-            return
-        }
+        let targetHand = ekGameRunner.getHandByPlayer(targetPlayer)
 
         let callback: (Response) -> Void = { response in
             guard let intResponse = response as? IntResponse else {
@@ -186,17 +180,13 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         guard let targetPlayer = target.getPlayerIfTargetSingle() else {
             return
         }
 
-        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
-            return
-        }
+        let targetHand = ekGameRunner.getHandByPlayer(targetPlayer)
 
         let callback: (Response) -> Void = { response in
             guard let optionsResponse = response as? OptionsResponse else {
@@ -239,9 +229,7 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         let callback: (Response) -> Void = { response in
             guard let optionsResponse = response as? OptionsResponse else {

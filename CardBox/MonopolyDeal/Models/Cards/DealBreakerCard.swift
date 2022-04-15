@@ -21,7 +21,7 @@ class DealBreakerCard: MonopolyDealCard {
 
         if case .deck(let deck) = target {
             if let deck = deck {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 guard let baseCard = deck.topCard as? PropertyCard else {
                     return
