@@ -19,7 +19,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     internal var localPendingRequests: [Request]
 
-
     var deck: CardCollection {
         if let gameState = gameState as? MonopolyDealGameState {
             return gameState.deck
@@ -129,7 +128,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
         return nextPlayer
     }
-
 
     func getHandByPlayer(_ player: Player) -> CardCollection {
         guard let gameState = gameState as? MonopolyDealGameState else {

@@ -39,7 +39,7 @@ class PlayerViewModel: ObservableObject {
     }
 
     func tapCard(card: Card, gameRunner: GameRunnerProtocol) {
-        guard let currentPlayer = gameRunner.players.currentPlayer else {
+        guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
 
             return
         }

@@ -28,7 +28,7 @@ struct ExplodingKittensOnlineView: View {
 
     @ViewBuilder
     func playerArea(player: Player) -> some View {
-        if let bottomPlayer = gameRunnerViewModel.players.currentPlayer {
+        if let bottomPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
             EKPlayerView(
                 player: player,
                 hand: gameRunnerViewModel.getHandByPlayer(player)
