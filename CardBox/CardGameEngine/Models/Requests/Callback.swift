@@ -8,7 +8,7 @@
 struct Callback: Codable {
     private(set) var callback: (Response) -> Void
 
-    init(callback: @escaping (Response) -> Void = { _ in
+    init(_ callback: @escaping (Response) -> Void = { _ in
     }) {
         self.callback = callback
     }

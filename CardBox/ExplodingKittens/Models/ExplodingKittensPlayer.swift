@@ -167,7 +167,7 @@ class ExplodingKittensPlayer: Player {
             SendRequestEvent(request: IntRequest(description: "Please choose the position of the card you want to take",
                                                  fromPlayer: player,
                                                  toPlayer: player,
-                                                 callback: Callback(callback: callback),
+                                                 callback: Callback(callback),
                                                  minValue: 1,
                                                  maxValue: targetHand.count
                                                 )
@@ -221,7 +221,7 @@ class ExplodingKittensPlayer: Player {
                 request: OptionsRequest(description: "Please choose the type of card that you want to take",
                                         fromPlayer: player,
                                         toPlayer: targetPlayer,
-                                        callback: Callback(callback: callback),
+                                        callback: Callback(callback),
                                         stringRepresentationOfOptions: ExplodingKittensConstants.allCardTypes.map({
                                             $0.rawValue
                                         }))
@@ -266,7 +266,7 @@ class ExplodingKittensPlayer: Player {
                 request: OptionsRequest(description: "Please choose a card that you want to take from the play area",
                                         fromPlayer: player,
                                         toPlayer: player,
-                                        callback: Callback(callback: callback),
+                                        callback: Callback(callback),
                                         stringRepresentationOfOptions:
                                             getCardTypesCurrentlyInGameplay(gameRunner: ekGameRunner))
             )

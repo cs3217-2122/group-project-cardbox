@@ -59,7 +59,7 @@ class BombCard: ExplodingKittensCard {
                 description: "You drew the bomb :( Please choose a position of the draw deck to insert the bomb in",
                 fromPlayer: player,
                 toPlayer: player,
-                callback: Callback(callback: callback),
+                callback: Callback(callback),
                 minValue: 1,
                 maxValue: gameRunner.deck.count
             ))
