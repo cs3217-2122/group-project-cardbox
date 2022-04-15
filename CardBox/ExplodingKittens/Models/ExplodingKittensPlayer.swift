@@ -52,7 +52,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkSameCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
         return cardTypes.allSatisfy({ cardType in
@@ -62,12 +62,14 @@ class ExplodingKittensPlayer: Player {
 
     private func checkDifferentCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
-        var cardTypeSet: Set<ExplodingKittensCardType> = Set()
+        var cardTypeSet: [ExplodingKittensCard.Type] = []
         cardTypes.forEach { cardType in
-            cardTypeSet.insert(cardType)
+            if !cardTypeSet.contains(where: { $0 == cardType }) {
+                cardTypeSet.append(cardType)
+            }
         }
 
         return cardTypeSet.count == cards.count
@@ -232,10 +234,10 @@ class ExplodingKittensPlayer: Player {
     private func playFiveDifferentCardsCombo(_ cards: [Card],
                                              ekGameRunner: ExplodingKittensGameRunnerProtocol,
                                              player: Player) {
-         guard let cards = cards as? [ExplodingKittensCard],
-               checkDifferentCards(cards: cards) else {
-             return
-         }
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkDifferentCards(cards: cards) else {
+            return
+        }
 
         guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
             return
