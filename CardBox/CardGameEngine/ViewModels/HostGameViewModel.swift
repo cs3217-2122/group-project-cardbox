@@ -15,7 +15,7 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     var gameRunner: GameRunnerProtocol?
 
     var gameStarted: Bool {
-        guard let gameRunner = gameRunner, _ = hostGameManager else {
+        guard let gameRunner = gameRunner, hostGameManager != nil else {
             return false
         }
         return gameRunner.gameState.state == .start

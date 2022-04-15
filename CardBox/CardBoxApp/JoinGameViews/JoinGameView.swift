@@ -15,7 +15,6 @@ struct JoinGameView: View {
     @State private var selectedGame: CardBoxGame?
 
     var body: some View {
-
         if !viewModel.isJoined {
             Button("Exploding Kittens") {
                 selectedGame = .ExplodingKittens
@@ -25,7 +24,7 @@ struct JoinGameView: View {
                 selectedGame = .MonopolyDeal
                 viewModel.loadDatabaseManager(MonopolyDealDatabaseManager())
             }.foregroundColor(selectedGame == .MonopolyDeal ? .red : .blue)
-            
+
             Text("Enter Game Room ID")
             HStack {
                 TextField("Game Room ID", text: $gameRoomID)
@@ -40,7 +39,13 @@ struct JoinGameView: View {
                 }
             }
         } else {
-            JoinGameLobbyView(viewModel: viewModel, playerViewModel: playerViewModel, selectedGame: $selectedGame)
+            if let selectedGame = selectedGame {
+                JoinGameLobbyView(viewModel: viewModel,
+                                  playerViewModel: playerViewModel,
+                                  selectedGame: .constant(selectedGame))
+            } else {
+                EmptyView()
+            }
         }
     }
 }

@@ -43,6 +43,8 @@ struct JoinGameLobbyView: View {
 
 struct JoinGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        JoinGameLobbyView(viewModel: JoinGameViewModel(), playerViewModel: PlayerViewModel())
+        JoinGameLobbyView(viewModel: JoinGameViewModel(),
+                          playerViewModel: PlayerViewModel(),
+                          selectedGame: .constant(.ExplodingKittens))
     }
 }

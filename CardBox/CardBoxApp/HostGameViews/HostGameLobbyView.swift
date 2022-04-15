@@ -55,6 +55,8 @@ struct HostGameLobbyView: View {
 
 struct HostGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        HostGameLobbyView(viewModel: HostGameViewModel(), playerViewModel: PlayerViewModel())
+        HostGameLobbyView(viewModel: HostGameViewModel(),
+                          playerViewModel: PlayerViewModel(),
+                          selectedGame: .constant(.ExplodingKittens))
     }
 }

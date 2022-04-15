@@ -4,6 +4,7 @@
 //
 //  Created by Temp on 31.03.2022.
 //
+import Foundation
 
 class MonopolyDealPlayer: Player {
     static let maxPlayCount = 3
@@ -12,6 +13,15 @@ class MonopolyDealPlayer: Player {
 
     override init(name: String) {
         super.init(name: name)
+    }
+
+    init(name: String,
+         id: UUID = UUID(),
+         isOutOfGame: Bool = false,
+         cardsPlayed: Int = 0,
+         playCount: Int = 0) {
+        self.playCount = playCount
+        super.init(id: id, name: name, isOutOfGame: isOutOfGame, cardsPlayed: cardsPlayed)
     }
 
     func incrementPlayCount() {

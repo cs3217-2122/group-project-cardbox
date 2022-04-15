@@ -12,7 +12,7 @@ struct HostGameView: View {
     @ObservedObject private var viewModel = HostGameViewModel()
     private var playerViewModel = PlayerViewModel()
     @State private var selectedGame: CardBoxGame?
-    
+
     var body: some View {
         VStack {
             if viewModel.gameRoomID.isEmpty {
@@ -22,9 +22,9 @@ struct HostGameView: View {
                 }.foregroundColor(selectedGame == .ExplodingKittens ? .red : .blue)
                 Button("Monopoly Deal") {
                     selectedGame = .MonopolyDeal
-                    viewModel.load(DatabaseManager(MonopolyDealDatabaseManager()))
+                    viewModel.loadDatabaseManager(MonopolyDealDatabaseManager())
                 }.foregroundColor(selectedGame == .MonopolyDeal ? .red : .blue)
-                
+
                 Button("Host Game") {
                     if let selectedGame = selectedGame {
                         print("host game button pressed")
@@ -33,7 +33,13 @@ struct HostGameView: View {
                     }
                 }
             } else {
-                HostGameLobbyView(viewModel: viewModel, playerViewModel: playerViewModel, selectedGame: $selectedGame)
+                if let selectedGame = selectedGame {
+                    HostGameLobbyView(viewModel: viewModel,
+                                      playerViewModel: playerViewModel,
+                                      selectedGame: .constant(selectedGame))
+                } else {
+                    EmptyView()
+                }
             }
         }
     }

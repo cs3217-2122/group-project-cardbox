@@ -16,7 +16,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
     var gameRunner: GameRunnerProtocol?
 
     var gameStarted: Bool {
-        guard let gameRunner = gameRunner, _ = joinGameManager else {
+        guard let gameRunner = gameRunner, joinGameManager != nil else {
             return false
         }
         return gameRunner.gameState.state == .start
@@ -57,7 +57,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
         self.gameRoomID = gameRoomID
     }
 
-    func notifyObserver(gameRunner: GameRunnerProtocol?) {
+    func notifyObserver(gameRunner: GameRunnerProtocol) {
         self.gameRunner = gameRunner
     }
 
