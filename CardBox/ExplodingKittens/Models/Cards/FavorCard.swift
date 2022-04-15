@@ -56,7 +56,7 @@ class FavorCard: ExplodingKittensCard {
                 request: IntRequest(description: "Please choose the position of the card you want to give away",
                                     fromPlayer: player,
                                     toPlayer: targetPlayer,
-                                    callback: Callback(callback: callback),
+                                    callback: Callback(callback),
                                     minValue: 1,
                                     maxValue: targetHand.count
                                    )

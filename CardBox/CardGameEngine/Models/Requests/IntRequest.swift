@@ -33,4 +33,11 @@ class IntRequest: Request {
         self.maxValue = try container.decode(Int.self, forKey: .maxValue)
         try super.init(from: decoder)
     }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.minValue, forKey: .minValue)
+        try container.encode(self.maxValue, forKey: .maxValue)
+        try super.encode(to: encoder)
+    }
 }

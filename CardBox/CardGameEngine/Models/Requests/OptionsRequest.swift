@@ -28,4 +28,10 @@ class OptionsRequest: Request {
         self.stringRepresentationOfOptions = try container.decode([String].self, forKey: .stringRepresentationOfOptions)
         try super.init(from: decoder)
     }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.stringRepresentationOfOptions, forKey: .stringRepresentationOfOptions)
+        try super.encode(to: encoder)
+    }
 }
