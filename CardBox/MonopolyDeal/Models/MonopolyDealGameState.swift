@@ -9,20 +9,27 @@ import Foundation
 
 class MonopolyDealGameState: GameState {
     // TODO: Change card collection to MDCardCollection
-    internal var deck: CardCollection
+    internal var deck: MonopolyDealCardCollection
     internal var playerPropertyArea: [UUID: MonopolyDealPlayerPropertyArea]
-    internal var playerMoneyArea: [UUID: CardCollection]
-    internal var gameplayArea: CardCollection
+    internal var playerMoneyArea: [UUID: MonopolyDealCardCollection]
+    internal var gameplayArea: MonopolyDealCardCollection
 
     override init() {
-        self.deck = CardCollection()
+        self.deck = MonopolyDealCardCollection()
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
-        self.gameplayArea = CardCollection()
+        self.gameplayArea = MonopolyDealCardCollection()
         super.init()
     }
 
     private enum CodingKeys: String, CodingKey {
+        case players
+        case playerHands
+        case state
+        case isWin
+        case winner
+        case globalRequests
+        case globalResponses
         case deck
         case playerPropertyArea
         case playerMoneyArea
@@ -31,25 +38,45 @@ class MonopolyDealGameState: GameState {
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.deck = try container.decode(CardCollection.self, forKey: .deck)
+        self.deck = try container.decode(MonopolyDealCardCollection.self, forKey: .deck)
         self.playerPropertyArea = try container.decode([UUID: MonopolyDealPlayerPropertyArea].self,
                                                        forKey: .playerPropertyArea)
-        self.playerMoneyArea = try container.decode([UUID: CardCollection].self, forKey: .playerMoneyArea)
-        self.gameplayArea = try container.decode(CardCollection.self, forKey: .gameplayArea)
-        try super.init(from: decoder)
+        self.playerMoneyArea = try container.decode([UUID: MonopolyDealCardCollection].self, forKey: .playerMoneyArea)
+        self.gameplayArea = try container.decode(MonopolyDealCardCollection.self, forKey: .gameplayArea)
+        let players = try container.decode(ExplodingKittensPlayerCollection.self, forKey: .players)
+        let playerHands = try container.decode([UUID: ExplodingKittensCardCollection].self, forKey: .playerHands)
+        let state = try container.decode(GameModeState.self, forKey: .state)
+        let isWin = try container.decode(Bool.self, forKey: .isWin)
+        let winner: ExplodingKittensPlayer?
+        if container.contains(.winner) {
+            winner = try container.decode(ExplodingKittensPlayer.self, forKey: .winner)
+        } else {
+            winner = nil
+        }
+        let globalRequests = try container.decode([Request].self, forKey: .globalRequests)
+        let globalResponses = try container.decode([Response].self, forKey: .globalResponses)
+
+        super.init(players: players,
+                   playerHands: playerHands,
+                   isWin: isWin,
+                   winner: winner,
+                   state: state,
+                   globalRequests: globalRequests,
+                   globalResponses: globalResponses)
     }
 
     override func updateState(gameState: GameState) {
         if let gameState = gameState as? MonopolyDealGameState {
-            if gameState.state == .start {
-                self.deck.updateState(gameState.deck)
-                self.gameplayArea.updateState(gameState.gameplayArea)
-            } else {
-                self.deck = gameState.deck
-                self.playerPropertyArea = gameState.playerPropertyArea
-                self.playerMoneyArea = gameState.playerMoneyArea
-                self.gameplayArea = gameState.gameplayArea
-            }
+//            if gameState.state == .start {
+//
+//            } else {
+//                self.deck = gameState.deck
+//                self.gameplayArea = gameState.gameplayArea
+//            }
+            self.deck.updateState(gameState.deck)
+            self.gameplayArea.updateState(gameState.gameplayArea)
+            self.updatePlayerMoneyArea(gameState.playerMoneyArea)
+            self.updatePlayerPropertyArea(gameState.playerPropertyArea)
         }
 
         super.updateState(gameState: gameState)
@@ -57,19 +84,21 @@ class MonopolyDealGameState: GameState {
 
     private func updatePlayerPropertyArea(_ newPlayerProperyArea: [UUID: MonopolyDealPlayerPropertyArea]) {
         for (key, value) in newPlayerProperyArea {
-            guard let current = playerPropertyArea[key] else {
-                continue
+            if let current = playerPropertyArea[key] {
+                current.updateState(value)
+            } else {
+                playerPropertyArea[key] = value
             }
-            current.updateState(value)
         }
     }
 
-    private func updatePlayerMoneyArea(_ newPlayerMoneyArea: [UUID: CardCollection]) {
+    private func updatePlayerMoneyArea(_ newPlayerMoneyArea: [UUID: MonopolyDealCardCollection]) {
         for (key, value) in newPlayerMoneyArea {
-            guard let current = playerMoneyArea[key] else {
-                continue
+            if let current = playerMoneyArea[key] {
+                current.updateState(value)
+            } else {
+                playerMoneyArea[key] = value
             }
-            current.updateState(value)
         }
     }
 

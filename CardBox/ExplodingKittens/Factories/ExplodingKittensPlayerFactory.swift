@@ -18,7 +18,7 @@ class ExplodingKittensPlayerFactory: PlayerFactory {
         }
         players.forEach { player in
             gameState.players.addPlayer(player)
-            gameState.playerHands[player.id] = CardCollection()
+            gameState.playerHands[player.id] = ExplodingKittensCardCollection()
         }
     }
 
