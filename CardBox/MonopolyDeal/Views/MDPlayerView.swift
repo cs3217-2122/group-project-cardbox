@@ -80,17 +80,16 @@ struct MDPlayerView: View {
                     // Money Pile
                     // DeckView(deckViewModel: , isFaceUp: true)
                     ForEach(playerPlayAreaViewModel.sets.getArea()) { cardSet in
-                        let cardSetViewModel =
-                        CardSetViewModel(cards: cardSet, isPlayDeck: true, gameRunner: mdViewModel)
                         CardSetView(
-                            playerViewModel: playerViewModel,
-                            cardSetViewModel: cardSetViewModel,
+                            player: playerViewModel.player,
+                            cards: cardSet,
                             selectedCardSetViewModel: $selectedCardSetViewModel,
                             error: $error
                         )
                     }
                     DeckView(
-                        deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player)
+                        deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player),
+                        gameRunner: gameRunnerViewModel ?? MonopolyDealGameRunner()
                     )
                 }
             }
