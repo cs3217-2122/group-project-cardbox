@@ -19,6 +19,9 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var playerMoneyArea: [UUID: CardCollection]
     @Published internal var gameplayArea: CardCollection
 
+    internal var cardHeight = CGFloat(200)
+    internal var cardWidth = CGFloat(120)
+
     internal var globalRequests: [Request]
     internal var globalResponses: [Response]
     internal var localPendingRequests: [Request]

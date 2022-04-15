@@ -18,6 +18,9 @@ protocol GameRunnerProtocol: AnyObject {
     func setCardPreview(_ card: Card)
     func resetCardPreview()
 
+    var cardHeight: CGFloat { get }
+    var cardWidth: CGFloat { get }
+
     // Requests
     var globalRequests: [Request] { get set }
     var globalResponses: [Response] { get set }

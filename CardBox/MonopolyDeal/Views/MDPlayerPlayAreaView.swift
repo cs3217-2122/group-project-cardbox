@@ -35,7 +35,7 @@ struct MDPlayerPlayAreaView: View {
         guard size > 0 else {
             return 0
         }
-        return Double((handWidth - size * CardView.defaultCardWidth) / size)
+        return Double((handWidth - size * Int((gameRunnerViewModel?.cardWidth ?? 75))) / size)
     }
 
     var body: some View {

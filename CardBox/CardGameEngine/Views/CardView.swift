@@ -18,9 +18,12 @@ struct CardView: View {
     var bottomPlayerViewModel: PlayerViewModel?
     var player: Player?
     var isFaceUp: Bool
-    static let defaultCardWidth = 150
-    let cardWidth = CGFloat(150)
-    let cardHeight = CGFloat(250)
+    var cardWidth: CGFloat {
+        gameRunnerViewModel.cardWidth
+    }
+    var cardHeight: CGFloat {
+        gameRunnerViewModel.cardHeight
+    }
 
     init(card: Card?, isFaceUp: Bool, isSelected: Bool) {
         viewModel = CardViewModel(

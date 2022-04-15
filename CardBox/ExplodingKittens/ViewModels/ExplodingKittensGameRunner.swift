@@ -15,6 +15,9 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var gameplayArea: CardCollection
     @Published internal var state: GameState
 
+    internal var cardWidth = CGFloat(150)
+    internal var cardHeight = CGFloat(250)
+
     internal var globalRequests: [Request]
     internal var globalResponses: [Response]
     internal var localPendingRequests: [Request]

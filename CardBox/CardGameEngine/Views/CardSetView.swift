@@ -33,7 +33,7 @@ struct CardSetView: View {
         guard size > 0 else {
             return 0
         }
-        return Double((setHeight - size * CardView.defaultCardWidth) / size)
+        return Double((setHeight - size * Int(gameRunnerViewModel.cardWidth)) / size)
     }
 
     var body: some View {
