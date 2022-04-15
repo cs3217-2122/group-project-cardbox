@@ -27,7 +27,6 @@ struct HostGameView: View {
 
                 Button("Host Game") {
                     if let selectedGame = selectedGame {
-                        print("host game button pressed")
                         viewModel.createRoom(playerViewModel: playerViewModel)
                         print(viewModel.gameRoomID)
                     }
