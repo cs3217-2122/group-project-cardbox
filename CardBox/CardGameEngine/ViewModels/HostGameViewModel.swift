@@ -11,11 +11,11 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var gameRoomID: String = ""
     @Published var players: [String] = []
     var playerIndex: Int?
-    private var hostGameManager: HostGameManager
-    var gameRunner: ExplodingKittensGameRunner?
+    private var hostGameManager: HostGameManager?
+    var gameRunner: GameRunnerProtocol?
 
     var gameStarted: Bool {
-        guard let gameRunner = gameRunner else {
+        guard let gameRunner = gameRunner, _ = hostGameManager else {
             return false
         }
         return gameRunner.gameState.state == .start
@@ -26,15 +26,24 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
     }
 
     init() {
-        self.hostGameManager = ExplodingKittensDatabaseManager()
-        self.hostGameManager.addObserver(self)
+    }
+
+    func loadDatabaseManager(_ databaseManager: DatabaseManager) {
+        databaseManager.addObserver(self)
+        self.hostGameManager = databaseManager
     }
 
     func createRoom(playerViewModel: PlayerViewModel) {
+        guard let hostGameManager = hostGameManager else {
+            return
+        }
         hostGameManager.createRoom(player: playerViewModel.player)
     }
 
     func removeFromRoom(playerViewModel: PlayerViewModel) {
+        guard let hostGameManager = hostGameManager else {
+            return
+        }
         hostGameManager.removeFromRoom(player: playerViewModel.player)
     }
 
@@ -50,12 +59,14 @@ class HostGameViewModel: ObservableObject, DatabaseManagerObserver {
         // do nothing
     }
 
-    func notifyObserver(gameRunner: ExplodingKittensGameRunner) {
+    func notifyObserver(gameRunner: GameRunnerProtocol) {
         self.gameRunner = gameRunner
     }
 
     func startGame() {
-        // TODO: Implement start game
+        guard let hostGameManager = hostGameManager else {
+            return
+        }
         hostGameManager.startGame()
     }
 

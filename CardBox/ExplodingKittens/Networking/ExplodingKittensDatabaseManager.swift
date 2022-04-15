@@ -95,7 +95,10 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    private func encodeGameState(_ gameState: ExplodingKittensGameState, _ docRef: DocumentReference) {
+    private func encodeGameState(_ gameState: GameState, _ docRef: DocumentReference) {
+        guard let gameState = gameState as? ExplodingKittensGameState {
+            return
+        }
         do {
             try docRef.setData(from: gameState)
         } catch {

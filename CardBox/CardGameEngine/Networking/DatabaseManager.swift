@@ -25,4 +25,6 @@ protocol DatabaseManager: JoinGameManager, HostGameManager {
     func removeFromRoom(player: Player)
     func createRoom(player: Player)
     func startGame()
+    func encodeGameState(_ gameState: GameState, _ docRef: DocumentReference)
+    func decodeGameState(_ document: DocumentSnapshot) -> GameState?
 }
