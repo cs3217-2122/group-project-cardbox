@@ -1,5 +1,5 @@
 //
-//  NonCurrentPlayerView.swift
+//  NonBottomPlayerView.swift
 //  CardBox
 //
 //  Created by Stuart Long on 19/3/22.
@@ -42,12 +42,6 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
             }
             Spacer()
             middlePart
-            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                GameActionsView(error: $error,
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                selectedPlayerViewModel: $selectedPlayerViewModel,
-                                selectedCardSetViewModel: $selectedCardSetViewModel)
-            }
         }
     }
 
@@ -66,6 +60,12 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
             leftPlayer
             Spacer()
             decks
+            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                GameActionsView(error: $error,
+                                currentPlayerViewModel: bottomPlayerViewModel,
+                                selectedPlayerViewModel: $selectedPlayerViewModel,
+                                selectedCardSetViewModel: $selectedCardSetViewModel)
+            }
             Spacer()
             if let player2 = gameRunnerViewModel.players.getPlayerByIndexAfterCurrent(1) {
                 playerArea(player2)

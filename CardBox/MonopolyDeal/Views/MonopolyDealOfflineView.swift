@@ -27,17 +27,26 @@ struct MonopolyDealOfflineView: View {
     }
 
     @ViewBuilder
-    func playerArea(player: Player) -> some View {
-        if let bottomPlayer = gameRunnerViewModel.players.currentPlayer {
-            MDPlayerView(player: player,
-                         hand: gameRunnerViewModel.getHandByPlayer(player)
-                         ?? CardCollection(),
-                         sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
-                         bottomPlayer: bottomPlayer,
-                         error: $error,
-                         selectedPlayerViewModel: $selectedPlayerViewModel,
-                         selectedCardSetViewModel: $selectedCardSetViewModel)
+    func bottomPlayerArea(player: Player) -> some View {
+        VStack {
+            MDPlayerPlayAreaView(player: player,
+                                 sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                                 error: $error,
+                                 selectedCardSetViewModel: $selectedCardSetViewModel,
+                                 selectedPlayerViewModel: $selectedPlayerViewModel)
+            PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection(),
+                           bottomPlayer: player, error: $error)
         }
+
+    }
+
+    @ViewBuilder
+    func otherPlayerArea(player: Player) -> some View {
+        MDPlayerPlayAreaView(player: player,
+                             sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                             error: $error,
+                             selectedCardSetViewModel: $selectedCardSetViewModel,
+                             selectedPlayerViewModel: $selectedPlayerViewModel)
     }
 
     func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
@@ -46,7 +55,7 @@ struct MonopolyDealOfflineView: View {
             selectedPlayerViewModel: $selectedPlayerViewModel,
             selectedCardSetViewModel: .constant(nil),
             error: $error,
-            playerArea: playerArea,
+            playerArea: otherPlayerArea,
             center: {
                 centerArea
             }
@@ -54,7 +63,7 @@ struct MonopolyDealOfflineView: View {
     }
 
     func getCurrentPlayer(bottomPlayer: Player) -> some View {
-        playerArea(player: bottomPlayer)
+        bottomPlayerArea(player: bottomPlayer)
     }
     var body: some View {
         ZStack {

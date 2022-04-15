@@ -53,27 +53,31 @@ struct MDPlayerView: View {
         return Double((handWidth - size * Int((gameRunnerViewModel?.cardWidth ?? 75))) / size)
     }
 
+    var name: some View {
+        Button {
+            guard let mdRunner = self.gameRunnerViewModel else {
+                return
+            }
+            if !playerViewModel.isCurrentPlayer(gameRunner: mdRunner) {
+                if !playerViewModel.isDead() {
+                    selectedPlayerViewModel = playerViewModel
+                }
+            }
+        } label: {
+            if let selectedPlayerViewModel = selectedPlayerViewModel {
+                Text(playerText)
+                    .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
+                                     ? Color.red : Color.blue)
+            } else {
+                Text(playerText)
+            }
+
+        }
+    }
+
     var body: some View {
         VStack {
-            Button {
-                guard let mdRunner = self.gameRunnerViewModel else {
-                    return
-                }
-                if !playerViewModel.isCurrentPlayer(gameRunner: mdRunner) {
-                    if !playerViewModel.isDead() {
-                        selectedPlayerViewModel = playerViewModel
-                    }
-                }
-            } label: {
-                if let selectedPlayerViewModel = selectedPlayerViewModel {
-                    Text(playerText)
-                        .foregroundColor(selectedPlayerViewModel.player === playerViewModel.player
-                                         ? Color.red : Color.blue)
-                } else {
-                    Text(playerText)
-                }
-
-            }
+            name
 
             HStack(spacing: CGFloat(spacing)) {
                 if let mdViewModel = gameRunnerViewModel {
