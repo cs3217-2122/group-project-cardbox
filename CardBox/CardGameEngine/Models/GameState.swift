@@ -13,14 +13,14 @@ class GameState: Codable {
     internal var isWin = false
     internal var winner: Player?
     internal var globalRequests: RequestCollection
-    internal var globalResponses: [Response]
+    internal var globalResponses: ResponseCollection
 
     init() {
         self.players = PlayerCollection()
         self.playerHands = [:]
         self.state = .initialize
         self.globalRequests = RequestCollection()
-        self.globalResponses = []
+        self.globalResponses = ResponseCollection()
     }
 
     init(players: PlayerCollection, playerHands: [UUID: CardCollection],
@@ -31,7 +31,7 @@ class GameState: Codable {
         self.winner = winner
         self.state = state
         self.globalRequests = RequestCollection(globalRequests)
-        self.globalResponses = globalResponses
+        self.globalResponses = ResponseCollection(globalResponses)
     }
 
     func addPlayer(player: Player) {

@@ -65,7 +65,7 @@ extension GameRunnerProtocol {
     func resolvePendingRequests() {
         for request in self.localPendingRequests {
             let requestId = request.id
-            for response in gameState.globalResponses where response.requestId == requestId {
+            for response in gameState.globalResponses.getResponses() where response.requestId == requestId {
                 gameState.globalResponses.removeAll(where: { $0.id == response.id })
                 self.localPendingRequests.removeAll(where: { $0.id == requestId })
                 gameState.globalRequests.removeAll(where: { $0.id == requestId })
