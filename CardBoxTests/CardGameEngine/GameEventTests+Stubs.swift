@@ -19,9 +19,9 @@ extension GameEventTests {
 
     class GameRunnerStub: GameRunnerProtocol {
         func updateState(gameState: GameState) {
-            
+
         }
-        
+
         init() {
         }
 
