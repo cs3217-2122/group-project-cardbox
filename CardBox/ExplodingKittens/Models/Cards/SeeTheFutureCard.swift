@@ -25,8 +25,24 @@ class SeeTheFutureCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
+        guard (gameRunner.getHandByPlayer(player)) != nil else {
+            return
+        }
+
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
+
         gameRunner.executeGameEvents([
-            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameRunner.deck))
+            CustomizedGameEvent(customizedGameEvent: DisplayTopNCardsEvent(n: 3, deck: gameState.deck))
          ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

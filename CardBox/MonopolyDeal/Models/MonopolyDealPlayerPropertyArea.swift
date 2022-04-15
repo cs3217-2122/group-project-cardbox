@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-class MonopolyDealPlayerPropertyArea {
+class MonopolyDealPlayerPropertyArea: Codable {
     private var area: [CardCollection] = []
 
     var count: Int {
@@ -26,5 +26,11 @@ class MonopolyDealPlayerPropertyArea {
 
     func getArea() -> [CardCollection] {
         area
+    }
+
+    func updateState(_ otherPlayerPropertyArea: MonopolyDealPlayerPropertyArea) {
+        for index in 0..<count {
+            self.area[index].updateState(otherPlayerPropertyArea.getArea()[index])
+        }
     }
 }

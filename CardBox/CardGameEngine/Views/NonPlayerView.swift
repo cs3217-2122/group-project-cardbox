@@ -23,7 +23,7 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     var body: some View {
         VStack {
-            if let topPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+            if let topPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
                 start: localPlayerIndex, increment: 2) {
                 playerArea(topPlayer)
                     .rotationEffect(.degrees(-180))
@@ -52,7 +52,7 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     @ViewBuilder
     var leftPlayer: some View {
-        if let leftPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+        if let leftPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 3) {
             playerArea(leftPlayer)
                 .rotationEffect(.degrees(90))
@@ -63,7 +63,7 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     @ViewBuilder
     var rightPlayer: some View {
-        if let rightPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+        if let rightPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 1) {
             playerArea(rightPlayer)
                 .rotationEffect(.degrees(-90))

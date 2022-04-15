@@ -15,6 +15,10 @@ class DealBreakerCard: MonopolyDealCard {
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
+            return
+        }
+
         if case .deck(let deck) = target {
             if let deck = deck {
                 let hand = gameRunner.getHandByPlayer(player)
@@ -33,15 +37,23 @@ class DealBreakerCard: MonopolyDealCard {
                 let playerPropertyArea = gameRunner.getPropertyAreaByPlayer(player)
 
                 // Only remove full sets
-                if baseSize == deck.count {
+                if baseSize == gameState.deck.count {
                     // TODO: Fix from area
                     gameRunner.executeGameEvents([
                         MovePropertyAreaEvent(cardSet: deck, fromArea: playerPropertyArea, toArea: playerPropertyArea),
-                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea)
+                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameState.gameplayArea)
                     ])
 
                 }
             }
         }
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

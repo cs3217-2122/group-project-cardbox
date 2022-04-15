@@ -84,63 +84,31 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    private func decodeExplodingKittensFirebaseAdapter(
-        _ document: DocumentSnapshot) -> ExplodingKittensFirebaseAdapter? {
+    private func decodeGameState(_ document: DocumentSnapshot) -> ExplodingKittensGameState? {
         do {
-            let explodingKittensFirebaseAdapter = try document.data(as: ExplodingKittensFirebaseAdapter.self)
-            return explodingKittensFirebaseAdapter
+            let explodingKittensGameState = try document.data(as: ExplodingKittensGameState.self)
+            print("decoded")
+            return explodingKittensGameState
         } catch {
             print(error)
             return nil
         }
     }
 
-    private func encodeExplodingKittensFirebaseAdapter(
-        _ explodingKittensFirebaseAdapter: ExplodingKittensFirebaseAdapter,
-        _ docRef: DocumentReference) {
-
-        if !gameRoomID.isEmpty {
-            print("retrieving data before log")
-            var fromFirestore: ExplodingKittensFirebaseAdapter?
-
-            db.collection("rooms").document(gameRoomID).getDocument { doc, _ in
-                if let doc = doc {
-                    print("decoding data")
-                    fromFirestore = self.decodeExplodingKittensFirebaseAdapter(doc)
-                }
-            }
-
-            if let fromFirestore = fromFirestore {
-                print("decoded successfully")
-                for log in fromFirestore.log.logs {
-                    print(log.type)
-                }
-                explodingKittensFirebaseAdapter.log.appendToFront(fromFirestore.log.logs)
-            } else {
-                print("did not decode")
-            }
-        }
-
+    private func encodeGameState(_ gameState: ExplodingKittensGameState, _ docRef: DocumentReference) {
         do {
-            try docRef.setData(from: explodingKittensFirebaseAdapter)
+            try docRef.setData(from: gameState)
         } catch {
             print(error)
         }
     }
 
     private func retrieveUpdates(_ document: DocumentSnapshot) {
-        if let explodingKittensFirebaseAdapter = decodeExplodingKittensFirebaseAdapter(document) {
-            self.players = explodingKittensFirebaseAdapter.players.names
-            guard let gameRunner = gameRunner as? ExplodingKittensGameRunner else {
-                return
-            }
-
-//            if gameRunner.state == .start {
-//                gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
-//            } else {
-//                gameRunner.updateStateMutable(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
-//            }
-            gameRunner.updateState(explodingKittensFirebaseAdapter.toGameRunner(observer: self))
+        if let gameState = decodeGameState(document), let gameRunner = gameRunner {
+            self.players = gameState.players.names
+            print("gamestate after decoding: \(gameState.playerHands)")
+            gameRunner.updateState(gameState: gameState)
+            print("gamestate after updatestate: \(gameRunner.gameState.playerHands)")
         }
     }
 
@@ -160,33 +128,31 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         docRef.getDocument { document, _ in
             guard let document = document, document.exists else {
                 // TODO: find a way to alert
-//                print("not exist")
                 self.notJoined()
                 return
             }
 
-            let explodingKittensFirebaseAdapter = self.decodeExplodingKittensFirebaseAdapter(document)
+            let gameState = self.decodeGameState(document)
 
-            guard let explodingKittensFirebaseAdapter = explodingKittensFirebaseAdapter else {
+            guard let gameState = gameState else {
                 return
             }
+
             // check if full
-            if explodingKittensFirebaseAdapter.players.count == 4 {
-                // find a way to alert
-//                print("room is full")
+            if gameState.players.count == 4 {
+                // TODO: find a way to alert
                 self.notJoined()
             } else {
                 // add to room
-                explodingKittensFirebaseAdapter.players
+                gameState.players
                     .addPlayer(ExplodingKittensPlayer(name: player.name,
                                                       id: player.id,
                                                       isOutOfGame: player.isOutOfGame,
                                                       cardsPlayed: player.cardsPlayed))
-                explodingKittensFirebaseAdapter.playerHands
-                    .append(ExplodingKittensCardCollectionAdapter(CardCollection()))
-                self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter, docRef)
+                gameState.addPlayerHand(playerId: player.id, cards: CardCollection())
+                self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
-                            gameRunnerAdapter: explodingKittensFirebaseAdapter)
+                            gameRunner: ExplodingKittensGameRunner(gameState: gameState, observer: self))
                 self.addListener(docRef)
             }
         }
@@ -199,12 +165,12 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         self.playerIndex = nil
     }
 
-    private func joined(id: String, gameRunnerAdapter: ExplodingKittensFirebaseAdapter) {
+    private func joined(id: String, gameRunner: ExplodingKittensGameRunner) {
         self.isJoined = true
-        self.players = gameRunnerAdapter.players.names
+        self.players = gameRunner.gameState.players.names
         self.gameRoomID = id
-        self.gameRunner = gameRunnerAdapter.toGameRunner(observer: self)
-        self.playerIndex = gameRunnerAdapter.players.count - 1
+        self.gameRunner = gameRunner
+        self.playerIndex = gameRunner.gameState.players.count - 1
     }
 
     func removeFromRoom(player: Player) {
@@ -218,11 +184,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 print("document does not exist/ error occurred")
                 return
             }
-            if let explodingKittensFirebaseAdapter = self.decodeExplodingKittensFirebaseAdapter(document) {
-                explodingKittensFirebaseAdapter.players.remove(player)
-                self.encodeExplodingKittensFirebaseAdapter(
-                    explodingKittensFirebaseAdapter,
-                    docRef)
+            if let gameState = self.decodeGameState(document) {
+                gameState.players.remove(player)
+                self.encodeGameState(gameState, docRef)
                 self.notJoined()
             }
         }
@@ -231,19 +195,18 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     func createRoom(player: Player) {
         var docRef: DocumentReference?
 
-        // TODO: this only allows exploding kitten, allow customisation to choose games
         let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player, observer: self)
 
-        let explodingKittensFirebaseAdapter = ExplodingKittensFirebaseAdapter(
-            explodingKittensGameRunner: explodingKittensGameRunner)
+        guard let gameState = explodingKittensGameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
 
         docRef = db.collection("rooms").document()
 
         if let docRef = docRef {
-            self.encodeExplodingKittensFirebaseAdapter(explodingKittensFirebaseAdapter,
-                                                       docRef)
+            self.encodeGameState(gameState, docRef)
             self.joined(id: docRef.documentID,
-                        gameRunnerAdapter: explodingKittensFirebaseAdapter)
+                        gameRunner: explodingKittensGameRunner)
 
             print("adding listener now")
 
@@ -251,15 +214,10 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner, _ gameEvents: [GameEvent]) {
+    func notifyObserver(_ explodingKittensGameState: ExplodingKittensGameState, _ gameEvents: [GameEvent]) {
         let docRef = db.collection("rooms").document(gameRoomID)
 
-        let toEncode = ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: explodingKittensGameRunner)
-
-        toEncode.log.append(gameEvents)
-
-        encodeExplodingKittensFirebaseAdapter(toEncode,
-                                              docRef)
+        encodeGameState(explodingKittensGameState, docRef)
     }
 
     func startGame() {
@@ -267,13 +225,14 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
             return
         }
 
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+            return
+        }
         let docRef = db.collection("rooms").document(gameRoomID)
 
         gameRunner.setup()
-        gameRunner.state = .start
+        gameRunner.gameState.state = .start
 
-        encodeExplodingKittensFirebaseAdapter(
-            ExplodingKittensFirebaseAdapter(explodingKittensGameRunner: gameRunner),
-            docRef)
+        encodeGameState(gameState, docRef)
     }
 }

@@ -77,7 +77,7 @@ struct ExplodingKittensOnlineView: View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex) {
                 let bottomPlayerViewModel = PlayerViewModel(
                     player: localPlayer,
                     hand: gameRunnerViewModel.getHandByPlayer(localPlayer) ?? CardCollection()
@@ -90,8 +90,8 @@ struct ExplodingKittensOnlineView: View {
             }
             CardPreviewView()
 
-            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex),
-               let request = gameRunnerViewModel.globalRequests.first {
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex),
+               let request = gameRunnerViewModel.gameState.globalRequests.first {
                 if request.toPlayer.id == localPlayer.id {
                     RequestViewFactory(request: request, isOnline: true)
                 } else {

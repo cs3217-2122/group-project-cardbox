@@ -18,29 +18,28 @@ extension GameEventTests {
     }
 
     class GameRunnerStub: GameRunnerProtocol {
+        func updateState(gameState: GameState) {
+
+        }
 
         init() {
         }
 
-        var winner: Player?
-
-        var isWin = false
-
         var isShowingPeek = false
-
-        var players = PlayerCollection()
-
-        var playerHands: [UUID: CardCollection] = [:]
-
-        var globalRequests: [Request] = []
-
-        var globalResponses: [Response] = []
 
         var localPendingRequests: [Request] = []
 
         var cardsDragging: [Card] = []
 
         var cardPreview: Card?
+
+        var gameState = GameState(players: PlayerCollection(),
+                                  playerHands: [:],
+                                  isWin: false,
+                                  winner: nil,
+                                  state: .start,
+                                  globalRequests: [],
+                                  globalResponses: [])
 
         var deck = CardCollection(cards: [
             generateSingleTargetCard(),
@@ -76,7 +75,7 @@ extension GameEventTests {
                 return
             }
 
-            players.setCurrentPlayer(nextPlayer)
+            gameState.players.setCurrentPlayer(nextPlayer)
         }
 
         func getWinner() -> Player? {
@@ -84,11 +83,13 @@ extension GameEventTests {
         }
 
         func getNextPlayer() -> Player? {
-            guard !players.isEmpty else {
+            guard !gameState.players.isEmpty else {
                 return nil
             }
 
-            let nextPlayer = players.getPlayerByIndex(max(players.currentPlayerIndex, players.count - 1))
+            let nextPlayer = gameState.players.getPlayerByIndex(
+                max(gameState.players.currentPlayerIndex, gameState.players.count - 1)
+            )
             return nextPlayer
         }
 

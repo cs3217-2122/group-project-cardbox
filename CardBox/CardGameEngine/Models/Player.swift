@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Player: Identifiable {
+class Player: Identifiable, Codable {
     let id: UUID
     private(set) var name: String
     private(set) var isOutOfGame = false
@@ -18,8 +18,9 @@ class Player: Identifiable {
         name
     }
 
-    convenience init(name: String) {
-        self.init(id: UUID(), name: name)
+    init(name: String) {
+        self.id = UUID()
+        self.name = name
     }
 
     // for online game

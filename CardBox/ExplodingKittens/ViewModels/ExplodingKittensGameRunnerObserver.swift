@@ -6,5 +6,5 @@
 //
 
 protocol ExplodingKittensGameRunnerObserver {
-    func notifyObserver(_ explodingKittensGameRunner: ExplodingKittensGameRunner, _ gameEvents: [GameEvent])
+    func notifyObserver(_ explodingKittensGameState: ExplodingKittensGameState, _ gameEvents: [GameEvent])
 }

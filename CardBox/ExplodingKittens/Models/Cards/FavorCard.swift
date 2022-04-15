@@ -56,11 +56,19 @@ class FavorCard: ExplodingKittensCard {
                 request: IntRequest(description: "Please choose the position of the card you want to give away",
                                     fromPlayer: player,
                                     toPlayer: targetPlayer,
-                                    callback: callback,
+                                    callback: Callback(callback),
                                     minValue: 1,
                                     maxValue: targetHand.count
                                    )
             )
         ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }
