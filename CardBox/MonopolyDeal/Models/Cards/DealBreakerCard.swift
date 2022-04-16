@@ -37,7 +37,10 @@ class DealBreakerCard: MonopolyDealCard {
                 let playerPropertyArea = gameRunner.getPropertyAreaByPlayer(player)
 
                 // Only remove full sets
-                if baseSize == gameState.deck.count {
+                if baseSize == deck
+                    .getCards()
+                    .filter({ $0 is PropertyCard })
+                    .count {
                     // TODO: Fix from area
                     gameRunner.executeGameEvents([
                         MovePropertyAreaEvent(cardSet: deck, fromArea: playerPropertyArea, toArea: playerPropertyArea),

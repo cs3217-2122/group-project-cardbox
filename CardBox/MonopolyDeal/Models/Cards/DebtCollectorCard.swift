@@ -6,7 +6,7 @@
 //
 
 class DebtCollectorCard: MonopolyDealCard {
-    let debtCollectionAmount: Int = 5
+    private let debtCollectionAmount: Int = 5
 
     init() {
         super.init(

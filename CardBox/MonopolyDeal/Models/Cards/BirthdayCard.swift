@@ -6,7 +6,7 @@
 //
 
 class BirthdayCard: MonopolyDealCard {
-    let birthdayAmount: Int = 2
+    private let birthdayAmount: Int = 2
 
     init() {
         super.init(

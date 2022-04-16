@@ -24,20 +24,27 @@ class MonopolyDealPlayerPropertyArea: Codable {
         area.remove(at: firstIndex)
     }
 
-    func checkIfPropertySetIsFullSet(_ propertySet: CardCollection) -> Bool {
-        let pureProperties = propertySet
-            .getCards()
-            .filter({ $0 is PropertyCard })
-
-        guard let baseCard = pureProperties.first as? PropertyCard else {
-            return false
-        }
-
-        return pureProperties.count == baseCard.setSize
-    }
-
     func getArea() -> [CardCollection] {
         area
+    }
+
+    func getFirstStandardPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
+        guard let propertyCard = propertySet.getCards().first(where: {
+            guard let standardPropertyCard = $0 as? PropertyCard else {
+                return false
+            }
+            return standardPropertyCard.colors.count == 1
+        }) as? PropertyCard else {
+            return nil
+        }
+        return propertyCard
+    }
+
+    func getFirstPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
+        guard let propertyCard = propertySet.getCards().first(where: { $0 is PropertyCard }) as? PropertyCard else {
+            return nil
+        }
+        return propertyCard
     }
 
     func updateState(_ otherPlayerPropertyArea: MonopolyDealPlayerPropertyArea) {

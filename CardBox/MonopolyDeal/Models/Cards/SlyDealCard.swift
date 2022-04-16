@@ -18,9 +18,23 @@ class SlyDealCard: MonopolyDealCard {
         if case .deck(let collection) = target {
             if let collection = collection {
 
-                guard let propertyCard = collection.getCards()
+                guard let gameState = gameRunner.gameState as? MonopolyDealGameState,
+                      gameState.checkIfPropertySetIsFullSet(collection) else {
+                          return
+                      }
+
+                guard var propertyCard = collection.getCards()
                         .first(where: { $0 is PropertyCard }) as? PropertyCard else {
                             return
+                }
+
+                if let wildCard = collection.getCard(where: { card in
+                    guard let propertyCard = card as? PropertyCard else {
+                        return false
+                    }
+                    return propertyCard.colors.count > 1
+                }) as? PropertyCard {
+                    propertyCard = wildCard
                 }
 
                 let hand = gameRunner.getHandByPlayer(player)
@@ -40,7 +54,7 @@ class SlyDealCard: MonopolyDealCard {
     }
 
     override func getBankValue() -> Int {
-        guard let bankValue = MonopolyDealCardType.house.bankValue else {
+        guard let bankValue = MonopolyDealCardType.slyDeal.bankValue else {
             assert(false, "Unable to obtain bank value of house card")
         }
         return bankValue
