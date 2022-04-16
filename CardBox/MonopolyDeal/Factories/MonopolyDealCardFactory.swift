@@ -165,4 +165,21 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
             return nil
         }
     }
+
+    var metatype: MonopolyDealCard.Type? {
+        switch self {
+        case .property:
+            return PropertyCard.self
+        case .dealBreaker:
+            return DealBreakerCard.self
+        case .birthday:
+            return BirthdayCard.self
+        case .passGo:
+            return PassGoCard.self
+        case .money:
+            return MoneyCard.self
+        case .debtCollector, .slyDeal, .rent, .doubleRent, .forcedDeal, .hotel, .house:
+            return nil
+        }
+    }
 }

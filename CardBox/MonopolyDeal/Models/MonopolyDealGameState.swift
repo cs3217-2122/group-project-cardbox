@@ -82,6 +82,24 @@ class MonopolyDealGameState: GameState {
         super.updateState(gameState: gameState)
     }
 
+    func checkIfPropertySetIsFullSet(_ propertySet: CardCollection) -> Bool {
+        let pureProperties = propertySet
+            .getCards()
+            .filter({ $0 is PropertyCard })
+
+        guard let baseCard = pureProperties.first as? PropertyCard else {
+            return false
+        }
+
+        return pureProperties.count == baseCard.setSize &&
+        pureProperties.contains(where: { card in
+            guard let propertyCard = card as? PropertyCard else {
+                return false
+            }
+            return propertyCard.colors.count == 1
+        })
+    }
+
     private func updatePlayerPropertyArea(_ newPlayerProperyArea: [UUID: MonopolyDealPlayerPropertyArea]) {
         for (key, value) in newPlayerProperyArea {
             if let current = playerPropertyArea[key] {
