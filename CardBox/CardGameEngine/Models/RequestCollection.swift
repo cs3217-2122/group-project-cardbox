@@ -5,31 +5,13 @@
 //  Created by user213938 on 4/15/22.
 //
 
-class RequestCollection: Identifiable, Codable {
-    private var requests: [Request]
-
-    init(_ requests: [Request]) {
-        self.requests = requests
+class RequestCollection: GameEngineCollection<Request> {
+    override init(_ requests: [Request]) {
+        super.init(requests)
     }
 
     convenience init() {
         self.init([])
-    }
-
-    var first: Request? {
-        requests.first
-    }
-
-    func first(where predicate: (Request) -> Bool) -> Request? {
-        first(where: predicate)
-    }
-
-    func append(_ request: Request) {
-        requests.append(request)
-    }
-
-    func removeAll(where predicate: (Request) -> Bool) {
-        requests.removeAll(where: predicate)
     }
 
     enum ObjectTypeKey: CodingKey {
@@ -95,14 +77,14 @@ class RequestCollection: Identifiable, Codable {
             }
         }
 
-        self.requests = items
+        super.init(items)
     }
 
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         var objectsArray = container.nestedUnkeyedContainer(forKey: CodingKeys.requests)
-        requests.forEach { request in
-            let type: RequestType? = RequestCollection.getTypeFromRequest(request)
+        getCollection().forEach { item in
+            let type: RequestType? = RequestCollection.getTypeFromRequest(item)
 
             guard let type = type else {
                 return
@@ -113,7 +95,7 @@ class RequestCollection: Identifiable, Codable {
             try? object.encode(type, forKey: ObjectTypeKey.type)
 
             let encoder = object.superEncoder()
-            try? request.encode(to: encoder)
+            try? item.encode(to: encoder)
         }
     }
 }

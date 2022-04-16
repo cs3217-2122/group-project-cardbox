@@ -5,31 +5,13 @@
 //  Created by user213938 on 4/15/22.
 //
 
-class ResponseCollection: Identifiable, Codable {
-    private var responses: [Response]
-
-    init(_ responses: [Response]) {
-        self.responses = responses
+class ResponseCollection: GameEngineCollection<Response> {
+    override init(_ requests: [Response]) {
+        super.init(requests)
     }
 
     convenience init() {
         self.init([])
-    }
-
-    var first: Response? {
-        responses.first
-    }
-
-    func first(where predicate: (Request) -> Bool) -> Response? {
-        first(where: predicate)
-    }
-
-    func append(_ response: Response) {
-        responses.append(response)
-    }
-
-    func removeAll(where predicate: (Response) -> Bool) {
-        responses.removeAll(where: predicate)
     }
 
     enum ObjectTypeKey: CodingKey {
@@ -95,14 +77,14 @@ class ResponseCollection: Identifiable, Codable {
             }
         }
 
-        self.responses = items
+        super.init(items)
     }
 
-    func encode(to encoder: Encoder) throws {
+    override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         var objectsArray = container.nestedUnkeyedContainer(forKey: CodingKeys.responses)
-        responses.forEach { response in
-            let type: ResponseType? = ResponseCollection.getTypeFromResponse(response)
+        getCollection().forEach { item in
+            let type: ResponseType? = ResponseCollection.getTypeFromResponse(item)
 
             guard let type = type else {
                 return
@@ -113,11 +95,7 @@ class ResponseCollection: Identifiable, Codable {
             try? object.encode(type, forKey: ObjectTypeKey.type)
 
             let encoder = object.superEncoder()
-            try? response.encode(to: encoder)
+            try? item.encode(to: encoder)
         }
-    }
-
-    func getResponses() -> [Response] {
-        responses
     }
 }
