@@ -54,7 +54,7 @@ class PropertyCard: MonopolyDealCard {
                 }
 
                 let baseSize = baseCard.setSize
-                guard deck.count < baseSize else {
+                guard deck.getCards().filter({ $0 is PropertyCard }).count < baseSize else {
                     return
                 }
 
@@ -82,6 +82,7 @@ class PropertyCard: MonopolyDealCard {
     }
 
     override func getBankValue() -> Int {
+        // TODO: ADD BANK VALUE WHEN MORE COLORS ARE ADDED
         if colors.contains(.green) || colors.contains(.blue) {
             return 4
         } else if colors.contains(.red) {

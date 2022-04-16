@@ -20,12 +20,16 @@ class DebtCollectorCard: MonopolyDealCard {
         guard let targetPlayer = target.getPlayerIfTargetSingle() as? MonopolyDealPlayer else {
             return
         }
+        let hand = gameRunner.getHandByPlayer(player)
 
         gameRunner.executeGameEvents([MoneyRequestEvent(moneyAmount: debtCollectionAmount,
                                                         requestDescription: "Owe money pay money! "
                                                         + "Please pay \(player.name) \(debtCollectionAmount) M.",
                                                         requestSender: player,
-                                                        requestReciepient: targetPlayer)])
+                                                        requestReciepient: targetPlayer),
+                                      MoveCardsDeckToDeckEvent(cards: [self],
+                                                               fromDeck: hand,
+                                                               toDeck: gameRunner.gameplayArea)])
     }
 
     override func getBankValue() -> Int {

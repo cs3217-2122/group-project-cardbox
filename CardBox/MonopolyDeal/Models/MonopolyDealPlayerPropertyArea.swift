@@ -24,6 +24,18 @@ class MonopolyDealPlayerPropertyArea: Codable {
         area.remove(at: firstIndex)
     }
 
+    func checkIfPropertySetIsFullSet(_ propertySet: CardCollection) -> Bool {
+        let pureProperties = propertySet
+            .getCards()
+            .filter({ $0 is PropertyCard })
+
+        guard let baseCard = pureProperties.first as? PropertyCard else {
+            return false
+        }
+
+        return pureProperties.count == baseCard.setSize
+    }
+
     func getArea() -> [CardCollection] {
         area
     }

@@ -33,6 +33,12 @@ class BirthdayCard: MonopolyDealCard {
                                                             requestSender: player,
                                                             requestReciepient: targetPlayer)])
         }
+
+        let hand = gameRunner.getHandByPlayer(player)
+        gameRunner.executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea)
+        ])
+
     }
 
     override func getBankValue() -> Int {

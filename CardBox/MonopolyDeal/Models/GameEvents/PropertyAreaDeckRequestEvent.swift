@@ -62,8 +62,10 @@ struct PropertyAreaDeckRequestEvent: GameEvent {
     }
 
     private func getOptions(propertyArea: MonopolyDealPlayerPropertyArea) -> [String] {
-        var deckOptions = (1...propertyArea.count).map({ String($0) })
-        deckOptions.append(newPropertyDeckOption)
+        var deckOptions = [newPropertyDeckOption]
+        if propertyArea.getArea().isEmpty {
+            deckOptions.append(contentsOf: (1...propertyArea.count).map({ "Deck \(String($0))" }))
+        }
         return deckOptions
     }
 }
