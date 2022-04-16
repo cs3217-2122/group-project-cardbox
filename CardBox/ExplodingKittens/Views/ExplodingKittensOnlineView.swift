@@ -83,6 +83,7 @@ struct ExplodingKittensOnlineView: View {
             }
 
             WinMessageView()
+            MessagesView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
@@ -91,7 +92,6 @@ struct ExplodingKittensOnlineView: View {
     }
 
     private func setup() {
-//        gameRunnerViewModel.initialiseFrom(explodingKittensGameRunnerInitialiser)
     }
 
     func dismissPeek() {

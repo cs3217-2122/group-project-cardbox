@@ -17,6 +17,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var cardsSelected: [Card]
     @Published internal var isShowingPeek = false
     internal var localPendingRequests: [Request]
+    @Published internal var localMessages: [Message]
 
     internal var cardWidth = 150
     internal var cardHeight = 250
@@ -47,6 +48,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsDragging = []
         self.cardsSelected = []
         self.localPendingRequests = []
+        self.localMessages = []
     }
 
     // for online use (join Room)
@@ -57,6 +59,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsDragging = []
         self.cardsSelected = []
         self.localPendingRequests = []
+        self.localMessages = []
     }
 
     // initialiser used by host game view model (create room)
