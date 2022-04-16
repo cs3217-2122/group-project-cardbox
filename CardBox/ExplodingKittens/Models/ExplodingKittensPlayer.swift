@@ -36,7 +36,7 @@ class ExplodingKittensPlayer: Player {
 
         if ekCards.count == 1 {
             let card = ekCards[0]
-            return ExplodingKittensConstants.actionCards.contains(card.type)
+            return ExplodingKittensConstants.actionCards.contains(where: { $0 == type(of: card) })
         }
 
         if ekCards.count == 2 || ekCards.count == 3 {
@@ -52,7 +52,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkSameCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            type(of: card)
+            ExplodingKittensConstants.getCardTypeFromObject(card: card)
         }
 
         return cardTypes.allSatisfy({ cardType in
@@ -62,14 +62,12 @@ class ExplodingKittensPlayer: Player {
 
     private func checkDifferentCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            type(of: card)
+            ExplodingKittensConstants.getCardTypeFromObject(card: card)
         }
 
-        var cardTypeSet: [ExplodingKittensCard.Type] = []
+        var cardTypeSet: Set<ExplodingKittensCardType> = []
         cardTypes.forEach { cardType in
-            if !cardTypeSet.contains(where: { $0 == cardType }) {
-                cardTypeSet.append(cardType)
-            }
+            cardTypeSet.insert(cardType)
         }
 
         return cardTypeSet.count == cards.count
@@ -193,12 +191,17 @@ class ExplodingKittensPlayer: Player {
                 return
             }
 
+            guard let cardType = ExplodingKittensCardType(rawValue: optionsResponse.value) else {
+                return
+            }
+
             guard let chosenCard = targetHand.getCard(where: {
                 guard let ekCard = $0 as? ExplodingKittensCard else {
                     return false
                 }
 
-                return ekCard.type.rawValue == optionsResponse.value
+                let type = ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+                return type == cardType
             }) else {
                 return
             }
@@ -236,12 +239,17 @@ class ExplodingKittensPlayer: Player {
                 return
             }
 
+            guard let cardType = ExplodingKittensCardType(rawValue: optionsResponse.value) else {
+                return
+            }
+
             guard let chosenCard = ekGameRunner.gameplayArea.getCard(where: {
                 guard let ekCard = $0 as? ExplodingKittensCard else {
                     return false
                 }
 
-                return ekCard.type.rawValue == optionsResponse.value
+                let type = ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+                return type == cardType
             }) else {
                 return
             }
@@ -268,7 +276,8 @@ class ExplodingKittensPlayer: Player {
             guard let ekCard = $0 as? ExplodingKittensCard else {
                 return ""
             }
-            return ekCard.type.rawValue
+            return
+            ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
         })
 
         var distinctCardTypes: Set<String> = Set()

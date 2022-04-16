@@ -88,9 +88,9 @@ class ExplodingKittensCardFactory: CardFactory {
         }
 
         for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
-            cards.append(RandomCard(name: "Random 1", type: .random1))
-            cards.append(RandomCard(name: "Random 2", type: .random2))
-            cards.append(RandomCard(name: "Random 3", type: .random3))
+            cards.append(RandomCard(name: "Random 1", cardType: .random1))
+            cards.append(RandomCard(name: "Random 2", cardType: .random2))
+            cards.append(RandomCard(name: "Random 3", cardType: .random3))
         }
 
         return cards
