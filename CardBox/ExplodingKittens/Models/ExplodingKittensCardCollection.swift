@@ -27,4 +27,16 @@ class ExplodingKittensCardCollection: CardCollection {
         )
     }
 
+    override func encode(to encoder: Encoder) {
+        super.encode(
+            to: encoder,
+            mapFunc: { card in
+                guard let ekCard = card as? ExplodingKittensCard else {
+                    return nil
+                }
+                return ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+            },
+            cardType: ExplodingKittensCardType.self
+        )
+    }
 }
