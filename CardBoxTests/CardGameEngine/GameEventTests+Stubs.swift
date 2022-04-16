@@ -19,6 +19,10 @@ extension GameEventTests {
 
     class GameRunnerStub: GameRunnerProtocol {
 
+        func updateState(gameState: GameState) {
+
+        }
+
         init() {
         }
 
@@ -27,6 +31,8 @@ extension GameEventTests {
         var localPendingRequests: [Request] = []
 
         var cardsDragging: [Card] = []
+
+        var cardsSelected: [Card] = []
 
         var cardPreview: Card?
 
@@ -37,6 +43,15 @@ extension GameEventTests {
                                   state: .start,
                                   globalRequests: [],
                                   globalResponses: [])
+
+        var deck = CardCollection(cards: [
+            generateSingleTargetCard(),
+            generateSingleTargetCard(),
+            generateAllTargetCard(),
+            generateAllTargetCard(),
+            generateNoneTargetCard(),
+            generateNoneTargetCard()
+        ])
 
         func setCardPreview(_ card: Card) {
             // Do nothing
@@ -63,7 +78,8 @@ extension GameEventTests {
                 return
             }
 
-            // players.setCurrentPlayer(nextPlayer)
+            gameState.players.setCurrentPlayer(nextPlayer)
+
         }
 
         func getWinner() -> Player? {
@@ -71,17 +87,22 @@ extension GameEventTests {
         }
 
         func getNextPlayer() -> Player? {
-//            guard !players.isEmpty else {
-//                return nil
-//            }
-//
-//            let nextPlayer = players.getPlayerByIndex(max(players.currentPlayerIndex, players.count - 1))
-//            return nextPlayer
-            return nil
+            guard !gameState.players.isEmpty else {
+                return nil
+            }
+
+            let nextPlayer = gameState.players.getPlayerByIndex(
+                max(gameState.players.currentPlayerIndex, gameState.players.count - 1)
+            )
+            return nextPlayer
         }
 
         func checkWinningConditions() -> Bool {
             false
+        }
+
+        func getHandByPlayer(_ player: Player) -> CardCollection {
+            CardCollection()
         }
 
         func notifyChanges(_ gameEvents: [GameEvent]) {

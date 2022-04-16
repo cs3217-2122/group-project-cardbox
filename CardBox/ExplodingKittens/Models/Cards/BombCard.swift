@@ -25,9 +25,7 @@ class BombCard: ExplodingKittensCard {
     }
 
     override func onDraw(gameRunner: EKGameRunnerProtocol, player: EKPlayer) {
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = gameRunner.getHandByPlayer(player)
 
         guard let defuseCard = playerHand.getCard(where: { isDefuseCard($0) }) else {
             gameRunner.executeGameEvents([SetPlayerOutOfGameEvent(player: player)])

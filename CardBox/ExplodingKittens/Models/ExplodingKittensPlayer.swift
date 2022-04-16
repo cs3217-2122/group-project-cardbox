@@ -52,7 +52,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkSameCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
         return cardTypes.allSatisfy({ cardType in
@@ -62,12 +62,14 @@ class ExplodingKittensPlayer: Player {
 
     private func checkDifferentCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            card.type
+            type(of: card)
         }
 
-        var cardTypeSet: Set<ExplodingKittensCardType> = Set()
+        var cardTypeSet: [ExplodingKittensCard.Type] = []
         cardTypes.forEach { cardType in
-            cardTypeSet.insert(cardType)
+            if !cardTypeSet.contains(where: { $0 == cardType }) {
+                cardTypeSet.append(cardType)
+            }
         }
 
         return cardTypeSet.count == cards.count
@@ -105,9 +107,7 @@ class ExplodingKittensPlayer: Player {
             return
         }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(self) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(self)
 
         switch ekCards.count {
         case 1:
@@ -137,17 +137,13 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         guard let targetPlayer = target.getPlayerIfTargetSingle() else {
             return
         }
 
-        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
-            return
-        }
+        let targetHand = ekGameRunner.getHandByPlayer(targetPlayer)
 
         let callback: (Response) -> Void = { response in
             guard let intResponse = response as? IntResponse else {
@@ -184,17 +180,13 @@ class ExplodingKittensPlayer: Player {
              return
          }
 
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         guard let targetPlayer = target.getPlayerIfTargetSingle() else {
             return
         }
 
-        guard let targetHand = ekGameRunner.getHandByPlayer(targetPlayer) else {
-            return
-        }
+        let targetHand = ekGameRunner.getHandByPlayer(targetPlayer)
 
         let callback: (Response) -> Void = { response in
             guard let optionsResponse = response as? OptionsResponse else {
@@ -232,14 +224,12 @@ class ExplodingKittensPlayer: Player {
     private func playFiveDifferentCardsCombo(_ cards: [Card],
                                              ekGameRunner: ExplodingKittensGameRunnerProtocol,
                                              player: Player) {
-         guard let cards = cards as? [ExplodingKittensCard],
-               checkDifferentCards(cards: cards) else {
-             return
-         }
-
-        guard let playerHand = ekGameRunner.getHandByPlayer(player) else {
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkDifferentCards(cards: cards) else {
             return
         }
+
+        let playerHand = ekGameRunner.getHandByPlayer(player)
 
         let callback: (Response) -> Void = { response in
             guard let optionsResponse = response as? OptionsResponse else {

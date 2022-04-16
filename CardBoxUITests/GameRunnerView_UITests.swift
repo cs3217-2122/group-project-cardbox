@@ -77,12 +77,16 @@ class GameRunnerView_UITests: XCTestCase {
         seeTheFuture.tap()
         app.buttons["Play"].tap()
 
-        let random1 = app.staticTexts["Random 1"]
-        XCTAssertTrue(random1.exists)
+        let random2 = app.staticTexts["Random 2"]
+        XCTAssertTrue(random2.exists)
 
         let popoverDismiss = app.otherElements["PopoverDismissRegion"].firstMatch
         popoverDismiss.tap()
-        XCTAssertFalse(random1.exists)
+
+        // let doesNotExist = NSPredicate(format: "exists == FALSE")
+        // expectation(for: doesNotExist, evaluatedWith: random1)
+        // waitForExpectations(timeout: 3.0)
+        XCTAssertFalse(random2.exists)
 
         let emptyPlayDeck = app.staticTexts["No card in stack"]
         XCTAssertFalse(emptyPlayDeck.exists)

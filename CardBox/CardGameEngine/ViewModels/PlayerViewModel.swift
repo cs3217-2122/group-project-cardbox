@@ -8,12 +8,23 @@ import SwiftUI
 
 class PlayerViewModel: ObservableObject {
     var player: Player
-    var selectedCards: [Card] = []
     var hand: CardCollection
 
     init(player: Player, hand: CardCollection) {
         self.player = player
         self.hand = hand
+    }
+
+    func setHand(hand: CardCollection) {
+        self.hand = hand
+    }
+
+    var handSize: Int {
+        hand.count
+    }
+
+    func getCards() -> [Card] {
+        hand.getCards()
     }
 
     // for online use
@@ -27,25 +38,23 @@ class PlayerViewModel: ObservableObject {
         self.hand = CardCollection()
     }
 
-    func tapCard(card: Card, cardViewModel: CardViewModel, gameRunner: GameRunnerProtocol) {
+    func tapCard(card: Card, gameRunner: GameRunnerProtocol) {
         guard let currentPlayer = gameRunner.gameState.players.currentPlayer else {
+
             return
         }
+        // gameRunner.selectedCards and gameRunner.canTap(card)
+        // not in selectedCards and canTap
+
         if currentPlayer === player {
-            if cardViewModel.isSelected {
-                if hand.containsCard(card) {
-                    if let indexOf = selectedCards.firstIndex(where: { cardObject in
-                        cardObject === card
-                    }) {
-                        selectedCards.remove(at: indexOf)
-                    }
-                    cardViewModel.isSelected = false
+            if gameRunner.cardsSelected.contains(card) {
+                if let indexOf = gameRunner.cardsSelected.firstIndex(where: { cardObject in
+                    cardObject === card
+                }) {
+                    gameRunner.cardsSelected.remove(at: indexOf)
                 }
             } else {
-                if hand.containsCard(card) {
-                    selectedCards.append(card)
-                    cardViewModel.isSelected = true
-                }
+                gameRunner.cardsSelected.append(card)
             }
         }
     }
@@ -59,7 +68,8 @@ class PlayerViewModel: ObservableObject {
     }
 
     func canPlayCard(gameRunner: GameRunnerProtocol) -> Bool {
-        player.canPlay(cards: selectedCards, gameRunner: gameRunner)
+        // Might need to check for other player card sets
+        player.canPlay(cards: gameRunner.cardsSelected, gameRunner: gameRunner)
     }
 
     func previewCard(card: Card, gameRunner: GameRunnerProtocol) {
@@ -99,30 +109,31 @@ class PlayerViewModel: ObservableObject {
             return
         }
 
-        guard let typeOfTargettedCard = player.determineTargetOfCards(selectedCards, gameRunner: gameRunner) else {
+        guard let typeOfTargettedCard = player.determineTargetOfCards(
+            gameRunner.cardsSelected, gameRunner: gameRunner) else {
             print("Could not determine target")
             return
         }
 
         switch typeOfTargettedCard {
         case .targetAllPlayersCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .all)
         case .targetSinglePlayerCard:
             guard let target = target else {
                 print("No target chosen")
                 return
             }
 
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .single(target.player))
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .single(target.player))
         case .noTargetCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .none)
         case .targetSingleDeckCard:
-            player.playCards(selectedCards, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
+            player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .deck(targetCardSet?.cards))
         }
     }
 
-    func isSelected(card: Card) -> Bool {
-        for selectedCard in selectedCards where selectedCard === card {
+    func isSelected(card: Card, gameRunner: GameRunnerProtocol) -> Bool {
+        for selectedCard in gameRunner.cardsSelected where selectedCard === card {
             return true
         }
         return false

@@ -8,18 +8,26 @@
 import SwiftUI
 
 struct DeckView: View {
+    @EnvironmentObject var gameRunnerDelegate: GameRunnerDelegate
     let deckViewModel: DeckViewModel
-    var isFaceUp: Bool
+
+    init(deck: CardCollection) {
+        deckViewModel = DeckViewModel(
+            deck: deck,
+            isPlayDeck: false,
+            gameRunner: ExplodingKittensGameRunner()
+        )
+    }
+
+    var isFaceUp: Bool {
+        deckViewModel.deck.isFaceUp
+    }
 
     var body: some View {
-        CardView(cardViewModel: CardViewModel(card: deckViewModel.topCard, isFaceUp: isFaceUp),
-                 currentPlayerViewModel: PlayerViewModel())
+        CardView(card: deckViewModel.topCard, isFaceUp: isFaceUp, isSelected: false)
             .onDrop(of: ["cardbox.card"], delegate: deckViewModel)
-    }
-}
-
-struct DeckView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("stub")
+            .onAppear {
+                deckViewModel.setGameRunner(gameRunner: gameRunnerDelegate.runner)
+            }
     }
 }

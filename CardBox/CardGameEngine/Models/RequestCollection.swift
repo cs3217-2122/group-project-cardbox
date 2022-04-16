@@ -8,16 +8,28 @@
 class RequestCollection: Identifiable, Codable {
     private var requests: [Request]
 
-    init(requests: [Request]) {
+    init(_ requests: [Request]) {
         self.requests = requests
     }
 
     convenience init() {
-        self.init(requests: [])
+        self.init([])
     }
 
-    func add(_ request: Request) {
+    var first: Request? {
+        requests.first
+    }
+
+    func first(where predicate: (Request) -> Bool) -> Request? {
+        first(where: predicate)
+    }
+
+    func append(_ request: Request) {
         requests.append(request)
+    }
+
+    func removeAll(where predicate: (Request) -> Bool) {
+        requests.removeAll(where: predicate)
     }
 
     enum ObjectTypeKey: CodingKey {

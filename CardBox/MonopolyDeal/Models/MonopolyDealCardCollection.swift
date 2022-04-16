@@ -1,11 +1,11 @@
 //
-//  ExplodingKittensCardCollection.swift
+//  MonopolyDealCardCollection.swift
 //  CardBox
 //
-//  Created by user213938 on 4/13/22.
+//  Created by Stuart Long on 15/4/22.
 //
 
-class ExplodingKittensCardCollection: CardCollection {
+class MonopolyDealCardCollection: CardCollection {
     enum ObjectTypeKey: CodingKey {
         case type
     }
@@ -14,6 +14,7 @@ class ExplodingKittensCardCollection: CardCollection {
         super.init(cards: [])
     }
 
+    // TODO: simplify this
     required init(from decoder: Decoder) throws {
         try super.init(
             from: decoder,
@@ -23,7 +24,7 @@ class ExplodingKittensCardCollection: CardCollection {
                 }
                 return try? metatype.init(from: decoder)
             },
-            cardType: ExplodingKittensCardType.self
+            cardType: MonopolyDealCardType.self
         )
     }
 

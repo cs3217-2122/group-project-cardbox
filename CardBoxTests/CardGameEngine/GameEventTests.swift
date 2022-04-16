@@ -53,7 +53,7 @@ class GameEventTests: XCTestCase {
     }
 
     func test_addPlayerEvent_singlePlayer() {
-        let players = gameRunner.players
+        let players = gameRunner.gameState.players
         XCTAssertEqual(players.count, 0)
         let newPlayer = PlayerStub(name: "Test player")
         gameRunner.executeGameEvents([AddPlayerEvent(player: newPlayer)])
@@ -66,7 +66,7 @@ class GameEventTests: XCTestCase {
     }
 
     func test_addPlayerEvent_multiplePlayers() {
-        let players = gameRunner.players
+        let players = gameRunner.gameState.players
         XCTAssertEqual(players.count, 0)
 
         for _ in 0..<15 {
@@ -78,25 +78,25 @@ class GameEventTests: XCTestCase {
 
     func test_setCurrentPlayerEvent_playerInGame() {
         let player = PlayerStub(name: "Test player")
-        XCTAssertNil(gameRunner.players.currentPlayer)
+        XCTAssertNil(gameRunner.gameState.players.currentPlayer)
         gameRunner.executeGameEvents([AddPlayerEvent(player: player)])
-        XCTAssertNotNil(gameRunner.players.currentPlayer)
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player)
+        XCTAssertNotNil(gameRunner.gameState.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player)
         gameRunner.executeGameEvents([SetCurrentPlayerEvent(player: player)])
-        XCTAssertNotNil(gameRunner.players.currentPlayer)
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player)
+        XCTAssertNotNil(gameRunner.gameState.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player)
     }
 
     func test_setCurrentPlayerEvent_playerNotInGame() {
         let inGamePlayer = PlayerStub(name: "In-game player")
         let notInGamePlayer = PlayerStub(name: "Not in-game player")
-        XCTAssertNil(gameRunner.players.currentPlayer)
+        XCTAssertNil(gameRunner.gameState.players.currentPlayer)
         gameRunner.executeGameEvents([AddPlayerEvent(player: inGamePlayer)])
-        XCTAssertNotNil(gameRunner.players.currentPlayer)
-        XCTAssertIdentical(gameRunner.players.currentPlayer, inGamePlayer)
+        XCTAssertNotNil(gameRunner.gameState.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, inGamePlayer)
         gameRunner.executeGameEvents([SetCurrentPlayerEvent(player: notInGamePlayer)])
-        XCTAssertNotNil(gameRunner.players.currentPlayer)
-        XCTAssertIdentical(gameRunner.players.currentPlayer, inGamePlayer)
+        XCTAssertNotNil(gameRunner.gameState.players.currentPlayer)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, inGamePlayer)
     }
 
 //     CHANCE OF FALSE NEGATIVE:
@@ -150,18 +150,18 @@ class GameEventTests: XCTestCase {
     func test_advanceNextPlayerEvent_onlyOnePlayer() {
         let player = PlayerStub(name: "Solo player")
         gameRunner.executeGameEvents([AddPlayerEvent(player: player)])
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player)
         gameRunner.executeGameEvents([AdvanceNextPlayerEvent()])
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player)
     }
 
     func test_advanceNextPlayerEvent_moreThanOnePlayer() {
         let player1 = PlayerStub(name: "First player")
         let player2 = PlayerStub(name: "Second player")
         gameRunner.executeGameEvents([AddPlayerEvent(player: player1), AddPlayerEvent(player: player2)])
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player1)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player1)
         gameRunner.executeGameEvents([AdvanceNextPlayerEvent()])
-        XCTAssertIdentical(gameRunner.players.currentPlayer, player2)
+        XCTAssertIdentical(gameRunner.gameState.players.currentPlayer, player2)
     }
 
     func test_moveCardsDeckToDeckEvent_playerHasCard() {
@@ -170,12 +170,12 @@ class GameEventTests: XCTestCase {
         let players = [fromPlayer, toPlayer]
         for player in players {
             let playerHand = CardCollection()
-            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.gameState.playerHands[player.id] = playerHand
             gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
         }
 
-        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
-                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+        guard let fromPlayerHand = gameRunner.gameState.playerHands[fromPlayer.id],
+              let toPlayerHand = gameRunner.gameState.playerHands[toPlayer.id] else {
             XCTAssertFalse(true)
             return
         }
@@ -198,12 +198,12 @@ class GameEventTests: XCTestCase {
         let players = [fromPlayer, toPlayer]
         for player in players {
             let playerHand = CardCollection()
-            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.gameState.playerHands[player.id] = playerHand
             gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
         }
 
-        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
-                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+        guard let fromPlayerHand = gameRunner.gameState.playerHands[fromPlayer.id],
+              let toPlayerHand = gameRunner.gameState.playerHands[toPlayer.id] else {
             XCTAssertFalse(true)
             return
         }
@@ -225,12 +225,12 @@ class GameEventTests: XCTestCase {
         let players = [fromPlayer, toPlayer]
         for player in players {
             let playerHand = CardCollection()
-            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.gameState.playerHands[player.id] = playerHand
             gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
         }
 
-        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
-                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+        guard let fromPlayerHand = gameRunner.gameState.playerHands[fromPlayer.id],
+              let toPlayerHand = gameRunner.gameState.playerHands[toPlayer.id] else {
             XCTAssertFalse(true)
             return
         }
@@ -259,12 +259,12 @@ class GameEventTests: XCTestCase {
         let players = [fromPlayer, toPlayer]
         for player in players {
             let playerHand = CardCollection()
-            gameRunner.playerHands[player.id] = playerHand
+            gameRunner.gameState.playerHands[player.id] = playerHand
             gameRunner.executeGameEvents([AddPlayerEvent(player: fromPlayer)])
         }
 
-        guard let fromPlayerHand = gameRunner.playerHands[fromPlayer.id],
-                let toPlayerHand = gameRunner.playerHands[toPlayer.id] else {
+        guard let fromPlayerHand = gameRunner.gameState.playerHands[fromPlayer.id],
+              let toPlayerHand = gameRunner.gameState.playerHands[toPlayer.id] else {
             XCTAssertFalse(true)
             return
         }

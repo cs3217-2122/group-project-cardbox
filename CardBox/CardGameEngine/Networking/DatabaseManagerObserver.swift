@@ -9,6 +9,6 @@ protocol DatabaseManagerObserver {
     func notifyObserver(isJoined: Bool)
     func notifyObserver(players: [String])
     func notifyObserver(gameRoomID: String)
-    func notifyObserver(gameRunner: ExplodingKittensGameRunner)
+    func notifyObserver(gameRunner: GameRunnerProtocol)
     func notifyObserver(playerIndex: Int)
 }

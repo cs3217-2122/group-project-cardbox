@@ -8,6 +8,9 @@
 class CardCollection: Identifiable, Codable {
     private var cards: [Card] = []
 
+    // TODO: initialise with correct value
+    var isFaceUp = true
+
     init(cards: [Card]) {
         self.cards = cards
     }
@@ -16,11 +19,34 @@ class CardCollection: Identifiable, Codable {
         case cards
     }
 
-    init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Card]) throws {
+    enum ObjectTypeKey: CodingKey {
+        case type
+    }
+
+    init<T: Decodable>(from decoder: Decoder, mapFunc: (Decoder, T) -> Card?, cardType: T.Type) throws {
         // TODO
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
-        self.cards = mapFunc(objectsArray)
+        var oriArray = objectsArray
+        var items = [Card]()
+
+        while !oriArray.isAtEnd {
+            // Need to call decode at least once here to advance the pointer
+            guard let object = try? oriArray.nestedContainer(keyedBy: ObjectTypeKey.self) else {
+                continue
+            }
+            guard let type = try? object.decode(T.self, forKey: .type) else {
+                continue
+            }
+
+            let decoder = try object.superDecoder()
+            let card: Card? = mapFunc(decoder, type)
+            if let card = card {
+                items.append(card)
+            }
+        }
+
+        self.cards = items
     }
 
     convenience init() {

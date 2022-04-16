@@ -1,13 +1,14 @@
 //
-//  ExplodingKittensDatabaseManager.swift
+//  MonopolyDealDatabaseManager.swift
 //  CardBox
 //
-//  Created by Stuart Long on 4/4/22.
+//  Created by Stuart Long on 15/4/22.
 //
+
 import Firebase
 import FirebaseFirestoreSwift
 
-class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunnerObserver {
+class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserver {
 
     internal var isJoined = false {
         didSet {
@@ -29,7 +30,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
 
     internal var gameRunner: GameRunnerProtocol? {
         didSet {
-            guard let gameRunner = gameRunner as? ExplodingKittensGameRunner else {
+            guard let gameRunner = gameRunner as? MonopolyDealGameRunner else {
                 return
             }
 
@@ -66,7 +67,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    private func notifyObservers(gameRunner: ExplodingKittensGameRunner) {
+    private func notifyObservers(gameRunner: MonopolyDealGameRunner) {
         for observer in observers {
             observer.notifyObserver(gameRunner: gameRunner)
         }
@@ -86,9 +87,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
 
     func decodeGameState(_ document: DocumentSnapshot) -> GameState? {
         do {
-            let explodingKittensGameState = try document.data(as: ExplodingKittensGameState.self)
+            let monopolyDealGameState = try document.data(as: MonopolyDealGameState.self)
             print("decoded")
-            return explodingKittensGameState
+            return monopolyDealGameState
         } catch {
             print(error)
             return nil
@@ -96,7 +97,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     }
 
     func encodeGameState(_ gameState: GameState, _ docRef: DocumentReference) {
-        guard let gameState = gameState as? ExplodingKittensGameState else {
+        guard let gameState = gameState as? MonopolyDealGameState else {
             return
         }
         do {
@@ -155,7 +156,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 gameState.addPlayerHand(playerId: player.id, cards: CardCollection())
                 self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
-                            gameRunner: ExplodingKittensGameRunner(gameState: gameState, observer: self))
+                            gameRunner: MonopolyDealGameRunner(gameState: gameState, observer: self))
                 self.addListener(docRef)
             }
         }
@@ -168,7 +169,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         self.playerIndex = nil
     }
 
-    private func joined(id: String, gameRunner: ExplodingKittensGameRunner) {
+    private func joined(id: String, gameRunner: MonopolyDealGameRunner) {
         self.isJoined = true
         self.players = gameRunner.gameState.players.names
         self.gameRoomID = id
@@ -198,9 +199,9 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
     func createRoom(player: Player) {
         var docRef: DocumentReference?
 
-        let explodingKittensGameRunner = ExplodingKittensGameRunner(host: player, observer: self)
+        let monopolyDealGameRunner = MonopolyDealGameRunner(host: player, observer: self)
 
-        guard let gameState = explodingKittensGameRunner.gameState as? ExplodingKittensGameState else {
+        guard let gameState = monopolyDealGameRunner.gameState as? MonopolyDealGameState else {
             return
         }
 
@@ -209,7 +210,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         if let docRef = docRef {
             self.encodeGameState(gameState, docRef)
             self.joined(id: docRef.documentID,
-                        gameRunner: explodingKittensGameRunner)
+                        gameRunner: monopolyDealGameRunner)
 
             print("adding listener now")
 
@@ -217,10 +218,10 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
         }
     }
 
-    func notifyObserver(_ explodingKittensGameState: ExplodingKittensGameState, _ gameEvents: [GameEvent]) {
+    func notifyObserver(_ monopolyDealGameState: MonopolyDealGameState, _ gameEvents: [GameEvent]) {
         let docRef = db.collection("rooms").document(gameRoomID)
 
-        encodeGameState(explodingKittensGameState, docRef)
+        encodeGameState(monopolyDealGameState, docRef)
     }
 
     func startGame() {

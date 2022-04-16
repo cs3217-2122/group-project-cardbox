@@ -1,11 +1,11 @@
 //
-//  ExplodingKittensPlayerCollection.swift
+//  MonopolyDealPlayerCollection.swift
 //  CardBox
 //
-//  Created by Stuart Long on 14/4/22.
+//  Created by Stuart Long on 15/4/22.
 //
 
-class ExplodingKittensPlayerCollection: PlayerCollection {
+class MonopolyDealPlayerCollection: PlayerCollection {
     init() {
         super.init(players: [])
     }
@@ -21,7 +21,7 @@ class ExplodingKittensPlayerCollection: PlayerCollection {
                 var array = objectsArray
                 while !oriArray.isAtEnd {
                     let player: Player? = {
-                        try? array.decode(ExplodingKittensPlayer.self)
+                        try? array.decode(MonopolyDealPlayer.self)
                     }()
                     if let player = player {
                         items.append(player)

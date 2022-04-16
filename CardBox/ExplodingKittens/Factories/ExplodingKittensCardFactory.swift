@@ -154,4 +154,27 @@ enum ExplodingKittensCardType: String, CaseIterable, Codable {
             return 0
         }
     }
+
+    var metatype: ExplodingKittensCard.Type? {
+        switch self {
+        case .attack:
+            return AttackCard.self
+        case .favor:
+            return FavorCard.self
+        case .nope:
+            return nil
+        case .seeTheFuture:
+            return SeeTheFutureCard.self
+        case .shuffle:
+            return ShuffleCard.self
+        case .skip:
+            return SkipCard.self
+        case .random1, .random2, .random3:
+            return RandomCard.self
+        case .bomb:
+            return BombCard.self
+        case .defuse:
+            return DefuseCard.self
+        }
+    }
 }

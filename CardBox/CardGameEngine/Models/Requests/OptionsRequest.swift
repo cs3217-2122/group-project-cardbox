@@ -30,7 +30,7 @@ class OptionsRequest: Request {
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = try encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.stringRepresentationOfOptions, forKey: .stringRepresentationOfOptions)
         try super.encode(to: encoder)
     }

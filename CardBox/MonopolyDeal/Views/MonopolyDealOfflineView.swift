@@ -18,30 +18,20 @@ struct MonopolyDealOfflineView: View {
     var centerArea: some View {
         HStack {
             DeckView(
-                deckViewModel: DeckViewModel(
-                    deck: gameRunnerViewModel.deck,
-                    isPlayDeck: false,
-                    gameRunner: gameRunnerViewModel
-                ),
-                isFaceUp: false
+                deck: gameRunnerViewModel.deck
             )
             DeckView(
-                deckViewModel: DeckViewModel(
-                    deck: gameRunnerViewModel.gameplayArea,
-                    isPlayDeck: true,
-                    gameRunner: gameRunnerViewModel
-                ),
-                isFaceUp: true
+                deck: gameRunnerViewModel.gameplayArea
             )
         }
     }
 
-    func getNonCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
+    func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
         NonBottomPlayerView(
-            error: $error,
-            bottomPlayerViewModel: bottomPlayerViewModel,
+            bottomPlayer: bottomPlayer,
             selectedPlayerViewModel: $selectedPlayerViewModel,
-            selectedCardSetViewModel: $selectedCardSetViewModel,
+            selectedCardSetViewModel: .constant(nil),
+            error: $error,
             playerArea: { player in
                 MDNonPlayerView(
                     playerViewModel: PlayerViewModel(
@@ -86,7 +76,7 @@ struct MonopolyDealOfflineView: View {
                     hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
                 )
                 VStack {
-                    getNonCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
+                    getNonCurrentPlayer(bottomPlayer: currentPlayer)
                     Spacer()
                     getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
                 }

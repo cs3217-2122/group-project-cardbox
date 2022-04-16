@@ -35,7 +35,7 @@ class IntRequest: Request {
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = try encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(self.minValue, forKey: .minValue)
         try container.encode(self.maxValue, forKey: .maxValue)
         try super.encode(to: encoder)

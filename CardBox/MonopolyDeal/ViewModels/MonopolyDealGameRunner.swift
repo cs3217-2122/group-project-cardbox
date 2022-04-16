@@ -14,7 +14,9 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     @Published internal var gameState: GameState
     @Published internal var cardsDragging: [Card]
+    @Published internal var cardsSelected: [Card]
     @Published internal var cardPreview: Card?
+
     internal var localPendingRequests: [Request]
 
     var deck: CardCollection {
@@ -33,10 +35,33 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         }
     }
 
+    private var observers: [MonopolyDealGameRunnerObserver]
+
     init() {
         self.gameState = MonopolyDealFactory.generateGameState()
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
+        self.observers = []
+    }
+
+    // for online use (join Room)
+    init(gameState: GameState, observer: MonopolyDealGameRunnerObserver) {
+        self.gameState = gameState
+        self.observers = [observer]
+        self.cardsDragging = []
+        self.cardsSelected = []
+        self.localPendingRequests = []
+    }
+
+    // initialiser used by host game view model (create room)
+    convenience init(host: Player, observer: MonopolyDealGameRunnerObserver) {
+        self.init()
+        self.gameState.addPlayer(player: MonopolyDealPlayer(name: host.name,
+                                                            id: host.id,
+                                                            isOutOfGame: host.isOutOfGame,
+                                                            cardsPlayed: host.cardsPlayed))
+        self.observers.append(observer)
     }
 
     func updateState(_ gameRunner: GameRunnerProtocol) {
