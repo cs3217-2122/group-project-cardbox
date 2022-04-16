@@ -28,8 +28,8 @@ class BirthdayCard: MonopolyDealCard {
                 return
             }
             gameRunner.executeGameEvents([RequestForMoneyEvent(moneyAmount: birthdayAmount,
-                                                               requestDescription: "Its " + player.name +
-                                                               "'s birthday. Please pay him/her \(birthdayAmount) M.",
+                                                               requestDescription: "Its \(player.name)'s birthday." +
+                                                               "Please pay him/her \(birthdayAmount) M.",
                                                                requestSender: player,
                                                                requestReciepient: targetPlayer)])
         }
