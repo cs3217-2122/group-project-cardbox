@@ -8,6 +8,9 @@
 class CardCollection: Identifiable, Codable {
     private var cards: [Card] = []
 
+    // TODO: initialise with correct value
+    var isFaceUp = true
+
     init(cards: [Card]) {
         self.cards = cards
     }

@@ -21,6 +21,21 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
     @ViewBuilder let playerArea: (Player) -> PlayerView
     @ViewBuilder let center: () -> CentreView
 
+    init(bottomPlayer: Player, selectedPlayerViewModel: Binding<PlayerViewModel?>,
+         selectedCardSetViewModel: Binding<CardSetViewModel?>,
+         localPlayerIndex: Int,
+         error: Binding<Bool>,
+         playerArea: @escaping (Player) -> PlayerView,
+         center: @escaping () -> CentreView) {
+        bottomPlayerViewModel = PlayerViewModel(player: bottomPlayer, hand: CardCollection())
+        self.localPlayerIndex = localPlayerIndex
+        self._selectedPlayerViewModel = selectedPlayerViewModel
+        self._selectedCardSetViewModel = selectedCardSetViewModel
+        self._error = error
+        self.playerArea = playerArea
+        self.center = center
+    }
+
     var body: some View {
         VStack {
             if let topPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(

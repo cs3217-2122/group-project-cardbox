@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PlayerHandView: View {
     var playerViewModel: PlayerViewModel
-    var bottomPlayerViewModel: PlayerViewModel
-    let playerHandViewModel: PlayerHandViewModel
+    var bottomPlayer: Player
     @EnvironmentObject private var gameRunnerDelegate: GameRunnerDelegate
     var gameRunnerViewModel: GameRunnerProtocol {
         gameRunnerDelegate.runner
@@ -19,8 +18,15 @@ struct PlayerHandView: View {
     @Binding var error: Bool
     let handWidth = 600
 
+    init(player: Player, hand: CardCollection, bottomPlayer: Player, error: Binding<Bool>) {
+        playerViewModel = PlayerViewModel(player: player,
+                                          hand: hand)
+        self.bottomPlayer = bottomPlayer
+        self._error = error
+    }
+
     var spacing: Double {
-        let size = playerHandViewModel.handSize
+        let size = playerViewModel.handSize
         guard size > 0 else {
             return 0
         }
@@ -28,22 +34,20 @@ struct PlayerHandView: View {
     }
 
     var isFaceUp: Bool {
-        bottomPlayerViewModel.player.id == playerViewModel.player.id
+        bottomPlayer.id == playerViewModel.player.id
     }
 
     var body: some View {
         HStack(spacing: CGFloat(spacing)) {
-            ForEach(playerHandViewModel.getCards()) { card in
-                let cardViewModel = CardViewModel(card: card,
-                                                  isFaceUp: isFaceUp,
-                                                  isSelected: playerViewModel.isSelected(card: card))
+            ForEach(playerViewModel.getCards()) { card in
+                let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                 if isFaceUp {
-                    CardView(cardViewModel: cardViewModel,
-                             currentPlayerViewModel: bottomPlayerViewModel, playerViewModel: playerViewModel)
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
+                             bottomPlayer: bottomPlayer)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                             playerViewModel
-                                .tapCard(card: card, cardViewModel: cardViewModel, gameRunner: gameRunnerViewModel)
+                                .tapCard(card: card, gameRunner: gameRunnerViewModel)
                             error = !playerViewModel.canPlayCard(gameRunner: gameRunnerViewModel)
                         }
                     }
@@ -57,15 +61,10 @@ struct PlayerHandView: View {
                             }
                     )
                 } else {
-                    CardView(cardViewModel: cardViewModel, currentPlayerViewModel: PlayerViewModel())
+                    CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
+                             bottomPlayer: bottomPlayer)
                 }
             }
         }
-    }
-}
-
-struct PlayerHandView_Previews: PreviewProvider {
-    static var previews: some View {
-        Text("stub")
     }
 }

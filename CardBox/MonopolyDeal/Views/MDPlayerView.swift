@@ -56,18 +56,13 @@ struct MDPlayerView: View {
                         )
                     }
                     DeckView(
-                        deckViewModel: DeckViewModel(
-                            deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player),
-                            isPlayDeck: false,
-                            gameRunner: mdViewModel
-                        ),
-                        isFaceUp: true
+                        deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player)
                     )
                 }
             }
-            PlayerHandView(playerViewModel: playerViewModel,
-                           bottomPlayerViewModel: currentPlayerViewModel,
-                           playerHandViewModel: PlayerHandViewModel(hand: playerViewModel.hand),
+            PlayerHandView(player: playerViewModel.player,
+                           hand: playerViewModel.hand,
+                           bottomPlayer: currentPlayerViewModel.player,
                            error: $error)
         }
     }

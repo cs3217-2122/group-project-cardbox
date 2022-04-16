@@ -31,6 +31,8 @@ extension GameEventTests {
 
         var cardsDragging: [Card] = []
 
+        var cardsSelected: [Card] = []
+
         var cardPreview: Card?
 
         var gameState = GameState(players: PlayerCollection(),
@@ -95,6 +97,10 @@ extension GameEventTests {
 
         func checkWinningConditions() -> Bool {
             false
+        }
+
+        func getHandByPlayer(_ player: Player) -> CardCollection {
+            CardCollection()
         }
 
         func notifyChanges(_ gameEvents: [GameEvent]) {

@@ -7,6 +7,7 @@
 
 protocol GameRunnerProtocol: AnyObject {
     var cardsDragging: [Card] { get set }
+    var cardsSelected: [Card] { get set }
     var gameState: GameState { get set }
     var localPendingRequests: [Request] { get set }
 
@@ -21,6 +22,7 @@ protocol GameRunnerProtocol: AnyObject {
     func getWinner() -> Player?
     func getNextPlayer() -> Player?
     func checkWinningConditions() -> Bool
+    func getHandByPlayer(_ player: Player) -> CardCollection
 
     // Must implement this update value
     // use this to notify server as well

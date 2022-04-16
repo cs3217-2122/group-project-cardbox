@@ -13,6 +13,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
+    @Published internal var cardsSelected: [Card]
     @Published internal var isShowingPeek = false
     internal var localPendingRequests: [Request]
 
@@ -40,6 +41,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsPeeking = []
         self.observers = []
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
     }
 
@@ -49,6 +51,7 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.cardsPeeking = []
         self.observers = [observer]
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
     }
 
@@ -173,8 +176,12 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         return nextPlayer
     }
 
-    func getHandByPlayer(_ player: Player) -> CardCollection? {
-        self.gameState.playerHands[player.id]
+    func getHandByPlayer(_ player: Player) -> CardCollection {
+        guard let gameState = gameState as? ExplodingKittensGameState else {
+            return CardCollection()
+        }
+
+        return gameState.playerHands[player.id] ?? CardCollection()
     }
 
     var allCardTypes: [ExplodingKittensCardType] {

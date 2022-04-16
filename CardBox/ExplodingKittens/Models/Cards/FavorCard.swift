@@ -29,13 +29,9 @@ class FavorCard: ExplodingKittensCard {
             return
         }
 
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = gameRunner.getHandByPlayer(player)
 
-        guard let targetHand = gameRunner.getHandByPlayer(targetPlayer) else {
-            return
-        }
+        let targetHand = gameRunner.getHandByPlayer(targetPlayer)
 
         let callback: (Response) -> Void = { response in
             guard let intResponse = response as? IntResponse else {

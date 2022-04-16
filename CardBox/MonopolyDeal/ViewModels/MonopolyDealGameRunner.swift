@@ -14,7 +14,9 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     @Published internal var gameState: GameState
     @Published internal var cardsDragging: [Card]
+    @Published internal var cardsSelected: [Card]
     @Published internal var cardPreview: Card?
+
     internal var localPendingRequests: [Request]
 
     var deck: CardCollection {
@@ -38,6 +40,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     init() {
         self.gameState = MonopolyDealFactory.generateGameState()
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
         self.observers = []
     }
@@ -47,6 +50,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.gameState = gameState
         self.observers = [observer]
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
     }
 
