@@ -113,10 +113,6 @@ extension GameEventTests {
             // Do nothing
         }
 
-        func updateState(gameState: GameState) {
-
-        }
-
     }
 
     static func generateSingleTargetCard() -> CardStub {
