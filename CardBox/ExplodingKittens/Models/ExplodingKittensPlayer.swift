@@ -52,7 +52,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkSameCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            ExplodingKittensConstants.getCardTypeFromObject(card: card)
+            ExplodingKittensCardFactory.getCardTypeFromObject(card: card)
         }
 
         return cardTypes.allSatisfy({ cardType in
@@ -62,7 +62,7 @@ class ExplodingKittensPlayer: Player {
 
     private func checkDifferentCards(cards: [ExplodingKittensCard]) -> Bool {
         let cardTypes = cards.compactMap { card in
-            ExplodingKittensConstants.getCardTypeFromObject(card: card)
+            ExplodingKittensCardFactory.getCardTypeFromObject(card: card)
         }
 
         var cardTypeSet: Set<ExplodingKittensCardType> = []
@@ -200,7 +200,7 @@ class ExplodingKittensPlayer: Player {
                     return false
                 }
 
-                let type = ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+                let type = ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)
                 return type == cardType
             }) else {
                 return
@@ -248,7 +248,7 @@ class ExplodingKittensPlayer: Player {
                     return false
                 }
 
-                let type = ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+                let type = ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)
                 return type == cardType
             }) else {
                 return
@@ -277,7 +277,7 @@ class ExplodingKittensPlayer: Player {
                 return ""
             }
             return
-            ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
+            ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
         })
 
         var distinctCardTypes: Set<String> = Set()

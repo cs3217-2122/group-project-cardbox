@@ -34,7 +34,7 @@ class ExplodingKittensCardCollection: CardCollection {
                 guard let ekCard = card as? ExplodingKittensCard else {
                     return nil
                 }
-                return ExplodingKittensConstants.getCardTypeFromObject(card: ekCard)
+                return ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)
             },
             cardType: ExplodingKittensCardType.self
         )
