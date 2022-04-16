@@ -122,6 +122,7 @@ struct MDPlayerPlayAreaView: View {
                     // Money Pile
                     DeckView(
                         deck: mdViewModel.getMoneyAreaByPlayer(player),
+                        isPlayDeck: false,
                         gameRunner: gameRunnerViewModel ?? MonopolyDealGameRunner()
                     )
                     properties

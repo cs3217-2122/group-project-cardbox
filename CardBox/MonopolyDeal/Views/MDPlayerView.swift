@@ -93,6 +93,7 @@ struct MDPlayerView: View {
                     }
                     DeckView(
                         deck: mdViewModel.getMoneyAreaByPlayer(playerViewModel.player),
+                        isPlayDeck: false,
                         gameRunner: gameRunnerViewModel ?? MonopolyDealGameRunner()
                     )
                 }

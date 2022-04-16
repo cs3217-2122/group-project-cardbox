@@ -17,10 +17,10 @@ struct ExplodingKittensOfflineView: View {
     var centerArea: some View {
         HStack {
             DeckView(
-                deck: gameRunnerViewModel.deck, gameRunner: gameRunnerViewModel
+                deck: gameRunnerViewModel.deck, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
             DeckView(
-                deck: gameRunnerViewModel.gameplayArea, gameRunner: gameRunnerViewModel
+                deck: gameRunnerViewModel.gameplayArea, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
         }
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))

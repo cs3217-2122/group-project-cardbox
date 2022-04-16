@@ -11,10 +11,10 @@ struct DeckView: View {
     @EnvironmentObject var gameRunnerDelegate: GameRunnerDelegate
     let deckViewModel: DeckViewModel
 
-    init(deck: CardCollection, gameRunner: GameRunnerProtocol) {
+    init(deck: CardCollection, isPlayDeck: Bool, gameRunner: GameRunnerProtocol) {
         deckViewModel = DeckViewModel(
             deck: deck,
-            isPlayDeck: false,
+            isPlayDeck: isPlayDeck,
             gameRunner: gameRunner
         )
     }
@@ -26,8 +26,5 @@ struct DeckView: View {
     var body: some View {
         CardView(card: deckViewModel.topCard, isFaceUp: isFaceUp, isSelected: false)
             .onDrop(of: ["cardbox.card"], delegate: deckViewModel)
-            // .onAppear {
-            //    deckViewModel.setGameRunner(gameRunner: gameRunnerDelegate.runner)
-            // }
     }
 }
