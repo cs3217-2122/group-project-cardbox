@@ -12,26 +12,36 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
     @Published var players: [String] = []
     @Published var gameRoomID: String = ""
     var playerIndex: Int?
-    private var joinGameManager: JoinGameManager
-    var gameRunner: ExplodingKittensGameRunner?
+    private var joinGameManager: JoinGameManager?
+    var gameRunner: GameRunnerProtocol?
 
     var gameStarted: Bool {
-        guard let gameRunner = gameRunner else {
+        guard let gameRunner = gameRunner, joinGameManager != nil else {
             return false
         }
-        return gameRunner.state == .start
+        return gameRunner.gameState.state == .start
     }
 
     init() {
-        self.joinGameManager = ExplodingKittensDatabaseManager()
-        self.joinGameManager.addObserver(self)
+    }
+
+    func loadDatabaseManager(_ databaseManager: DatabaseManager) {
+        databaseManager.addObserver(self)
+        self.joinGameManager = databaseManager
     }
 
     func joinRoom(id: String, playerViewModel: PlayerViewModel) {
+        guard let joinGameManager = joinGameManager else {
+            return
+        }
         joinGameManager.joinRoom(id: id, player: playerViewModel.player)
     }
 
     func removeFromRoom(playerViewModel: PlayerViewModel) {
+        guard let joinGameManager = joinGameManager else {
+            return
+        }
+
         joinGameManager.removeFromRoom(player: playerViewModel.player)
     }
 
@@ -47,7 +57,7 @@ class JoinGameViewModel: ObservableObject, DatabaseManagerObserver {
         self.gameRoomID = gameRoomID
     }
 
-    func notifyObserver(gameRunner: ExplodingKittensGameRunner) {
+    func notifyObserver(gameRunner: GameRunnerProtocol) {
         self.gameRunner = gameRunner
     }
 

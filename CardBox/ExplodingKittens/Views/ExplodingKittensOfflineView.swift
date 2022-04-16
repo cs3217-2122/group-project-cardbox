@@ -27,13 +27,13 @@ struct ExplodingKittensOfflineView: View {
     }
 
     @ViewBuilder
-    func playerArea(player: Player) -> some View {
-        if let bottomPlayer = gameRunnerViewModel.players.currentPlayer {
+    func playerArea(player: Player, rotateBy: Double) -> some View {
+        if let bottomPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
             EKPlayerView(
                 player: player,
-                hand: gameRunnerViewModel.getHandByPlayer(player)
-                ?? CardCollection(),
+                hand: gameRunnerViewModel.getHandByPlayer(player),
                 bottomPlayer: bottomPlayer,
+                rotateBy: rotateBy,
                 error: $error,
                 selectedPlayerViewModel: $selectedPlayerViewModel
             )
@@ -54,14 +54,16 @@ struct ExplodingKittensOfflineView: View {
     }
 
     func getCurrentPlayer(bottomPlayer: Player) -> some View {
-        playerArea(player: bottomPlayer)
+        playerArea(player: bottomPlayer, rotateBy: 0.0)
     }
 
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+
+            if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
+
                 VStack {
                     getNonCurrentPlayer(bottomPlayer: currentPlayer)
                     Spacer()
@@ -70,7 +72,7 @@ struct ExplodingKittensOfflineView: View {
             }
             CardPreviewView()
 
-            if let request = gameRunnerViewModel.globalRequests.first {
+            if let request = gameRunnerViewModel.gameState.globalRequests.first {
                 RequestViewFactory(request: request, isOnline: false)
             }
 

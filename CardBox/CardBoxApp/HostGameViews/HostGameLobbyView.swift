@@ -13,10 +13,18 @@ struct HostGameLobbyView: View {
     @ObservedObject var viewModel: HostGameViewModel
     var playerViewModel: PlayerViewModel
     @EnvironmentObject private var appState: AppState
+    @Binding var selectedGame: CardBoxGame
 
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
-            ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
+            if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
+                ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
+            } else if selectedGame == .MonopolyDeal, let gameRunner = gameRunner as? MonopolyDealGameRunner {
+                // TODO: Replace with MonopolyDealOnlineView
+                EmptyView()
+            } else {
+                EmptyView()
+            }
         } else {
             VStack {
                 HStack {
@@ -47,6 +55,8 @@ struct HostGameLobbyView: View {
 
 struct HostGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        HostGameLobbyView(viewModel: HostGameViewModel(), playerViewModel: PlayerViewModel())
+        HostGameLobbyView(viewModel: HostGameViewModel(),
+                          playerViewModel: PlayerViewModel(),
+                          selectedGame: .constant(.ExplodingKittens))
     }
 }

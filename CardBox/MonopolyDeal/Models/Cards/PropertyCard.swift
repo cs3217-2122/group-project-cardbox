@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-enum PropertyColor: Int {
+enum PropertyColor: Int, Codable {
     case red
     case blue
     case green
@@ -38,7 +38,7 @@ class PropertyCard: MonopolyDealCard {
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let deck) = target {
             if let deck = deck {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 guard let baseCard = deck.getCardByIndex(0) as? PropertyCard else {
                     return
@@ -64,7 +64,7 @@ class PropertyCard: MonopolyDealCard {
                     ])
                 }
             } else {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 guard colors.count == 1 else {
                     return
@@ -79,5 +79,28 @@ class PropertyCard: MonopolyDealCard {
                 ])
             }
         }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case setSize
+        case rentAmounts
+        case colors
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.setSize = try container.decode(Int.self, forKey: .setSize)
+        self.rentAmounts = try container.decode([Int].self, forKey: .rentAmounts)
+        self.colors = try container.decode(Set<PropertyColor>.self, forKey: .colors)
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(setSize, forKey: .setSize)
+        try container.encode(rentAmounts, forKey: .rentAmounts)
+        try container.encode(colors, forKey: .colors)
+//        let superEncoder = container.superEncoder()
+        try super.encode(to: encoder)
     }
 }

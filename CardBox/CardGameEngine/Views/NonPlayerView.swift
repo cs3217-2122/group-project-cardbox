@@ -18,14 +18,14 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
     var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
     @Binding var selectedCardSetViewModel: CardSetViewModel?
-    @ViewBuilder let playerArea: (Player) -> PlayerView
+    @ViewBuilder let playerArea: (Player, Double) -> PlayerView
     @ViewBuilder let center: () -> CentreView
 
     init(bottomPlayer: Player, selectedPlayerViewModel: Binding<PlayerViewModel?>,
          selectedCardSetViewModel: Binding<CardSetViewModel?>,
          localPlayerIndex: Int,
          error: Binding<Bool>,
-         playerArea: @escaping (Player) -> PlayerView,
+         playerArea: @escaping (Player, Double) -> PlayerView,
          center: @escaping () -> CentreView) {
         bottomPlayerViewModel = PlayerViewModel(player: bottomPlayer, hand: CardCollection())
         self.localPlayerIndex = localPlayerIndex
@@ -38,11 +38,9 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     var body: some View {
         VStack {
-            if let topPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+            if let topPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
                 start: localPlayerIndex, increment: 2) {
-                playerArea(topPlayer)
-                    .rotationEffect(.degrees(-180))
-
+                playerArea(topPlayer, -180)
             }
             Spacer()
             middlePart
@@ -67,10 +65,9 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     @ViewBuilder
     var leftPlayer: some View {
-        if let leftPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+        if let leftPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 3) {
-            playerArea(leftPlayer)
-                .rotationEffect(.degrees(90))
+            playerArea(leftPlayer, 90)
         } else {
             EmptyView()
         }
@@ -78,10 +75,9 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
 
     @ViewBuilder
     var rightPlayer: some View {
-        if let rightPlayer = gameRunnerViewModel.players.getPlayerByIndexAfterGiven(
+        if let rightPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
             start: localPlayerIndex, increment: 1) {
-            playerArea(rightPlayer)
-                .rotationEffect(.degrees(-90))
+            playerArea(rightPlayer, -90)
         } else {
             EmptyView()
         }

@@ -25,12 +25,17 @@ class SkipCard: ExplodingKittensCard {
     }
 
     override func onPlay(gameRunner: EKGameRunnerProtocol, player: EKPlayer, on target: GameplayTarget) {
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
 
         gameRunner.executeGameEvents([
             AdvanceNextPlayerEvent()
         ])
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

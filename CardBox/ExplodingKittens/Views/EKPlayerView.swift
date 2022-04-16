@@ -14,17 +14,35 @@ struct EKPlayerView: View {
     var gameRunnerViewModel: ExplodingKittensGameRunnerProtocol? {
         gameRunnerDelegate.runner as? ExplodingKittensGameRunnerProtocol
     }
+    var rotateBy = 0.0
 
     @Binding var error: Bool
     @Binding var selectedPlayerViewModel: PlayerViewModel?
 
-    init(player: Player, hand: CardCollection, bottomPlayer: Player,
+    init(player: Player, hand: CardCollection, bottomPlayer: Player, rotateBy: Double,
          error: Binding<Bool>, selectedPlayerViewModel: Binding<PlayerViewModel?>) {
         playerViewModel = PlayerViewModel(player: player,
                                           hand: hand)
         self.bottomPlayer = bottomPlayer
+        self.rotateBy = rotateBy
         self._error = error
         self._selectedPlayerViewModel = selectedPlayerViewModel
+    }
+
+    var frameWidth: CGFloat {
+        if rotateBy == 90 || rotateBy == -90 {
+            return CGFloat((gameRunnerViewModel?.cardHeight ?? 250) + 30)
+        } else {
+            return CGFloat(PlayerHandView.handWidth)
+        }
+    }
+
+    var frameHeight: CGFloat {
+        if rotateBy == 90 || rotateBy == -90 {
+            return CGFloat(PlayerHandView.handWidth)
+        } else {
+            return CGFloat((gameRunnerViewModel?.cardHeight ?? 250) + 30)
+        }
     }
 
     var playerText: String {
@@ -32,7 +50,7 @@ struct EKPlayerView: View {
         if playerViewModel.player.isOutOfGame {
             playerName += "(Dead)"
         }
-        if playerViewModel.player === gameRunnerViewModel?.players.currentPlayer {
+        if playerViewModel.player === gameRunnerViewModel?.gameState.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
         return playerName
@@ -65,5 +83,8 @@ struct EKPlayerView: View {
                            error: $error)
                 .opacity(playerViewModel.isDead() ? 0.5 : 1)
         }
+        .rotationEffect(Angle(degrees: rotateBy))
+        .fixedSize()
+        .frame(width: frameWidth, height: frameHeight)
     }
 }

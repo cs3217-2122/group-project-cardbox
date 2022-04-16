@@ -27,13 +27,13 @@ struct ExplodingKittensOnlineView: View {
     }
 
     @ViewBuilder
-    func playerArea(player: Player) -> some View {
-        if let bottomPlayer = gameRunnerViewModel.players.currentPlayer {
+    func playerArea(player: Player, rotateBy: Double) -> some View {
+        if let bottomPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
             EKPlayerView(
                 player: player,
-                hand: gameRunnerViewModel.getHandByPlayer(player)
-                ?? CardCollection(),
+                hand: gameRunnerViewModel.getHandByPlayer(player),
                 bottomPlayer: bottomPlayer,
+                rotateBy: rotateBy,
                 error: $error,
                 selectedPlayerViewModel: $selectedPlayerViewModel
             )
@@ -55,14 +55,16 @@ struct ExplodingKittensOnlineView: View {
     }
 
     func getCurrentPlayer(bottomPlayer: Player) -> some View {
-        playerArea(player: bottomPlayer)
+        playerArea(player: bottomPlayer, rotateBy: 0.0)
     }
 
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex) {
+
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex) {
+
                 VStack {
                     getNonPlayer(bottomPlayer: localPlayer)
                     Spacer()
@@ -71,8 +73,8 @@ struct ExplodingKittensOnlineView: View {
             }
             CardPreviewView()
 
-            if let localPlayer = gameRunnerViewModel.players.getPlayerByIndex(localPlayerIndex),
-               let request = gameRunnerViewModel.globalRequests.first {
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex),
+               let request = gameRunnerViewModel.gameState.globalRequests.first {
                 if request.toPlayer.id == localPlayer.id {
                     RequestViewFactory(request: request, isOnline: true)
                 } else {

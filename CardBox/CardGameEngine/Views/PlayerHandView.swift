@@ -16,7 +16,7 @@ struct PlayerHandView: View {
     }
 
     @Binding var error: Bool
-    let handWidth = 600
+    static let handWidth = 600
 
     init(player: Player, hand: CardCollection, bottomPlayer: Player, error: Binding<Bool>) {
         playerViewModel = PlayerViewModel(player: player,
@@ -30,7 +30,7 @@ struct PlayerHandView: View {
         guard size > 0 else {
             return 0
         }
-        return Double((handWidth - size * Int(gameRunnerViewModel.cardWidth)) / size)
+        return Double((PlayerHandView.handWidth - size * Int(gameRunnerViewModel.cardWidth)) / size)
     }
 
     var isFaceUp: Bool {
@@ -72,8 +72,9 @@ struct PlayerHandView: View {
         ZStack {
             Rectangle()
                 .fill(Color.clear)
-                .frame(width: CGFloat(handWidth), height: gameRunnerViewModel.cardHeight)
+                .frame(width: CGFloat(PlayerHandView.handWidth), height: CGFloat(gameRunnerViewModel.cardHeight))
             handView
+                .border(Color.red)
         }
     }
 }

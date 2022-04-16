@@ -18,15 +18,17 @@ struct MDPlayerPlayAreaView: View {
         gameRunnerDelegate.runner as? MonopolyDealGameRunnerProtocol
     }
 
+    var rotateBy = 0.0
     @Binding var error: Bool
-    let handWidth = 600
+    static let handWidth = 600
 
-    init(player: Player, sets: MonopolyDealPlayerPropertyArea,
+    init(player: Player, sets: MonopolyDealPlayerPropertyArea, rotateBy: Double,
          error: Binding<Bool>, selectedCardSetViewModel: Binding<CardSetViewModel?>,
          selectedPlayerViewModel: Binding<PlayerViewModel?>) {
         self.player = player
         self.playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
         self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(sets: sets)
+        self.rotateBy = rotateBy
         self._error = error
         self._selectedCardSetViewModel = selectedCardSetViewModel
         self._selectedPlayerViewModel = selectedPlayerViewModel
@@ -37,7 +39,27 @@ struct MDPlayerPlayAreaView: View {
         guard size > 0 else {
             return 0
         }
-        return Double((handWidth - size * Int((gameRunnerViewModel?.cardWidth ?? 75))) / size)
+        return Double((MDPlayerPlayAreaView.handWidth - size * Int((gameRunnerViewModel?.cardWidth ?? 75))) / size)
+    }
+
+    var cardHeight: CGFloat {
+        CGFloat(gameRunnerViewModel?.cardHeight ?? 150)
+    }
+
+    var frameWidth: CGFloat {
+        if rotateBy == 90 || rotateBy == -90 {
+            return CGFloat((gameRunnerViewModel?.cardHeight ?? 250) + 30)
+        } else {
+            return CGFloat(PlayerHandView.handWidth)
+        }
+    }
+
+    var frameHeight: CGFloat {
+        if rotateBy == 90 || rotateBy == -90 {
+            return CGFloat(PlayerHandView.handWidth)
+        } else {
+            return CGFloat((gameRunnerViewModel?.cardHeight ?? 250) + 30)
+        }
     }
 
     var playerText: String {
@@ -45,7 +67,7 @@ struct MDPlayerPlayAreaView: View {
         if player.isOutOfGame {
             playerName += "(Dead)"
         }
-        if player === gameRunnerViewModel?.players.currentPlayer {
+        if player === gameRunnerViewModel?.gameState.players.currentPlayer {
             playerName = "Current Player: " + playerName
         }
         return playerName
@@ -78,7 +100,7 @@ struct MDPlayerPlayAreaView: View {
             Rectangle()
                 .fill(Color.clear)
                 .border(Color.black)
-                .frame(width: CGFloat(handWidth), height: gameRunnerViewModel?.cardHeight)
+                .frame(width: CGFloat(MDPlayerPlayAreaView.handWidth), height: cardHeight)
             HStack(spacing: CGFloat(spacing)) {
                 ForEach(playerPlayAreaViewModel.sets.getArea()) { cardSet in
                     CardSetView(
@@ -107,5 +129,8 @@ struct MDPlayerPlayAreaView: View {
                 }
             }
         }
+        .rotationEffect(Angle(degrees: rotateBy))
+        .fixedSize()
+        .frame(width: frameWidth, height: frameHeight)
     }
 }

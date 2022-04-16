@@ -94,4 +94,5 @@ iOSInjectionProject/
 project.pbxproj
 Package.resolved
 CardBox.xcscheme
+swiftpm/
 

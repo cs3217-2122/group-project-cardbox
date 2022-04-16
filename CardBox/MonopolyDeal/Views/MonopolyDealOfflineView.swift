@@ -31,19 +31,22 @@ struct MonopolyDealOfflineView: View {
         VStack {
             MDPlayerPlayAreaView(player: player,
                                  sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                                 rotateBy: 0.0,
                                  error: $error,
                                  selectedCardSetViewModel: $selectedCardSetViewModel,
                                  selectedPlayerViewModel: $selectedPlayerViewModel)
-            PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player) ?? CardCollection(),
+            PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player),
                            bottomPlayer: player, error: $error)
+            .border(Color.red)
         }
 
     }
 
     @ViewBuilder
-    func otherPlayerArea(player: Player) -> some View {
+    func otherPlayerArea(player: Player, rotateBy: Double) -> some View {
         MDPlayerPlayAreaView(player: player,
                              sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                             rotateBy: rotateBy,
                              error: $error,
                              selectedCardSetViewModel: $selectedCardSetViewModel,
                              selectedPlayerViewModel: $selectedPlayerViewModel)
@@ -69,7 +72,7 @@ struct MonopolyDealOfflineView: View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
-            if let currentPlayer = gameRunnerViewModel.players.currentPlayer {
+            if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
                 VStack {
                     getNonCurrentPlayer(bottomPlayer: currentPlayer)
                     Spacer()
@@ -78,7 +81,7 @@ struct MonopolyDealOfflineView: View {
             }
             CardPreviewView()
 
-            if let request = gameRunnerViewModel.globalRequests.first {
+            if let request = gameRunnerViewModel.gameState.globalRequests.first {
                 RequestViewFactory(request: request, isOnline: false)
             }
 

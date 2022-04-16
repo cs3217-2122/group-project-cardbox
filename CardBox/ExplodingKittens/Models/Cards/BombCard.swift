@@ -25,12 +25,14 @@ class BombCard: ExplodingKittensCard {
     }
 
     override func onDraw(gameRunner: EKGameRunnerProtocol, player: EKPlayer) {
-        guard let playerHand = gameRunner.getHandByPlayer(player) else {
-            return
-        }
+        let playerHand = gameRunner.getHandByPlayer(player)
 
         guard let defuseCard = playerHand.getCard(where: { isDefuseCard($0) }) else {
             gameRunner.executeGameEvents([SetPlayerOutOfGameEvent(player: player)])
+            return
+        }
+
+        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
             return
         }
 
@@ -42,7 +44,7 @@ class BombCard: ExplodingKittensCard {
             gameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: [defuseCard],
                                          fromDeck: playerHand,
-                                         toDeck: gameRunner.gameplayArea),
+                                         toDeck: gameState.gameplayArea),
                 MoveCardsDeckToDeckEvent(cards: [self],
                                          fromDeck: playerHand,
                                          toDeck: gameRunner.deck,
@@ -55,7 +57,7 @@ class BombCard: ExplodingKittensCard {
                 description: "You drew the bomb :( Please choose a position of the draw deck to insert the bomb in",
                 fromPlayer: player,
                 toPlayer: player,
-                callback: callback,
+                callback: Callback(callback),
                 minValue: 1,
                 maxValue: gameRunner.deck.count
             ))
@@ -68,5 +70,13 @@ class BombCard: ExplodingKittensCard {
         }
 
         return ekCard.type == .defuse
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

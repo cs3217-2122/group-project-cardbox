@@ -17,12 +17,20 @@ class HouseCard: MonopolyDealCard {
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
         if case .deck(let collection) = target {
             if let collection = collection {
-                let hand = gameRunner.getHandByPlayer(player) ?? CardCollection()
+                let hand = gameRunner.getHandByPlayer(player)
 
                 gameRunner.executeGameEvents([
                     MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: collection)
                 ])
             }
         }
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func encode(to encoder: Encoder) throws {
+        try super.encode(to: encoder)
     }
 }

@@ -19,10 +19,10 @@ struct CardView: View {
     var player: Player?
     var isFaceUp: Bool
     var cardWidth: CGFloat {
-        gameRunnerViewModel.cardWidth
+        CGFloat(gameRunnerViewModel.cardWidth)
     }
     var cardHeight: CGFloat {
-        gameRunnerViewModel.cardHeight
+        CGFloat(gameRunnerViewModel.cardHeight)
     }
 
     init(card: Card?, isFaceUp: Bool, isSelected: Bool) {
@@ -105,8 +105,7 @@ struct CardView: View {
             .offset(y: viewModel.isSelected ? -35: 0)
             .onAppear {
                 if let bottomPlayer = bottomPlayer {
-                    bottomPlayerViewModel?.setHand(hand: gameRunnerViewModel.getHandByPlayer(bottomPlayer)
-                                                   ?? CardCollection())
+                    bottomPlayerViewModel?.setHand(hand: gameRunnerViewModel.getHandByPlayer(bottomPlayer))
                 }
             }
     }

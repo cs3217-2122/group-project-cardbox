@@ -1,6 +1,19 @@
-class PlayerCollection {
+class PlayerCollection: Codable {
     private var players: [Player]
     private(set) var currentPlayerIndex: Int
+
+    enum CodingKeys: CodingKey {
+        case players
+        case currentPlayerIndex
+    }
+
+    init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Player]) throws {
+        // TODO
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.players)
+        self.players = mapFunc(objectsArray)
+        self.currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
+    }
 
     convenience init() {
         self.init(players: [])
