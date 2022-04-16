@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-class RentCard: MonopolyDealCard {
+class RentCard: ActionCard {
     typealias MDGameRunnerProtocol = MonopolyDealGameRunnerProtocol
     typealias MDPlayer = MonopolyDealPlayer
 

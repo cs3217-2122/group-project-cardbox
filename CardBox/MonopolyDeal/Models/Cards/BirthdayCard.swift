@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-class BirthdayCard: MonopolyDealCard {
+class BirthdayCard: ActionCard {
     private let birthdayAmount: Int = 2
 
     init() {

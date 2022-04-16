@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-class PassGoCard: MonopolyDealCard {
+class PassGoCard: ActionCard {
     init() {
         super.init(
             name: "Go",

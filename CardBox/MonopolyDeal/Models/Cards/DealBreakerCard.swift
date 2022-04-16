@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-class DealBreakerCard: MonopolyDealCard {
+class DealBreakerCard: ActionCard {
     init() {
         super.init(
             name: "Deal Breaker",

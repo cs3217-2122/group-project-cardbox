@@ -5,7 +5,7 @@
 //  Created by user213938 on 4/3/22.
 //
 
-class HouseCard: MonopolyDealCard {
+class HouseCard: ActionCard {
     init() {
         super.init(
             name: "House",

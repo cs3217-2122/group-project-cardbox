@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-class SlyDealCard: MonopolyDealCard {
+class SlyDealCard: ActionCard {
     init() {
         super.init(
             name: "Sly Deal",
