@@ -91,6 +91,19 @@ class PropertyCard: MonopolyDealCard {
         }
     }
 
+    func getStringRepresentationOfColors() -> String {
+        var colorsString = ""
+        let colors = Array(self.colors)
+        for i in 0 ..< colors.count {
+            let color = colors[i]
+            colorsString += "\(color)"
+            if i != colors.count - 1 {
+                colorsString += ", "
+            }
+        }
+        return colorsString
+    }
+
     private enum CodingKeys: String, CodingKey {
         case setSize
         case rentAmounts

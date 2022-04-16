@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-struct RequestForMoneyEvent: GameEvent {
+struct MoneyRequestEvent: GameEvent {
     let moneyAmount: Int
     let requestDescription: String
     let requestSender: MonopolyDealPlayer
@@ -22,15 +22,15 @@ struct RequestForMoneyEvent: GameEvent {
             guard let optionsResponse = response as? OptionsResponse else {
                 return
             }
+
             guard let chosenCard = self.getChosenCard(chosenCardType: optionsResponse.value,
                                                       from: payableCards) as? MonopolyDealCard else {
                 return
             }
 
             if self.getPropertyCards(of: requestReciepient, gameRunner: gameRunner).contains(chosenCard) {
-                let fromDeck = gameRunner.getPropertyAreaByPlayer(requestReciepient)
-                let toDeck = gameRunner.getPropertyAreaByPlayer(requestSender)
-                // TODO: MOVE FROM PROPERTY AREA TO PROPERTY AREA
+                self.sendPropertyAreaDeckRequest(chosenCard: chosenCard, fromPlayer: requestReciepient,
+                                                 toPlayer: requestSender, gameRunner: gameRunner)
             } else {
                 let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
                 let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
@@ -43,17 +43,15 @@ struct RequestForMoneyEvent: GameEvent {
                 let remainingAmountRequired = moneyAmount - chosenCard.getBankValue()
                 let message = "You needed to pay \(moneyAmount), but only payed \(chosenCard.getBankValue()). " +
                 "Please pay the remaining \(remainingAmountRequired)."
-                gameRunner.executeGameEvents([RequestForMoneyEvent(moneyAmount: remainingAmountRequired,
-                                                                   requestDescription: message,
-                                                                   requestSender: requestSender,
-                                                                   requestReciepient: requestReciepient)])
+                gameRunner.executeGameEvents([
+                    MoneyRequestEvent(moneyAmount: remainingAmountRequired, requestDescription: message,
+                                      requestSender: requestSender, requestReciepient: requestReciepient)
+                ])
             }
         }
 
-        let request = OptionsRequest(description: requestDescription,
-                                     fromPlayer: requestSender,
-                                     toPlayer: requestReciepient,
-                                     callback: Callback(callback),
+        let request = OptionsRequest(description: requestDescription, fromPlayer: requestSender,
+                                     toPlayer: requestReciepient, callback: Callback(callback),
                                      stringRepresentationOfOptions: payableCards.map({ $0.name }))
 
         gameRunner.executeGameEvents([SendRequestEvent(request: request)])
@@ -88,5 +86,30 @@ struct RequestForMoneyEvent: GameEvent {
 
     private func getMoneyCards(of player: Player, gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
         gameRunner.getMoneyAreaByPlayer(player).getCards()
+    }
+
+    private func sendPropertyAreaDeckRequest(chosenCard: Card,
+                                             fromPlayer: MonopolyDealPlayer,
+                                             toPlayer: MonopolyDealPlayer,
+                                             gameRunner: MonopolyDealGameRunnerProtocol) {
+        guard let propertyCard = chosenCard as? PropertyCard else {
+            return
+        }
+
+        let requestDescription = "You have recieved a property card with the following colour(s): " +
+        propertyCard.getStringRepresentationOfColors() +
+        "Please choose a property set to place it in, or make a new set."
+        let propertyArea = gameRunner.getPropertyAreaByPlayer(fromPlayer).getArea()
+
+        guard let fromDeck = propertyArea.first(where: { $0.containsCard(chosenCard) }) else {
+            return
+        }
+
+        gameRunner.executeGameEvents([
+            PropertyAreaDeckRequestEvent(propertyCard: propertyCard,
+                                         fromDeck: fromDeck,
+                                         requestDescription: requestDescription,
+                                         player: toPlayer)
+        ])
     }
 }

@@ -21,11 +21,11 @@ class DebtCollectorCard: MonopolyDealCard {
             return
         }
 
-        gameRunner.executeGameEvents([RequestForMoneyEvent(moneyAmount: debtCollectionAmount,
-                                                           requestDescription: "Owe money pay money! "
-                                                           + "Please pay \(player.name) \(debtCollectionAmount) M.",
-                                                           requestSender: player,
-                                                           requestReciepient: targetPlayer)])
+        gameRunner.executeGameEvents([MoneyRequestEvent(moneyAmount: debtCollectionAmount,
+                                                        requestDescription: "Owe money pay money! "
+                                                        + "Please pay \(player.name) \(debtCollectionAmount) M.",
+                                                        requestSender: player,
+                                                        requestReciepient: targetPlayer)])
     }
 
     override func getBankValue() -> Int {

@@ -34,7 +34,7 @@ class PassGoCard: MonopolyDealCard {
 
     override func getBankValue() -> Int {
         guard let bankValue = MonopolyDealCardType.passGo.bankValue else {
-            assert(false, "Unable to obtain bank value of birthday card")
+            assert(false, "Unable to obtain bank value of pass go card")
         }
         return bankValue
     }
