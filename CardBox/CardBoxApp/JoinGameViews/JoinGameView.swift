@@ -17,8 +17,11 @@ struct JoinGameView: View {
     var body: some View {
         if !viewModel.isJoined {
             Button("Exploding Kittens") {
-                selectedGame = .ExplodingKittens
+                self.selectedGame = .ExplodingKittens
                 viewModel.loadDatabaseManager(ExplodingKittensDatabaseManager())
+                if let selectedGame = selectedGame {
+                    print("selected \(selectedGame)")
+                }
             }.foregroundColor(selectedGame == .ExplodingKittens ? .red : .blue)
             Button("Monopoly Deal") {
                 selectedGame = .MonopolyDeal
@@ -30,11 +33,13 @@ struct JoinGameView: View {
                 TextField("Game Room ID", text: $gameRoomID)
                 Button("Submit") {
                     print("submit button pressed")
-                    if let selectedGame = selectedGame, gameRoomID.isEmpty {
-                        // TODO: Change to popup or alert or something
-                        print("game room id cannot be empty or no game selected")
-                    } else {
-                        viewModel.joinRoom(id: gameRoomID, playerViewModel: playerViewModel)
+                    if let selectedGame = selectedGame {
+                        if gameRoomID.isEmpty {
+                            // TODO: Change to popup or alert or something
+                            print("game room id cannot be empty or no game selected")
+                        } else {
+                            viewModel.joinRoom(id: gameRoomID, playerViewModel: playerViewModel)
+                        }
                     }
                 }
             }

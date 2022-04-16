@@ -134,7 +134,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 self.notJoined()
                 return
             }
-
+            print("inside")
             let gameState = self.decodeGameState(document)
 
             guard let gameState = gameState else {
