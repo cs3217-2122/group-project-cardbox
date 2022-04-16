@@ -50,6 +50,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.gameState = gameState
         self.observers = [observer]
         self.cardsDragging = []
+        self.cardsSelected = []
         self.localPendingRequests = []
     }
 
