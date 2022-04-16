@@ -60,8 +60,8 @@ class ExplodingKittensGameState: GameState {
         } else {
             winner = nil
         }
-        let globalRequests = try container.decode([Request].self, forKey: .globalRequests)
-        let globalResponses = try container.decode([Response].self, forKey: .globalResponses)
+        let globalRequests = try container.decode(RequestCollection.self, forKey: .globalRequests)
+        let globalResponses = try container.decode(ResponseCollection.self, forKey: .globalResponses)
 
         super.init(players: players,
                    playerHands: playerHands,

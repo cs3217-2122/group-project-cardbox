@@ -40,8 +40,8 @@ extension GameEventTests {
                                   isWin: false,
                                   winner: nil,
                                   state: .start,
-                                  globalRequests: [],
-                                  globalResponses: [])
+                                  globalRequests: RequestCollection(),
+                                  globalResponses: ResponseCollection())
 
         var deck = CardCollection(cards: [
             generateSingleTargetCard(),
