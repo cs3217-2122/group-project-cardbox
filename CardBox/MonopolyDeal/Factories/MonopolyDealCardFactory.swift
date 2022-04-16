@@ -141,7 +141,6 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
         }
     }
 
-
     var bankValue: Int? {
         switch self {
         case .dealBreaker:

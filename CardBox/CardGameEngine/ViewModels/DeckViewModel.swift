@@ -46,7 +46,7 @@ extension DeckViewModel: DropDelegate {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             }
         } else {
-            
+
         }
         return true
     }
