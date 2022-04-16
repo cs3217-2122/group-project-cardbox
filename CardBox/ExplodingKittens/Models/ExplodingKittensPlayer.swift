@@ -173,10 +173,10 @@ class ExplodingKittensPlayer: Player {
                                        ekGameRunner: ExplodingKittensGameRunnerProtocol,
                                        player: Player,
                                        on target: GameplayTarget) {
-         guard let cards = cards as? [ExplodingKittensCard],
-               checkSameCards(cards: cards) else {
-             return
-         }
+        guard let cards = cards as? [ExplodingKittensCard],
+              checkSameCards(cards: cards) else {
+            return
+        }
 
         let playerHand = ekGameRunner.getHandByPlayer(player)
 
