@@ -12,10 +12,18 @@ struct JoinGameLobbyView: View {
     @Environment(\.scenePhase) private var scenePhase
     @ObservedObject var viewModel: JoinGameViewModel
     var playerViewModel: PlayerViewModel
+    @Binding var selectedGame: CardBoxGame
 
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
-            ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
+            if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
+                ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
+            } else if selectedGame == .MonopolyDeal, let gameRunner = gameRunner as? MonopolyDealGameRunner {
+                // TODO: Replace with MonopolyDealOnlineView
+                EmptyView()
+            } else {
+                EmptyView()
+            }
         } else {
             VStack {
                 Text("Game Room ID: \(viewModel.gameRoomID)")
@@ -35,6 +43,8 @@ struct JoinGameLobbyView: View {
 
 struct JoinGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
-        JoinGameLobbyView(viewModel: JoinGameViewModel(), playerViewModel: PlayerViewModel())
+        JoinGameLobbyView(viewModel: JoinGameViewModel(),
+                          playerViewModel: PlayerViewModel(),
+                          selectedGame: .constant(.ExplodingKittens))
     }
 }
