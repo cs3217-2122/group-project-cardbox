@@ -9,8 +9,7 @@ class BirthdayCard: MonopolyDealCard {
     init() {
         super.init(
             name: "Birthday",
-            typeOfTargettedCard: .targetAllPlayersCard,
-            type: .birthday
+            typeOfTargettedCard: .targetAllPlayersCard
         )
     }
 
