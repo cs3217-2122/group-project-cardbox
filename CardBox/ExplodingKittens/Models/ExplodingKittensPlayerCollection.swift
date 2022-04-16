@@ -15,11 +15,10 @@ class ExplodingKittensPlayerCollection: PlayerCollection {
         try super.init(
             from: decoder,
             mapFunc: { objectsArray in
-                let oriArray = objectsArray
                 var items = [Player]()
 
                 var array = objectsArray
-                while !oriArray.isAtEnd {
+                while !array.isAtEnd {
                     let player: Player? = {
                         try? array.decode(ExplodingKittensPlayer.self)
                     }()
