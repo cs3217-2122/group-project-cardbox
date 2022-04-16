@@ -24,10 +24,10 @@ struct MDPlayerPlayAreaView: View {
 
     init(player: Player, sets: MonopolyDealPlayerPropertyArea, rotateBy: Double,
          error: Binding<Bool>, selectedCardSetViewModel: Binding<CardSetViewModel?>,
-         selectedPlayerViewModel: Binding<PlayerViewModel?>) {
+         selectedPlayerViewModel: Binding<PlayerViewModel?>, gameRunner: MonopolyDealGameRunner) {
         self.player = player
         self.playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
-        self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(sets: sets)
+        self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(sets: sets, gameRunner: gameRunner)
         self.rotateBy = rotateBy
         self._error = error
         self._selectedCardSetViewModel = selectedCardSetViewModel
@@ -112,6 +112,7 @@ struct MDPlayerPlayAreaView: View {
                 }
             }
         }
+        .onDrop(of: ["cardbox.card"], delegate: playerPlayAreaViewModel)
     }
 
     var body: some View {

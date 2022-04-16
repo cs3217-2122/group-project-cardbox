@@ -28,6 +28,14 @@ class MonopolyDealPlayerPropertyArea: Codable {
         area
     }
 
+    func canAdd(_ card: Card) -> Bool {
+        card is PropertyCard
+    }
+
+    func addPropertyCard(_ card: Card) {
+        addCardCollection(CardCollection(cards: [card]))
+    }
+
     func getFirstStandardPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
         guard let propertyCard = propertySet.getCards().first(where: {
             guard let standardPropertyCard = $0 as? PropertyCard else {

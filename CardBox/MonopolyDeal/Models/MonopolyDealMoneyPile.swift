@@ -7,10 +7,6 @@
 
 class MonopolyDealMoneyPile: MonopolyDealCardCollection {
     override func canAdd(_ card: Card) -> Bool {
-        if card is MoneyCard || card is ActionCard {
-            return true
-        } else {
-            return false
-        }
+        card is MoneyCard || card is ActionCard
     }
 }

@@ -34,7 +34,8 @@ struct MonopolyDealOfflineView: View {
                                  rotateBy: 0.0,
                                  error: $error,
                                  selectedCardSetViewModel: $selectedCardSetViewModel,
-                                 selectedPlayerViewModel: $selectedPlayerViewModel)
+                                 selectedPlayerViewModel: $selectedPlayerViewModel,
+                                 gameRunner: gameRunnerViewModel)
             PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player),
                            bottomPlayer: player, error: $error)
             .border(Color.red)
@@ -49,7 +50,8 @@ struct MonopolyDealOfflineView: View {
                              rotateBy: rotateBy,
                              error: $error,
                              selectedCardSetViewModel: $selectedCardSetViewModel,
-                             selectedPlayerViewModel: $selectedPlayerViewModel)
+                             selectedPlayerViewModel: $selectedPlayerViewModel,
+                             gameRunner: gameRunnerViewModel)
     }
 
     func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
