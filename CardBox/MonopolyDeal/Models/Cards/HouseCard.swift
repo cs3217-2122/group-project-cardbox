@@ -26,6 +26,13 @@ class HouseCard: MonopolyDealCard {
         }
     }
 
+    override func getBankValue() -> Int {
+        guard let bankValue = MonopolyDealCardType.house.bankValue else {
+            assert(false, "Unable to obtain bank value of birthday card")
+        }
+        return bankValue
+    }
+
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }

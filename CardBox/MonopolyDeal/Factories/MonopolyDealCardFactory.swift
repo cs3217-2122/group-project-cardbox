@@ -140,4 +140,29 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
             return 0
         }
     }
+
+    var bankValue: Int? {
+        switch self {
+        case .dealBreaker:
+            return 5
+        case .doubleRent:
+            return 1
+        case .forcedDeal:
+            return 3
+        case .hotel:
+            return 4
+        case .house:
+            return 3
+        case .birthday:
+            return 2
+        case .passGo:
+            return 1
+        case .debtCollector:
+            return 3
+        case .slyDeal:
+            return 3
+        default:
+            return nil
+        }
+    }
 }

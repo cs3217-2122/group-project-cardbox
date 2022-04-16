@@ -81,6 +81,16 @@ class PropertyCard: MonopolyDealCard {
         }
     }
 
+    override func getBankValue() -> Int {
+        if colors.contains(.green) || colors.contains(.blue) {
+            return 4
+        } else if colors.contains(.red) {
+            return 3
+        } else {
+            assert(false, "Unable to obtain bank value of property card")
+        }
+    }
+
     private enum CodingKeys: String, CodingKey {
         case setSize
         case rentAmounts
