@@ -19,7 +19,7 @@ class MonopolyDealPlayerCollection: PlayerCollection {
                 var items = [Player]()
 
                 var array = objectsArray
-                while !oriArray.isAtEnd {
+                while !array.isAtEnd {
                     let player: Player? = {
                         try? array.decode(MonopolyDealPlayer.self)
                     }()
