@@ -12,8 +12,8 @@ class ExplodingKittensGameState: GameState {
     internal var gameplayArea: ExplodingKittensCardCollection
 
     override init() {
-        self.deck = ExplodingKittensCardCollection()
-        self.gameplayArea = ExplodingKittensCardCollection()
+        self.deck = ExplodingKittensCardCollection(isFaceUp: false)
+        self.gameplayArea = ExplodingKittensCardCollection(isFaceUp: true)
         super.init()
     }
 
