@@ -25,6 +25,9 @@ class DealBreakerCard: ActionCard {
                 guard let baseCard = deck.topCard as? PropertyCard else {
                     return
                 }
+                guard let deck = deck as? MonopolyDealPropertySet else {
+                    return
+                }
 
                 let baseColors = baseCard.colors
 

@@ -74,7 +74,6 @@ struct PlayerHandView: View {
                 .fill(Color.clear)
                 .frame(width: CGFloat(PlayerHandView.handWidth), height: CGFloat(gameRunnerViewModel.cardHeight))
             handView
-                .border(Color.red)
         }
     }
 }

@@ -6,13 +6,13 @@
 //
 
 class MonopolyDealPlayerPropertyArea: Codable {
-    private var area: [CardCollection] = []
+    private var area: [MonopolyDealPropertySet] = []
 
     var count: Int {
         area.count
     }
 
-    func addCardCollection(_ cardCollection: CardCollection) {
+    func addCardCollection(_ cardCollection: MonopolyDealPropertySet) {
         area.append(cardCollection)
         area = area.filter { !$0.isEmpty }
     }
@@ -62,12 +62,16 @@ class MonopolyDealPlayerPropertyArea: Codable {
         }
     }
 
-    func getPropertySet(from card: Card) -> CardCollection? {
+    func getPropertySet(from card: Card) -> MonopolyDealPropertySet? {
         for propertySet in area {
             if propertySet.containsCard(card) {
                 return propertySet
             }
         }
         return nil
+    }
+
+    var numberOfFullSets: Int {
+        area.filter { $0.isFullSet }.count
     }
 }

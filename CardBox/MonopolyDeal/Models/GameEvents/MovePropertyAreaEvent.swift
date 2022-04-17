@@ -6,7 +6,7 @@
 //
 
 struct MovePropertyAreaEvent: GameEvent {
-    let cardSet: CardCollection
+    let cardSet: MonopolyDealPropertySet
     let fromArea: MonopolyDealPlayerPropertyArea
     let toArea: MonopolyDealPlayerPropertyArea
 

@@ -38,7 +38,6 @@ struct MonopolyDealOfflineView: View {
                                  gameRunner: gameRunnerViewModel)
             PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player),
                            bottomPlayer: player, error: $error)
-            .border(Color.red)
         }
 
     }
