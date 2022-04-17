@@ -76,11 +76,11 @@ class PropertyCard: MonopolyDealCard {
                     return
                 }
 
-                let newCollection = MonopolyDealPropertySet(cards: [self], setColour: colors.first ?? .red)
+                // let newCollection = MonopolyDealPropertySet(cards: [self], setColour: colors.first ?? .red)
 
                 let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
                 gameRunner.executeGameEvents([
-                    AddNewPropertyAreaEvent(propertyArea: propertyArea, cards: newCollection, fromHand: hand)
+                    AddNewPropertyAreaEvent(propertyArea: propertyArea, card: self, fromHand: hand)
                 ])
             }
         }

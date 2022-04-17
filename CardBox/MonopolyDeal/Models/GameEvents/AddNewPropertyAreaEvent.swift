@@ -7,13 +7,10 @@
 
 struct AddNewPropertyAreaEvent: GameEvent {
     let propertyArea: MonopolyDealPlayerPropertyArea
-    let cards: MonopolyDealPropertySet
+    let card: PropertyCard
     let fromHand: CardCollection
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
-        propertyArea.addCardCollection(cards)
-        cards.getCards().forEach { card in
-            fromHand.removeCard(card)
-        }
+        propertyArea.addPropertyCard(card)
     }
 }
