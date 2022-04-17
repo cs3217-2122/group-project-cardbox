@@ -56,16 +56,16 @@ struct MonopolyDealOnlineView: View {
     }
 
     func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
-        NonBottomPlayerView(
+        NonPlayerView(
             bottomPlayer: bottomPlayer,
             selectedPlayerViewModel: $selectedPlayerViewModel,
             selectedCardSetViewModel: .constant(nil),
+            localPlayerIndex: localPlayerIndex,
             error: $error,
             playerArea: otherPlayerArea,
             center: {
                 centerArea
-            }
-        )
+            })
     }
 
     func getCurrentPlayer(bottomPlayer: Player) -> some View {

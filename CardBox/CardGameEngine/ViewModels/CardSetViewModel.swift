@@ -31,18 +31,6 @@ class CardSetViewModel: ObservableObject {
     var size: Int {
         cards.count
     }
-
-    func addCards() {
-        let selectedCards = gameRunner.cardsDragging
-        let players = gameRunner.gameState.players
-        guard (players.currentPlayer as? ExplodingKittensPlayer) != nil else {
-            return
-        }
-
-        if selectedCards.count == 1 {
-            // TODO: Implement checking and adding cards to sets
-        }
-    }
 }
 
 extension CardSetViewModel: DropDelegate {
