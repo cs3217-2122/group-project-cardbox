@@ -31,7 +31,7 @@ struct MovePlayedPropertyCardEvent: GameEvent {
             ])
             return
         }
-        
+
         gameRunner.executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: fromDeck, toDeck: toDeck)
         ])
