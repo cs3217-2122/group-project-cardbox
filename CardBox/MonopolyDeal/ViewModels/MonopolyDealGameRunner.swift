@@ -172,10 +172,10 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     func getMoneyAreaByPlayer(_ player: Player) -> CardCollection {
         guard let gameState = gameState as? MonopolyDealGameState else {
-            return CardCollection()
+            return MonopolyDealMoneyPile()
         }
 
-        return gameState.playerMoneyArea[player.id] ?? CardCollection()
+        return gameState.playerMoneyArea[player.id] ?? MonopolyDealMoneyPile()
     }
 
     var allCardTypes: [ExplodingKittensCardType] {

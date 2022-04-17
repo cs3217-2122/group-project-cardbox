@@ -7,7 +7,7 @@
 import SwiftUI
 
 class DeckViewModel: ObservableObject {
-    var deck: CardCollection
+    @Published var deck: CardCollection
     var isPlayDeck: Bool
     var gameRunner: GameRunnerProtocol
 
