@@ -88,7 +88,6 @@ struct ExplodingKittensOnlineView: View {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)
         }
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))
-//        .onAppear(perform: setup)
     }
 
     private func setup() {

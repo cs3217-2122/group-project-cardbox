@@ -96,7 +96,6 @@ struct MonopolyDealOnlineView: View {
             WinMessageView()
         }
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))
-        .onAppear(perform: setup)
     }
 
     private func setup() {
