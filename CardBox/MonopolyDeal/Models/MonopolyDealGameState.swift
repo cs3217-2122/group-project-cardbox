@@ -40,7 +40,7 @@ class MonopolyDealGameState: GameState {
         self.deck = try container.decode(MonopolyDealCardCollection.self, forKey: .deck)
         self.playerPropertyArea = try container.decode([UUID: MonopolyDealPlayerPropertyArea].self,
                                                        forKey: .playerPropertyArea)
-        self.playerMoneyArea = try container.decode([UUID: MonopolyDealCardCollection].self, forKey: .playerMoneyArea)
+        self.playerMoneyArea = try container.decode([UUID: MonopolyDealMoneyPile].self, forKey: .playerMoneyArea)
         self.gameplayArea = try container.decode(MonopolyDealCardCollection.self, forKey: .gameplayArea)
         let players = try container.decode(MonopolyDealPlayerCollection.self, forKey: .players)
         let playerHands = try container.decode([UUID: MonopolyDealCardCollection].self, forKey: .playerHands)
@@ -136,5 +136,7 @@ class MonopolyDealGameState: GameState {
     override func addPlayer(player: Player) {
         self.players.addPlayer(player)
         self.playerHands[player.id] = MonopolyDealCardCollection()
+        self.playerPropertyArea[player.id] = MonopolyDealPlayerPropertyArea()
+        self.playerMoneyArea[player.id] = MonopolyDealMoneyPile()
     }
 }

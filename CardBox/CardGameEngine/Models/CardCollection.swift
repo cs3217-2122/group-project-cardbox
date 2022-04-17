@@ -21,6 +21,7 @@ class CardCollection: Identifiable, Codable {
 
     enum CodingKeys: CodingKey {
         case cards
+        case isFaceUp
     }
 
     enum ObjectTypeKey: CodingKey {
@@ -51,6 +52,7 @@ class CardCollection: Identifiable, Codable {
         }
 
         self.cards = items
+        self.isFaceUp = try container.decode(Bool.self, forKey: .isFaceUp)
     }
 
     func encode<T: Codable>(to encoder: Encoder, mapFunc: (Card) -> T?, cardType: T.Type) {
@@ -68,6 +70,7 @@ class CardCollection: Identifiable, Codable {
             let encoder = object.superEncoder()
             try? item.encode(to: encoder)
         }
+        try? container.encode(isFaceUp, forKey: .isFaceUp)
     }
 
     convenience init() {
