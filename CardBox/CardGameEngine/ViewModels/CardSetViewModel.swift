@@ -78,6 +78,9 @@ extension CardSetViewModel: DropDelegate {
                 .getPropertySet(from: selectedCards[0]) else {
                 return false
             }
+            guard !propertySet.isFullSet else {
+                return false
+            }
             gameRunner.executeGameEvents([
                 MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: propertySet, toDeck: cards),
                 IncrementPlayerPlayCountEvent(player: player)])

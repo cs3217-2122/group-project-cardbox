@@ -100,6 +100,13 @@ class MonopolyDealGameState: GameState {
         })
     }
 
+    func numberOfFullSets(player: Player) -> Int {
+        guard let sets = playerPropertyArea[player.id] else {
+            return 0
+        }
+        return sets.numberOfFullSets
+    }
+
     private func updatePlayerPropertyArea(_ newPlayerProperyArea: [UUID: MonopolyDealPlayerPropertyArea]) {
         for (key, value) in newPlayerProperyArea {
             if let current = playerPropertyArea[key] {

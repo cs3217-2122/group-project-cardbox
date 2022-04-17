@@ -7,7 +7,7 @@
 
 struct AddNewPropertyAreaEvent: GameEvent {
     let propertyArea: MonopolyDealPlayerPropertyArea
-    let cards: CardCollection
+    let cards: MonopolyDealPropertySet
     let fromHand: CardCollection
 
     func updateRunner(gameRunner: GameRunnerProtocol) {

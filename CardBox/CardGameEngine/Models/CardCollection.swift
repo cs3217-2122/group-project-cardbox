@@ -6,7 +6,7 @@
 //
 
 class CardCollection: Identifiable, Codable {
-    private var cards: [Card] = []
+    internal var cards: [Card] = []
 
     // TODO: initialise with correct value
     var isFaceUp = true

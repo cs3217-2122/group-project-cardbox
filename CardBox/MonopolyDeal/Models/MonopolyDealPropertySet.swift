@@ -8,6 +8,10 @@
 class MonopolyDealPropertySet: MonopolyDealCardCollection {
     var setColor: PropertyColor
 
+    var isFullSet: Bool {
+        cards.count == setColor.setSize
+    }
+
     init(cards: [Card], setColour: PropertyColor) {
         self.setColor = setColour
         super.init(cards: cards)
