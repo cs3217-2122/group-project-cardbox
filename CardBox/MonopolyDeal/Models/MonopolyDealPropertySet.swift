@@ -27,6 +27,11 @@ class MonopolyDealPropertySet: MonopolyDealCardCollection {
         try super.init(from: decoder)
     }
 
+    override func encode(to encoder: Encoder) {
+        var container = try encoder.container(keyedBy: CodingKeys.self)
+        try? container.encode(setColor, forKey: .setColor)
+    }
+
     override func canAdd(_ card: Card) -> Bool {
         if let card = card as? PropertyCard {
             return card.colors.contains(setColor)

@@ -147,12 +147,11 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                 self.notJoined()
             } else {
                 // add to room
-                gameState.players
-                    .addPlayer(ExplodingKittensPlayer(name: player.name,
-                                                      id: player.id,
-                                                      isOutOfGame: player.isOutOfGame,
-                                                      cardsPlayed: player.cardsPlayed))
-                gameState.addPlayerHand(playerId: player.id, cards: ExplodingKittensCardCollection())
+                gameState
+                    .addPlayer(player: ExplodingKittensPlayer(name: player.name,
+                                                              id: player.id,
+                                                              isOutOfGame: player.isOutOfGame,
+                                                              cardsPlayed: player.cardsPlayed))
                 self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
                             gameRunner: ExplodingKittensGameRunner(gameState: gameState, observer: self))

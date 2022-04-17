@@ -147,11 +147,10 @@ class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserv
                 self.notJoined()
             } else {
                 // add to room
-                gameState.players
-                    .addPlayer(MonopolyDealPlayer(name: player.name,
-                                                  id: player.id,
-                                                  isOutOfGame: player.isOutOfGame,
-                                                  cardsPlayed: player.cardsPlayed))
+                gameState.addPlayer(player: MonopolyDealPlayer(name: player.name,
+                                                               id: player.id,
+                                                               isOutOfGame: player.isOutOfGame,
+                                                               cardsPlayed: player.cardsPlayed))
                 gameState.addPlayerHand(playerId: player.id, cards: MonopolyDealCardCollection())
                 self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
