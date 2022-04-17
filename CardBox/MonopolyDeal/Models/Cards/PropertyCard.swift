@@ -65,9 +65,9 @@ class PropertyCard: MonopolyDealCard {
                 }
 
                 if self.colors.contains(baseColor) {
-                    gameRunner.executeGameEvents([
-                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: deck)
-                    ])
+                    // gameRunner.executeGameEvents([
+                    //    MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: deck)
+                    // ])
                 }
             } else {
                 let hand = gameRunner.getHandByPlayer(player)

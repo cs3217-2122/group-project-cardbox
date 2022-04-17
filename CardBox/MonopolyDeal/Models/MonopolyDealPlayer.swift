@@ -80,7 +80,7 @@ class MonopolyDealPlayer: Player {
         let playerHand = mdGameRunner.getHandByPlayer(self)
 
         gameRunner.executeGameEvents([
-            MoveCardsDeckToDeckEvent(cards: mdCards, fromDeck: playerHand, toDeck: gameState.gameplayArea),
+            // MoveCardsDeckToDeckEvent(cards: mdCards, fromDeck: playerHand, toDeck: gameState.gameplayArea),
             IncrementPlayerPlayCountEvent(player: self)
         ])
     }
