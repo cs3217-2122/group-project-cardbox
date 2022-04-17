@@ -14,43 +14,64 @@ class SlyDealCard: ActionCard {
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        if case .deck(let collection) = target {
-            if let collection = collection {
+        guard gameRunner.gameState is MonopolyDealGameState else {
+            return
+        }
+        guard let targetPlayer = target.getPlayerIfTargetSingle() else {
+            return
+        }
+        let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
+        let destination = gameRunner.getPropertyAreaByPlayer(player)
+        let nonFullSets = propertyArea.getListOfNonFullSets()
 
-                guard let gameState = gameRunner.gameState as? MonopolyDealGameState,
-                      gameState.checkIfPropertySetIsFullSet(collection) else {
-                          return
-                      }
+        guard !nonFullSets.isEmpty else {
+            return
+        }
+        var pArray: [Card] = []
 
-                guard let propertyCard = collection.getCards()
-                        .first(where: { $0 is PropertyCard }) as? PropertyCard else {
-                            return
-                }
-
-//                if let wildCard = collection.getCard(where: { card in
-//                    guard let propertyCard = card as? PropertyCard else {
-//                        return false
-//                    }
-//                    return propertyCard.colors.count > 1
-//                }) as? PropertyCard {
-//                    propertyCard = wildCard
-//                }
-
-                guard let chosenDeckPropertyCard = MonopolyDealPlayerPropertyArea
-                        .getFirstPropertyCardFromSet(collection) else {
-                    return
-                }
-
-                guard chosenDeckPropertyCard.setSize > collection.count else {
-                    return
-                }
-                let hand = gameRunner.getHandByPlayer(player)
-                gameRunner.executeGameEvents([
-                    MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea),
-                    MovePlayedPropertyCardEvent(propertyCard: propertyCard, fromDeck: collection, toPlayer: player)
-                ])
+        for propertySet in nonFullSets {
+            for pCard in propertySet.cards {
+                pArray.append(pCard)
             }
         }
+
+        let stringRepresentation = pArray.map { $0.name }
+
+        let callback: (Response) -> Void = { response in
+            guard let optionsResponse = response as? OptionsResponse else {
+                return
+            }
+
+            for propertySet in nonFullSets {
+                for pCard in propertySet.cards {
+                    guard let pCard = pCard as? PropertyCard else {
+                        continue
+                    }
+                    guard pCard.name == optionsResponse.value else {
+                        continue
+                    }
+                    propertySet.removeCard(pCard)
+                    gameRunner.executeGameEvents([
+                        AddNewPropertyAreaEvent(propertyArea: destination,
+                                                card: pCard, fromHand: CardCollection()),
+                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: gameRunner.getHandByPlayer(player),
+                                                 toDeck: gameRunner.gameplayArea)])
+                    break
+
+                }
+
+                }
+            }
+
+        gameRunner.executeGameEvents([
+            SendRequestEvent(
+                request: OptionsRequest(description: "Please choose a card to steal",
+                                        fromPlayer: player,
+                                        toPlayer: player,
+                                        callback: Callback(callback),
+                                        stringRepresentationOfOptions: stringRepresentation)
+                )
+            ])
     }
 
     override func getBankValue() -> Int {

@@ -90,4 +90,8 @@ class MonopolyDealPlayerPropertyArea: Codable {
     func getListOfFullSets() -> [MonopolyDealPropertySet] {
         area.filter { $0.isFullSet }
     }
+
+    func getListOfNonFullSets() -> [MonopolyDealPropertySet] {
+        area.filter { !$0.isFullSet }
+    }
 }
