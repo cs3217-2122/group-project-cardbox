@@ -49,6 +49,23 @@ class CardCollection: Identifiable, Codable {
         self.cards = items
     }
 
+    func encode<T: Codable>(to encoder: Encoder, mapFunc: (Card) -> T?, cardType: T.Type) {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        var objectsArray = container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
+        cards.forEach { item in
+            guard let type = mapFunc(item) else {
+                return
+            }
+
+            var object = objectsArray.nestedContainer(keyedBy: ObjectTypeKey.self)
+
+            try? object.encode(type, forKey: ObjectTypeKey.type)
+
+            let encoder = object.superEncoder()
+            try? item.encode(to: encoder)
+        }
+    }
+
     convenience init() {
         self.init(cards: [])
     }

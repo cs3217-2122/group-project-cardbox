@@ -9,8 +9,7 @@ class HouseCard: ActionCard {
     init() {
         super.init(
             name: "House",
-            typeOfTargettedCard: .targetSingleDeckCard,
-            type: .house
+            typeOfTargettedCard: .targetSingleDeckCard
         )
     }
 

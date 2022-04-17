@@ -10,15 +10,11 @@ class ExplodingKittensCard: Card {
     typealias EKGameRunnerProtocol = ExplodingKittensGameRunnerProtocol
     typealias EKPlayer = ExplodingKittensPlayer
 
-    let type: ExplodingKittensCardType
-
-    init(
+    override init(
         name: String,
         typeOfTargettedCard: TypeOfTargettedCard,
-        type: ExplodingKittensCardType,
         cardDescription: String = ""
     ) {
-        self.type = type
         super.init(
             name: name,
             typeOfTargettedCard: typeOfTargettedCard,
@@ -26,14 +22,12 @@ class ExplodingKittensCard: Card {
         )
     }
 
-    init(
+    override init(
         id: UUID,
         name: String,
         typeOfTargettedCard: TypeOfTargettedCard,
-        type: ExplodingKittensCardType,
         cardDescription: String = ""
     ) {
-        self.type = type
         super.init(
             id: id,
             name: name,
@@ -79,14 +73,10 @@ class ExplodingKittensCard: Card {
     }
 
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.decode(ExplodingKittensCardType.self, forKey: .type)
         try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(type, forKey: .type)
         try super.encode(to: encoder)
     }
 }

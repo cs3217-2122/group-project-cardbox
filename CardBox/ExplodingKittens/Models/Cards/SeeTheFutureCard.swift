@@ -10,8 +10,7 @@ class SeeTheFutureCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "See The Future",
-            typeOfTargettedCard: .noTargetCard,
-            type: .seeTheFuture
+            typeOfTargettedCard: .noTargetCard
         )
     }
 
@@ -19,8 +18,7 @@ class SeeTheFutureCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "See The Future",
-            typeOfTargettedCard: .noTargetCard,
-            type: .seeTheFuture
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

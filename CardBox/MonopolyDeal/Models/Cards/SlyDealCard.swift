@@ -9,8 +9,7 @@ class SlyDealCard: ActionCard {
     init() {
         super.init(
             name: "Sly Deal",
-            typeOfTargettedCard: .targetSingleDeckCard,
-            type: .slyDeal
+            typeOfTargettedCard: .targetSingleDeckCard
         )
     }
 

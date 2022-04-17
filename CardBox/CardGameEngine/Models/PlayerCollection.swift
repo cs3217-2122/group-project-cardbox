@@ -8,7 +8,6 @@ class PlayerCollection: Codable {
     }
 
     init(from decoder: Decoder, mapFunc: (UnkeyedDecodingContainer) -> [Player]) throws {
-        // TODO
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.players)
         self.players = mapFunc(objectsArray)

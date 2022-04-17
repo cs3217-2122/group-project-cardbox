@@ -19,13 +19,6 @@ class ExplodingKittensGameState: GameState {
 
     override func updateState(gameState: GameState) {
         if let gameState = gameState as? ExplodingKittensGameState {
-//            if gameState.state == .start {
-//                self.deck.updateState(gameState.deck)
-//                self.gameplayArea.updateState(gameState.gameplayArea)
-//            } else {
-//                self.deck = gameState.deck
-//                self.gameplayArea = gameState.gameplayArea
-//            }
             self.deck.updateState(gameState.deck)
             self.gameplayArea.updateState(gameState.gameplayArea)
 
@@ -60,8 +53,8 @@ class ExplodingKittensGameState: GameState {
         } else {
             winner = nil
         }
-        let globalRequests = try container.decode([Request].self, forKey: .globalRequests)
-        let globalResponses = try container.decode([Response].self, forKey: .globalResponses)
+        let globalRequests = try container.decode(RequestCollection.self, forKey: .globalRequests)
+        let globalResponses = try container.decode(ResponseCollection.self, forKey: .globalResponses)
 
         super.init(players: players,
                    playerHands: playerHands,
@@ -77,5 +70,10 @@ class ExplodingKittensGameState: GameState {
         try container.encode(deck, forKey: .deck)
         try container.encode(gameplayArea, forKey: .gameplayArea)
         try super.encode(to: encoder)
+    }
+
+    override func addPlayer(player: Player) {
+        self.players.addPlayer(player)
+        self.playerHands[player.id] = ExplodingKittensCardCollection()
     }
 }

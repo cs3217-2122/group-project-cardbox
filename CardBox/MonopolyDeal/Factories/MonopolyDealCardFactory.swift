@@ -96,6 +96,29 @@ class MonopolyDealCardFactory: CardFactory {
 
         return cards
     }
+
+    private static func getCardTypeFromObject_1(card: MonopolyDealCard) -> MonopolyDealCardType? {
+        switch card {
+        case is PropertyCard:
+            return .property
+        case is DealBreakerCard:
+            return .dealBreaker
+        case is BirthdayCard:
+            return .birthday
+        case is PassGoCard:
+            return .passGo
+        case is MoneyCard:
+            return .money
+        default:
+            return nil
+        }
+    }
+
+    static func getCardTypeFromObject(card: MonopolyDealCard) -> MonopolyDealCardType? {
+        let type1 = MonopolyDealCardFactory.getCardTypeFromObject_1(card: card)
+
+        return type1
+    }
 }
 
 enum MonopolyDealCardType: String, CaseIterable, Codable {
@@ -178,7 +201,17 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
             return PassGoCard.self
         case .money:
             return MoneyCard.self
-        case .debtCollector, .slyDeal, .rent, .doubleRent, .forcedDeal, .hotel, .house:
+        case .debtCollector:
+            return DebtCollectorCard.self
+        case .slyDeal:
+            return SlyDealCard.self
+        case .rent:
+            return RentCard.self
+        case .hotel:
+            return HotelCard.self
+        case .house:
+            return HouseCard.self
+        case .doubleRent, .forcedDeal:
             return nil
         }
     }

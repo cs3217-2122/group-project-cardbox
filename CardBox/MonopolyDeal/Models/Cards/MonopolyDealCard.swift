@@ -5,21 +5,15 @@
 //  Created by Temp on 31.03.2022.
 //
 
-import Darwin
-
 class MonopolyDealCard: Card {
     typealias MDGameRunnerProtocol = MonopolyDealGameRunnerProtocol
     typealias MDPlayer = MonopolyDealPlayer
 
-    let type: MonopolyDealCardType
-
-    init(
+    override init(
         name: String,
         typeOfTargettedCard: TypeOfTargettedCard,
-        type: MonopolyDealCardType,
         cardDescription: String = ""
     ) {
-        self.type = type
         super.init(
             name: name,
             typeOfTargettedCard: typeOfTargettedCard,
@@ -69,15 +63,10 @@ class MonopolyDealCard: Card {
     }
 
     required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.type = try container.decode(MonopolyDealCardType.self, forKey: .type)
         try super.init(from: decoder)
     }
 
     override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(type, forKey: .type)
-//        let superEncoder = container.superEncoder()
         try super.encode(to: encoder)
     }
 }

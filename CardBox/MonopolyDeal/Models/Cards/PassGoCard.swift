@@ -9,8 +9,7 @@ class PassGoCard: ActionCard {
     init() {
         super.init(
             name: "Go",
-            typeOfTargettedCard: .noTargetCard,
-            type: .passGo
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

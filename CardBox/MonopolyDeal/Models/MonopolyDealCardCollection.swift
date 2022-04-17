@@ -14,7 +14,6 @@ class MonopolyDealCardCollection: CardCollection {
         super.init(cards: [])
     }
 
-    // TODO: simplify this
     required init(from decoder: Decoder) throws {
         try super.init(
             from: decoder,
@@ -28,4 +27,16 @@ class MonopolyDealCardCollection: CardCollection {
         )
     }
 
+    override func encode(to encoder: Encoder) {
+        super.encode(
+            to: encoder,
+            mapFunc: { card in
+                guard let mdCard = card as? MonopolyDealCard else {
+                    return nil
+                }
+                return MonopolyDealCardFactory.getCardTypeFromObject(card: mdCard)
+            },
+            cardType: MonopolyDealCardType.self
+        )
+    }
 }
