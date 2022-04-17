@@ -114,8 +114,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
             return false
         }
 
-        return gameState.players.getPlayers().filter { _ in
-            gameState.playerPropertyArea.count == MonopolyDealGameRunner.winningPropertySetCount
+        return gameState.players.getPlayers().filter { player in
+            (gameState.playerPropertyArea[player.id]?.count ?? 0) >= MonopolyDealGameRunner.winningPropertySetCount
         }.count >= 1
     }
 
@@ -124,8 +124,8 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
             return nil
         }
 
-        return gameState.players.getPlayers().filter { _ in
-            gameState.playerPropertyArea.count == MonopolyDealGameRunner.winningPropertySetCount
+        return gameState.players.getPlayers().filter { player in
+            (gameState.playerPropertyArea[player.id]?.count ?? 0) >= MonopolyDealGameRunner.winningPropertySetCount
         }[0]
     }
 
