@@ -74,7 +74,7 @@ class MonopolyDealCardFactory: CardFactory {
             cards.append(SlyDealCard())
         }
 
-        let blueNames = ["Blue 1", "Blue 2", "Blue 3", "Blue 4", "Blue 5"]
+        let blueNames = ["Blue 1", "Blue 2", "Blue 3", "Blue 4", "Blue 5", "Blue 6", "Blue 7", "Blue 8"]
         blueNames.forEach { name in
             cards.append(PropertyCard(
                 name: name,
@@ -84,7 +84,7 @@ class MonopolyDealCardFactory: CardFactory {
             ))
         }
 
-        let redNames = ["Red 1", "Red 2", "Red 3", "Red 4", "Red 5"]
+        let redNames = ["Red 1", "Red 2", "Red 3", "Red 4", "Red 5", "Red 6", "Red 7", "Red 8"]
         redNames.forEach { name in
             cards.append(PropertyCard(
                 name: name,
@@ -140,7 +140,7 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
         case .property:
             return 0
         case .dealBreaker:
-            return 2
+            return 4
         case .doubleRent:
             return 2
         case .forcedDeal:
@@ -150,7 +150,7 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
         case .house:
             return 3
         case .birthday:
-            return 3
+            return 4
         case .passGo:
             return 10
         case .money:
@@ -158,7 +158,7 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
         case .debtCollector:
             return 3
         case .slyDeal:
-            return 3
+            return 5
         case .rent:
             return 0
         }
