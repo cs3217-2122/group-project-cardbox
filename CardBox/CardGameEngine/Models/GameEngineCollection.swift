@@ -21,7 +21,7 @@ class GameEngineCollection<T: Codable>: Identifiable, Codable {
     }
 
     func first(where predicate: (T) -> Bool) -> T? {
-        try? collection.first(where: predicate)
+        collection.first(where: predicate)
     }
 
     func append(_ item: T) {
@@ -34,5 +34,9 @@ class GameEngineCollection<T: Codable>: Identifiable, Codable {
 
     func getCollection() -> [T] {
         collection
+    }
+
+    func updateState(_ collection: GameEngineCollection<T>) {
+        self.collection = collection.collection
     }
 }

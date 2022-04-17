@@ -53,6 +53,8 @@ class GameState: Codable {
         self.isWin = gameState.isWin
         self.state = gameState.state
         self.winner = gameState.winner
+        self.globalRequests.updateState(gameState.globalRequests)
+        self.globalResponses.updateState(gameState.globalResponses)
     }
 
     private func updatePlayerHands(_ newPlayerHands: [UUID: CardCollection]) {
