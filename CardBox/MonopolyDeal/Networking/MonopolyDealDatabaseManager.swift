@@ -149,7 +149,7 @@ class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserv
             } else {
                 // add to room
                 gameState.players
-                    .addPlayer(ExplodingKittensPlayer(name: player.name,
+                    .addPlayer(MonopolyDealPlayer(name: player.name,
                                                       id: player.id,
                                                       isOutOfGame: player.isOutOfGame,
                                                       cardsPlayed: player.cardsPlayed))
@@ -225,11 +225,11 @@ class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserv
     }
 
     func startGame() {
-        guard let gameRunner = gameRunner as? ExplodingKittensGameRunner else {
+        guard let gameRunner = gameRunner as? MonopolyDealGameRunner else {
             return
         }
 
-        guard let gameState = gameRunner.gameState as? ExplodingKittensGameState else {
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
             return
         }
         let docRef = db.collection("rooms").document(gameRoomID)
