@@ -28,8 +28,9 @@ class MonopolyDealPropertySet: MonopolyDealCardCollection {
     }
 
     override func encode(to encoder: Encoder) {
-        var container = try encoder.container(keyedBy: CodingKeys.self)
+        var container = encoder.container(keyedBy: CodingKeys.self)
         try? container.encode(setColor, forKey: .setColor)
+        super.encode(to: encoder)
     }
 
     override func canAdd(_ card: Card) -> Bool {
