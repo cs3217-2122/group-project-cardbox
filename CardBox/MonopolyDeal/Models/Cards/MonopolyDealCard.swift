@@ -5,8 +5,6 @@
 //  Created by Temp on 31.03.2022.
 //
 
-import Darwin
-
 class MonopolyDealCard: Card {
     typealias MDGameRunnerProtocol = MonopolyDealGameRunnerProtocol
     typealias MDPlayer = MonopolyDealPlayer
