@@ -15,7 +15,7 @@ class MonopolyDealGameState: GameState {
     internal var gameplayArea: MonopolyDealCardCollection
 
     override init() {
-        self.deck = MonopolyDealCardCollection(cards: [])
+        self.deck = MonopolyDealCardCollection(cards: [], isFaceUp: false)
         self.playerPropertyArea = [:]
         self.playerMoneyArea = [:]
         self.gameplayArea = MonopolyDealCardCollection(cards: [])

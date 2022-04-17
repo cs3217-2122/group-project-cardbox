@@ -11,6 +11,11 @@ class CardCollection: Identifiable, Codable {
     // TODO: initialise with correct value
     var isFaceUp = true
 
+    init(cards: [Card], isFaceUp: Bool) {
+        self.cards = cards
+        self.isFaceUp = isFaceUp
+    }
+
     init(cards: [Card]) {
         self.cards = cards
     }

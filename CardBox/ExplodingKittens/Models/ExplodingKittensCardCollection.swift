@@ -14,6 +14,10 @@ class ExplodingKittensCardCollection: CardCollection {
         super.init(cards: [])
     }
 
+    init(isFaceUp: Bool) {
+        super.init(cards: [], isFaceUp: isFaceUp)
+    }
+
     required init(from decoder: Decoder) throws {
         try super.init(
             from: decoder,

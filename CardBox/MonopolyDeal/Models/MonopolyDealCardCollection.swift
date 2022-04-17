@@ -14,6 +14,10 @@ class MonopolyDealCardCollection: CardCollection {
         super.init(cards: cards)
     }
 
+    override init(cards: [Card], isFaceUp: Bool) {
+        super.init(cards: cards, isFaceUp: isFaceUp)
+    }
+
     required init(from decoder: Decoder) throws {
         try super.init(
             from: decoder,
