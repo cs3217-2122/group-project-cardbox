@@ -73,6 +73,10 @@ class MonopolyDealCardFactory: CardFactory {
         for _ in 0 ..< MonopolyDealCardType.slyDeal.initialFrequency {
             cards.append(SlyDealCard())
         }
+        
+        for _ in 0 ..< MonopolyDealCardType.debtCollector.initialFrequency {
+            cards.append(DebtCollectorCard())
+        }
 
         let blueNames = ["Blue 1", "Blue 2", "Blue 3", "Blue 4", "Blue 5", "Blue 6", "Blue 7", "Blue 8"]
         blueNames.forEach { name in
@@ -107,6 +111,10 @@ class MonopolyDealCardFactory: CardFactory {
             return .birthday
         case is PassGoCard:
             return .passGo
+        case is SlyDealCard:
+            return .slyDeal
+        case is DebtCollectorCard:
+            return .debtCollector
         case is MoneyCard:
             return .money
         default:
