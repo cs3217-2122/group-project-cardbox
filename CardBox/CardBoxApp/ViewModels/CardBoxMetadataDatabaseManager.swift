@@ -33,25 +33,23 @@ class CardBoxMetadataDatabaseManager {
         return !(seconds > CardBoxMetadataDatabaseManager.expiryDurationInSeconds)
     }
 
-    private func checkRandomCodeAvailability(code: String) -> Bool {
-        var isAvailable = false
-        db.collection("metadata").document(code).getDocument { document, _ in
-            if let document = document, document.exists {
-                if let data = try? document.data(as: CardBoxMetadata.self) {
-                    isAvailable = self.isMetadataValid(metadata: data)
-                }
-            } else {
-                isAvailable = true
+    private func checkRandomCodeAvailability(code: String) async -> Bool {
+        let document = try? await db.collection("metadata").document(code).getDocument()
+        if let document = document, document.exists {
+            if let data = try? document.data(as: CardBoxMetadata.self) {
+                return self.isMetadataValid(metadata: data)
             }
+        } else {
+            return true
         }
-        return isAvailable
+        return false
     }
 
-    func createRoomMetadata(gameRoomId: String, gameType: CardBoxGame) -> String? {
+    func createRoomMetadata(gameRoomId: String, gameType: CardBoxGame) async -> String? {
         var code = getRandomCode()
         var isAvailable = false
         for _ in 0..<3 {
-            isAvailable = checkRandomCodeAvailability(code: code)
+            isAvailable = await checkRandomCodeAvailability(code: code)
             if isAvailable {
                 break
             }

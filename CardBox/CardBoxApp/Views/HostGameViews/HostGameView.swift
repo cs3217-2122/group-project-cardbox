@@ -15,37 +15,75 @@ struct HostGameView: View {
     @State private var gameCode: String?
 
     var ekButton: some View {
-        Button("Exploding Kittens") {
+        Button(action: {
             selectedGame = .ExplodingKittens
             viewModel.loadDatabaseManager(ExplodingKittensDatabaseManager())
-        }.foregroundColor(selectedGame == .ExplodingKittens ? .red : .blue)
+        }) {
+            Text("Exploding Kittens")
+                .font(.system(size: 30))
+                .frame(width: 200, height: 200)
+                .padding()
+                .overlay {
+                    if selectedGame == .ExplodingKittens {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.red, lineWidth: 10)
+                    } else {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.black, lineWidth: 4)
+                    }
+                }
+        }
     }
 
     var mdButton: some View {
-        Button("Monopoly Deal") {
+        Button(action: {
             selectedGame = .MonopolyDeal
             viewModel.loadDatabaseManager(MonopolyDealDatabaseManager())
-        }.foregroundColor(selectedGame == .MonopolyDeal ? .red : .blue)
+        }) {
+            Text("Monopoly Deal")
+                .font(.system(size: 30))
+                .frame(width: 200, height: 200)
+                .padding()
+                .overlay {
+                    if selectedGame == .MonopolyDeal {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.red, lineWidth: 10)
+                    } else {
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.black, lineWidth: 4)
+                    }
+                }
+        }
     }
 
     var hostButton: some View {
-        Button("Host Game") {
+        Button(action: {
             if let selectedGame = selectedGame {
                 viewModel.createRoom(playerViewModel: playerViewModel)
-                gameCode = CardBoxMetadataDatabaseManager().createRoomMetadata(
-                    gameRoomId: viewModel.gameRoomID,
-                    gameType: selectedGame
-                )
-                print(viewModel.gameRoomID)
+                Task {
+                    print("updated game code")
+                    gameCode = await CardBoxMetadataDatabaseManager().createRoomMetadata(
+                        gameRoomId: viewModel.gameRoomID,
+                        gameType: selectedGame
+                    )
+                }
             }
+            print(viewModel.gameRoomID)
+        }) {
+            Text("Create Room")
+                .font(.system(size: 30))
         }
     }
 
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             if viewModel.gameRoomID.isEmpty {
-                ekButton
-                mdButton
+                Text("Select a Game")
+                    .font(.system(size: 50))
+                HStack(spacing: 20) {
+                    ekButton
+                    mdButton
+                }
                 hostButton
             } else {
                 if let selectedGame = selectedGame {

@@ -26,23 +26,31 @@ struct HostGameLobbyView: View {
                 EmptyView()
             }
         } else {
-            VStack {
+            VStack(spacing: 10) {
                 HStack {
                     Text("Pass this code to your friends to join: ")
-                    Text(gameCode ?? "").foregroundColor(.blue)
+                        .font(.system(size: 40))
+                    Text(gameCode ?? "Generating...")
+                        .font(.system(size: 40))
+                        .foregroundColor(.blue)
                 }
                 ForEach(viewModel.players, id: \.self) { player in
                     Text(player)
+                        .font(.system(size: 40))
                 }
 
-                Button("Start") {
+                Button(action: {
                     // check if game is full first before starting
                     if viewModel.isRoomFull {
                         print("online game started")
                         viewModel.startGame()
 //                        appState.page = .onlineGame
                     }
-                }.foregroundColor(.red)
+                }) {
+                    Text("Start")
+                        .font(.system(size: 40))
+                }
+                .disabled(!viewModel.isRoomFull)
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .background {

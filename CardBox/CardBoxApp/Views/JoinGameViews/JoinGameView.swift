@@ -17,9 +17,13 @@ struct JoinGameView: View {
     var body: some View {
         if !viewModel.isJoined {
             Text("Enter Game Code")
+                .font(.system(size: 30))
             HStack {
                 TextField("Game Code", text: $gameCode)
-                Button("Submit") {
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 300, height: nil)
+                    .font(Font.system(size: 30, design: .default))
+                Button(action: {
                     CardBoxMetadataDatabaseManager().getRoomMetadata(
                         gameCode: gameCode,
                         callback: { metadata in
@@ -35,6 +39,9 @@ struct JoinGameView: View {
                             let gameRoomId = metadata.gameRoomId
                             viewModel.joinRoom(id: gameRoomId, playerViewModel: playerViewModel)
                         })
+                }) {
+                    Text("Submit")
+                        .font(.system(size: 30))
                 }
             }
         } else {
