@@ -29,7 +29,6 @@ class CardCollection: Identifiable, Codable {
     }
 
     init<T: Decodable>(from decoder: Decoder, mapFunc: (Decoder, T) -> Card?, cardType: T.Type) throws {
-        // TODO
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
         var oriArray = objectsArray
@@ -57,6 +56,7 @@ class CardCollection: Identifiable, Codable {
 
     func encode<T: Codable>(to encoder: Encoder, mapFunc: (Card) -> T?, cardType: T.Type) {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try? container.encode(self.isFaceUp, forKey: .isFaceUp)
         var objectsArray = container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
         cards.forEach { item in
             guard let type = mapFunc(item) else {

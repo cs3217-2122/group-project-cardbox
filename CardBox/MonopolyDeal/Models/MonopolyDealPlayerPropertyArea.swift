@@ -71,9 +71,6 @@ class MonopolyDealPlayerPropertyArea: Codable {
     }
 
     func updateState(_ otherPlayerPropertyArea: MonopolyDealPlayerPropertyArea) {
-//        for index in 0..<count {
-//            self.area[index].updateState(otherPlayerPropertyArea.getArea()[index])
-//        }
         self.area = otherPlayerPropertyArea.getArea()
     }
 

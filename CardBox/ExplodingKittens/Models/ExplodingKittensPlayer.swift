@@ -276,8 +276,7 @@ class ExplodingKittensPlayer: Player {
             guard let ekCard = $0 as? ExplodingKittensCard else {
                 return ""
             }
-            return
-                ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
+            return ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
         })
 
         var distinctCardTypes: Set<String> = Set()

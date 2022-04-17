@@ -11,6 +11,7 @@ struct AddNewPropertyAreaEvent: GameEvent {
     let fromHand: CardCollection
 
     func updateRunner(gameRunner: GameRunnerProtocol) {
+        fromHand.removeCard(card)
         propertyArea.addPropertyCard(card)
     }
 }
