@@ -25,7 +25,7 @@ class MonopolyDealPlayerPropertyArea: Codable {
         area.remove(at: firstIndex)
     }
 
-    func getArea() -> [CardCollection] {
+    func getArea() -> [MonopolyDealPropertySet] {
         area
     }
 
@@ -57,9 +57,10 @@ class MonopolyDealPlayerPropertyArea: Codable {
     }
 
     func updateState(_ otherPlayerPropertyArea: MonopolyDealPlayerPropertyArea) {
-        for index in 0..<count {
-            self.area[index].updateState(otherPlayerPropertyArea.getArea()[index])
-        }
+//        for index in 0..<count {
+//            self.area[index].updateState(otherPlayerPropertyArea.getArea()[index])
+//        }
+        self.area = otherPlayerPropertyArea.getArea()
     }
 
     func getPropertySet(from card: Card) -> MonopolyDealPropertySet? {
