@@ -39,17 +39,13 @@ class SlyDealCard: ActionCard {
                 guard let propertyCardColor = propertyCard.colors.first else {
                     return
                 }
-
-                guard let toDeck = gameRunner
-                        .getPropertyAreaByPlayer(player)
-                        .getFirstPropertySetOfColor(propertyCardColor) else {
-                    return
-                }
+                
+                // TODO: PREVENT TAKING FROM FULL SET
 
                 let hand = gameRunner.getHandByPlayer(player)
                 gameRunner.executeGameEvents([
                     MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea),
-                    MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: collection, toDeck: toDeck)
+                    MovePlayedPropertyCardEvent(propertyCard: propertyCard, fromDeck: collection, toPlayer: player)
                 ])
             }
         }

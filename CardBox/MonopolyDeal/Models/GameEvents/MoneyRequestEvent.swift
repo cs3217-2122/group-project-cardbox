@@ -29,36 +29,17 @@ struct MoneyRequestEvent: GameEvent {
             }
 
             if let chosenPropertyCard = chosenCard as? PropertyCard {
-//                self.sendPropertyAreaDeckRequest(chosenCard: chosenCard, fromPlayer: requestReciepient,
-//                                                 toPlayer: requestSender, gameRunner: gameRunner)
-
-                guard let chosenPropertyCardColor = chosenPropertyCard.colors.first else {
-                    return
-                }
-
                 guard let fromDeck = gameRunner.getPropertyAreaByPlayer(requestReciepient)
                         .getArea()
-                        .first(where: { $0.containsCard(chosenCard) }) else {
+                        .first(where: { $0.containsCard(chosenPropertyCard) }) else {
                             return
                         }
 
-                guard let toDeck = gameRunner
-                        .getPropertyAreaByPlayer(requestSender)
-                        .getFirstPropertySetOfColor(chosenPropertyCardColor) else {
-                    return
-                }
-
-                if toDeck.count == chosenPropertyCard.setSize {
-                    gameRunner.executeGameEvents([
-                        AddNewPropertyAreaEvent(propertyArea: gameRunner.getPropertyAreaByPlayer(requestSender),
-                                                card: chosenPropertyCard,
-                                                fromHand: fromDeck)
-                    ])
-                } else {
-                    gameRunner.executeGameEvents([
-                        MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
-                    ])
-                }
+                gameRunner.executeGameEvents([
+                    MovePlayedPropertyCardEvent(propertyCard: chosenPropertyCard,
+                                                fromDeck: fromDeck,
+                                                toPlayer: requestSender)
+                ])
             } else {
                 let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
                 let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
