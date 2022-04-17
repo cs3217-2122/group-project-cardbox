@@ -47,9 +47,18 @@ struct MoneyRequestEvent: GameEvent {
                         .getFirstPropertySetOfColor(chosenPropertyCardColor) else {
                     return
                 }
-                gameRunner.executeGameEvents([
-                    MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
-                ])
+
+                if toDeck.count == chosenPropertyCard.setSize {
+                    gameRunner.executeGameEvents([
+                        AddNewPropertyAreaEvent(propertyArea: gameRunner.getPropertyAreaByPlayer(requestSender),
+                                                card: chosenPropertyCard,
+                                                fromHand: fromDeck)
+                    ])
+                } else {
+                    gameRunner.executeGameEvents([
+                        MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
+                    ])
+                }
             } else {
                 let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
                 let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
