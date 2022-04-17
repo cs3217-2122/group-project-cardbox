@@ -27,8 +27,16 @@ class PassGoCard: MonopolyDealCard {
         let cards = deck.getTopNCards(n: 2)
 
         gameRunner.executeGameEvents([
-            MoveCardsDeckToDeckEvent(cards: cards, fromDeck: deck, toDeck: hand)
+            MoveCardsDeckToDeckEvent(cards: cards, fromDeck: deck, toDeck: hand),
+            MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea)
         ])
+    }
+
+    override func getBankValue() -> Int {
+        guard let bankValue = MonopolyDealCardType.passGo.bankValue else {
+            assert(false, "Unable to obtain bank value of pass go card")
+        }
+        return bankValue
     }
 
     required init(from decoder: Decoder) throws {

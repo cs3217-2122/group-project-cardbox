@@ -164,6 +164,31 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
         }
     }
 
+    var bankValue: Int? {
+        switch self {
+        case .dealBreaker:
+            return 5
+        case .doubleRent:
+            return 1
+        case .forcedDeal:
+            return 3
+        case .hotel:
+            return 4
+        case .house:
+            return 3
+        case .birthday:
+            return 2
+        case .passGo:
+            return 1
+        case .debtCollector:
+            return 3
+        case .slyDeal:
+            return 3
+        default:
+            return nil
+        }
+    }
+
     var metatype: MonopolyDealCard.Type? {
         switch self {
         case .property:
@@ -176,7 +201,17 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
             return PassGoCard.self
         case .money:
             return MoneyCard.self
-        case .debtCollector, .slyDeal, .rent, .doubleRent, .forcedDeal, .hotel, .house:
+        case .debtCollector:
+            return DebtCollectorCard.self
+        case .slyDeal:
+            return SlyDealCard.self
+        case .rent:
+            return RentCard.self
+        case .hotel:
+            return HotelCard.self
+        case .house:
+            return HouseCard.self
+        case .doubleRent, .forcedDeal:
             return nil
         }
     }

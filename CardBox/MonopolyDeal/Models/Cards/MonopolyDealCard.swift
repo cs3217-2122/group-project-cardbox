@@ -53,6 +53,11 @@ class MonopolyDealCard: Card {
     func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
     }
 
+    // To be overriden
+    func getBankValue() -> Int {
+        -1
+    }
+
     private enum CodingKeys: String, CodingKey {
         case type
     }

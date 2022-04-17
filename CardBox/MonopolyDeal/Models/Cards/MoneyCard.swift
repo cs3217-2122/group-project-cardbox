@@ -68,6 +68,10 @@ class MoneyCard: MonopolyDealCard {
         ])
     }
 
+    override func getBankValue() -> Int {
+        value
+    }
+
     private enum CodingKeys: String, CodingKey {
         case cardValue
     }

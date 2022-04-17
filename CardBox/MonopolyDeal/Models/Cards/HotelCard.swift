@@ -1,14 +1,14 @@
 //
-//  HouseCard.swift
+//  HotelCard.swift
 //  CardBox
 //
-//  Created by user213938 on 4/3/22.
+//  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-class HouseCard: MonopolyDealCard {
+class HotelCard: MonopolyDealCard {
     init() {
         super.init(
-            name: "House",
+            name: "Hotel",
             typeOfTargettedCard: .targetSingleDeckCard
         )
     }
@@ -32,7 +32,7 @@ class HouseCard: MonopolyDealCard {
     }
 
     override func getBankValue() -> Int {
-        guard let bankValue = MonopolyDealCardType.house.bankValue else {
+        guard let bankValue = MonopolyDealCardType.hotel.bankValue else {
             assert(false, "Unable to obtain bank value of house card")
         }
         return bankValue

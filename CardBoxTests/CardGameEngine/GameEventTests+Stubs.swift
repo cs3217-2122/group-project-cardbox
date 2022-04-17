@@ -18,6 +18,7 @@ extension GameEventTests {
     }
 
     class GameRunnerStub: GameRunnerProtocol {
+
         func updateState(gameState: GameState) {
 
         }
@@ -61,15 +62,15 @@ extension GameEventTests {
         }
 
         func setup() {
-            deck = CardCollection(cards: [])
+            // deck = CardCollection(cards: [])
         }
 
         func onStartTurn() {
-            deck = CardCollection(cards: [])
+            // deck = CardCollection(cards: [])
         }
 
         func onEndTurn() {
-            deck = CardCollection(cards: [])
+            // deck = CardCollection(cards: [])
         }
 
         func onAdvanceNextPlayer() {
@@ -78,6 +79,7 @@ extension GameEventTests {
             }
 
             gameState.players.setCurrentPlayer(nextPlayer)
+
         }
 
         func getWinner() -> Player? {
