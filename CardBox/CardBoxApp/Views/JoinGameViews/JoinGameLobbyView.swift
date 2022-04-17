@@ -14,6 +14,7 @@ struct JoinGameLobbyView: View {
     var playerViewModel: PlayerViewModel
     @Binding var selectedGame: CardBoxGame
     @Binding var gameCode: String
+    @State var copied = false
 
     var gameNameText: String {
         switch selectedGame {
@@ -40,10 +41,18 @@ struct JoinGameLobbyView: View {
                 HStack {
                     Text("Game Code: ")
                         .font(.system(size: 30))
-                    Text(gameCode)
-                        .font(.system(size: 30))
-                        .foregroundColor(.blue)
-
+                    Button(action: {
+                        copied = true
+                        // Freezes when testing on simulator https://stackoverflow.com/a/65591149
+                        UIPasteboard.general.string = gameCode
+                    }) {
+                        Text(gameCode)
+                            .font(.system(size: 30))
+                            .foregroundColor(.blue)
+                    }
+                    if copied {
+                        Text("(Copied)")
+                    }
                 }
                 VStack {
                     Text("Players in Lobby:")

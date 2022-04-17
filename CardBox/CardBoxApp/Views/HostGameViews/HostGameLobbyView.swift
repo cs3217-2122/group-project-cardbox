@@ -15,6 +15,7 @@ struct HostGameLobbyView: View {
     @EnvironmentObject private var appState: AppState
     @Binding var selectedGame: CardBoxGame
     @Binding var gameCode: String?
+    @State var copied = false
 
     var gameNameText: String {
         switch selectedGame {
@@ -36,6 +37,27 @@ struct HostGameLobbyView: View {
         }.padding()
     }
 
+    var gameCodeView: some View {
+        HStack {
+            Text("Pass this code to your friends to join: ")
+                .font(.system(size: 30))
+            Button(action: {
+                if let gameCode = gameCode {
+                    copied = true
+                    // Freezes when testing on simulator https://stackoverflow.com/a/65591149
+                    UIPasteboard.general.string = gameCode
+                }
+            }) {
+                Text(gameCode ?? "Generating...")
+                    .font(.system(size: 30))
+                    .foregroundColor(.blue)
+            }
+            if copied {
+                Text("(Copied)")
+            }
+        }
+    }
+
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
             if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
@@ -49,13 +71,7 @@ struct HostGameLobbyView: View {
             VStack(spacing: 10) {
                 Text("You are now playing: " + gameNameText)
                     .font(.system(size: 40))
-                HStack {
-                    Text("Pass this code to your friends to join: ")
-                        .font(.system(size: 30))
-                    Text(gameCode ?? "Generating...")
-                        .font(.system(size: 30))
-                        .foregroundColor(.blue)
-                }
+                gameCodeView
                 playersInLobby
                 Button(action: {
                     if viewModel.isRoomFull {
