@@ -23,8 +23,8 @@ struct MoneyRequestEvent: GameEvent {
                 return
             }
 
-            guard let chosenCard = self.getChosenCard(chosenCardType: optionsResponse.value,
-                                                      from: payableCards) as? MonopolyDealCard else {
+            guard let chosenCard = payableCards
+                    .first(where: { $0.name == optionsResponse.value }) as? MonopolyDealCard else {
                 return
             }
 
@@ -52,43 +52,33 @@ struct MoneyRequestEvent: GameEvent {
 
         let request = OptionsRequest(description: requestDescription, fromPlayer: requestSender,
                                      toPlayer: requestReciepient, callback: Callback(callback),
-                                     stringRepresentationOfOptions: payableCards.map({ $0.name }))
+                                     stringRepresentationOfOptions: Array(Set(payableCards.map({ $0.name }))))
 
         gameRunner.executeGameEvents([SendRequestEvent(request: request)])
     }
 
-    private func getPayableCards(of player: Player, gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
+    private func getPayableCards(of player: MonopolyDealPlayer,
+                                 gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
         var payableCards: [Card] = []
 
         let targetPropertyCards = getPropertyCards(of: player, gameRunner: gameRunner)
         payableCards.append(contentsOf: targetPropertyCards)
         let targetMoneyCards = getMoneyCards(of: player, gameRunner: gameRunner)
-        payableCards.append(contentsOf: targetMoneyCards)
+        payableCards .append(contentsOf: targetMoneyCards)
 
         return payableCards
     }
 
-    private func getChosenCard(chosenCardType: String, from cards: [Card]) -> Card? {
-        guard let cardType = MonopolyDealCardType(rawValue: chosenCardType) else {
-            return nil
-        }
-        return cards.first(where: { card -> Bool in
-            guard let chosenMonopolyDealCard = card as? MonopolyDealCard else {
-                return false
-            }
-            // Temporary hack
-            return cardType.metatype == type(of: chosenMonopolyDealCard)
-        })
-    }
-
-    private func getPropertyCards(of player: Player, gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
+    private func getPropertyCards(of player: MonopolyDealPlayer,
+                                  gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
         Array(gameRunner.getPropertyAreaByPlayer(player)
                 .getArea()
                 .map({ $0.getCards() })
                 .joined())
     }
 
-    private func getMoneyCards(of player: Player, gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
+    private func getMoneyCards(of player: MonopolyDealPlayer,
+                               gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
         gameRunner.getMoneyAreaByPlayer(player).getCards()
     }
 
@@ -101,7 +91,7 @@ struct MoneyRequestEvent: GameEvent {
         }
 
         let requestDescription = "You have recieved a property card with the following colour(s): " +
-        propertyCard.getStringRepresentationOfColors() +
+        propertyCard.getStringRepresentationOfColors() + "\n" +
         "Please choose a property set to place it in, or make a new set."
         let propertyArea = gameRunner.getPropertyAreaByPlayer(fromPlayer).getArea()
 
