@@ -70,6 +70,7 @@ extension GameRunnerProtocol {
                 self.localPendingRequests.removeAll(where: { $0.id == requestId })
                 gameState.globalRequests.removeAll(where: { $0.id == requestId })
                 request.callback.callback(response)
+                notifyChanges([])
             }
         }
     }
