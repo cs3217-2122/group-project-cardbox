@@ -16,6 +16,26 @@ struct HostGameLobbyView: View {
     @Binding var selectedGame: CardBoxGame
     @Binding var gameCode: String?
 
+    var gameNameText: String {
+        switch selectedGame {
+        case .ExplodingKittens:
+            return "Exploding Kittens"
+        case .MonopolyDeal:
+            return "Monopoly Deal"
+        }
+    }
+
+    var playersInLobby: some View {
+        VStack {
+            Text("Players in Lobby:")
+                .font(.system(size: 40))
+            ForEach(viewModel.players, id: \.self) { player in
+                Text(player)
+                    .font(.system(size: 40))
+            }
+        }.padding()
+    }
+
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
             if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
@@ -27,6 +47,8 @@ struct HostGameLobbyView: View {
             }
         } else {
             VStack(spacing: 10) {
+                Text("You are now playing: " + gameNameText)
+                    .font(.system(size: 50))
                 HStack {
                     Text("Pass this code to your friends to join: ")
                         .font(.system(size: 40))
@@ -34,17 +56,11 @@ struct HostGameLobbyView: View {
                         .font(.system(size: 40))
                         .foregroundColor(.blue)
                 }
-                ForEach(viewModel.players, id: \.self) { player in
-                    Text(player)
-                        .font(.system(size: 40))
-                }
-
+                playersInLobby
                 Button(action: {
-                    // check if game is full first before starting
                     if viewModel.isRoomFull {
                         print("online game started")
                         viewModel.startGame()
-//                        appState.page = .onlineGame
                     }
                 }) {
                     Text("Start")

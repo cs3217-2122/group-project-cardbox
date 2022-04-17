@@ -17,7 +17,7 @@ struct JoinGameView: View {
     var body: some View {
         if !viewModel.isJoined {
             Text("Enter Game Code")
-                .font(.system(size: 30))
+                .font(.system(size: 50))
             HStack {
                 TextField("Game Code", text: $gameCode)
                     .textFieldStyle(.roundedBorder)

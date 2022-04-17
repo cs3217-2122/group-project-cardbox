@@ -15,6 +15,15 @@ struct JoinGameLobbyView: View {
     @Binding var selectedGame: CardBoxGame
     @Binding var gameCode: String
 
+    var gameNameText: String {
+        switch selectedGame {
+        case .ExplodingKittens:
+            return "Exploding Kittens"
+        case .MonopolyDeal:
+            return "Monopoly Deal"
+        }
+    }
+
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
             if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
@@ -25,12 +34,26 @@ struct JoinGameLobbyView: View {
                 EmptyView()
             }
         } else {
-            VStack {
-                Text("Game Room ID: \(gameCode)")
-                Text("Players in Lobby")
-                ForEach(viewModel.players, id: \.self) { player in
-                    Text(player)
+            VStack(spacing: 10) {
+                Text("You are now playing: " + gameNameText)
+                    .font(.system(size: 50))
+                HStack {
+                    Text("Game Code: ")
+                        .font(.system(size: 40))
+                    Text(gameCode)
+                        .font(.system(size: 40))
+                        .foregroundColor(.blue)
+
                 }
+                VStack {
+                    Text("Players in Lobby:")
+                        .font(.system(size: 40))
+                    ForEach(viewModel.players, id: \.self) { player in
+                        Text(player)
+                            .font(.system(size: 40))
+                    }
+                }
+                .padding()
             }
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .background {
