@@ -18,7 +18,7 @@ struct MenuButtonsView: View {
                 .font(.title)
                 .frame(width: 400, height: 100)
                 .border(Color.black)
-                .foregroundColor(Color.orange)
+                .foregroundColor(Color(red: 0.851, green: 0.310, blue: 0.015_7))
                 .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         .accessibilityIdentifier("LaunchOfflineGame")
@@ -29,7 +29,7 @@ struct MenuButtonsView: View {
                 .font(.title)
                 .frame(width: 400, height: 100)
                 .border(Color.black)
-                .foregroundColor(Color.orange)
+                .foregroundColor(Color(red: 0.851, green: 0.310, blue: 0.015_7))
                 .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Button {
@@ -39,7 +39,7 @@ struct MenuButtonsView: View {
                 .font(.title)
                 .frame(width: 400, height: 100)
                 .border(Color.black)
-                .foregroundColor(Color.orange)
+                .foregroundColor(Color(red: 0.851, green: 0.310, blue: 0.015_7))
                 .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Button {
@@ -49,7 +49,7 @@ struct MenuButtonsView: View {
                 .font(.title)
                 .frame(width: 400, height: 100)
                 .border(Color.black)
-                .foregroundColor(Color.orange)
+                .foregroundColor(Color(red: 0.851, green: 0.310, blue: 0.015_7))
                 .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Spacer()
