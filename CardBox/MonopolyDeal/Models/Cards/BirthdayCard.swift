@@ -28,7 +28,7 @@ class BirthdayCard: ActionCard {
             }
              gameRunner.executeGameEvents([MoneyRequestEvent(moneyAmount: birthdayAmount,
                                                              requestDescription: "Its \(player.name)'s birthday. " +
-                                                            "Please pay him/her \(birthdayAmount) M.",
+                                                             "Please pay him/her \(birthdayAmount) M.",
                                                              requestSender: player,
                                                              requestReciepient: targetPlayer)])
         }

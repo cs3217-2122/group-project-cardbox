@@ -28,9 +28,28 @@ struct MoneyRequestEvent: GameEvent {
                 return
             }
 
-            if self.getPropertyCards(of: requestReciepient, gameRunner: gameRunner).contains(chosenCard) {
-                self.sendPropertyAreaDeckRequest(chosenCard: chosenCard, fromPlayer: requestReciepient,
-                                                 toPlayer: requestSender, gameRunner: gameRunner)
+            if let chosenPropertyCard = chosenCard as? PropertyCard {
+//                self.sendPropertyAreaDeckRequest(chosenCard: chosenCard, fromPlayer: requestReciepient,
+//                                                 toPlayer: requestSender, gameRunner: gameRunner)
+
+                guard let chosenPropertyCardColor = chosenPropertyCard.colors.first else {
+                    return
+                }
+
+                guard let fromDeck = gameRunner.getPropertyAreaByPlayer(requestReciepient)
+                        .getArea()
+                        .first(where: { $0.containsCard(chosenCard) }) else {
+                            return
+                        }
+
+                guard let toDeck = gameRunner
+                        .getPropertyAreaByPlayer(requestSender)
+                        .getFirstPropertySetOfColor(chosenPropertyCardColor) else {
+                    return
+                }
+                gameRunner.executeGameEvents([
+                    MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
+                ])
             } else {
                 let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
                 let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
@@ -81,28 +100,28 @@ struct MoneyRequestEvent: GameEvent {
         gameRunner.getMoneyAreaByPlayer(player).getCards()
     }
 
-    private func sendPropertyAreaDeckRequest(chosenCard: Card,
-                                             fromPlayer: MonopolyDealPlayer,
-                                             toPlayer: MonopolyDealPlayer,
-                                             gameRunner: MonopolyDealGameRunnerProtocol) {
-        guard let propertyCard = chosenCard as? PropertyCard else {
-            return
-        }
-
-        let requestDescription = "You have recieved a property card with the following colour(s): " +
-        propertyCard.getStringRepresentationOfColors() + "\n" +
-        "Please choose a property set to place it in, or make a new set."
-        let propertyArea = gameRunner.getPropertyAreaByPlayer(fromPlayer).getArea()
-
-        guard let fromDeck = propertyArea.first(where: { $0.containsCard(chosenCard) }) else {
-            return
-        }
-
-        gameRunner.executeGameEvents([
-            PropertyAreaDeckRequestEvent(propertyCard: propertyCard,
-                                         fromDeck: fromDeck,
-                                         requestDescription: requestDescription,
-                                         player: toPlayer)
-        ])
-    }
+//    private func sendPropertyAreaDeckRequest(chosenCard: Card,
+//                                             fromPlayer: MonopolyDealPlayer,
+//                                             toPlayer: MonopolyDealPlayer,
+//                                             gameRunner: MonopolyDealGameRunnerProtocol) {
+//        guard let propertyCard = chosenCard as? PropertyCard else {
+//            return
+//        }
+//
+//        let requestDescription = "You have recieved a property card with the following colour(s): " +
+//        propertyCard.getStringRepresentationOfColors() + "\n" +
+//        "Please choose a property set to place it in, or make a new set."
+//        let propertyArea = gameRunner.getPropertyAreaByPlayer(fromPlayer).getArea()
+//
+//        guard let fromDeck = propertyArea.first(where: { $0.containsCard(chosenCard) }) else {
+//            return
+//        }
+//
+//        gameRunner.executeGameEvents([
+//            PropertyAreaDeckRequestEvent(propertyCard: propertyCard,
+//                                         fromDeck: fromDeck,
+//                                         requestDescription: requestDescription,
+//                                         player: toPlayer)
+//        ])
+//    }
 }

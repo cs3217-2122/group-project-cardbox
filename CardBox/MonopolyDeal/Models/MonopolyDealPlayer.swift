@@ -58,9 +58,6 @@ class MonopolyDealPlayer: Player {
     }
 
     override func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
-        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
-            return
-        }
 
         let mdCards = cards.compactMap { $0 as? MonopolyDealCard }
 
@@ -72,12 +69,6 @@ class MonopolyDealPlayer: Player {
             let card = mdCards[0]
             card.onPlay(gameRunner: gameRunner, player: self, on: target)
         }
-
-        guard let mdGameRunner = gameRunner as? MonopolyDealGameRunnerProtocol else {
-            return
-        }
-
-        let playerHand = mdGameRunner.getHandByPlayer(self)
 
         gameRunner.executeGameEvents([
             // MoveCardsDeckToDeckEvent(cards: mdCards, fromDeck: playerHand, toDeck: gameState.gameplayArea),

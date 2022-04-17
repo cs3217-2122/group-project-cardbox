@@ -22,31 +22,34 @@ class SlyDealCard: ActionCard {
                           return
                       }
 
-                guard var propertyCard = collection.getCards()
+                guard let propertyCard = collection.getCards()
                         .first(where: { $0 is PropertyCard }) as? PropertyCard else {
                             return
                 }
 
-                if let wildCard = collection.getCard(where: { card in
-                    guard let propertyCard = card as? PropertyCard else {
-                        return false
-                    }
-                    return propertyCard.colors.count > 1
-                }) as? PropertyCard {
-                    propertyCard = wildCard
+//                if let wildCard = collection.getCard(where: { card in
+//                    guard let propertyCard = card as? PropertyCard else {
+//                        return false
+//                    }
+//                    return propertyCard.colors.count > 1
+//                }) as? PropertyCard {
+//                    propertyCard = wildCard
+//                }
+
+                guard let propertyCardColor = propertyCard.colors.first else {
+                    return
+                }
+
+                guard let toDeck = gameRunner
+                        .getPropertyAreaByPlayer(player)
+                        .getFirstPropertySetOfColor(propertyCardColor) else {
+                    return
                 }
 
                 let hand = gameRunner.getHandByPlayer(player)
-                let requestDescription = "You have recieved a property card with the following colour(s): " +
-                propertyCard.getStringRepresentationOfColors() +
-                "Please choose a property set to place it in, or make a new set."
-
                 gameRunner.executeGameEvents([
                     MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameRunner.gameplayArea),
-                    PropertyAreaDeckRequestEvent(propertyCard: propertyCard,
-                                                 fromDeck: collection,
-                                                 requestDescription: requestDescription,
-                                                 player: player)
+                    MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: collection, toDeck: toDeck)
                 ])
             }
         }

@@ -37,7 +37,7 @@ class MonopolyDealPlayerPropertyArea: Codable {
         addCardCollection(MonopolyDealPropertySet(cards: [card], setColour: card.colors.first ?? .red))
     }
 
-    func getFirstStandardPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
+    static func getFirstStandardPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
         guard let propertyCard = propertySet.getCards().first(where: {
             guard let standardPropertyCard = $0 as? PropertyCard else {
                 return false
@@ -49,11 +49,25 @@ class MonopolyDealPlayerPropertyArea: Codable {
         return propertyCard
     }
 
-    func getFirstPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
+    static func getFirstPropertyCardFromSet(_ propertySet: CardCollection) -> PropertyCard? {
         guard let propertyCard = propertySet.getCards().first(where: { $0 is PropertyCard }) as? PropertyCard else {
             return nil
         }
         return propertyCard
+    }
+
+    func getFirstPropertySetOfColor(_ color: PropertyColor) -> CardCollection? {
+        for cardCollection in area {
+            guard let propertyCard = MonopolyDealPlayerPropertyArea
+                    .getFirstPropertyCardFromSet(cardCollection) else {
+                        return nil
+                    }
+
+            if propertyCard.colors.contains(color) {
+                return cardCollection
+            }
+        }
+        return nil
     }
 
     func updateState(_ otherPlayerPropertyArea: MonopolyDealPlayerPropertyArea) {

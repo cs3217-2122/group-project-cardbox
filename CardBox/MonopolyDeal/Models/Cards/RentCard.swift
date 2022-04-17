@@ -17,7 +17,6 @@ class RentCard: ActionCard {
         self.colors = colors
 
         let name = "Rent"
-        let type = MonopolyDealCardType.rent
 
         if colors.count > standardNumOfColors {
             super.init(
@@ -90,7 +89,7 @@ class RentCard: ActionCard {
             }
 
             let chosenDeck = propertyArea.getArea()[deckIndex]
-            guard let propertyCard = propertyArea.getFirstPropertyCardFromSet(chosenDeck) else {
+            guard let propertyCard = MonopolyDealPlayerPropertyArea.getFirstPropertyCardFromSet(chosenDeck) else {
                 return
             }
             let rentAmount = propertyCard.getRentForSetSize(size: chosenDeck
@@ -111,12 +110,11 @@ class RentCard: ActionCard {
 
     private func getStringRepresentationOfOptions(player: MDPlayer, gameRunner: MDGameRunnerProtocol) -> [String] {
         var deckIndexOptions: [String] = []
-        let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
-        let decks = propertyArea.getArea()
+        let decks = gameRunner.getPropertyAreaByPlayer(player).getArea()
         for i in 0..<decks.count {
             let possibleDeck = decks[i]
 
-            guard let propertyCard = propertyArea.getFirstPropertyCardFromSet(possibleDeck) else {
+            guard let propertyCard = MonopolyDealPlayerPropertyArea.getFirstPropertyCardFromSet(possibleDeck) else {
                 continue
             }
             guard let baseColor = propertyCard.colors.first else {
