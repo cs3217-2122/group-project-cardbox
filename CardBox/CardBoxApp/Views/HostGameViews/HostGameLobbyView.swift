@@ -28,10 +28,10 @@ struct HostGameLobbyView: View {
     var playersInLobby: some View {
         VStack {
             Text("Players in Lobby:")
-                .font(.system(size: 40))
+                .font(.system(size: 30))
             ForEach(viewModel.players, id: \.self) { player in
                 Text(player)
-                    .font(.system(size: 40))
+                    .font(.system(size: 30))
             }
         }.padding()
     }
@@ -48,12 +48,12 @@ struct HostGameLobbyView: View {
         } else {
             VStack(spacing: 10) {
                 Text("You are now playing: " + gameNameText)
-                    .font(.system(size: 50))
+                    .font(.system(size: 40))
                 HStack {
                     Text("Pass this code to your friends to join: ")
-                        .font(.system(size: 40))
+                        .font(.system(size: 30))
                     Text(gameCode ?? "Generating...")
-                        .font(.system(size: 40))
+                        .font(.system(size: 30))
                         .foregroundColor(.blue)
                 }
                 playersInLobby
@@ -64,7 +64,7 @@ struct HostGameLobbyView: View {
                     }
                 }) {
                     Text("Start")
-                        .font(.system(size: 40))
+                        .font(.system(size: 30))
                 }
                 .disabled(!viewModel.isRoomFull)
             }
