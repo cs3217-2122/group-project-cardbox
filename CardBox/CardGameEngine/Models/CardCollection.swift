@@ -29,7 +29,6 @@ class CardCollection: Identifiable, Codable {
     }
 
     init<T: Decodable>(from decoder: Decoder, mapFunc: (Decoder, T) -> Card?, cardType: T.Type) throws {
-        // TODO
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let objectsArray = try container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
         var oriArray = objectsArray

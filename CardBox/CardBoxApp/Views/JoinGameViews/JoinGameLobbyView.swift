@@ -13,6 +13,7 @@ struct JoinGameLobbyView: View {
     @ObservedObject var viewModel: JoinGameViewModel
     var playerViewModel: PlayerViewModel
     @Binding var selectedGame: CardBoxGame
+    @Binding var gameCode: String
 
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
@@ -25,7 +26,7 @@ struct JoinGameLobbyView: View {
             }
         } else {
             VStack {
-                Text("Game Room ID: \(viewModel.gameRoomID)")
+                Text("Game Room ID: \(gameCode)")
                 Text("Players in Lobby")
                 ForEach(viewModel.players, id: \.self) { player in
                     Text(player)
@@ -44,6 +45,7 @@ struct JoinGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
         JoinGameLobbyView(viewModel: JoinGameViewModel(),
                           playerViewModel: PlayerViewModel(),
-                          selectedGame: .constant(.ExplodingKittens))
+                          selectedGame: .constant(.ExplodingKittens),
+                          gameCode: .constant("ABCD"))
     }
 }

@@ -14,6 +14,7 @@ struct HostGameLobbyView: View {
     var playerViewModel: PlayerViewModel
     @EnvironmentObject private var appState: AppState
     @Binding var selectedGame: CardBoxGame
+    @Binding var gameCode: String?
 
     var body: some View {
         if viewModel.gameStarted, let gameRunner = viewModel.gameRunner, let playerIndex = viewModel.playerIndex {
@@ -28,7 +29,7 @@ struct HostGameLobbyView: View {
             VStack {
                 HStack {
                     Text("Pass this code to your friends to join: ")
-                    Text(viewModel.gameRoomID).foregroundColor(.blue)
+                    Text(gameCode ?? "").foregroundColor(.blue)
                 }
                 ForEach(viewModel.players, id: \.self) { player in
                     Text(player)
@@ -56,6 +57,7 @@ struct HostGameLobbyView_Previews: PreviewProvider {
     static var previews: some View {
         HostGameLobbyView(viewModel: HostGameViewModel(),
                           playerViewModel: PlayerViewModel(),
-                          selectedGame: .constant(.ExplodingKittens))
+                          selectedGame: .constant(.ExplodingKittens),
+                          gameCode: .constant("ABCD"))
     }
 }
