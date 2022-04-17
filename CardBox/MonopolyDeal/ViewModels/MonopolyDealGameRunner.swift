@@ -72,7 +72,13 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     }
 
     func updateState(gameState: GameState) {
+        guard let gameState = gameState as? MonopolyDealGameState else {
+            return
+        }
 
+        self.gameState.updateState(gameState: gameState)
+        self.resolvePendingRequests()
+        objectWillChange.send()
     }
 
     func setup() {
