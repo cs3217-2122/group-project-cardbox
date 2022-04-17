@@ -97,7 +97,11 @@ class PlayerViewModel: ObservableObject {
         }
 
         guard !target.isDead() else {
-            let message = Message(title: "Cannot play on dead target", description: "Please deselect the target", type: .error)
+            let message = Message(
+                title: "Cannot play on dead target",
+                description: "Please deselect the target",
+                type: .error
+            )
             gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
             return false
         }
@@ -116,7 +120,11 @@ class PlayerViewModel: ObservableObject {
 
         guard let typeOfTargettedCard = player.determineTargetOfCards(
             gameRunner.cardsSelected, gameRunner: gameRunner) else {
-            let message = Message(title: "Cannot determine target of card", description: "Please select a target", type: .error)
+            let message = Message(
+                title: "Cannot determine target of card",
+                description: "Please select a target",
+                type: .error
+            )
             gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
             return
         }
@@ -126,7 +134,11 @@ class PlayerViewModel: ObservableObject {
             player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .all)
         case .targetSinglePlayerCard:
             guard let target = target else {
-                let message = Message(title: "No player chosen", description: "Please select a player to target", type: .error)
+                let message = Message(
+                    title: "No player chosen",
+                    description: "Please select a player to target",
+                    type: .error
+                )
                 gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
                 return
             }
