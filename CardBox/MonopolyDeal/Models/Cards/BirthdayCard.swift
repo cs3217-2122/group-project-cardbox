@@ -27,10 +27,10 @@ class BirthdayCard: ActionCard {
                 return
             }
              gameRunner.executeGameEvents([MoneyRequestEvent(moneyAmount: birthdayAmount,
-                                                            requestDescription: "Its \(player.name)'s birthday. " +
-                                                            "Please pay him/her \(birthdayAmount) M.",
-                                                            requestSender: player,
-                                                            requestReciepient: targetPlayer)])
+                                                             requestDescription: "Its \(player.name)'s birthday. " +
+                                                             "Please pay him/her \(birthdayAmount) M.",
+                                                             requestSender: player,
+                                                             requestReciepient: targetPlayer)])
         }
 
         let hand = gameRunner.getHandByPlayer(player)
