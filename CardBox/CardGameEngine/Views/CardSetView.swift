@@ -21,9 +21,10 @@ struct CardSetView: View {
     let setHeight = 100
 
     init(player: Player, cards: CardCollection, selectedCardSetViewModel: Binding<CardSetViewModel?>,
-         error: Binding<Bool>) {
+         error: Binding<Bool>, gameRunner: GameRunnerProtocol) {
         playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
-        cardSetViewModel = CardSetViewModel(cards: cards, isPlayDeck: true, gameRunner: MonopolyDealGameRunner())
+        cardSetViewModel = CardSetViewModel(player: player, cards: cards, isPlayDeck: true,
+                                            gameRunner: gameRunner)
         self._error = error
         self._selectedCardSetViewModel = selectedCardSetViewModel
     }
@@ -43,26 +44,13 @@ struct CardSetView: View {
                     let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                     CardView(card: card, isFaceUp: true, isSelected: isSelected,
                              player: playerViewModel.player,
-                             // TODO: need bottom player
                              bottomPlayer: playerViewModel.player)
-                        .gesture(
-                            DragGesture(minimumDistance: 0.0)
-                                .onChanged { _ in
-                                    if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
-                                        self.selectedCardSetViewModel = nil
-                                    } else {
-                                        self.selectedCardSetViewModel = cardSetViewModel
-                                    }
-                                }
-                        )
                 }
             }
             if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
                 Text("Chosen Card")
             }
         }
-        .onAppear {
-            cardSetViewModel.gameRunner = gameRunnerViewModel
-        }
+        .onDrop(of: ["cardbox.card"], delegate: cardSetViewModel)
     }
 }

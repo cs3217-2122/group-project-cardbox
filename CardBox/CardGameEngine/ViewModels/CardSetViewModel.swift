@@ -8,11 +8,13 @@
 import SwiftUI
 
 class CardSetViewModel: ObservableObject {
+    var player: Player
     var cards: CardCollection
     var isPlayDeck: Bool
     var gameRunner: GameRunnerProtocol
 
-    init(cards: CardCollection, isPlayDeck: Bool, gameRunner: GameRunnerProtocol) {
+    init(player: Player, cards: CardCollection, isPlayDeck: Bool, gameRunner: GameRunnerProtocol) {
+        self.player = player
         self.cards = cards
         self.isPlayDeck = isPlayDeck
         self.gameRunner = gameRunner
@@ -50,14 +52,35 @@ extension CardSetViewModel: DropDelegate {
         guard let player = players.currentPlayer else {
             return false
         }
+        guard self.player.id == player.id else {
+            return false
+        }
+        guard !cards.containsCard(selectedCards[0]) else {
+            return false
+        }
+        guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
+            return false
+        }
+        guard cards.canAdd(selectedCards[0]) else {
+            return false
+        }
+        let playerHand = gameRunner.getHandByPlayer(player)
 
-        if cards.canAdd(selectedCards[0]) {
-            cards.addCard(selectedCards[0])
-            let playerHand = gameRunner.getHandByPlayer(player)
-            playerHand.removeCard(selectedCards[0])
-            if let player = player as? MonopolyDealPlayer {
-                gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+        guard let player = player as? MonopolyDealPlayer else {
+            return false
+        }
+        if playerHand.containsCard(selectedCards[0]) {
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: playerHand, toDeck: cards),
+                IncrementPlayerPlayCountEvent(player: player)])
+        } else {
+            guard let propertySet = player.getPlayArea(gameRunner: gameRunner)?
+                .getPropertySet(from: selectedCards[0]) else {
+                return false
             }
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: propertySet, toDeck: cards),
+                IncrementPlayerPlayCountEvent(player: player)])
         }
         return true
     }

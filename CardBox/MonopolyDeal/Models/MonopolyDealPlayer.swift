@@ -50,6 +50,13 @@ class MonopolyDealPlayer: Player {
         return false
     }
 
+    func getPlayArea(gameRunner: GameRunnerProtocol) -> MonopolyDealPlayerPropertyArea? {
+        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
+            return nil
+        }
+        return gameState.getPropertyArea(for: self)
+    }
+
     override func playCards(_ cards: [Card], gameRunner: GameRunnerProtocol, on target: GameplayTarget) {
         guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
             return

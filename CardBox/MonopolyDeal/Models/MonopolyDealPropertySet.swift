@@ -8,9 +8,9 @@
 class MonopolyDealPropertySet: MonopolyDealCardCollection {
     var setColor: PropertyColor
 
-    init(setColour: PropertyColor) {
+    init(cards: [Card], setColour: PropertyColor) {
         self.setColor = setColour
-        super.init()
+        super.init(cards: cards)
     }
 
     private enum CodingKeys: String, CodingKey {

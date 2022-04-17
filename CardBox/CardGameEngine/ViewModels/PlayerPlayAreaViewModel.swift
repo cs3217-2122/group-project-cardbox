@@ -8,10 +8,12 @@
 import SwiftUI
 
 class PlayerPlayAreaViewModel: ObservableObject {
+    var player: Player
     var sets: MonopolyDealPlayerPropertyArea
     var gameRunner: MonopolyDealGameRunner
 
-    init(sets: MonopolyDealPlayerPropertyArea, gameRunner: MonopolyDealGameRunner) {
+    init(player: Player, sets: MonopolyDealPlayerPropertyArea, gameRunner: MonopolyDealGameRunner) {
+        self.player = player
         self.sets = sets
         self.gameRunner = gameRunner
     }
@@ -29,14 +31,29 @@ extension PlayerPlayAreaViewModel: DropDelegate {
         guard let player = players.currentPlayer else {
             return false
         }
+        guard self.player.id == player.id else {
+            return false
+        }
+        guard let card = selectedCards[0] as? PropertyCard else {
+            return false
+        }
+        guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
+            return false
+        }
+        guard sets.canAdd(card) else {
+            return false
+        }
 
-        if sets.canAdd(selectedCards[0]) {
-            sets.addPropertyCard(selectedCards[0])
-            let playerHand = gameRunner.getHandByPlayer(player)
-            playerHand.removeCard(selectedCards[0])
-            if let player = player as? MonopolyDealPlayer {
-                gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+        let playerHand = gameRunner.getHandByPlayer(player)
+        playerHand.removeCard(card)
+
+        if let player = player as? MonopolyDealPlayer {
+            if let propertySet = player.getPlayArea(gameRunner: gameRunner)?
+                .getPropertySet(from: selectedCards[0]) {
+                propertySet.removeCard(card)
             }
+            sets.addPropertyCard(card)
+            gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
         }
         return true
     }

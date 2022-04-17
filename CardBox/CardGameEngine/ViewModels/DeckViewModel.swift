@@ -38,6 +38,9 @@ extension DeckViewModel: DropDelegate {
         guard let player = players.currentPlayer else {
             return false
         }
+        guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
+            return false
+        }
 
         if isPlayDeck {
             if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
@@ -47,11 +50,11 @@ extension DeckViewModel: DropDelegate {
             }
         } else {
             if deck.canAdd(selectedCards[0]) {
-                deck.addCard(selectedCards[0])
                 let playerHand = gameRunner.getHandByPlayer(player)
-                playerHand.removeCard(selectedCards[0])
                 if let player = player as? MonopolyDealPlayer {
-                    gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+                    gameRunner.executeGameEvents([
+                        MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: playerHand, toDeck: deck),
+                        IncrementPlayerPlayCountEvent(player: player)])
                 }
             }
         }
