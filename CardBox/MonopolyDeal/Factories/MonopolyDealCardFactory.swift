@@ -73,7 +73,7 @@ class MonopolyDealCardFactory: CardFactory {
         for _ in 0 ..< MonopolyDealCardType.slyDeal.initialFrequency {
             cards.append(SlyDealCard())
         }
-        
+
         for _ in 0 ..< MonopolyDealCardType.debtCollector.initialFrequency {
             cards.append(DebtCollectorCard())
         }
