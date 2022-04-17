@@ -44,22 +44,7 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
             }
             Spacer()
             middlePart
-            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                GameActionsView(error: $error,
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                selectedPlayerViewModel: $selectedPlayerViewModel,
-                                selectedCardSetViewModel: $selectedCardSetViewModel)
-            }
-        }
-    }
-
-    var middlePart: some View {
-        HStack {
-            leftPlayer
-            Spacer()
-            center()
-            Spacer()
-            rightPlayer
+                .frame(width: UIScreen.main.bounds.width, height: CGFloat(gameRunnerViewModel.cardHeight))
         }
     }
 
@@ -73,13 +58,28 @@ struct NonPlayerView<PlayerView: View, CentreView: View>: View {
         }
     }
 
-    @ViewBuilder
-    var rightPlayer: some View {
-        if let rightPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
-            start: localPlayerIndex, increment: 1) {
-            playerArea(rightPlayer, -90)
-        } else {
-            EmptyView()
+    var middlePart: some View {
+        HStack {
+            leftPlayer
+            Spacer()
+            decks
+            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                GameActionsView(error: $error,
+                                currentPlayerViewModel: bottomPlayerViewModel,
+                                selectedPlayerViewModel: $selectedPlayerViewModel,
+                                selectedCardSetViewModel: $selectedCardSetViewModel)
+            }
+            Spacer()
+            if let rightPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterGiven(
+                start: localPlayerIndex, increment: 1) {
+                playerArea(rightPlayer, -90)
+            }
         }
+    }
+    var decks: some View {
+        HStack {
+            center()
+        }
+
     }
 }
