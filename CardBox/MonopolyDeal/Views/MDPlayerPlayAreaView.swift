@@ -26,7 +26,7 @@ struct MDPlayerPlayAreaView: View {
          error: Binding<Bool>, selectedCardSetViewModel: Binding<CardSetViewModel?>,
          selectedPlayerViewModel: Binding<PlayerViewModel?>, gameRunner: MonopolyDealGameRunner) {
         self.player = player
-        self.playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
+        self.playerViewModel = PlayerViewModel(player: player, hand: MonopolyDealCardCollection())
         self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(player: player, sets: sets, gameRunner: gameRunner)
         self.rotateBy = rotateBy
         self._error = error

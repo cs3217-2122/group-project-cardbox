@@ -22,7 +22,7 @@ class MonopolyDealPlayerFactory: PlayerFactory {
         }
         players.forEach { player in
             gameState.players.addPlayer(player)
-            gameState.playerHands[player.id] = CardCollection()
+            gameState.playerHands[player.id] = MonopolyDealCardCollection()
             gameState.playerPropertyArea[player.id] = MonopolyDealPlayerPropertyArea()
             gameState.playerMoneyArea[player.id] = MonopolyDealMoneyPile(cards: [])
         }

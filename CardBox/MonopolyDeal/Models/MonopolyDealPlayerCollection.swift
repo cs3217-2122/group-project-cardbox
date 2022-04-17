@@ -15,7 +15,6 @@ class MonopolyDealPlayerCollection: PlayerCollection {
         try super.init(
             from: decoder,
             mapFunc: { objectsArray in
-                let oriArray = objectsArray
                 var items = [Player]()
 
                 var array = objectsArray

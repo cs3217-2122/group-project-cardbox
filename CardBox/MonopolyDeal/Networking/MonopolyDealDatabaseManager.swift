@@ -153,7 +153,7 @@ class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserv
                                                       id: player.id,
                                                       isOutOfGame: player.isOutOfGame,
                                                       cardsPlayed: player.cardsPlayed))
-                gameState.addPlayerHand(playerId: player.id, cards: CardCollection())
+                gameState.addPlayerHand(playerId: player.id, cards: MonopolyDealCardCollection())
                 self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
                             gameRunner: MonopolyDealGameRunner(gameState: gameState, observer: self))

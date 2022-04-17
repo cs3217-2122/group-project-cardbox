@@ -10,6 +10,10 @@ class MonopolyDealCardCollection: CardCollection {
         case type
     }
 
+    init() {
+        super.init(cards: [])
+    }
+
     override init(cards: [Card]) {
         super.init(cards: cards)
     }
