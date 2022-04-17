@@ -22,14 +22,12 @@ class RentCard: MonopolyDealCard {
         if colors.count > standardNumOfColors {
             super.init(
                 name: name,
-                typeOfTargettedCard: .targetSinglePlayerCard,
-                type: type
+                typeOfTargettedCard: .targetSinglePlayerCard
             )
         } else {
             super.init(
                 name: name,
-                typeOfTargettedCard: .targetAllPlayersCard,
-                type: type
+                typeOfTargettedCard: .targetAllPlayersCard
             )
         }
     }

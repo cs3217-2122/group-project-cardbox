@@ -18,6 +18,8 @@ class MonopolyDealFactory: GameFactory {
         if gameState.players.isEmpty {
             MonopolyDealPlayerFactory.initialiseOfflinePlayers(gameState: gameState)
         }
+        MonopolyDealCardFactory.initialiseDeck(gameState: gameState)
+        MonopolyDealCardFactory.distributeCards(gameState: gameState)
 
     }
 

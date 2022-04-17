@@ -11,8 +11,7 @@ class DebtCollectorCard: MonopolyDealCard {
     init() {
         super.init(
             name: "Debt Collector",
-            typeOfTargettedCard: .targetSinglePlayerCard,
-            type: .debtCollector
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 

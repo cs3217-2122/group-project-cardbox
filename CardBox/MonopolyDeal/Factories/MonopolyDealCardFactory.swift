@@ -201,7 +201,17 @@ enum MonopolyDealCardType: String, CaseIterable, Codable {
             return PassGoCard.self
         case .money:
             return MoneyCard.self
-        case .debtCollector, .slyDeal, .rent, .doubleRent, .forcedDeal, .hotel, .house:
+        case .debtCollector:
+            return DebtCollectorCard.self
+        case .slyDeal:
+            return SlyDealCard.self
+        case .rent:
+            return RentCard.self
+        case .hotel:
+            return HotelCard.self
+        case .house:
+            return HouseCard.self
+        case .doubleRent, .forcedDeal:
             return nil
         }
     }

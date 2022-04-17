@@ -9,8 +9,7 @@ class HotelCard: MonopolyDealCard {
     init() {
         super.init(
             name: "Hotel",
-            typeOfTargettedCard: .targetSingleDeckCard,
-            type: .hotel
+            typeOfTargettedCard: .targetSingleDeckCard
         )
     }
 

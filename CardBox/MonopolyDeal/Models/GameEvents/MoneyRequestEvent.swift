@@ -69,11 +69,15 @@ struct MoneyRequestEvent: GameEvent {
     }
 
     private func getChosenCard(chosenCardType: String, from cards: [Card]) -> Card? {
-        cards.first(where: { card -> Bool in
+        guard let cardType = MonopolyDealCardType(rawValue: chosenCardType) else {
+            return nil
+        }
+        return cards.first(where: { card -> Bool in
             guard let chosenMonopolyDealCard = card as? MonopolyDealCard else {
                 return false
             }
-            return chosenMonopolyDealCard.type.rawValue == chosenCardType
+            // Temporary hack
+            return cardType.metatype == type(of: chosenMonopolyDealCard)
         })
     }
 
