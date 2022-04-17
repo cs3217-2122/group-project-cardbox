@@ -277,7 +277,7 @@ class ExplodingKittensPlayer: Player {
                 return ""
             }
             return
-            ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
+                ExplodingKittensCardFactory.getCardTypeFromObject(card: ekCard)?.rawValue ?? ""
         })
 
         var distinctCardTypes: Set<String> = Set()
