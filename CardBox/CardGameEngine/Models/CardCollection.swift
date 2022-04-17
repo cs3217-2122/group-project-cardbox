@@ -158,7 +158,7 @@ class CardCollection: Identifiable, Codable {
     }
 
     func containsCard(_ card: Card) -> Bool {
-        containsCard(where: { $0 === card })
+        containsCard(where: { $0.id == card.id })
     }
 
     func containsCard(where predicate: (Card) -> Bool) -> Bool {

@@ -51,7 +51,7 @@ class SlyDealCard: ActionCard {
                         continue
                     }
                     propertySet.removeCard(pCard)
-                    gameRunner.notifyChanges([])
+//                    gameRunner.notifyChanges([])
                     gameRunner.executeGameEvents([
                         AddNewPropertyAreaEvent(propertyArea: destination,
                                                 card: pCard, fromHand: CardCollection()),

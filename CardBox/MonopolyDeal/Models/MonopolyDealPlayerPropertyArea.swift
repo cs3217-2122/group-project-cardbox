@@ -18,7 +18,7 @@ class MonopolyDealPlayerPropertyArea: Codable {
     }
 
     func removeCardCollection(_ cardCollection: CardCollection) {
-        guard let firstIndex = area.firstIndex(where: { $0 === cardCollection }) else {
+        guard let firstIndex = area.firstIndex(where: { $0.id == cardCollection.id }) else {
             return
         }
 
