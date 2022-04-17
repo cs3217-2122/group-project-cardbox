@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MonopolyDealOnlineView: View {
-    @StateObject var gameRunnerViewModel = MonopolyDealGameRunner()
+    @StateObject var gameRunnerViewModel: MonopolyDealGameRunner
     @State var error = true
     @State var selectedPlayerViewModel: PlayerViewModel?
     @State var selectedCardSetViewModel: CardSetViewModel?
