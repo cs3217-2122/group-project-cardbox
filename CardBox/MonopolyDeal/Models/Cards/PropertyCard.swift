@@ -22,8 +22,7 @@ class PropertyCard: MonopolyDealCard {
         self.colors = colors
         super.init(
             name: name,
-            typeOfTargettedCard: .targetSingleDeckCard,
-            type: .property
+            typeOfTargettedCard: .targetSingleDeckCard
         )
     }
 

@@ -10,8 +10,7 @@ class ShuffleCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Shuffle",
-            typeOfTargettedCard: .noTargetCard,
-            type: .shuffle
+            typeOfTargettedCard: .noTargetCard
         )
     }
 
@@ -19,8 +18,7 @@ class ShuffleCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Shuffle",
-            typeOfTargettedCard: .noTargetCard,
-            type: .shuffle
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

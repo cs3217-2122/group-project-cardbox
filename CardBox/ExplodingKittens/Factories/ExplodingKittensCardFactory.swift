@@ -88,36 +88,62 @@ class ExplodingKittensCardFactory: CardFactory {
         }
 
         for _ in 0 ..< ExplodingKittensCardType.random1.initialFrequency {
-            cards.append(RandomCard(name: "Random 1", type: .random1))
-            cards.append(RandomCard(name: "Random 2", type: .random2))
-            cards.append(RandomCard(name: "Random 3", type: .random3))
+            cards.append(RandomCard(name: "Random 1", cardType: .random1))
+            cards.append(RandomCard(name: "Random 2", cardType: .random2))
+            cards.append(RandomCard(name: "Random 3", cardType: .random3))
         }
 
         return cards
     }
 
-    static func getCardFromType(array: UnkeyedDecodingContainer, type: ExplodingKittensCardType) -> Card? {
-        var arrayCopy = array
-        switch type {
-        case .attack:
-            return try? arrayCopy.decode(AttackCard.self)
-        case .bomb:
-            return try? arrayCopy.decode(BombCard.self)
-        case .defuse:
-            return try? arrayCopy.decode(DefuseCard.self)
-        case .favor:
-            return try? arrayCopy.decode(FavorCard.self)
-        case .seeTheFuture:
-            return try? arrayCopy.decode(SeeTheFutureCard.self)
-        case .shuffle:
-            return try? arrayCopy.decode(ShuffleCard.self)
-        case .skip:
-            return try? arrayCopy.decode(SkipCard.self)
-        case .random1, .random2, .random3:
-            return try? arrayCopy.decode(RandomCard.self)
+    private static func getCardTypeFromObject_1(card: ExplodingKittensCard) -> ExplodingKittensCardType? {
+        switch card {
+        case is AttackCard:
+            return .attack
+        case is BombCard:
+            return .bomb
+        case is DefuseCard:
+            return .defuse
+        case is FavorCard:
+            return .favor
+        case is SeeTheFutureCard:
+            return .seeTheFuture
         default:
-            return try? arrayCopy.decode(ExplodingKittensCard.self)
+            return nil
         }
+    }
+
+    private static func getCardTypeFromObject_2(card: ExplodingKittensCard) -> ExplodingKittensCardType? {
+        switch card {
+        case is ShuffleCard:
+            return .shuffle
+        case is SkipCard:
+            return .skip
+        case is RandomCard:
+            guard let rCard = card as? RandomCard else {
+                return nil
+            }
+            switch rCard.randomCardType {
+            case .random1:
+                return .random1
+            case .random2:
+                return .random2
+            case .random3:
+                return .random3
+            }
+        default:
+            return nil
+        }
+    }
+
+    static func getCardTypeFromObject(card: ExplodingKittensCard) -> ExplodingKittensCardType? {
+        let type1 = ExplodingKittensCardFactory.getCardTypeFromObject_1(card: card)
+        if type1 != nil {
+            return type1
+        }
+
+        let type2 = ExplodingKittensCardFactory.getCardTypeFromObject_2(card: card)
+        return type2
     }
 }
 

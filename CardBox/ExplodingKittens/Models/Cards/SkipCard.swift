@@ -10,8 +10,7 @@ class SkipCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Skip",
-            typeOfTargettedCard: .noTargetCard,
-            type: .skip
+            typeOfTargettedCard: .noTargetCard
         )
     }
 
@@ -19,8 +18,7 @@ class SkipCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Skip",
-            typeOfTargettedCard: .noTargetCard,
-            type: .skip
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

@@ -23,15 +23,22 @@ class GameState: Codable {
         self.globalResponses = ResponseCollection()
     }
 
-    init(players: PlayerCollection, playerHands: [UUID: CardCollection],
-         isWin: Bool, winner: Player?, state: GameModeState, globalRequests: [Request], globalResponses: [Response]) {
+    init(
+        players: PlayerCollection,
+        playerHands: [UUID: CardCollection],
+        isWin: Bool,
+        winner: Player?,
+        state: GameModeState,
+        globalRequests: RequestCollection,
+        globalResponses: ResponseCollection
+    ) {
         self.players = players
         self.playerHands = playerHands
         self.isWin = isWin
         self.winner = winner
         self.state = state
-        self.globalRequests = RequestCollection(globalRequests)
-        self.globalResponses = ResponseCollection(globalResponses)
+        self.globalRequests = globalRequests
+        self.globalResponses = globalResponses
     }
 
     func addPlayer(player: Player) {

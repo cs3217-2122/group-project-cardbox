@@ -152,7 +152,7 @@ class ExplodingKittensDatabaseManager: DatabaseManager, ExplodingKittensGameRunn
                                                       id: player.id,
                                                       isOutOfGame: player.isOutOfGame,
                                                       cardsPlayed: player.cardsPlayed))
-                gameState.addPlayerHand(playerId: player.id, cards: CardCollection())
+                gameState.addPlayerHand(playerId: player.id, cards: ExplodingKittensCardCollection())
                 self.encodeGameState(gameState, docRef)
                 self.joined(id: id,
                             gameRunner: ExplodingKittensGameRunner(gameState: gameState, observer: self))
