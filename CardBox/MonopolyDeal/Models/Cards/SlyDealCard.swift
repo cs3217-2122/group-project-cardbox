@@ -36,11 +36,14 @@ class SlyDealCard: ActionCard {
 //                    propertyCard = wildCard
 //                }
 
-                guard let propertyCardColor = propertyCard.colors.first else {
+                guard let chosenDeckPropertyCard = MonopolyDealPlayerPropertyArea
+                        .getFirstPropertyCardFromSet(collection) else {
                     return
                 }
-                
-                // TODO: PREVENT TAKING FROM FULL SET
+
+                guard chosenDeckPropertyCard.setSize > collection.count else {
+                    return
+                }
 
                 let hand = gameRunner.getHandByPlayer(player)
                 gameRunner.executeGameEvents([
