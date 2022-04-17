@@ -10,7 +10,6 @@ class ExplodingKittensPlayerCollection: PlayerCollection {
         super.init(players: [])
     }
 
-    // TODO: simplify this
     required init(from decoder: Decoder) throws {
         try super.init(
             from: decoder,
@@ -31,11 +30,4 @@ class ExplodingKittensPlayerCollection: PlayerCollection {
             }
         )
     }
-
-//    required init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let players = try container.decode([ExplodingKittensPlayer].self, forKey: .players)
-//        let currentPlayerIndex = try container.decode(Int.self, forKey: .currentPlayerIndex)
-//        super.init(players: players, currentPlayerIndex: currentPlayerIndex)
-//    }
 }

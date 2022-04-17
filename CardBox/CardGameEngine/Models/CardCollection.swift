@@ -8,7 +8,6 @@
 class CardCollection: Identifiable, Codable {
     internal var cards: [Card] = []
 
-    // TODO: initialise with correct value
     var isFaceUp = true
 
     init(cards: [Card], isFaceUp: Bool) {

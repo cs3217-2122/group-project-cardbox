@@ -8,7 +8,6 @@
 import Foundation
 
 class MonopolyDealGameState: GameState {
-    // TODO: Change card collection to MDCardCollection
     internal var deck: MonopolyDealCardCollection
     internal var playerPropertyArea: [UUID: MonopolyDealPlayerPropertyArea]
     internal var playerMoneyArea: [UUID: MonopolyDealCardCollection]

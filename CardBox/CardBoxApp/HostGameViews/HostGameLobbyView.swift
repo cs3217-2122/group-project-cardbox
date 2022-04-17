@@ -20,7 +20,6 @@ struct HostGameLobbyView: View {
             if selectedGame == .ExplodingKittens, let gameRunner = gameRunner as? ExplodingKittensGameRunner {
                 ExplodingKittensOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
             } else if selectedGame == .MonopolyDeal, let gameRunner = gameRunner as? MonopolyDealGameRunner {
-                // TODO: Replace with MonopolyDealOnlineView
                 MonopolyDealOnlineView(gameRunnerViewModel: gameRunner, localPlayerIndex: playerIndex)
             } else {
                 EmptyView()

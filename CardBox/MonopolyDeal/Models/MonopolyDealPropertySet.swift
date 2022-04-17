@@ -21,7 +21,6 @@ class MonopolyDealPropertySet: MonopolyDealCardCollection {
         case setColor
     }
 
-    // TODO: Implement
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.setColor = try container.decode(PropertyColor.self, forKey: .setColor)

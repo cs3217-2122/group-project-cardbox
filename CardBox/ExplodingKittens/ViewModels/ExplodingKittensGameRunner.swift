@@ -79,7 +79,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         objectWillChange.send()
     }
 
-    // TODO: create setup for online to inject online players
     func setup() {
         ExplodingKittensFactory.initialiseGameState(gameState: self.gameState)
         notifyChanges([])
