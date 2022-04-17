@@ -9,11 +9,10 @@ import Foundation
 
 class ActionCard: MonopolyDealCard {
 
-    init(name: String, typeOfTargettedCard: TypeOfTargettedCard, type: MonopolyDealCardType) {
+    init(name: String, typeOfTargettedCard: TypeOfTargettedCard) {
         super.init(
             name: name,
-            typeOfTargettedCard: typeOfTargettedCard,
-            type: type
+            typeOfTargettedCard: typeOfTargettedCard
         )
     }
 
