@@ -84,6 +84,10 @@ class MonopolyDealPlayerPropertyArea: Codable {
     }
 
     var numberOfFullSets: Int {
-        area.filter { $0.isFullSet }.count
+        getListOfFullSets().count
+    }
+
+    func getListOfFullSets() -> [MonopolyDealPropertySet] {
+        area.filter { $0.isFullSet }
     }
 }

@@ -9,49 +9,52 @@ class DealBreakerCard: ActionCard {
     init() {
         super.init(
             name: "Deal Breaker",
-            typeOfTargettedCard: .targetSingleDeckCard
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 
     override func onPlay(gameRunner: MDGameRunnerProtocol, player: MDPlayer, on target: GameplayTarget) {
-        guard let gameState = gameRunner.gameState as? MonopolyDealGameState else {
+        guard gameRunner.gameState is MonopolyDealGameState else {
+            return
+        }
+        guard let targetPlayer = target.getPlayerIfTargetSingle() else {
+            return
+        }
+        let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
+        let destination = gameRunner.getPropertyAreaByPlayer(player)
+
+        guard propertyArea.numberOfFullSets > 0 else {
             return
         }
 
-        if case .deck(let deck) = target {
-            if let deck = deck {
-                let hand = gameRunner.getHandByPlayer(player)
+        let fullSets = propertyArea.getListOfFullSets()
 
-                guard let baseCard = deck.topCard as? PropertyCard else {
-                    return
-                }
-                guard let deck = deck as? MonopolyDealPropertySet else {
-                    return
-                }
+        let stringRepresentation = fullSets.map { "\($0.setColor)" }
 
-                let baseColors = baseCard.colors
+        let callback: (Response) -> Void = { response in
+            guard let optionsResponse = response as? OptionsResponse else {
+                return
+            }
 
-                guard baseColors.count == 1 else {
-                    return
-                }
-                let baseSize = baseCard.setSize
-
-                let playerPropertyArea = gameRunner.getPropertyAreaByPlayer(player)
-
-                // Only remove full sets
-                if baseSize == deck
-                    .getCards()
-                    .filter({ $0 is PropertyCard })
-                    .count {
-                    // TODO: Fix from area
-                    gameRunner.executeGameEvents([
-                        MovePropertyAreaEvent(cardSet: deck, fromArea: playerPropertyArea, toArea: playerPropertyArea),
-                        MoveCardsDeckToDeckEvent(cards: [self], fromDeck: hand, toDeck: gameState.gameplayArea)
-                    ])
-
-                }
+            for propertySet in fullSets where "\(propertySet.setColor)" == optionsResponse.value {
+                gameRunner.executeGameEvents([
+                    MovePropertyAreaEvent(cardSet: propertySet, fromArea: propertyArea, toArea: destination),
+                    MoveCardsDeckToDeckEvent(cards: [self], fromDeck: gameRunner.getHandByPlayer(player),
+                                             toDeck: gameRunner.gameplayArea)])
+                break
             }
         }
+
+        gameRunner.executeGameEvents([
+            SendRequestEvent(
+                request: OptionsRequest(description: "Please choose a set to steal",
+                                        fromPlayer: player,
+                                        toPlayer: player,
+                                        callback: Callback(callback),
+                                        stringRepresentationOfOptions: stringRepresentation)
+                )
+            ])
+
     }
 
     override func getBankValue() -> Int {
