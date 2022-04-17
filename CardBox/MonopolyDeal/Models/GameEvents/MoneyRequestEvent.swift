@@ -64,8 +64,7 @@ struct MoneyRequestEvent: GameEvent {
         let targetPropertyCards = getPropertyCards(of: player, gameRunner: gameRunner)
         payableCards.append(contentsOf: targetPropertyCards)
         let targetMoneyCards = getMoneyCards(of: player, gameRunner: gameRunner)
-        payableCards .append(contentsOf: targetMoneyCards)
-
+        payableCards.append(contentsOf: targetMoneyCards)
         return payableCards
     }
 

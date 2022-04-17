@@ -36,8 +36,6 @@ enum MoneyCardValue: Int, Codable {
 }
 
 class MoneyCard: MonopolyDealCard {
-    private let moneyPrefix = "Money "
-
     let cardValue: MoneyCardValue
 
     var value: Int {
@@ -47,7 +45,7 @@ class MoneyCard: MonopolyDealCard {
     init(value: MoneyCardValue) {
         self.cardValue = value
         super.init(
-            name: moneyPrefix + value.description,
+            name: "Money " + value.description,
             typeOfTargettedCard: .noTargetCard
         )
     }
