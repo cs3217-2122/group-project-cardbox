@@ -56,15 +56,15 @@ class MonopolyDealPlayerPropertyArea: Codable {
         return propertyCard
     }
 
-    func getFirstPropertySetOfColor(_ color: PropertyColor) -> CardCollection? {
-        for cardCollection in area {
+    func getFirstPropertySetOfColor(_ color: PropertyColor) -> MonopolyDealPropertySet? {
+        for propertySet in area {
             guard let propertyCard = MonopolyDealPlayerPropertyArea
-                    .getFirstPropertyCardFromSet(cardCollection) else {
+                    .getFirstPropertyCardFromSet(propertySet) else {
                         return nil
                     }
 
             if propertyCard.colors.contains(color) {
-                return cardCollection
+                return propertySet
             }
         }
         return nil

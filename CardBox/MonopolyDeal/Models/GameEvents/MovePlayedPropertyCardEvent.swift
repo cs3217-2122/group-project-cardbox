@@ -21,20 +21,20 @@ struct MovePlayedPropertyCardEvent: GameEvent {
 
         guard let toDeck = gameRunner
                 .getPropertyAreaByPlayer(toPlayer)
-                .getFirstPropertySetOfColor(propertyCardColor) else {
-            return
-        }
-
-        if toDeck.count == propertyCard.setSize {
+                .getFirstPropertySetOfColor(propertyCardColor),
+        toDeck.count < propertyCard.setSize
+        else {
             gameRunner.executeGameEvents([
                 AddNewPropertyAreaEvent(propertyArea: gameRunner.getPropertyAreaByPlayer(toPlayer),
                                         card: propertyCard,
                                         fromHand: fromDeck)
             ])
-        } else {
-            gameRunner.executeGameEvents([
-                MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: fromDeck, toDeck: toDeck)
-            ])
+            return
         }
+
+        gameRunner.executeGameEvents([
+            MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: fromDeck, toDeck: toDeck)
+        ])
+
     }
 }
