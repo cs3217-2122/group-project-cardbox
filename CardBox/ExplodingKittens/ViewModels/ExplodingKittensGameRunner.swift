@@ -69,15 +69,6 @@ class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, Observable
         self.observers.append(observer)
     }
 
-    func updateState(_ gameRunner: GameRunnerProtocol) {
-        guard let explodingKittensGameRunner = gameRunner as? ExplodingKittensGameRunner else {
-            return
-        }
-
-        gameState.updateState(gameState: explodingKittensGameRunner.gameState)
-        self.observers = explodingKittensGameRunner.observers
-    }
-
     func updateState(gameState: GameState) {
         guard let gameState = gameState as? ExplodingKittensGameState else {
             return

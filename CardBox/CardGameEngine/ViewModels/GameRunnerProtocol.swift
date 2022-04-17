@@ -30,12 +30,7 @@ protocol GameRunnerProtocol: AnyObject {
     // Must implement this update value
     // use this to notify server as well
     func notifyChanges(_ gameEvents: [GameEvent])
-
     func executeGameEvents(_ gameEvents: [GameEvent])
-
-    // TODO: remove if not used anywhere
-    func updateState(_ gameRunner: GameRunnerProtocol)
-
     func updateState(gameState: GameState)
 }
 

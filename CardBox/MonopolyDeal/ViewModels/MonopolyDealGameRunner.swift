@@ -67,10 +67,6 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.observers.append(observer)
     }
 
-    func updateState(_ gameRunner: GameRunnerProtocol) {
-
-    }
-
     func updateState(gameState: GameState) {
         guard let gameState = gameState as? MonopolyDealGameState else {
             return
@@ -190,7 +186,14 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     func notifyChanges(_ gameEvents: [GameEvent]) {
         objectWillChange.send()
-        // TODO: notify observers
+        guard let gameState = gameState as? MonopolyDealGameState else {
+            return
+        }
+
+        for observer in observers {
+            print(observer)
+            observer.notifyObserver(gameState, gameEvents)
+        }
     }
 
     func setCardPreview(_ card: Card) {
