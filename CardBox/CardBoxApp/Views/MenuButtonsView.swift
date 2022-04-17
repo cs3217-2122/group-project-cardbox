@@ -19,7 +19,7 @@ struct MenuButtonsView: View {
                 .frame(width: 400, height: 100)
                 .border(Color.black)
                 .foregroundColor(Color.orange)
-                .background(Color.blue)
+                .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         .accessibilityIdentifier("LaunchOfflineGame")
         Button {
@@ -30,7 +30,7 @@ struct MenuButtonsView: View {
                 .frame(width: 400, height: 100)
                 .border(Color.black)
                 .foregroundColor(Color.orange)
-                .background(Color.blue)
+                .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Button {
             appState.page = .hostGame
@@ -40,7 +40,7 @@ struct MenuButtonsView: View {
                 .frame(width: 400, height: 100)
                 .border(Color.black)
                 .foregroundColor(Color.orange)
-                .background(Color.blue)
+                .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Button {
             appState.page = .joinGame
@@ -50,7 +50,7 @@ struct MenuButtonsView: View {
                 .frame(width: 400, height: 100)
                 .border(Color.black)
                 .foregroundColor(Color.orange)
-                .background(Color.blue)
+                .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         Spacer()
     }

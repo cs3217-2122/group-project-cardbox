@@ -12,7 +12,7 @@ struct MainMenuView: View {
 
     var body: some View {
         ZStack {
-            Color.red
+            Color(red: 0.549, green: 0.015_69, blue: 0.063_74)
                 .ignoresSafeArea()
             VStack {
                 Spacer()
