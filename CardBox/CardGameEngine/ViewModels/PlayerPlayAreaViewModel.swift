@@ -8,10 +8,12 @@
 import SwiftUI
 
 class PlayerPlayAreaViewModel: ObservableObject {
+    var player: Player
     var sets: MonopolyDealPlayerPropertyArea
     var gameRunner: MonopolyDealGameRunner
 
-    init(sets: MonopolyDealPlayerPropertyArea, gameRunner: MonopolyDealGameRunner) {
+    init(player: Player, sets: MonopolyDealPlayerPropertyArea, gameRunner: MonopolyDealGameRunner) {
+        self.player = player
         self.sets = sets
         self.gameRunner = gameRunner
     }
@@ -27,6 +29,9 @@ extension PlayerPlayAreaViewModel: DropDelegate {
         let selectedCards = gameRunner.cardsDragging
         let players = gameRunner.gameState.players
         guard let player = players.currentPlayer else {
+            return false
+        }
+        guard self.player.id == player.id else {
             return false
         }
 

@@ -27,7 +27,7 @@ struct MDPlayerPlayAreaView: View {
          selectedPlayerViewModel: Binding<PlayerViewModel?>, gameRunner: MonopolyDealGameRunner) {
         self.player = player
         self.playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
-        self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(sets: sets, gameRunner: gameRunner)
+        self.playerPlayAreaViewModel = PlayerPlayAreaViewModel(player: player, sets: sets, gameRunner: gameRunner)
         self.rotateBy = rotateBy
         self._error = error
         self._selectedCardSetViewModel = selectedCardSetViewModel
@@ -98,9 +98,11 @@ struct MDPlayerPlayAreaView: View {
     var properties: some View {
         ZStack {
             Rectangle()
-                .fill(Color.clear)
+                .fill(Color.green)
                 .border(Color.black)
                 .frame(width: CGFloat(MDPlayerPlayAreaView.handWidth), height: cardHeight)
+                .onDrop(of: ["cardbox.card"], delegate: playerPlayAreaViewModel)
+
             HStack(spacing: CGFloat(spacing)) {
                 ForEach(playerPlayAreaViewModel.sets.getArea()) { cardSet in
                     CardSetView(
@@ -112,7 +114,6 @@ struct MDPlayerPlayAreaView: View {
                 }
             }
         }
-        .onDrop(of: ["cardbox.card"], delegate: playerPlayAreaViewModel)
     }
 
     var body: some View {

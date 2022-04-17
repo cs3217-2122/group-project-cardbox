@@ -47,9 +47,7 @@ extension DeckViewModel: DropDelegate {
             }
         } else {
             if deck.canAdd(selectedCards[0]) {
-                // deck.addCard(selectedCards[0])
                 let playerHand = gameRunner.getHandByPlayer(player)
-                // playerHand.removeCard(selectedCards[0])
                 if let player = player as? MonopolyDealPlayer {
                     gameRunner.executeGameEvents([
                         MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: playerHand, toDeck: deck),
