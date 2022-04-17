@@ -45,14 +45,13 @@ extension PlayerPlayAreaViewModel: DropDelegate {
         }
 
         let playerHand = gameRunner.getHandByPlayer(player)
-        playerHand.removeCard(card)
 
         if let player = player as? MonopolyDealPlayer {
             if let propertySet = player.getPlayArea(gameRunner: gameRunner)?
                 .getPropertySet(from: selectedCards[0]) {
                 propertySet.removeCard(card)
             }
-
+            
             gameRunner.executeGameEvents([
                 AddNewPropertyAreaEvent(propertyArea: sets, card: card, fromHand: playerHand),
                 IncrementPlayerPlayCountEvent(player: player)])
