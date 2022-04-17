@@ -55,18 +55,30 @@ extension CardSetViewModel: DropDelegate {
         guard self.player.id == player.id else {
             return false
         }
-
+        guard let player = player as? MonopolyDealPlayer else {
+            return false
+        }
 
         if cards.canAdd(selectedCards[0]) {
             let playerHand = gameRunner.getHandByPlayer(player)
 
             // if in hand move from hand to set
             // if in set, move from set to set
-            if let player = player as? MonopolyDealPlayer {
+
+            if playerHand.containsCard(selectedCards[0]) {
                 gameRunner.executeGameEvents([
                     MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: playerHand, toDeck: cards),
                     IncrementPlayerPlayCountEvent(player: player)])
+            } else {
+                guard let propertySet = player.getPlayArea(gameRunner: gameRunner)?
+                    .getPropertySet(from: selectedCards[0]) else {
+                    return false
+                }
+                gameRunner.executeGameEvents([
+                    MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: propertySet, toDeck: cards),
+                    IncrementPlayerPlayCountEvent(player: player)])
             }
+
         }
         return true
     }

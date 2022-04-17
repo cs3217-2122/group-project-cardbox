@@ -38,13 +38,20 @@ extension PlayerPlayAreaViewModel: DropDelegate {
             return false
         }
 
-        if sets.canAdd(card) {
-            sets.addPropertyCard(card)
-            let playerHand = gameRunner.getHandByPlayer(player)
-            playerHand.removeCard(card)
-            if let player = player as? MonopolyDealPlayer {
-                gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+        guard sets.canAdd(card) else {
+            return false
+        }
+
+        let playerHand = gameRunner.getHandByPlayer(player)
+        playerHand.removeCard(card)
+
+        if let player = player as? MonopolyDealPlayer {
+            if let propertySet = player.getPlayArea(gameRunner: gameRunner)?
+                .getPropertySet(from: selectedCards[0]) {
+                propertySet.removeCard(card)
             }
+            sets.addPropertyCard(card)
+            gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
         }
         return true
     }

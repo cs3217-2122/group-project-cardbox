@@ -120,6 +120,10 @@ class MonopolyDealGameState: GameState {
         }
     }
 
+    func getPropertyArea(for player: Player) -> MonopolyDealPlayerPropertyArea? {
+        playerPropertyArea[player.id]
+    }
+
     override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(deck, forKey: .deck)

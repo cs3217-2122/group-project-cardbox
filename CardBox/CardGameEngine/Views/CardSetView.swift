@@ -44,18 +44,7 @@ struct CardSetView: View {
                     let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                     CardView(card: card, isFaceUp: true, isSelected: isSelected,
                              player: playerViewModel.player,
-                             // TODO: need bottom player
                              bottomPlayer: playerViewModel.player)
-                        .gesture(
-                            DragGesture(minimumDistance: 0.0)
-                                .onChanged { _ in
-                                    if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
-                                        self.selectedCardSetViewModel = nil
-                                    } else {
-                                        self.selectedCardSetViewModel = cardSetViewModel
-                                    }
-                                }
-                        )
                 }
             }
             if selectedCardSetViewModel?.cards === cardSetViewModel.cards {
