@@ -21,9 +21,10 @@ struct CardSetView: View {
     let setHeight = 100
 
     init(player: Player, cards: CardCollection, selectedCardSetViewModel: Binding<CardSetViewModel?>,
-         error: Binding<Bool>) {
+         error: Binding<Bool>, gameRunner: GameRunnerProtocol) {
         playerViewModel = PlayerViewModel(player: player, hand: CardCollection())
-        cardSetViewModel = CardSetViewModel(cards: cards, isPlayDeck: true, gameRunner: MonopolyDealGameRunner())
+        cardSetViewModel = CardSetViewModel(player: player, cards: cards, isPlayDeck: true,
+                                            gameRunner: gameRunner)
         self._error = error
         self._selectedCardSetViewModel = selectedCardSetViewModel
     }
@@ -61,8 +62,6 @@ struct CardSetView: View {
                 Text("Chosen Card")
             }
         }
-        .onAppear {
-            cardSetViewModel.gameRunner = gameRunnerViewModel
-        }
+        .onDrop(of: ["cardbox.card"], delegate: cardSetViewModel)
     }
 }

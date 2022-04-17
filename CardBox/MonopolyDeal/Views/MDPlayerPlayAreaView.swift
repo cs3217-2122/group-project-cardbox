@@ -109,8 +109,10 @@ struct MDPlayerPlayAreaView: View {
                         player: player,
                         cards: cardSet,
                         selectedCardSetViewModel: $selectedCardSetViewModel,
-                        error: $error
+                        error: $error,
+                        gameRunner: gameRunnerViewModel ?? MonopolyDealGameRunner()
                     )
+                    .border(Color.teal)
                 }
             }
         }

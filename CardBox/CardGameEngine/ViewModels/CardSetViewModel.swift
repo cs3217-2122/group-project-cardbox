@@ -8,11 +8,13 @@
 import SwiftUI
 
 class CardSetViewModel: ObservableObject {
+    var player: Player
     var cards: CardCollection
     var isPlayDeck: Bool
     var gameRunner: GameRunnerProtocol
 
-    init(cards: CardCollection, isPlayDeck: Bool, gameRunner: GameRunnerProtocol) {
+    init(player: Player, cards: CardCollection, isPlayDeck: Bool, gameRunner: GameRunnerProtocol) {
+        self.player = player
         self.cards = cards
         self.isPlayDeck = isPlayDeck
         self.gameRunner = gameRunner
@@ -50,13 +52,20 @@ extension CardSetViewModel: DropDelegate {
         guard let player = players.currentPlayer else {
             return false
         }
+        guard self.player.id == player.id else {
+            return false
+        }
+
 
         if cards.canAdd(selectedCards[0]) {
-            cards.addCard(selectedCards[0])
             let playerHand = gameRunner.getHandByPlayer(player)
-            playerHand.removeCard(selectedCards[0])
+
+            // if in hand move from hand to set
+            // if in set, move from set to set
             if let player = player as? MonopolyDealPlayer {
-                gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+                gameRunner.executeGameEvents([
+                    MoveCardsDeckToDeckEvent(cards: selectedCards, fromDeck: playerHand, toDeck: cards),
+                    IncrementPlayerPlayCountEvent(player: player)])
             }
         }
         return true
