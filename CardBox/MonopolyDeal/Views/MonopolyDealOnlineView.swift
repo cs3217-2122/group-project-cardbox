@@ -84,8 +84,13 @@ struct MonopolyDealOnlineView: View {
             }
             CardPreviewView()
 
-            if let request = gameRunnerViewModel.gameState.globalRequests.first {
-                RequestViewFactory(request: request, isOnline: false)
+            if let localPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex),
+               let request = gameRunnerViewModel.gameState.globalRequests.first {
+                if request.toPlayer.id == localPlayer.id {
+                    RequestViewFactory(request: request, isOnline: true)
+                } else {
+                    NoInteractionOverlayView()
+                }
             }
 
             WinMessageView()
