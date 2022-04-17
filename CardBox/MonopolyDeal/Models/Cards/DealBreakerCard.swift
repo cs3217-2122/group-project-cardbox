@@ -9,8 +9,7 @@ class DealBreakerCard: MonopolyDealCard {
     init() {
         super.init(
             name: "Deal Breaker",
-            typeOfTargettedCard: .targetSingleDeckCard,
-            type: .dealBreaker
+            typeOfTargettedCard: .targetSingleDeckCard
         )
     }
 

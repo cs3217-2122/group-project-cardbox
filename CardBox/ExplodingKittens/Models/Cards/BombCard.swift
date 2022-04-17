@@ -10,8 +10,7 @@ class BombCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Bomb",
-            typeOfTargettedCard: .targetSinglePlayerCard,
-            type: .bomb
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 
@@ -19,8 +18,7 @@ class BombCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Bomb",
-            typeOfTargettedCard: .targetSinglePlayerCard,
-            type: .bomb
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 
@@ -69,7 +67,7 @@ class BombCard: ExplodingKittensCard {
             return false
         }
 
-        return ekCard.type == .defuse
+        return ekCard is DefuseCard
     }
 
     required init(from decoder: Decoder) throws {

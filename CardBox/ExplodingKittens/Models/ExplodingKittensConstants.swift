@@ -10,21 +10,17 @@ struct ExplodingKittensConstants {
         ExplodingKittensCardType.allCases
     }
 
-    static let nonActionCards: Set<ExplodingKittensCardType> = [
-        .random1,
-        .random2,
-        .random3
+    static let nonActionCards: [ExplodingKittensCard.Type] = [
+        RandomCard.self
     ]
-    static let actionCards: Set<ExplodingKittensCardType> = [
-        .attack,
-        .favor,
-        .nope,
-        .seeTheFuture,
-        .shuffle,
-        .skip,
-        .favor
+    static let actionCards: [ExplodingKittensCard.Type] = [
+        AttackCard.self,
+        FavorCard.self,
+        SeeTheFutureCard.self,
+        ShuffleCard.self,
+        SkipCard.self
     ]
-    static var playableCards: Set<ExplodingKittensCardType> {
-        nonActionCards.union(actionCards)
+    static var playableCards: [ExplodingKittensCard.Type] {
+        nonActionCards + actionCards
     }
 }

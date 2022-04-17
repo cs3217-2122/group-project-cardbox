@@ -10,8 +10,7 @@ class DefuseCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Defuse",
-            typeOfTargettedCard: .noTargetCard,
-            type: .defuse
+            typeOfTargettedCard: .noTargetCard
         )
     }
 
@@ -19,8 +18,7 @@ class DefuseCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Defuse",
-            typeOfTargettedCard: .noTargetCard,
-            type: .defuse
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

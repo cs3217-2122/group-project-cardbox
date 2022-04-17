@@ -10,8 +10,7 @@ class AttackCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Attack",
-            typeOfTargettedCard: .noTargetCard,
-            type: .attack
+            typeOfTargettedCard: .noTargetCard
         )
     }
 
@@ -19,8 +18,7 @@ class AttackCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Attack",
-            typeOfTargettedCard: .noTargetCard,
-            type: .attack
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

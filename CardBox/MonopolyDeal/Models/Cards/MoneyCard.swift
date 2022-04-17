@@ -46,8 +46,7 @@ class MoneyCard: MonopolyDealCard {
         self.cardValue = value
         super.init(
             name: "Money " + value.description,
-            typeOfTargettedCard: .noTargetCard,
-            type: .money
+            typeOfTargettedCard: .noTargetCard
         )
     }
 

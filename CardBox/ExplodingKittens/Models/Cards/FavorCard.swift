@@ -10,8 +10,7 @@ class FavorCard: ExplodingKittensCard {
     init() {
         super.init(
             name: "Favor",
-            typeOfTargettedCard: .targetSinglePlayerCard,
-            type: .favor
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 
@@ -19,8 +18,7 @@ class FavorCard: ExplodingKittensCard {
         super.init(
             id: id,
             name: "Favor",
-            typeOfTargettedCard: .targetSinglePlayerCard,
-            type: .favor
+            typeOfTargettedCard: .targetSinglePlayerCard
         )
     }
 
