@@ -38,6 +38,9 @@ extension DeckViewModel: DropDelegate {
         guard let player = players.currentPlayer else {
             return false
         }
+        guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
+            return false
+        }
 
         if isPlayDeck {
             if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {

@@ -37,7 +37,9 @@ extension PlayerPlayAreaViewModel: DropDelegate {
         guard let card = selectedCards[0] as? PropertyCard else {
             return false
         }
-
+        guard player.canPlay(cards: selectedCards, gameRunner: gameRunner) else {
+            return false
+        }
         guard sets.canAdd(card) else {
             return false
         }
