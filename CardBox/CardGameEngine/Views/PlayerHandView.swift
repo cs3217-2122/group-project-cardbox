@@ -16,7 +16,7 @@ struct PlayerHandView: View {
     }
 
     @Binding var error: Bool
-    let handWidth = 600
+    static let handWidth = 600
 
     init(player: Player, hand: CardCollection, bottomPlayer: Player, error: Binding<Bool>) {
         playerViewModel = PlayerViewModel(player: player,
@@ -30,20 +30,20 @@ struct PlayerHandView: View {
         guard size > 0 else {
             return 0
         }
-        return Double((handWidth - size * CardView.defaultCardWidth) / size)
+        return Double((PlayerHandView.handWidth - size * Int(gameRunnerViewModel.cardWidth)) / size)
     }
 
     var isFaceUp: Bool {
         bottomPlayer.id == playerViewModel.player.id
     }
 
-    var body: some View {
+    var handView: some View {
         HStack(spacing: CGFloat(spacing)) {
             ForEach(playerViewModel.getCards()) { card in
                 let isSelected = playerViewModel.isSelected(card: card, gameRunner: gameRunnerViewModel)
                 if isFaceUp {
                     CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
-                             bottomPlayer: bottomPlayer)
+                             player: playerViewModel.player, bottomPlayer: bottomPlayer)
                     .onTapGesture {
                         if playerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
                             playerViewModel
@@ -62,9 +62,19 @@ struct PlayerHandView: View {
                     )
                 } else {
                     CardView(card: card, isFaceUp: isFaceUp, isSelected: isSelected,
-                             bottomPlayer: bottomPlayer)
+                             player: playerViewModel.player, bottomPlayer: bottomPlayer)
                 }
             }
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            Rectangle()
+                .fill(Color.clear)
+                .frame(width: CGFloat(PlayerHandView.handWidth), height: CGFloat(gameRunnerViewModel.cardHeight))
+            handView
+                .border(Color.red)
         }
     }
 }

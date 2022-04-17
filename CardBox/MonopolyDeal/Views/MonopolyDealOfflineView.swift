@@ -18,12 +18,40 @@ struct MonopolyDealOfflineView: View {
     var centerArea: some View {
         HStack {
             DeckView(
-                deck: gameRunnerViewModel.deck
+                deck: gameRunnerViewModel.deck, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
             DeckView(
-                deck: gameRunnerViewModel.gameplayArea
+                deck: gameRunnerViewModel.gameplayArea, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
         }
+    }
+
+    @ViewBuilder
+    func bottomPlayerArea(player: Player) -> some View {
+        VStack {
+            MDPlayerPlayAreaView(player: player,
+                                 sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                                 rotateBy: 0.0,
+                                 error: $error,
+                                 selectedCardSetViewModel: $selectedCardSetViewModel,
+                                 selectedPlayerViewModel: $selectedPlayerViewModel,
+                                 gameRunner: gameRunnerViewModel)
+            PlayerHandView(player: player, hand: gameRunnerViewModel.getHandByPlayer(player),
+                           bottomPlayer: player, error: $error)
+            .border(Color.red)
+        }
+
+    }
+
+    @ViewBuilder
+    func otherPlayerArea(player: Player, rotateBy: Double) -> some View {
+        MDPlayerPlayAreaView(player: player,
+                             sets: gameRunnerViewModel.getPropertyAreaByPlayer(player),
+                             rotateBy: rotateBy,
+                             error: $error,
+                             selectedCardSetViewModel: $selectedCardSetViewModel,
+                             selectedPlayerViewModel: $selectedPlayerViewModel,
+                             gameRunner: gameRunnerViewModel)
     }
 
     func getNonCurrentPlayer(bottomPlayer: Player) -> some View {
@@ -32,53 +60,25 @@ struct MonopolyDealOfflineView: View {
             selectedPlayerViewModel: $selectedPlayerViewModel,
             selectedCardSetViewModel: .constant(nil),
             error: $error,
-            playerArea: { player in
-                MDNonPlayerView(
-                    playerViewModel: PlayerViewModel(
-                        player: player,
-                        hand: gameRunnerViewModel.getHandByPlayer(player)
-                    ),
-                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(
-                        sets: gameRunnerViewModel.getPropertyAreaByPlayer(player)
-                    ),
-                    selectedCardSetViewModel: $selectedCardSetViewModel,
-                    error: $error
-                )
-            },
+            playerArea: otherPlayerArea,
             center: {
                 centerArea
             }
         )
     }
 
-    func getCurrentPlayer(bottomPlayerViewModel: PlayerViewModel) -> some View {
-        BottomPlayerView(
-            playerArea: {
-                MDPlayerView(
-                    playerViewModel: bottomPlayerViewModel,
-                    currentPlayerViewModel: bottomPlayerViewModel,
-                    playerPlayAreaViewModel: PlayerPlayAreaViewModel(
-                        sets: gameRunnerViewModel.getPropertyAreaByPlayer(bottomPlayerViewModel.player)
-                    ),
-                    selectedCardSetViewModel: $selectedCardSetViewModel,
-                    error: $error
-                )
-            }
-        )
+    func getCurrentPlayer(bottomPlayer: Player) -> some View {
+        bottomPlayerArea(player: bottomPlayer)
     }
     var body: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
             if let currentPlayer = gameRunnerViewModel.gameState.players.currentPlayer {
-                let bottomPlayerViewModel = PlayerViewModel(
-                    player: currentPlayer,
-                    hand: gameRunnerViewModel.getHandByPlayer(currentPlayer)
-                )
                 VStack {
                     getNonCurrentPlayer(bottomPlayer: currentPlayer)
                     Spacer()
-                    getCurrentPlayer(bottomPlayerViewModel: bottomPlayerViewModel)
+                    getCurrentPlayer(bottomPlayer: currentPlayer)
                 }
             }
             CardPreviewView()

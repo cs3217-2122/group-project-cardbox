@@ -12,6 +12,9 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     static let winningPropertySetCount = 3
     static let drawCards = 2
 
+    internal var cardHeight = 200
+    internal var cardWidth = 120
+
     @Published internal var gameState: GameState
     @Published internal var cardsDragging: [Card]
     @Published internal var cardsSelected: [Card]

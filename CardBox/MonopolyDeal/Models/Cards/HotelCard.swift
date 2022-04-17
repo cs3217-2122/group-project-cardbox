@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-class HotelCard: MonopolyDealCard {
+class HotelCard: ActionCard {
     init() {
         super.init(
             name: "Hotel",

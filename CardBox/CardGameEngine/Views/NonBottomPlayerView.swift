@@ -1,5 +1,5 @@
 //
-//  NonCurrentPlayerView.swift
+//  NonBottomPlayerView.swift
 //  CardBox
 //
 //  Created by Stuart Long on 19/3/22.
@@ -17,13 +17,13 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
     var bottomPlayerViewModel: PlayerViewModel
     @Binding var selectedPlayerViewModel: PlayerViewModel?
     @Binding var selectedCardSetViewModel: CardSetViewModel?
-    @ViewBuilder let playerArea: (Player) -> PlayerView
+    @ViewBuilder let playerArea: (Player, Double) -> PlayerView
     @ViewBuilder let center: () -> CentreView
 
     init(bottomPlayer: Player, selectedPlayerViewModel: Binding<PlayerViewModel?>,
          selectedCardSetViewModel: Binding<CardSetViewModel?>,
          error: Binding<Bool>,
-         playerArea: @escaping (Player) -> PlayerView,
+         playerArea: @escaping (Player, Double) -> PlayerView,
          center: @escaping () -> CentreView) {
         bottomPlayerViewModel = PlayerViewModel(player: bottomPlayer, hand: CardCollection())
         self._selectedPlayerViewModel = selectedPlayerViewModel
@@ -36,26 +36,18 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
     var body: some View {
         VStack {
             if let player3 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(2) {
-                playerArea(player3)
-                    .rotationEffect(.degrees(-180))
-
+                playerArea(player3, -180)
             }
             Spacer()
             middlePart
-            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
-                GameActionsView(error: $error,
-                                currentPlayerViewModel: bottomPlayerViewModel,
-                                selectedPlayerViewModel: $selectedPlayerViewModel,
-                                selectedCardSetViewModel: $selectedCardSetViewModel)
-            }
+                .frame(width: UIScreen.main.bounds.width, height: CGFloat(gameRunnerViewModel.cardHeight))
         }
     }
 
     @ViewBuilder
     var leftPlayer: some View {
         if let player4 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(3) {
-            playerArea(player4)
-                .rotationEffect(.degrees(90))
+            playerArea(player4, 90)
         } else {
             EmptyView()
         }
@@ -66,10 +58,15 @@ struct NonBottomPlayerView<PlayerView: View, CentreView: View>: View {
             leftPlayer
             Spacer()
             decks
+            if bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel) {
+                GameActionsView(error: $error,
+                                currentPlayerViewModel: bottomPlayerViewModel,
+                                selectedPlayerViewModel: $selectedPlayerViewModel,
+                                selectedCardSetViewModel: $selectedCardSetViewModel)
+            }
             Spacer()
             if let player2 = gameRunnerViewModel.gameState.players.getPlayerByIndexAfterCurrent(1) {
-                playerArea(player2)
-                    .rotationEffect(.degrees(-90))
+                playerArea(player2, -90)
             }
         }
     }

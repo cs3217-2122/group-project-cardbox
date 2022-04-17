@@ -18,21 +18,22 @@ struct ExplodingKittensOnlineView: View {
     var centerArea: some View {
         HStack {
             DeckView(
-                    deck: gameRunnerViewModel.deck
+                deck: gameRunnerViewModel.deck, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
             DeckView(
-                    deck: gameRunnerViewModel.gameplayArea
+                deck: gameRunnerViewModel.gameplayArea, isPlayDeck: true, gameRunner: gameRunnerViewModel
             )
         }
     }
 
     @ViewBuilder
-    func playerArea(player: Player) -> some View {
+    func playerArea(player: Player, rotateBy: Double) -> some View {
         if let bottomPlayer = gameRunnerViewModel.gameState.players.getPlayerByIndex(localPlayerIndex) {
             EKPlayerView(
                 player: player,
                 hand: gameRunnerViewModel.getHandByPlayer(player),
                 bottomPlayer: bottomPlayer,
+                rotateBy: rotateBy,
                 error: $error,
                 selectedPlayerViewModel: $selectedPlayerViewModel
             )
@@ -54,7 +55,7 @@ struct ExplodingKittensOnlineView: View {
     }
 
     func getCurrentPlayer(bottomPlayer: Player) -> some View {
-        playerArea(player: bottomPlayer)
+        playerArea(player: bottomPlayer, rotateBy: 0.0)
     }
 
     var body: some View {

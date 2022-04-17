@@ -15,6 +15,9 @@ protocol GameRunnerProtocol: AnyObject {
     func setCardPreview(_ card: Card)
     func resetCardPreview()
 
+    var cardHeight: Int { get }
+    var cardWidth: Int { get }
+
     func setup()
     func onStartTurn()
     func onEndTurn()

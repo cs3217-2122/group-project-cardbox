@@ -10,12 +10,16 @@ import Foundation
 
 class ExplodingKittensGameRunner: ExplodingKittensGameRunnerProtocol, ObservableObject {
     @Published internal var gameState: GameState
+
     @Published internal var cardPreview: Card?
     @Published internal var cardsPeeking: [Card]
     @Published internal var cardsDragging: [Card]
     @Published internal var cardsSelected: [Card]
     @Published internal var isShowingPeek = false
     internal var localPendingRequests: [Request]
+
+    internal var cardWidth = 150
+    internal var cardHeight = 250
 
     var deck: CardCollection {
         if let gameState = gameState as? ExplodingKittensGameState {

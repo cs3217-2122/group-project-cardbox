@@ -18,6 +18,9 @@ extension GameEventTests {
     }
 
     class GameRunnerStub: GameRunnerProtocol {
+        var cardHeight = 250
+
+        var cardWidth = 150
 
         func updateState(gameState: GameState) {
 

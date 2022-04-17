@@ -54,11 +54,14 @@ struct GameActionsView: View {
     }
 
     var body: some View {
-        HStack {
-            endButton
-            playButton
+        VStack {
+            HStack {
+                endButton
+                playButton
+            }
+            Text(error ? "Invalid combination" : "Valid combination")
+                .foregroundColor(error ? Color.red : Color.black)
         }
-        Text(error ? "Invalid combination" : "Valid combination")
-            .foregroundColor(error ? Color.red : Color.black)
+
     }
 }

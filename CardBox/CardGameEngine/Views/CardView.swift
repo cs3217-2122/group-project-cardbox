@@ -16,11 +16,14 @@ struct CardView: View {
     @ObservedObject var viewModel: CardViewModel
     var bottomPlayer: Player?
     var bottomPlayerViewModel: PlayerViewModel?
-    var playerViewModel: PlayerViewModel?
+    var player: Player?
     var isFaceUp: Bool
-    static let defaultCardWidth = 150
-    let cardWidth = CGFloat(150)
-    let cardHeight = CGFloat(250)
+    var cardWidth: CGFloat {
+        CGFloat(gameRunnerViewModel.cardWidth)
+    }
+    var cardHeight: CGFloat {
+        CGFloat(gameRunnerViewModel.cardHeight)
+    }
 
     init(card: Card?, isFaceUp: Bool, isSelected: Bool) {
         viewModel = CardViewModel(
@@ -32,7 +35,7 @@ struct CardView: View {
         self.isFaceUp = isFaceUp
     }
 
-    init(card: Card?, isFaceUp: Bool, isSelected: Bool, bottomPlayer: Player) {
+    init(card: Card?, isFaceUp: Bool, isSelected: Bool, player: Player, bottomPlayer: Player) {
         viewModel = CardViewModel(
             card: card,
             isFaceUp: isFaceUp,
@@ -44,25 +47,13 @@ struct CardView: View {
             player: bottomPlayer,
             hand: CardCollection()
         )
+        self.player = player
         self.bottomPlayer = bottomPlayer
     }
 
-    // init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel) {
-    //    self.viewModel = cardViewModel
-    //    self.isFaceUp = cardViewModel.isFaceUp
-    //    self.bottomPlayerViewModel = currentPlayerViewModel
-    // }
-
-    // init(cardViewModel: CardViewModel, currentPlayerViewModel: PlayerViewModel, playerViewModel: PlayerViewModel) {
-    //    self.viewModel = cardViewModel
-    //    self.isFaceUp = cardViewModel.isFaceUp
-    //    self.bottomPlayerViewModel = currentPlayerViewModel
-    //    self.playerViewModel = playerViewModel
-    // }
-
     var canInteract: Bool {
-        if let playerViewModel = playerViewModel, let bottomPlayerViewModel = bottomPlayerViewModel {
-            return bottomPlayerViewModel.player.id == playerViewModel.player.id
+        if let player = player, let bottomPlayerViewModel = bottomPlayerViewModel {
+            return bottomPlayerViewModel.player.id == player.id
             && bottomPlayerViewModel.isCurrentPlayer(gameRunner: gameRunnerViewModel)
         } else {
             return false

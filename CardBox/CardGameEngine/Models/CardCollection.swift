@@ -174,4 +174,8 @@ class CardCollection: Identifiable, Codable {
     func shuffle() {
         self.cards.shuffle()
     }
+
+    func canAdd(_ card: Card) -> Bool {
+        true
+    }
 }

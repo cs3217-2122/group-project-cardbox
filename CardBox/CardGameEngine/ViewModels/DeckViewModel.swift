@@ -29,32 +29,33 @@ class DeckViewModel: ObservableObject {
         deck.topCard
     }
 
-    func playCards() {
+}
+
+extension DeckViewModel: DropDelegate {
+    func performDrop(info: DropInfo) -> Bool {
         let selectedCards = gameRunner.cardsDragging
         let players = gameRunner.gameState.players
-        guard let player = players.currentPlayer as? ExplodingKittensPlayer else {
-            return
+        guard let player = players.currentPlayer else {
+            return false
         }
 
-        if selectedCards.count == 1 {
+        if isPlayDeck {
             if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.noTargetCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .none)
             } else if selectedCards[0].typeOfTargettedCard == TypeOfTargettedCard.targetAllPlayersCard {
                 player.playCards(selectedCards, gameRunner: gameRunner, on: .all)
             }
+        } else {
+            if deck.canAdd(selectedCards[0]) {
+                deck.addCard(selectedCards[0])
+                let playerHand = gameRunner.getHandByPlayer(player)
+                playerHand.removeCard(selectedCards[0])
+                if let player = player as? MonopolyDealPlayer {
+                    gameRunner.executeGameEvents([IncrementPlayerPlayCountEvent(player: player)])
+                }
+            }
         }
-    }
-}
-
-extension DeckViewModel: DropDelegate {
-    func performDrop(info: DropInfo) -> Bool {
-        // guard info.hasItemsConforming(to: ["cardbox.card"]) else {
-        //    return false
-        // }
-
-        playCards()
         return true
-
     }
 
 }

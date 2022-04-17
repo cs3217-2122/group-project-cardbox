@@ -5,7 +5,7 @@
 //  Created by Bryann Yeap Kok Keong on 16/4/22.
 //
 
-class DebtCollectorCard: MonopolyDealCard {
+class DebtCollectorCard: ActionCard {
     private let debtCollectionAmount: Int = 5
 
     init() {
