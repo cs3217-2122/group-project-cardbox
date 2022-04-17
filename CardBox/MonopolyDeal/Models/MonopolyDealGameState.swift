@@ -66,12 +66,6 @@ class MonopolyDealGameState: GameState {
 
     override func updateState(gameState: GameState) {
         if let gameState = gameState as? MonopolyDealGameState {
-//            if gameState.state == .start {
-//
-//            } else {
-//                self.deck = gameState.deck
-//                self.gameplayArea = gameState.gameplayArea
-//            }
             self.deck.updateState(gameState.deck)
             self.gameplayArea.updateState(gameState.gameplayArea)
             self.updatePlayerMoneyArea(gameState.playerMoneyArea)
@@ -137,5 +131,10 @@ class MonopolyDealGameState: GameState {
         try container.encode(playerMoneyArea, forKey: .playerMoneyArea)
         try container.encode(gameplayArea, forKey: .gameplayArea)
         try super.encode(to: encoder)
+    }
+
+    override func addPlayer(player: Player) {
+        self.players.addPlayer(player)
+        self.playerHands[player.id] = MonopolyDealCardCollection()
     }
 }

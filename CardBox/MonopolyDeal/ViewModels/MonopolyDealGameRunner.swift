@@ -26,7 +26,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         if let gameState = gameState as? MonopolyDealGameState {
             return gameState.deck
         } else {
-            return CardCollection()
+            return MonopolyDealCardCollection()
         }
     }
 
@@ -34,7 +34,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         if let gameState = gameState as? MonopolyDealGameState {
             return gameState.gameplayArea
         } else {
-            return CardCollection()
+            return MonopolyDealCardCollection()
         }
     }
 
@@ -158,10 +158,10 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
 
     func getHandByPlayer(_ player: Player) -> CardCollection {
         guard let gameState = gameState as? MonopolyDealGameState else {
-            return CardCollection()
+            return MonopolyDealCardCollection()
         }
 
-        return gameState.playerHands[player.id] ?? CardCollection()
+        return gameState.playerHands[player.id] ?? MonopolyDealCardCollection()
     }
 
     func getPropertyAreaByPlayer(_ player: Player) -> MonopolyDealPlayerPropertyArea {

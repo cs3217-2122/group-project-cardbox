@@ -131,7 +131,6 @@ class MonopolyDealDatabaseManager: DatabaseManager, MonopolyDealGameRunnerObserv
 
         docRef.getDocument { document, _ in
             guard let document = document, document.exists else {
-                // TODO: find a way to alert
                 self.notJoined()
                 return
             }
