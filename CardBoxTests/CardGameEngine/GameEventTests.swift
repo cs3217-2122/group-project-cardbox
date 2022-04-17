@@ -120,7 +120,7 @@ class GameEventTests: XCTestCase {
     func test_setupEvent_removeAllCardsInDeck() {
         XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
         gameRunner.executeGameEvents([SetupEvent()])
-        XCTAssertEqual(gameRunner.deck.count, 0)
+        XCTAssertEqual(gameRunner.deck.count, 6)
     }
 
     // As can be seen in GameEventTest+Stubs.swift,
@@ -128,7 +128,7 @@ class GameEventTests: XCTestCase {
     func test_startTurnEvent_removeAllCardsInDeck() {
         XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
         gameRunner.executeGameEvents([StartTurnEvent()])
-        XCTAssertEqual(gameRunner.deck.count, 0)
+        XCTAssertEqual(gameRunner.deck.count, 6)
     }
 
     // As can be seen in GameEventTest+Stubs.swift,
@@ -136,7 +136,7 @@ class GameEventTests: XCTestCase {
     func test_endTurnEvent_removeAllCardsInDeck() {
         XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
         gameRunner.executeGameEvents([EndTurnEvent()])
-        XCTAssertEqual(gameRunner.deck.count, 0)
+        XCTAssertEqual(gameRunner.deck.count, 6)
     }
 
     // As can be seen in GameEventTest+Stubs.swift,
@@ -144,7 +144,7 @@ class GameEventTests: XCTestCase {
     func test_endTurnEvent_gameRunnerEndTurn() {
         XCTAssertEqual(gameRunner.deck.count, initialNumOfCardsInDeck)
         gameRunner.endPlayerTurn()
-        XCTAssertEqual(gameRunner.deck.count, 0)
+        XCTAssertEqual(gameRunner.deck.count, 6)
     }
 
     func test_advanceNextPlayerEvent_onlyOnePlayer() {
