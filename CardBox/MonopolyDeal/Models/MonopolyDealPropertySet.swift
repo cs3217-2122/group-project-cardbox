@@ -6,21 +6,27 @@
 //
 
 class MonopolyDealPropertySet: MonopolyDealCardCollection {
-    var setColour: PropertyColor
+    var setColor: PropertyColor
 
     init(setColour: PropertyColor) {
-        self.setColour = setColour
+        self.setColor = setColour
         super.init()
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case setColor
     }
 
     // TODO: Implement
     required init(from decoder: Decoder) throws {
-        fatalError("init(from:) has not been implemented")
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.setColor = try container.decode(PropertyColor.self, forKey: .setColor)
+        try super.init(from: decoder)
     }
 
     override func canAdd(_ card: Card) -> Bool {
         if let card = card as? PropertyCard {
-            return card.colors.contains(setColour)
+            return card.colors.contains(setColor)
         } else {
             return false
         }
