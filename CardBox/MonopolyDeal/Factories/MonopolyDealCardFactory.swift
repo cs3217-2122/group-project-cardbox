@@ -73,6 +73,10 @@ class MonopolyDealCardFactory: CardFactory {
         for _ in 0 ..< MonopolyDealCardType.house.initialFrequency {
             cards.append(HouseCard())
         }
+        
+        for _ in 0 ..< MonopolyDealCardType.slyDeal.initialFrequency {
+            cards.append(SlyDealCard())
+        }
 
         let blueNames = ["Blue 1", "Blue 2", "Blue 3", "Blue 4", "Blue 5"]
         blueNames.forEach { name in
