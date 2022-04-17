@@ -51,7 +51,7 @@ extension PlayerPlayAreaViewModel: DropDelegate {
                 .getPropertySet(from: selectedCards[0]) {
                 propertySet.removeCard(card)
             }
-            
+
             gameRunner.executeGameEvents([
                 AddNewPropertyAreaEvent(propertyArea: sets, card: card, fromHand: playerHand),
                 IncrementPlayerPlayCountEvent(player: player)])
