@@ -56,6 +56,7 @@ class CardCollection: Identifiable, Codable {
 
     func encode<T: Codable>(to encoder: Encoder, mapFunc: (Card) -> T?, cardType: T.Type) {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try? container.encode(self.isFaceUp, forKey: .isFaceUp)
         var objectsArray = container.nestedUnkeyedContainer(forKey: CodingKeys.cards)
         cards.forEach { item in
             guard let type = mapFunc(item) else {
