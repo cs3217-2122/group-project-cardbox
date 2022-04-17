@@ -39,7 +39,7 @@ class SlyDealCard: ActionCard {
                 guard let propertyCardColor = propertyCard.colors.first else {
                     return
                 }
-                
+
                 // TODO: PREVENT TAKING FROM FULL SET
 
                 let hand = gameRunner.getHandByPlayer(player)

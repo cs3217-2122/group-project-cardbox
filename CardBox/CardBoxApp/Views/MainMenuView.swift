@@ -18,6 +18,7 @@ struct MainMenuView: View {
                 Spacer()
                 Text("CardBox")
                     .font(.system(size: 50))
+                    .foregroundColor(Color.white)
                 Spacer()
                 MenuButtonsView()
             }
