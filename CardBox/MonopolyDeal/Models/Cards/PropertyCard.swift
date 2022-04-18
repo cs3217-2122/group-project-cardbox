@@ -12,8 +12,6 @@ enum PropertyColor: Int, Codable {
 
     var setSize: Int {
         switch self {
-        case .blue:
-            return 2
         default:
             return 3
         }

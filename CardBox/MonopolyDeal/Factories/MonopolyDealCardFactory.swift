@@ -82,8 +82,8 @@ class MonopolyDealCardFactory: CardFactory {
         blueNames.forEach { name in
             cards.append(PropertyCard(
                 name: name,
-                setSize: 2,
-                rentAmounts: [300, 800],
+                setSize: 3,
+                rentAmounts: [100, 400, 500],
                 colors: Set([.blue])
             ))
         }
