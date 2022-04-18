@@ -34,6 +34,9 @@ class DealBreakerCard: ActionCard {
             guard let optionsResponse = response as? OptionsResponse else {
                 return
             }
+            
+            let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
+            let fullSets = propertyArea.getListOfFullSets()
 
             for propertySet in fullSets where "\(propertySet.setColor)" == optionsResponse.value {
                 gameRunner.executeGameEvents([

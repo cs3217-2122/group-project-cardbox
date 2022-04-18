@@ -21,7 +21,6 @@ class SlyDealCard: ActionCard {
             return
         }
         let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
-        let destination = gameRunner.getPropertyAreaByPlayer(player)
         let nonFullSets = propertyArea.getListOfNonFullSets()
 
         guard !nonFullSets.isEmpty else {
@@ -41,6 +40,9 @@ class SlyDealCard: ActionCard {
             guard let optionsResponse = response as? OptionsResponse else {
                 return
             }
+            
+            let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
+            let nonFullSets = propertyArea.getListOfNonFullSets()
 
             for propertySet in nonFullSets {
                 for pCard in propertySet.cards {
@@ -76,7 +78,7 @@ class SlyDealCard: ActionCard {
 
     override func getBankValue() -> Int {
         guard let bankValue = MonopolyDealCardType.slyDeal.bankValue else {
-            assert(false, "Unable to obtain bank value of house card")
+            assert(false, "Unable to obtain bank value of sly deal card")
         }
         return bankValue
     }
