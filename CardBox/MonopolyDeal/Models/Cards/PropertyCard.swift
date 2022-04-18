@@ -75,9 +75,10 @@ class PropertyCard: MonopolyDealCard {
                     return
                 }
 
-                let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
                 gameRunner.executeGameEvents([
-                    AddNewPropertyAreaEvent(propertyArea: propertyArea, card: self, fromHand: hand)
+                    MovePlayedPropertyCardEvent(propertyCard: self,
+                                                fromDeck: hand,
+                                                toPlayer: player)
                 ])
             }
         }
