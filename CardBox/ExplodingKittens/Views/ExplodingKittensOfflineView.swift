@@ -77,6 +77,7 @@ struct ExplodingKittensOfflineView: View {
             }
 
             WinMessageView()
+            MessagesView()
         }
         .sheet(isPresented: $gameRunnerViewModel.isShowingPeek, onDismiss: dismissPeek) {
             PeekCardsView(cards: gameRunnerViewModel.cardsPeeking)

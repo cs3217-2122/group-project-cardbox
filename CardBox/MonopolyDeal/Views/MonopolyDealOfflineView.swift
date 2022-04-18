@@ -87,6 +87,7 @@ struct MonopolyDealOfflineView: View {
             }
 
             WinMessageView()
+            MessagesView()
         }
         .environmentObject(GameRunnerDelegate(runner: gameRunnerViewModel))
         .onAppear(perform: setup)

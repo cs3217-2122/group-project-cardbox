@@ -19,6 +19,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     @Published internal var cardsDragging: [Card]
     @Published internal var cardsSelected: [Card]
     @Published internal var cardPreview: Card?
+    @Published internal var localMessages: [Message]
 
     internal var localPendingRequests: [Request]
 
@@ -46,6 +47,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.cardsSelected = []
         self.localPendingRequests = []
         self.observers = []
+        self.localMessages = []
     }
 
     // for online use (join Room)
@@ -55,6 +57,7 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
         self.cardsDragging = []
         self.cardsSelected = []
         self.localPendingRequests = []
+        self.localMessages = []
     }
 
     // initialiser used by host game view model (create room)
@@ -205,5 +208,4 @@ class MonopolyDealGameRunner: MonopolyDealGameRunnerProtocol, ObservableObject {
     func resetCardPreview() {
         self.cardPreview = nil
     }
-
 }

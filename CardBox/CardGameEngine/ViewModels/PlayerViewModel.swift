@@ -95,7 +95,18 @@ class PlayerViewModel: ObservableObject {
         guard let target = target else {
             return canPlayCard(gameRunner: gameRunner)
         }
-        return canPlayCard(gameRunner: gameRunner) && !target.isDead()
+
+        guard !target.isDead() else {
+            let message = Message(
+                title: "Cannot play on dead target",
+                description: "Please deselect the target",
+                type: .error
+            )
+            gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
+            return false
+        }
+
+        return canPlayCard(gameRunner: gameRunner)
     }
 
     func isDead() -> Bool {
@@ -104,13 +115,17 @@ class PlayerViewModel: ObservableObject {
 
     func playCards(gameRunner: GameRunnerProtocol, target: PlayerViewModel?, targetCardSet: CardSetViewModel?) {
         guard canPlayCardOnPlayer(gameRunner: gameRunner, target: target) else {
-            print("Cannot play card on player (Player is dead)")
             return
         }
 
         guard let typeOfTargettedCard = player.determineTargetOfCards(
             gameRunner.cardsSelected, gameRunner: gameRunner) else {
-            print("Could not determine target")
+            let message = Message(
+                title: "Cannot determine target of card",
+                description: "Please select a target",
+                type: .error
+            )
+            gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
             return
         }
 
@@ -119,7 +134,12 @@ class PlayerViewModel: ObservableObject {
             player.playCards(gameRunner.cardsSelected, gameRunner: gameRunner, on: .all)
         case .targetSinglePlayerCard:
             guard let target = target else {
-                print("No target chosen")
+                let message = Message(
+                    title: "No player chosen",
+                    description: "Please select a player to target",
+                    type: .error
+                )
+                gameRunner.executeGameEvents([ShowMessageEvent(message: message)])
                 return
             }
 

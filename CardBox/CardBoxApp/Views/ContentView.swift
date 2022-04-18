@@ -13,12 +13,10 @@ class AppState: ObservableObject {
 }
 
 enum Page {
-    case game
-    case onlineGame
     case mainMenu
     case hostGame
     case joinGame
-    case monopolyDeal
+    case offlineGame
 }
 
 struct ContentView: View {
@@ -28,11 +26,8 @@ struct ContentView: View {
         if appState.page == .mainMenu {
             MainMenuView()
                 .environmentObject(appState)
-        } else if appState.page == .monopolyDeal {
-            MonopolyDealOfflineView()
-                .environmentObject(appState)
-        } else if appState.page == .game {
-            ExplodingKittensOfflineView()
+        } else if appState.page == .offlineGame {
+            OfflineGameView()
                 .environmentObject(appState)
         } else if appState.page == .hostGame {
             HostGameView()

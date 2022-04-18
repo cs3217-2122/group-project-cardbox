@@ -12,7 +12,7 @@ struct MenuButtonsView: View {
 
     var body: some View {
         Button {
-            appState.page = .game
+            appState.page = .offlineGame
         } label: {
             Text("Play Offline")
                 .font(.title)
@@ -22,16 +22,6 @@ struct MenuButtonsView: View {
                 .background(Color(red: 0.655, green: 0.243, blue: 0.361))
         }
         .accessibilityIdentifier("LaunchOfflineGame")
-        Button {
-            appState.page = .monopolyDeal
-        } label: {
-            Text("Play Monopoly Deal")
-                .font(.title)
-                .frame(width: 400, height: 100)
-                .border(Color.black)
-                .foregroundColor(Color(red: 0.941, green: 0.580, blue: 0.122))
-                .background(Color(red: 0.655, green: 0.243, blue: 0.361))
-        }
         Button {
             appState.page = .hostGame
         } label: {

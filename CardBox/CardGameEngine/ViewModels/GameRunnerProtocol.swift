@@ -10,6 +10,7 @@ protocol GameRunnerProtocol: AnyObject {
     var cardsSelected: [Card] { get set }
     var gameState: GameState { get set }
     var localPendingRequests: [Request] { get set }
+    var localMessages: [Message] { get set }
 
     var cardPreview: Card? { get set }
     func setCardPreview(_ card: Card)
@@ -32,6 +33,9 @@ protocol GameRunnerProtocol: AnyObject {
     func notifyChanges(_ gameEvents: [GameEvent])
     func executeGameEvents(_ gameEvents: [GameEvent])
     func updateState(gameState: GameState)
+
+    func addMessage(_ message: Message)
+    func dismissMessage(_ message: Message)
 }
 
 extension GameRunnerProtocol {
@@ -73,5 +77,17 @@ extension GameRunnerProtocol {
                 notifyChanges([])
             }
         }
+    }
+
+    func addMessage(_ message: Message) {
+        self.localMessages.append(message)
+    }
+
+    func dismissMessage(_ message: Message) {
+        guard let index = self.localMessages.firstIndex(where: { $0 == message }) else {
+            return
+        }
+
+        self.localMessages.remove(at: index)
     }
 }
