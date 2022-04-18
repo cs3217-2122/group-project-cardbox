@@ -89,29 +89,4 @@ struct MoneyRequestEvent: GameEvent {
                                gameRunner: MonopolyDealGameRunnerProtocol) -> [Card] {
         gameRunner.getMoneyAreaByPlayer(player).getCards()
     }
-
-//    private func sendPropertyAreaDeckRequest(chosenCard: Card,
-//                                             fromPlayer: MonopolyDealPlayer,
-//                                             toPlayer: MonopolyDealPlayer,
-//                                             gameRunner: MonopolyDealGameRunnerProtocol) {
-//        guard let propertyCard = chosenCard as? PropertyCard else {
-//            return
-//        }
-//
-//        let requestDescription = "You have recieved a property card with the following colour(s): " +
-//        propertyCard.getStringRepresentationOfColors() + "\n" +
-//        "Please choose a property set to place it in, or make a new set."
-//        let propertyArea = gameRunner.getPropertyAreaByPlayer(fromPlayer).getArea()
-//
-//        guard let fromDeck = propertyArea.first(where: { $0.containsCard(chosenCard) }) else {
-//            return
-//        }
-//
-//        gameRunner.executeGameEvents([
-//            PropertyAreaDeckRequestEvent(propertyCard: propertyCard,
-//                                         fromDeck: fromDeck,
-//                                         requestDescription: requestDescription,
-//                                         player: toPlayer)
-//        ])
-//    }
 }

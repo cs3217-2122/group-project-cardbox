@@ -78,7 +78,7 @@ struct ExplodingKittensOnlineView: View {
                 if request.toPlayer.id == localPlayer.id {
                     RequestViewFactory(request: request, isOnline: true)
                 } else {
-                    NoInteractionOverlayView()
+                    WaitingForResponseView()
                 }
             }
 
