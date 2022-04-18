@@ -12,7 +12,7 @@ struct WaitingForResponseView: View {
         ZStack {
             NoInteractionOverlayView()
             VStack {
-                Text("Waiting for another play to respond to a request. Please be patient!")
+                Text("Actions in progress. Please be patient!")
             }
             .contentShape(Rectangle())
             .padding(10)

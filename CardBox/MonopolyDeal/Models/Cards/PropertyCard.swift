@@ -12,6 +12,8 @@ enum PropertyColor: Int, Codable {
 
     var setSize: Int {
         switch self {
+        case .blue:
+            return 2
         default:
             return 3
         }
@@ -74,8 +76,6 @@ class PropertyCard: MonopolyDealCard {
                 guard colors.count == 1 else {
                     return
                 }
-
-                // let newCollection = MonopolyDealPropertySet(cards: [self], setColour: colors.first ?? .red)
 
                 let propertyArea = gameRunner.getPropertyAreaByPlayer(player)
                 gameRunner.executeGameEvents([
