@@ -50,11 +50,10 @@ class SlyDealCard: ActionCard {
                     guard pCard.name == optionsResponse.value else {
                         continue
                     }
-                    propertySet.removeCard(pCard)
-                    gameRunner.notifyChanges([])
                     gameRunner.executeGameEvents([
-                        AddNewPropertyAreaEvent(propertyArea: destination,
-                                                card: pCard, fromHand: CardCollection()),
+                        MovePlayedPropertyCardEvent(propertyCard: pCard,
+                                                    fromDeck: propertySet,
+                                                    toPlayer: player),
                         MoveCardsDeckToDeckEvent(cards: [self], fromDeck: gameRunner.getHandByPlayer(player),
                                                  toDeck: gameRunner.gameplayArea)])
                     break

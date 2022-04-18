@@ -31,10 +31,7 @@ struct MovePlayedPropertyCardEvent: GameEvent {
             ])
             return
         }
-        print("FROM DECK:")
-        print(fromDeck.getCards().map({ $0.name }))
-        print("TO DECK:")
-        print(toDeck.getCards().map({ $0.name }))
+
         gameRunner.executeGameEvents([
             MoveCardsDeckToDeckEvent(cards: [propertyCard], fromDeck: fromDeck, toDeck: toDeck)
         ])

@@ -17,11 +17,10 @@ class DealBreakerCard: ActionCard {
         guard gameRunner.gameState is MonopolyDealGameState else {
             return
         }
-        guard let targetPlayer = target.getPlayerIfTargetSingle() else {
+        guard let targetPlayer = target.getPlayerIfTargetSingle() as? MonopolyDealPlayer else {
             return
         }
         let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
-        let destination = gameRunner.getPropertyAreaByPlayer(player)
 
         guard propertyArea.numberOfFullSets > 0 else {
             return
@@ -38,7 +37,7 @@ class DealBreakerCard: ActionCard {
 
             for propertySet in fullSets where "\(propertySet.setColor)" == optionsResponse.value {
                 gameRunner.executeGameEvents([
-                    MovePropertyAreaEvent(cardSet: propertySet, fromArea: propertyArea, toArea: destination),
+                    MovePropertyAreaEvent(cardSet: propertySet, fromPlayer: targetPlayer, toPlayer: player),
                     MoveCardsDeckToDeckEvent(cards: [self], fromDeck: gameRunner.getHandByPlayer(player),
                                              toDeck: gameRunner.gameplayArea)])
                 break
