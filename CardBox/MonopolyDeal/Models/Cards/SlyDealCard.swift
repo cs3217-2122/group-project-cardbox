@@ -40,7 +40,7 @@ class SlyDealCard: ActionCard {
             guard let optionsResponse = response as? OptionsResponse else {
                 return
             }
-            
+
             let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
             let nonFullSets = propertyArea.getListOfNonFullSets()
 

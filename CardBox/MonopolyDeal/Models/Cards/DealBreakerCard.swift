@@ -34,7 +34,7 @@ class DealBreakerCard: ActionCard {
             guard let optionsResponse = response as? OptionsResponse else {
                 return
             }
-            
+
             let propertyArea = gameRunner.getPropertyAreaByPlayer(targetPlayer)
             let fullSets = propertyArea.getListOfFullSets()
 

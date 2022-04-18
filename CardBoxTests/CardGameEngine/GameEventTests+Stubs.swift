@@ -18,6 +18,8 @@ extension GameEventTests {
     }
 
     class GameRunnerStub: GameRunnerProtocol {
+        var localMessages: [Message] = []
+
         var cardHeight = 250
 
         var cardWidth = 150

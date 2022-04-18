@@ -11,6 +11,40 @@ struct MoneyRequestEvent: GameEvent {
     let requestSender: MonopolyDealPlayer
     let requestReciepient: MonopolyDealPlayer
 
+    private func requestAdditionalAmount(chosenCard: MonopolyDealCard, gameRunner: GameRunnerProtocol) {
+        if chosenCard.getBankValue() < moneyAmount {
+            let remainingAmountRequired = moneyAmount - chosenCard.getBankValue()
+            let message = "You needed to pay \(moneyAmount), but only payed \(chosenCard.getBankValue()). " +
+            "Please pay the remaining \(remainingAmountRequired)."
+            gameRunner.executeGameEvents([
+                MoneyRequestEvent(moneyAmount: remainingAmountRequired, requestDescription: message,
+                                  requestSender: requestSender, requestReciepient: requestReciepient)
+            ])
+        }
+    }
+
+    private func transferCardToPlayer(chosenCard: MonopolyDealCard, gameRunner: MonopolyDealGameRunnerProtocol) {
+        if let chosenPropertyCard = chosenCard as? PropertyCard {
+            guard let fromDeck = gameRunner.getPropertyAreaByPlayer(requestReciepient)
+                    .getArea()
+                    .first(where: { $0.containsCard(chosenPropertyCard) }) else {
+                        return
+                    }
+
+            gameRunner.executeGameEvents([
+                MovePlayedPropertyCardEvent(propertyCard: chosenPropertyCard,
+                                            fromDeck: fromDeck,
+                                            toPlayer: requestSender)
+            ])
+        } else {
+            let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
+            let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
+            gameRunner.executeGameEvents([
+                MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
+            ])
+        }
+    }
+
     func updateRunner(gameRunner: GameRunnerProtocol) {
         guard let gameRunner = gameRunner as? MonopolyDealGameRunnerProtocol else {
             return
@@ -28,35 +62,9 @@ struct MoneyRequestEvent: GameEvent {
                 return
             }
 
-            if let chosenPropertyCard = chosenCard as? PropertyCard {
-                guard let fromDeck = gameRunner.getPropertyAreaByPlayer(requestReciepient)
-                        .getArea()
-                        .first(where: { $0.containsCard(chosenPropertyCard) }) else {
-                            return
-                        }
+            transferCardToPlayer(chosenCard: chosenCard, gameRunner: gameRunner)
 
-                gameRunner.executeGameEvents([
-                    MovePlayedPropertyCardEvent(propertyCard: chosenPropertyCard,
-                                                fromDeck: fromDeck,
-                                                toPlayer: requestSender)
-                ])
-            } else {
-                let fromDeck = gameRunner.getMoneyAreaByPlayer(requestReciepient)
-                let toDeck = gameRunner.getMoneyAreaByPlayer(requestSender)
-                gameRunner.executeGameEvents([
-                    MoveCardsDeckToDeckEvent(cards: [chosenCard], fromDeck: fromDeck, toDeck: toDeck)
-                ])
-            }
-
-            if chosenCard.getBankValue() < moneyAmount {
-                let remainingAmountRequired = moneyAmount - chosenCard.getBankValue()
-                let message = "You needed to pay \(moneyAmount), but only payed \(chosenCard.getBankValue()). " +
-                "Please pay the remaining \(remainingAmountRequired)."
-                gameRunner.executeGameEvents([
-                    MoneyRequestEvent(moneyAmount: remainingAmountRequired, requestDescription: message,
-                                      requestSender: requestSender, requestReciepient: requestReciepient)
-                ])
-            }
+            requestAdditionalAmount(chosenCard: chosenCard, gameRunner: gameRunner)
         }
 
         let request = OptionsRequest(description: requestDescription, fromPlayer: requestSender,
